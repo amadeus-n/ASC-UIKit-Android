@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+        <variable
+            name="clickListener"
+            type="com.ekoapp.ekosdk.uikit.components.EkoChatComposeBarClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            ekoBackgroundColor="@{@color/upstraColorBase}"
+            backgroundColorShade="@{ColorShade.SHADE4}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivCamera"
+            android:layout_width="@dimen/fifty"
+            android:layout_height="@dimen/fifty"
+            style="@style/CircularAvatarStyle"
+            android:tint="@color/upstraColorBase"
+            android:src="@drawable/ic_photo_camera_white_24dp"
+            android:onClick="@{() -> clickListener.onCameraClicked()}"
+            ekoBackgroundColor="@{@color/upstraColorBase}"
+            backgroundColorShade="@{ColorShade.SHADE4}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivAlbum"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/ivLocation"/>
+
+        <TextView
+            android:id="@+id/tvCamera"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/four"
+            style="@style/TextStyleEkoCaption"
+            android:text="@string/camera"
+            android:textColor="@color/upstraColorBase"
+            textColorShade="@{ColorShade.SHADE1}"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@id/ivCamera"
+            app:layout_constraintEnd_toEndOf="@id/ivCamera"
+            app:layout_constraintTop_toBottomOf="@id/ivCamera"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivAlbum"
+            android:layout_width="@dimen/fifty"
+            android:layout_height="@dimen/fifty"
+            style="@style/CircularAvatarStyle"
+            android:src="@drawable/ic_uikit_album"
+            android:onClick="@{() -> clickListener.onAlbumClicked()}"
+            ekoBackgroundColor="@{@color/upstraColorBase}"
+            backgroundColorShade="@{ColorShade.SHADE4}"
+            app:layout_constraintStart_toEndOf="@id/ivCamera"
+            app:layout_constraintEnd_toStartOf="@id/ivFile"
+            app:layout_constraintTop_toTopOf="@id/ivCamera"/>
+
+        <TextView
+            android:id="@+id/tvAlbum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/four"
+            style="@style/TextStyleEkoCaption"
+            android:textColor="@color/upstraColorBase"
+            textColorShade="@{ColorShade.SHADE1}"
+            android:text="@string/album"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@id/ivAlbum"
+            app:layout_constraintEnd_toEndOf="@id/ivAlbum"
+            app:layout_constraintTop_toBottomOf="@id/ivAlbum"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivFile"
+            android:layout_width="@dimen/fifty"
+            android:layout_height="@dimen/fifty"
+            style="@style/CircularAvatarStyle"
+            android:rotation="-45"
+            android:src="@drawable/ic_uikit_attachment"
+            android:onClick="@{() -> clickListener.onFileClicked()}"
+            ekoBackgroundColor="@{@color/upstraColorBase}"
+            backgroundColorShade="@{ColorShade.SHADE4}"
+            app:layout_constraintStart_toEndOf="@id/ivAlbum"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivCamera"/>
+
+        <TextView
+            android:id="@+id/tvFile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/four"
+            style="@style/TextStyleEkoCaption"
+            android:textColor="@color/upstraColorBase"
+            textColorShade="@{ColorShade.SHADE1}"
+            android:text="@string/file"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@id/ivFile"
+            app:layout_constraintEnd_toEndOf="@id/ivFile"
+            app:layout_constraintTop_toBottomOf="@id/ivFile"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivLocation"
+            android:layout_width="@dimen/fifty"
+            android:layout_height="@dimen/fifty"
+            style="@style/CircularAvatarStyle"
+            android:src="@drawable/ic_uikit_location"
+            android:onClick="@{() -> clickListener.onLocationCLicked()}"
+            ekoBackgroundColor="@{@color/upstraColorBase}"
+            backgroundColorShade="@{ColorShade.SHADE4}"
+            app:layout_constraintStart_toStartOf="@id/ivCamera"
+            app:layout_constraintTop_toBottomOf="@id/ivCamera"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/four"
+            style="@style/TextStyleEkoCaption"
+            android:textColor="@color/upstraColorBase"
+            textColorShade="@{ColorShade.SHADE1}"
+            android:text="@string/location"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@id/ivLocation"
+            app:layout_constraintEnd_toEndOf="@id/ivLocation"
+            app:layout_constraintTop_toBottomOf="@id/ivLocation"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ChatHomeToolBarStyle" parent="BaseToolBarStyle">
+        <item name="leftDrawableStyle">@style/ChatToolbarLeftDrawableStyle</item>
+        <item name="leftTextViewStyle">@style/ChatToolbarLeftTextStyle</item>
+    </style>
+
+    <style name="ChatToolbarLeftDrawableStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ChatToolbarLeftTextStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/sixteen</item>
+        <item name="android:textSize">@dimen/text_size_20</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/upstraColorBase</item>
+    </style>
+</resources>

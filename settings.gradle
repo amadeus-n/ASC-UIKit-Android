@@ -1,0 +1,8 @@
+include ':upstra-uikit'
+rootProject.name='UpstraUIKitAndroid'
+include ':app'
+include ':chatkit'
+include ':sample'
+include ':common'
+include ':community'
+include ':main'

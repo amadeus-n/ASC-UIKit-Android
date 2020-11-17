@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/communityHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sixty_two"
+            android:text="Test News Feed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/chatHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sixteen"
+            android:text="Test Recent Chat"
+            app:layout_constraintStart_toStartOf="@id/communityHome"
+            app:layout_constraintTop_toBottomOf="@id/communityHome" />
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/msgListCustom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sixteen"
+            android:text="Test Msg List Custom"
+            app:layout_constraintStart_toStartOf="@id/communityHome"
+            app:layout_constraintTop_toBottomOf="@id/chatHome" />
+
+        <EditText
+            android:id="@+id/otherUserId"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter other user id"
+            android:text="sumit"
+            app:layout_constraintStart_toStartOf="@id/communityHome"
+            app:layout_constraintTop_toBottomOf="@id/msgListCustom" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/otherUserProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sixteen"
+            android:text="Other User Profile"
+            app:layout_constraintStart_toStartOf="@id/communityHome"
+            app:layout_constraintTop_toBottomOf="@id/otherUserId" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/userProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sixteen"
+            android:text="LoggedIn User Profile"
+            app:layout_constraintStart_toStartOf="@id/communityHome"
+            app:layout_constraintTop_toBottomOf="@id/otherUserProfile" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChangeTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sixteen"
+            android:text="Change Theme"
+            app:layout_constraintStart_toStartOf="@id/communityHome"
+            app:layout_constraintTop_toBottomOf="@id/userProfile" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

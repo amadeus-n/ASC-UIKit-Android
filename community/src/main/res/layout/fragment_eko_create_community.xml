@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
+        <variable
+            name="viewModel"
+            type="com.ekoapp.ekosdk.uikit.community.ui.viewModel.EkoCreateCommunityViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.view.EkoCommunityCreateFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            tools:context=".ui.view.EkoCommunityCreateActivity">
+
+            <View
+                android:id="@+id/divider1"
+                backgroundColorShade="@{ColorShade.SHADE4}"
+                ekoBackgroundColor="@{@color/upstraColorBase}"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/lAvatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider1">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ccAvatar"
+                    backgroundColorShade="@{ColorShade.SHADE3}"
+                    ekoBackgroundColor="@{@color/upstraColorPrimary}"
+                    imageUrl="@{viewModel.avatarUrl}"
+                    placeHolder="@{@drawable/ic_uikit_default_community_avatar}"
+                    android:layout_width="@dimen/sixty_four"
+                    android:layout_height="@dimen/sixty_four"
+                    android:layout_marginTop="@dimen/twenty"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/CircleImage" />
+
+                <ImageView
+                    android:id="@+id/icCamera"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="41dp"
+                    android:layout_marginTop="42dp"
+                    android:padding="@dimen/six"
+                    android:src="@drawable/ic_uikit_camera"
+                    app:layout_constraintStart_toStartOf="@id/ccAvatar"
+                    app:layout_constraintTop_toTopOf="@id/ccAvatar" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvCommName"
+                style="@style/TextStyleEkoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen"
+                android:layout_marginTop="17dp"
+                android:text="@string/community_name"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lAvatar" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ccName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/sixteen"
+                android:layout_marginTop="@dimen/eight"
+                android:background="@android:color/transparent"
+                android:drawableEnd="@drawable/ic_uikit_filled_cross"
+                android:hint="@string/cc_hint"
+                android:maxLength="30"
+                android:text="@={viewModel.communityName}"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCommName" />
+
+            <TextView
+                style="@style/TextStyleEkoCaption"
+                textColorShade="@{ColorShade.SHADE1}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{viewModel.communityName.trim().length() +"/30"}'
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintEnd_toEndOf="@id/ccName"
+                app:layout_constraintTop_toTopOf="@id/tvCommName" />
+
+            <View
+                android:id="@+id/divider2"
+                backgroundColorShade="@{viewModel.nameError ? ColorShade.DEFAULT : ColorShade.SHADE4}"
+                ekoBackgroundColor="@{viewModel.nameError ? @color/upstraColorAlert : @color/upstraColorBase}"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/sixteen"
+                android:layout_marginTop="@dimen/twelve"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ccName" />
+
+            <TextView
+                style="@style/TextStyleEkoCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/four"
+                android:text="@string/error_name"
+                android:textColor="@color/upstraColorAlert"
+                android:visibility="@{viewModel.nameError ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="@id/divider2"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <TextView
+                android:id="@+id/tv_about"
+                style="@style/TextStyleEkoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/thirty_eight"
+                android:text="@string/about"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintStart_toStartOf="@id/ccName"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <TextView
+                android:id="@+id/tv_count"
+                style="@style/TextStyleEkoCaption"
+                textColorShade="@{ColorShade.SHADE1}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{viewModel.description.trim().length() +"/180"}'
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintEnd_toEndOf="@id/ccName"
+                app:layout_constraintTop_toTopOf="@id/tv_about" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDescription"
+                style="@style/EnterCommunityStyle"
+                android:layout_marginTop="@dimen/eight"
+                android:background="@android:color/transparent"
+                android:hint="@string/enter_description"
+                android:maxLength="180"
+                android:text="@={viewModel.description}"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintEnd_toEndOf="@id/ccName"
+                app:layout_constraintStart_toStartOf="@id/ccName"
+                app:layout_constraintTop_toBottomOf="@id/tv_about" />
+
+            <View
+                android:id="@+id/divider3"
+                backgroundColorShade="@{ColorShade.SHADE4}"
+                ekoBackgroundColor="@{@color/upstraColorBase}"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/twelve"
+                app:layout_constraintEnd_toEndOf="@id/divider2"
+                app:layout_constraintStart_toStartOf="@id/divider2"
+                app:layout_constraintTop_toBottomOf="@id/etDescription" />
+
+            <TextView
+                android:id="@+id/tvCategory"
+                style="@style/TextStyleEkoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sixteen"
+                android:text="@string/category"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintStart_toStartOf="@id/ccName"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            <TextView
+                android:id="@+id/category"
+                style="@style/TextStyleEkoBody"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/six"
+                android:layout_marginEnd="@dimen/eight"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewModel.category.name.empty? @string/please_select_category:viewModel.category.name}"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintEnd_toStartOf="@id/categoryArrow"
+                app:layout_constraintStart_toStartOf="@id/tvCategory"
+                app:layout_constraintTop_toBottomOf="@id/tvCategory" />
+
+            <ImageView
+                android:id="@+id/categoryArrow"
+                android:layout_width="@dimen/twenty_four"
+                android:layout_height="@dimen/twenty_four"
+                android:paddingHorizontal="@dimen/eight"
+                android:paddingVertical="@dimen/six"
+                android:src="@drawable/ic_uikit_chevron_right"
+                app:layout_constraintBottom_toBottomOf="@id/category"
+                app:layout_constraintEnd_toEndOf="@id/ccName"
+                app:layout_constraintTop_toTopOf="@id/category" />
+
+            <androidx.constraintlayout.widget.Group
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="divider5,tvAdmin,tv_admin_description,btn_admin_switch" />
+
+            <View
+                android:id="@+id/divider4"
+                backgroundColorShade="@{ColorShade.SHADE4}"
+                ekoBackgroundColor="@{@color/upstraColorBase}"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/sixteen"
+                app:layout_constraintEnd_toEndOf="@id/divider2"
+                app:layout_constraintStart_toStartOf="@id/divider2"
+                app:layout_constraintTop_toBottomOf="@id/category" />
+
+            <TextView
+                android:id="@+id/tvAdmin"
+                style="@style/TextStyleEkoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sixteen"
+                android:text="@string/only_admin"
+                app:layout_constraintStart_toStartOf="@id/divider4"
+                app:layout_constraintTop_toBottomOf="@id/divider4" />
+
+            <TextView
+                android:id="@+id/tv_admin_description"
+                style="@style/PublicDescriptionTextStyle"
+                textColorShade="@{ColorShade.SHADE1}"
+                android:text="@string/admin_description"
+                app:layout_constraintEnd_toStartOf="@id/btn_admin_switch"
+                app:layout_constraintStart_toStartOf="@id/tvAdmin"
+                app:layout_constraintTop_toBottomOf="@id/tvAdmin" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/btn_admin_switch"
+                style="@style/SwitchButtonStyle"
+                android:checked="@{viewModel.isAdmin()}"
+                android:onClick="@{() -> viewModel.changeAdminPost()}"
+                app:layout_constraintEnd_toEndOf="@id/divider2"
+                app:layout_constraintStart_toEndOf="@id/tv_admin_description"
+                app:layout_constraintTop_toTopOf="@id/tvAdmin"
+                app:thumbTint="@color/switch_btn_bg_selector" />
+
+            <View
+                android:id="@+id/divider5"
+                backgroundColorShade="@{ColorShade.SHADE4}"
+                ekoBackgroundColor="@{@color/upstraColorBase}"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/sixteen"
+                app:layout_constraintEnd_toEndOf="@id/divider2"
+                app:layout_constraintStart_toStartOf="@id/divider2"
+                app:layout_constraintTop_toBottomOf="@id/tv_admin_description" />
+
+            <ImageView
+                android:id="@+id/iv_globe"
+                ekoFillColor="@{@color/upstraColorBase}"
+                ekoFillShade="@{ColorShade.SHADE4}"
+                android:layout_width="@dimen/forty"
+                android:layout_height="@dimen/forty"
+                android:layout_marginStart="@dimen/sixteen"
+                android:layout_marginTop="@dimen/sixteen"
+                android:padding="@dimen/ten"
+                android:src="@drawable/ic_uikit_globe"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider5" />
+
+            <TextView
+                android:id="@+id/tv_public"
+                style="@style/TextStyleEkoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen"
+                android:text="@string/tv_public"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintStart_toEndOf="@id/iv_globe"
+                app:layout_constraintTop_toTopOf="@id/iv_globe" />
+
+            <TextView
+                android:id="@+id/tv_public_description"
+                style="@style/PublicDescriptionTextStyle"
+                textColorShade="@{ColorShade.SHADE1}"
+                android:text="@string/public_description"
+                app:layout_constraintEnd_toStartOf="@id/rb_public"
+                app:layout_constraintStart_toStartOf="@id/tv_public"
+                app:layout_constraintTop_toBottomOf="@id/tv_public" />
+
+            <RadioButton
+                android:id="@+id/rb_public"
+                style="@style/RadioButtonStyle"
+                android:checked="@{viewModel.isPublic()}"
+                android:onClick="@{() -> viewModel.changePostType(true)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_public_description"
+                app:layout_constraintTop_toTopOf="@id/tv_public" />
+
+            <View
+                android:id="@+id/divider6"
+                backgroundColorShade="@{ColorShade.SHADE4}"
+                ekoBackgroundColor="@{@color/upstraColorBase}"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/sixteen"
+                app:layout_constraintEnd_toEndOf="@id/divider2"
+                app:layout_constraintStart_toStartOf="@id/divider2"
+                app:layout_constraintTop_toBottomOf="@id/tv_public_description" />
+
+            <ImageView
+                android:id="@+id/iv_lock"
+                ekoFillColor="@{@color/upstraColorBase}"
+                ekoFillShade="@{ColorShade.SHADE4}"
+                android:layout_width="@dimen/forty"
+                android:layout_height="@dimen/forty"
+                android:layout_marginTop="@dimen/fifty"
+                android:padding="@dimen/ten"
+                android:src="@drawable/ic_uikit_lock"
+                app:layout_constraintStart_toStartOf="@id/ccName"
+                app:layout_constraintTop_toBottomOf="@id/iv_globe" />
+
+            <TextView
+                android:id="@+id/tv_private"
+                style="@style/TextStyleEkoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen"
+                android:text="@string/tv_private"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintStart_toEndOf="@id/iv_lock"
+                app:layout_constraintTop_toTopOf="@id/iv_lock" />
+
+            <TextView
+                android:id="@+id/tv_private_description"
+                style="@style/PublicDescriptionTextStyle"
+                textColorShade="@{ColorShade.SHADE1}"
+                android:text="@string/private_description"
+                app:layout_constraintEnd_toStartOf="@id/rb_private"
+                app:layout_constraintStart_toStartOf="@id/tv_private"
+                app:layout_constraintTop_toBottomOf="@id/tv_private" />
+
+            <RadioButton
+                android:id="@+id/rb_private"
+                style="@style/RadioButtonStyle"
+                android:checked="@{!viewModel.isPublic()}"
+                android:onClick="@{() -> viewModel.changePostType(false)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_private_description"
+                app:layout_constraintTop_toTopOf="@id/tv_private" />
+
+
+            <View
+                android:id="@+id/divider7"
+                backgroundColorShade="@{ColorShade.SHADE4}"
+                ekoBackgroundColor="@{@color/upstraColorBase}"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/sixteen"
+                android:layout_marginBottom="@dimen/sixteen"
+                app:layout_constraintEnd_toEndOf="@id/divider2"
+                app:layout_constraintStart_toStartOf="@id/divider2"
+                app:layout_constraintTop_toBottomOf="@id/tv_private_description"
+                app:layout_goneMarginBottom="@dimen/sixteen" />
+
+            <androidx.constraintlayout.widget.Group
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.communityId.empty ? View.VISIBLE : View.GONE}"
+                app:constraint_referenced_ids="btnCreateCommunity,divider8" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupAddMembers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{!viewModel.isPublic() &amp;&amp; viewModel.communityId.empty ? View.VISIBLE : View.GONE}"
+                app:constraint_referenced_ids="tv_add_members,ivAdd,rvAddedMembers, divider7" />
+
+            <TextView
+                android:id="@+id/tv_add_members"
+                style="@style/TextStyleEkoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen"
+                android:layout_marginTop="@dimen/sixteen"
+                android:text="@string/add_members"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider7" />
+
+            <ImageView
+                android:id="@+id/ivAdd"
+                ekoFillColor="@{@color/upstraColorBase}"
+                ekoFillShade="@{ColorShade.SHADE4}"
+                android:layout_width="@dimen/forty"
+                android:layout_height="@dimen/forty"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:contentDescription="@string/add_members"
+                android:padding="@dimen/eight"
+                android:src="@drawable/ic_uikit_add"
+                android:visibility="@{viewModel.addMemberVisible ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="@id/tv_add_members"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_members" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAddedMembers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/sixteen"
+                android:layout_marginTop="@dimen/sixteen"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_members" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="rvAddedMembers,ivAdd" />
+
+            <View
+                android:id="@+id/divider8"
+                backgroundColorShade="@{ColorShade.SHADE4}"
+                ekoBackgroundColor="@{@color/upstraColorBase}"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/sixteen"
+                android:layout_marginBottom="@dimen/eight"
+                app:layout_constraintBottom_toTopOf="@id/btnCreateCommunity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCreateCommunity"
+                style="@style/EkoMaterialButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/sixteen"
+                android:layout_marginBottom="@dimen/eight"
+                android:enabled="@{!TextUtils.isEmpty(viewModel.category.name) &amp;&amp; !TextUtils.isEmpty(viewModel.communityName.trim()) &amp;&amp; (viewModel.isPublic() ? true : !viewModel.addMemberVisible)}"
+                android:gravity="center"
+                android:text="@string/create_community"
+                android:textSize="@dimen/text_size_14"
+                app:icon="@drawable/ic_uikit_plus"
+                app:iconGravity="textStart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

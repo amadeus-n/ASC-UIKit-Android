@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="upstraColorPrimary">#1054DE</color>
+    <color name="upstraColorSecondary">#292B32</color>
+    <color name="upstraColorAlert">#FA4D30</color>
+    <color name="upstraColorHighlight">#1054DE</color>
+    <color name="upstraColorBase">#292B32</color>
+    <color name="upstraColorBaseInverse">#FFFFFF</color>
+    <color name="upstraMessageBubble">#1054DE</color>
+    <color name="upstraMessageBubbleInverse">#EBECEF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000</color>
+</resources>

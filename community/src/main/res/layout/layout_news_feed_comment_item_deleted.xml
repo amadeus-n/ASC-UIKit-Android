@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/eight"
+       >
+
+        <ImageView
+            android:id="@+id/ivRemove"
+            android:layout_width="20dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_uikit_remove"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvDltMsg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvDltMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comment_deleted_message"
+            style="@style/TextStyleEkoCaption"
+            android:textColor="@color/upstraColorBase"
+            textColorShade="@{ColorShade.SHADE2}"
+            android:layout_marginStart="@dimen/two"
+            app:layout_constraintStart_toEndOf="@id/ivRemove"
+            app:layout_constraintEnd_toStartOf="@id/tvDeletionTime"
+            app:layout_constraintTop_toTopOf="@id/ivRemove"
+            app:layout_constraintBottom_toBottomOf="@id/ivRemove"/>
+
+        <TextView
+            android:id="@+id/tvDeletionTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/ivRemove"
+            app:layout_constraintBottom_toBottomOf="@id/ivRemove"
+            app:layout_constraintStart_toEndOf="@id/tvDltMsg"
+            android:layout_marginStart="@dimen/four"
+            android:layout_marginEnd="@dimen/sixteen"
+            style="@style/TextStyleEkoCaption"
+            android:textColor="@color/upstraColorBase"
+            textColorShade="@{ColorShade.SHADE2}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+        <import type="android.view.View" />
+        <variable
+            name="avatarUrl"
+            type="String" />
+        <variable
+            name="readOnly"
+            type="Boolean" />
+        <variable
+            name="showFeedAction"
+            type="Boolean" />
+    </data>
+
+    <merge
+        android:id="@+id/layoutNewsFeedHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/avatarView"
+            style="@style/CircularAvatarStyle"
+            imageUrl="@{avatarUrl}"
+            placeHolder="@{@drawable/ic_uikit_default_profile_large}"
+            ekoBackgroundColor="@{@color/upstraColorPrimary}"
+            backgroundColorShade="@{ColorShade.SHADE3}"
+            android:layout_height="@dimen/forty"
+            android:layout_width="@dimen/forty"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layoutPostedBy"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/four"
+            android:layout_marginStart="@dimen/four"
+            app:layout_constraintLeft_toRightOf="@id/avatarView"
+            app:layout_constraintTop_toTopOf="@id/avatarView">
+
+            <com.ekoapp.ekosdk.uikit.common.views.text.EkoTextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/four"
+                android:layout_marginEnd="@dimen/four"
+                tools:text="Thailand"
+                style="@style/TextStyleEkoBodyBold"
+                android:textColor="@color/upstraColorBase" />
+
+            <com.ekoapp.ekosdk.uikit.common.views.text.EkoTextView
+                android:id="@+id/communityName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/four"
+                android:layout_marginEnd="@dimen/four"
+                tools:text="Thailand"
+                style="@style/TextStyleEkoBodyBold"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintLeft_toRightOf="@id/avatarView"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/four"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toRightOf="@id/avatarView"
+            app:layout_constraintTop_toBottomOf="@id/layoutPostedBy">
+
+            <TextView
+                android:id="@+id/tvPostBy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_uikit_moderator"
+                android:drawableEnd="@drawable/ic_uikit_dot"
+                android:drawablePadding="2dp"
+                android:layout_marginEnd="@dimen/four"
+                android:gravity="center_vertical"
+                android:text="@string/moderator"
+                style="@style/TextStyleEkoCaptionBold"
+                android:textColor="@color/upstraColorBase"
+                app:textColorShade="@{ColorShade.SHADE1}"
+                app:drawableTintColor="@{@color/upstraColorBase}"
+                app:drawableTintShade="@{ColorShade.SHADE1}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/feedPostTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                style="@style/TextStyleEkoCaption"
+                android:textColor="@color/upstraColorBase"
+                app:textColorShade="@{ColorShade.SHADE1}"
+                app:layout_constraintBottom_toBottomOf="@id/tvPostBy"
+                app:layout_constraintLeft_toRightOf="@id/tvPostBy"
+                app:layout_constraintTop_toTopOf="@id/tvPostBy"
+                />
+
+            <TextView
+                android:id="@+id/tvEdited"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:drawableStart="@drawable/ic_uikit_dot"
+                android:drawablePadding="2dp"
+                android:gravity="bottom"
+                android:text="@string/edited"
+                style="@style/TextStyleEkoCaption"
+                android:textColor="@color/upstraColorBase"
+                app:textColorShade="@{ColorShade.SHADE1}"
+                app:layout_constraintBottom_toBottomOf="@id/feedPostTime"
+                app:layout_constraintLeft_toRightOf="@id/feedPostTime"
+                app:layout_constraintTop_toTopOf="@id/feedPostTime"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnFeedAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{showFeedAction ? View.VISIBLE : View.GONE}"
+            android:layout_marginTop="@dimen/eight"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_uikit_more_horizontal"
+            android:tint="@color/upstraColorBase"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="@id/communityName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </merge>
+</layout>

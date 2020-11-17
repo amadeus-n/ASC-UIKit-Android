@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/eleven"
+            android:src="@drawable/ic_uikit_xmlid_850" />
+
+        <TextView
+            android:id="@+id/tvEmptyGlobalFeed"
+            textColorShade="@{ColorShade.SHADE2}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/eleven"
+            android:text="@string/empty_feed"
+            style="@style/TextStyleEkoHeadline"
+            android:textColor="@color/upstraColorBase" />
+
+        <TextView
+            android:id="@+id/tvFindCommunity"
+            textColorShade="@{ColorShade.SHADE2}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/find_community"
+            style="@style/TextStyleEkoBody"
+            android:textColor="@color/upstraColorBase" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnExplore"
+            style="@style/EkoMaterialButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/twelve"
+            android:paddingHorizontal="@dimen/twenty_four"
+            android:text="@string/explore_community"
+            app:icon="@drawable/ic_uikit_search"
+            app:iconGravity="textStart" />
+
+        <TextView
+            android:id="@+id/tvCreateCommunity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sixteen"
+            android:text="@string/create_community"
+            style="@style/TextStyleEkoBody"
+            android:textColor="@color/upstraColorPrimary" />
+
+    </LinearLayout>
+</layout>

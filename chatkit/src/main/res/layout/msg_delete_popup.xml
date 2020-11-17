@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoSelectableMessageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:roundedCorner="@{true}"
+        android:backgroundTint="@color/upstraColorBase"
+        app:bottomRightRadius="@{@dimen/zero}"
+        android:paddingVertical="@dimen/eight"
+        android:paddingStart="@dimen/twelve"
+        android:paddingEnd="@dimen/eleven">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            style="@style/TextStyleEkoBody"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> viewModel.onDeleteClick()}"
+            android:textColor="@color/white"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

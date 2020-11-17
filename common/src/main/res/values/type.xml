@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextStyleEkoHeadline">
+        <item name="android:textSize">@dimen/ts_upstra_headline</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextStyleEkoTitle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/ts_upstra_title</item>
+    </style>
+
+    <style name="TextStyleEkoBodyBold">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/ts_upstra_body</item>
+    </style>
+
+    <style name="TextStyleEkoBody">
+        <item name="android:textSize">@dimen/ts_upstra_body</item>
+    </style>
+
+    <style name="TextStyleEkoCaptionBold">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/ts_upstra_caption</item>
+    </style>
+
+    <style name="TextStyleEkoCaption">
+        <item name="android:textSize">@dimen/ts_upstra_caption</item>
+    </style>
+
+</resources>

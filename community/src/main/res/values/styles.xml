@@ -1,0 +1,186 @@
+<resources>
+    <style name="EkoCommunityHeaderStyle">
+        <item name="avatarStyle">@style/EkoAvatarStyle</item>
+        <item name="displayNameStyle">@style/EkoCommunityHeaderDisplayNameStyle</item>
+    </style>
+
+    <style name="EkoCommunityHeaderDisplayNameStyle">
+        <item name="textStyle">normal</item>
+        <item name="textColor">@color/black</item>
+    </style>
+
+    <style name="EkoCommunityNameStyle">
+        <item name="textStyle">normal</item>
+        <item name="textColor">@color/black</item>
+    </style>
+
+    <style name="EkoCommunityFollowerStyle">
+        <item name="textStyle">normal</item>
+        <item name="textColor">@color/white</item>
+    </style>
+
+    <style name="EkoRecommendedCommunityStyle">
+        <item name="avatarStyle">@style/EkoAvatarStyle</item>
+        <item name="communityNameStyle">@style/EkoCommunityNameStyle</item>
+        <item name="followerStyle">@style/EkoCommunityFollowerStyle</item>
+    </style>
+  
+    <style name="EkoTrendingCommunityStyle">
+        <item name="avatarStyle">@style/EkoAvatarStyle</item>
+        <item name="communityNameStyle">@style/EkoCommunityNameStyle</item>
+        <item name="followerStyle">@style/EkoCommunityFollowerStyle</item>
+    </style>
+
+    <style name="EkoTrendingCommunityNameStyle">
+        <item name="textStyle">normal</item>
+        <item name="textColor">@color/black</item>
+    </style>
+
+    <style name="EkoTrendingCommunityDescriptionStyle">
+        <item name="textStyle">normal</item>
+        <item name="textColor">@color/black</item>
+    </style>
+
+    <style name="EkoTrendingCommunityFollowerStyle">
+        <item name="textStyle">normal</item>
+    </style>
+
+    <style name="EkoTrendingCommunityFollowButtonStyle">
+        <item name="buttonTextColor">@color/white</item>
+        <item name="backgroundColor">@color/black</item>
+        <item name="buttonType">solid</item>
+    </style>
+    <style name="EkoCHTitleStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_20</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginStart">@dimen/eighteen</item>
+        <item name="android:layout_marginLeft">@dimen/eighteen</item>
+        <item name="android:layout_marginEnd">@dimen/eighteen</item>
+        <item name="android:layout_marginRight">@dimen/eighteen</item>
+    </style>
+
+    <style name="EkoCommunityCategoryNameStyle">
+        <item name="textStyle">normal</item>
+        <item name="textColor">@color/black</item>
+    </style>
+
+    <style name="EkoCommunitySubCategoryNameStyle">
+        <item name="textStyle">normal</item>
+        <item name="textColor">@color/black</item>
+    </style>
+  
+    <style name="BaseButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/forty_eight</item>
+        <item name="android:gravity">center</item>
+        <item name="iconGravity">textStart</item>
+    </style>
+
+    <style name="FollowButtonStyle" parent="BaseButtonStyle">
+        <item name="shapeAppearanceOverlay">@style/FollowButtonAppearance</item>
+        <item name="backgroundTint">@color/eko_button_bg_selector</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
+    </style>
+
+    <style name="FollowButtonAppearance">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerRadius">@dimen/six</item>
+        <item name="strokeColor">@color/black</item>
+    </style>
+
+    <style name="EnterCommunityStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="background">@android:color/transparent</item>
+    </style>
+
+    <style name="PublicTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/sixteen</item>
+        <item name="android:layout_marginLeft">@dimen/sixteen</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="PublicDescriptionTextStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/ts_upstra_body</item>
+        <item name="android:textColor">@color/upstraColorBase</item>
+    </style>
+
+    <style name="RadioButtonStyle" parent="EkoRadioButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">22dp</item>
+    </style>
+
+    <style name="SwitchButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/thirty_eight</item>
+    </style>
+
+    <style name="AlphabetHeaderStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/twenty_eight</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/ts_upstra_body</item>
+        <item name="android:paddingStart">@dimen/sixteen</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="SelectMembersSubTitleTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/ts_upstra_caption</item>
+    </style>
+
+
+    <style name="EkoFeedPostTimeStyle">
+        <item name="textStyle">normal</item>
+    </style>
+
+    <style name="EkoFeedPostLikeStyle">
+        <item name="android:textSize">@dimen/text_size_13</item>
+    </style>
+
+    <style name="ImagePreviewTheme" parent="Base.Theme.EkoApp">
+    </style>
+
+    <style name="NewsFeedItemTextStyle">
+        <item name="android:textSize">@dimen/ts_upstra_body</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textColor">@color/upstraColorBase</item>
+        <item name="android:autoLink">web</item>
+        <item name="android:textColorLink">@color/upstraColorHighlight</item>
+    </style>
+
+    <style name="CommunityHomeToolBarStyle" parent="BaseToolBarStyle">
+        <item name="leftDrawableStyle">@style/CommunityToolbarLeftDrawableStyle</item>
+        <item name="leftTextViewStyle">@style/CommunityToolbarLeftTextStyle</item>
+    </style>
+
+    <style name="CommunityToolbarLeftDrawableStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="CommunityToolbarLeftTextStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/ts_upstra_headline</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginStart">@dimen/sixteen</item>
+        <item name="android:textColor">@color/upstraColorBase</item>
+    </style>
+
+</resources>

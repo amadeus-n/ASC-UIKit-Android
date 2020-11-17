@@ -1,0 +1,10 @@
+apply from: "../gradle/activity.gradle"
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+dependencies {
+    implementation project(path: ':common')
+    implementation project(path: ':community')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.ekoapp.ekosdk.uikit.community.mycommunity.viewmodel.EkoMyCommunityListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".mycommunity.activity.EkoMyCommunityActivity">
+
+        <com.ekoapp.ekosdk.uikit.components.EkoToolBar
+            android:id="@+id/myCommunityToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/BaseToolBarStyle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearch"
+            android:text="@={viewModel.searchString}"
+            android:singleLine="true"
+            style="@style/SearchEditTextStyle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/myCommunityToolbar"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMyCommunities"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/ten"
+            android:layout_marginHorizontal="@dimen/sixteen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etSearch"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/upstraColorBase"
+            textColorShade="@{ColorShade.SHADE3}"
+            style="@style/TextStyleEkoBodyBold"
+            android:visibility="@{viewModel.emptyCommunity ? View.VISIBLE : View.GONE}"
+            android:text="@string/no_community"
+            android:layout_marginTop="@dimen/thirty"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etSearch"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

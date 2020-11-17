@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ekoapp.ekosdk.uikit.chat">
+
+    <application>
+        <activity
+            android:name=".messages.EkoImagePreviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".editMessage.EkoEditMessageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".messages.EkoMessageListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".home.EkoChatHomePageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+    </application>
+
+</manifest>

@@ -1,0 +1,101 @@
+<resources>
+    <style name="EkoAlertDialogStyle" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/upstraColorPrimary</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/AlertDialogBodyTextStyl</item>
+    </style>
+
+    <style name="AlertDialogBodyTextStyl" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textColor">@color/upstraColorBase</item>
+    </style>
+    <style name="IconButtonStyle"  parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="android:shadowColor">@android:color/transparent</item>
+        <item name="strokeColor">@android:color/transparent</item>
+    </style>
+     <style name="EkoAvatarStyle">
+        <item name="avatarWidth">@dimen/avatar_default_height</item>
+        <item name="avatarHeight">@dimen/avatar_default_width</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="ImagePreviewToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:background">@color/black</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <style name="ImagePreviewTheme" parent="Base.Theme.EkoApp">
+    </style>
+    <style name="EkoNewsFeedAvatarStyle">
+        <item name="avatarWidth">@dimen/forty</item>
+        <item name="avatarHeight">@dimen/forty</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="CircleImage">
+        <item name="cornerSize">50%</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+
+    <style name="SearchEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="paddingStart">@dimen/twelve</item>
+        <item name="android:drawableStart">@drawable/ic_uikit_search</item>
+        <item name="android:drawablePadding">@dimen/eight</item>
+        <item name="android:paddingStart">@dimen/seventeen</item>
+        <item name="android:layout_marginStart">@dimen/sixteen</item>
+        <item name="android:layout_marginEnd">@dimen/sixteen</item>
+        <item name="android:hint">@string/search</item>
+        <item name="android:textSize">@dimen/ts_upstra_body</item>
+        <item name="drawableTint">#636768</item>
+    </style>
+
+    <style name="CircularAvatarStyle">
+        <item name="android:scaleType">centerInside</item>
+        <item name="shapeAppearanceOverlay">@style/CircleImage</item>
+    </style>
+
+    <style name="CreatePostImageStyle">
+        <item name="android:scaleType">centerCrop</item>
+        <item name="cornerSize">5dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+    <style name="EkoIconButtonStyle">
+        <item name="iconGravity">textStart</item>
+        <item name="shapeAppearanceOverlay">@style/CircleImage</item>
+        <item name="android:padding">0dp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+    <style name="ImagePickerTheme" parent="Matisse.Zhihu">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="toolbar">@style/ImagePickerToolbarStyle</item>
+        <item name="album.dropdown.title.color">@color/upstraColorBase</item>
+        <item name="album.dropdown.count.color">@color/upstraColorBase</item>
+        <item name="album.element.color">@color/upstraColorBase</item>
+        <item name="bottomToolbar.preview.textColor">@color/upstraColorBase</item>
+        <item name="bottomToolbar.apply.textColor">@color/upstraColorBase</item>
+        <item name="item.checkCircle.backgroundColor">@color/upstraColorBase</item>
+
+    </style>
+
+    <style name="ImagePickerToolbarStyle" parent="Toolbar.Zhihu">
+        <item name="homeAsUpIndicator">@drawable/ic_uikit_cross</item>
+
+    </style>
+
+</resources>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <data>
+    <import type="android.view.View"/>
+    <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+    <variable
+        name="viewModel"
+        type="com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoNewsFeedViewModel" />
+  </data>
+
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context=".newsfeed.fragment.EkoNewsFeedFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppBarTheme"
+        app:elevation="0dp"
+        app:expanded="true">
+
+      <com.google.android.material.appbar.CollapsingToolbarLayout
+          android:id="@+id/collapsingToolbar"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:fitsSystemWindows="true"
+          app:contentScrim="@color/white"
+          app:layout_scrollFlags="scroll|exitUntilCollapsed"
+          app:scrimAnimationDuration="0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
+
+          <FrameLayout
+              android:id="@+id/myCommunityContainer"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/sixteen"
+              android:paddingBottom="@dimen/sixteen"
+              android:visibility="@{viewModel.emptyCommunityList ? View.GONE : View.VISIBLE}"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+      </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <View
+          android:id="@+id/divider"
+          android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          style="@style/Divider"
+          android:layout_marginTop="@dimen/twelve"
+          android:visibility="@{viewModel.emptyCommunityList ? View.GONE : View.VISIBLE}"
+          app:layout_constraintStart_toStartOf="parent" />
+
+      <FrameLayout
+          android:id="@+id/globalFeedContainer"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/divider"
+          app:layout_constraintBottom_toBottomOf="parent" />
+
+      <androidx.constraintlayout.widget.Group
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:visibility="@{viewModel.emptyGlobalFeed &amp;&amp; viewModel.emptyCommunityList ? View.GONE : View.VISIBLE}"
+          app:constraint_referenced_ids="globalFeedContainer"/>
+
+      <androidx.constraintlayout.widget.Group
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:visibility="@{viewModel.emptyCommunityList &amp;&amp; viewModel.emptyGlobalFeed ? View.VISIBLE : View.GONE}"
+          app:constraint_referenced_ids="ivIcon,tvEmptyGlobalFeed,tvFindCommunity,btnExplore,tvCreateCommunity"/>
+
+      <ImageView
+          android:id="@+id/ivIcon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/ic_uikit_xmlid_850"
+          android:layout_marginBottom="@dimen/eleven"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/tvEmptyGlobalFeed" />
+
+      <TextView
+          android:id="@+id/tvEmptyGlobalFeed"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/empty_feed"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/tvFindCommunity"
+          android:layout_marginTop="@dimen/eleven"
+          style="@style/TextStyleEkoHeadline"
+          android:textColor="@color/upstraColorBase"
+          textColorShade="@{ColorShade.SHADE2}"/>
+
+      <TextView
+          android:id="@+id/tvFindCommunity"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/find_community"
+          style="@style/TextStyleEkoBody"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/divider"
+          app:layout_constraintBottom_toBottomOf="parent"
+          android:textColor="@color/upstraColorBase"
+          textColorShade="@{ColorShade.SHADE2}"/>
+
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnExplore"
+          style="@style/EkoMaterialButtonStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/tvFindCommunity"
+          android:layout_marginTop="@dimen/twelve"
+          android:text="@string/explore_community"
+          app:icon="@drawable/ic_uikit_search"
+          app:iconGravity="textStart"
+          android:paddingHorizontal="@dimen/twenty_four"
+          />
+
+      <TextView
+          android:id="@+id/tvCreateCommunity"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/btnExplore"
+          android:text="@string/create_community"
+          android:layout_marginTop="@dimen/sixteen"
+          android:textColor="@color/upstraColorPrimary"
+          style="@style/TextStyleEkoBody"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCreatePost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        style="@style/EkoFabButtonStyle"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_uikit_edit" />
+
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

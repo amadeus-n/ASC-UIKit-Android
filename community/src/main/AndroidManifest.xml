@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ekoapp.ekosdk.uikit.community">
+
+    <application
+        android:requestLegacyExternalStorage="true"
+        tools:targetApi="q">
+        <activity
+            android:name=".newsfeed.activity.EkoEditPostActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp"/>
+        <activity
+            android:name=".edit.EkoCommunityProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+
+        <activity
+            android:name=".profile.activity.EkoEditUserProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".members.EkoCommunityMemberSettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".setting.EkoCommunitySettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".explore.activity.EkoCategoryCommunityListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".mycommunity.activity.EkoMyCommunityActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".profile.activity.EkoUserProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".explore.activity.EkoCategorySelectionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".explore.activity.EkoCategoryListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".detailpage.EkoCommunityPageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".home.activity.EkoCommunityHomePageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".newsfeed.activity.EkoPostTargetSelectionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".newsfeed.activity.EkoPostDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".newsfeed.activity.EkoCreatePostActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".ui.view.EkoSelectMembersListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".ui.view.EkoCommunityCreateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".newsfeed.activity.EkoEditCommentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+    </application>
+
+</manifest>

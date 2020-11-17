@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+        <variable
+            name="ekoCommunity"
+            type="com.ekoapp.ekosdk.community.EkoCommunity" />
+        <variable
+            name="avatarUrl"
+            type="String" />
+        <variable
+            name="listener"
+            type="com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="156dp"
+        android:layout_height="194dp"
+        app:cardCornerRadius="@dimen/four"
+        android:background="@color/white"
+        app:rippleColor="@android:color/transparent"
+        android:onClick="@{() -> listener.onCommunitySelected(ekoCommunity)}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="@dimen/forty"
+                android:layout_height="@dimen/forty"
+                style="@style/CircularAvatarStyle"
+                imageUrl="@{avatarUrl}"
+                placeHolder="@{@drawable/ic_uikit_default_community_avatar_small}"
+                ekoBackgroundColor="@{@color/upstraColorPrimary}"
+                backgroundColorShade="@{ColorShade.SHADE3}"
+                android:layout_marginTop="@dimen/sixteen"
+                android:layout_marginStart="@dimen/twelve"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvCommName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/eight"
+                app:safeText="@{ekoCommunity.displayName}"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginHorizontal="@dimen/twelve"
+                android:textColor="@color/upstraColorBase"
+                style="@style/TextStyleEkoBodyBold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivAvatar"/>
+
+            <TextView
+                android:id="@+id/tvCommCategory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/upstraColorBase"
+                style="@style/TextStyleEkoCaption"
+                app:layout_constraintStart_toStartOf="@id/tvCommName"
+                app:layout_constraintEnd_toEndOf="@id/tvCommName"
+                app:layout_constraintTop_toBottomOf="@id/tvCommName"/>
+
+            <TextView
+                android:id="@+id/tvMembersCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/upstraColorBase"
+                textColorShade="@{ColorShade.SHADE1}"
+                style="@style/TextStyleEkoCaption"
+                app:layout_constraintStart_toStartOf="@id/tvCommName"
+                app:layout_constraintTop_toBottomOf="@id/tvCommCategory"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/twelve"
+                android:textColor="@color/upstraColorBase"
+                style="@style/TextStyleEkoCaption"
+                android:text="@{ekoCommunity.description}"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:layout_marginTop="@dimen/four"
+                app:layout_constraintStart_toStartOf="@id/tvCommName"
+                app:layout_constraintEnd_toEndOf="@id/tvCommName"
+                app:layout_constraintTop_toBottomOf="@id/tvMembersCount"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</layout>

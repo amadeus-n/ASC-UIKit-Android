@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <variable
+            name="avatarUrl"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/smAvatar"
+            android:layout_width="@dimen/forty"
+            android:layout_height="@dimen/forty"
+            app:shapeAppearanceOverlay="@style/CircleImage"
+            imageUrl="@{avatarUrl}"
+            placeHolder="@{@drawable/ic_uikit_default_profile_large}"
+            ekoBackgroundColor="@{@color/upstraColorPrimary}"
+            backgroundColorShade="@{ColorShade.SHADE3}"
+            android:scaleType="centerInside"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/sixteen" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/smTitle"
+            style="@style/TextStyleEkoBodyBold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/upstraColorBase"
+            app:layout_constraintStart_toEndOf="@id/smAvatar"
+            app:layout_constraintTop_toTopOf="@id/smAvatar"
+            app:layout_constraintBottom_toBottomOf="@id/smAvatar"
+            app:layout_constraintEnd_toStartOf="@id/ivStatus"
+            android:layout_marginStart="@dimen/eight"
+            android:layout_marginEnd="@dimen/eight" />
+
+        <TextView
+            android:id="@+id/smSubTitle"
+            android:visibility="gone"
+            android:textColor="@color/upstraColorBase"
+            textColorShade="@{ColorShade.SHADE1}"
+            style="@style/SelectMembersSubTitleTextStyle"
+            app:layout_constraintStart_toStartOf="@id/smTitle"
+            app:layout_constraintTop_toBottomOf="@id/smTitle" />
+
+        <CheckBox
+            android:id="@+id/ivStatus"
+            style="@style/EkoCheckBoxStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/smAvatar"
+            app:layout_constraintBottom_toBottomOf="@id/smAvatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/smTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

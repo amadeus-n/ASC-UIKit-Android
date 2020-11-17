@@ -1,0 +1,37 @@
+package com.ekoapp.ekosdk.uikit.utils
+
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
+import androidx.core.content.ContextCompat
+import com.ekoapp.ekosdk.uikit.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+
+object AlertDialogUtil {
+
+    fun showDialog(
+        context: Context, title: String, msg: String, positiveButton: String,
+        negativeButton: String?, listener: DialogInterface.OnClickListener
+    ) {
+        val builder = MaterialAlertDialogBuilder(context)
+        builder.setTitle(title)
+            .setMessage(msg)
+            .setPositiveButton(positiveButton) { dialog, _ ->
+                listener.onClick(dialog, DialogInterface.BUTTON_POSITIVE)
+            }
+        if (negativeButton != null) {
+            builder.setNegativeButton(negativeButton) { dialog, _ ->
+                listener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE)
+
+            }
+        }
+        val dialog = builder.create()
+        dialog.setOnShowListener {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setTextColor(ContextCompat.getColor(context, R.color.upstraColorPrimary))
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                .setTextColor(ContextCompat.getColor(context, R.color.upstraColorPrimary))
+        }
+        dialog.show()
+    }
+}

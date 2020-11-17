@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="avatarStyle" format="reference" />
+    <attr name="followButtonStyle" format="reference" />
+    <attr name="communityNameStyle" format="reference" />
+    <attr name="followerStyle" format="reference" />
+    <declare-styleable name="Avatar">
+        <attr name="avatarHeight" format="dimension" />
+        <attr name="avatarWidth" format="dimension" />
+        <attr name="avatarUrl" format="string"></attr>
+        <attr name="avatarDrawable" format="reference"></attr>
+        <attr name="avatarShape">
+            <flag name="circle" value="0"></flag>
+            <flag name="rectangle" value="1"></flag>
+        </attr>
+        <attr name="avatarPlaceholderImage" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ExpandableText">
+        <attr name="maxLines" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="Text">
+        <attr name="textColor" format="color|reference" />
+        <attr name="textStyle">
+            <flag name="bold" value="1"></flag>
+            <flag name="italic" value="2"></flag>
+            <flag name="normal" value="0"></flag>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="Button">
+        <attr name="buttonTextColor" format="color|reference" />
+        <attr name="outlineColor" format="color|reference" />
+        <attr name="backgroundColor" format="color|reference" />
+        <attr name="buttonType">
+            <flag name="outlined" value="0"></flag>
+            <flag name="solid" value="1"></flag>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="Image">
+        <attr name="tintColor" format="color|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="EkoToolBarStyle">
+        <attr name="leftDrawableStyle" format="reference"/>
+        <attr name="leftTextViewStyle" format="reference"/>
+        <attr name="rightTextViewStyle" format="reference"/>
+    </declare-styleable>
+
+</resources>

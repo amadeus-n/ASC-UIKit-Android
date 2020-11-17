@@ -1,0 +1,9 @@
+apply from: "../gradle/activity.gradle"
+apply plugin: 'com.android.library'
+
+
+dependencies {
+    api project(path: ':community')
+    api project(path: ':chatkit')
+    api ("com.github.EkoCommunications.EkoMessagingSDKAndroid:eko-sdk:$ekoMessagingSdkVersion")
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+        <variable
+            name="viewModel"
+            type="com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoSelectableMessageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:roundedCorner="@{true}"
+        android:backgroundTint="@color/upstraColorBase"
+        app:bottomRightRadius="@{@dimen/zero}"
+        android:paddingVertical="@dimen/eight"
+        android:paddingStart="@dimen/nine"
+        android:paddingEnd="@dimen/eleven">
+
+        <TextView
+            android:id="@+id/tvEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/TextStyleEkoBody"
+            android:onClick="@{() -> viewModel.onEditClick()}"
+            android:text="@string/edit"
+            android:textColor="@color/white" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            ekoBackgroundColor="@{@color/upstraColorBase}"
+            backgroundColorShade="@{ColorShade.SHADE4}"
+            android:layout_marginStart="@dimen/twelve"
+            app:layout_constraintStart_toEndOf="@id/tvEdit"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/divider"
+            app:layout_constraintTop_toTopOf="@id/tvEdit"
+            style="@style/TextStyleEkoBody"
+            android:onClick="@{() -> viewModel.onDeleteClick()}"
+            android:textColor="@color/white"
+            android:text="@string/delete"
+            android:layout_marginStart="@dimen/twelve"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

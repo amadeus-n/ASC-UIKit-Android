@@ -1,0 +1,12 @@
+R_DEF: Internal format may change without notice
+local
+drawable ic_more_horizontal
+id avatarView
+id communityName
+id feedPostTime
+id showMoreButton
+id textFeedLayout
+layout layout_text_feed
+string post_compose_hint
+style EkoCommunityNameStyle
+style EkoFeedPostTimeStyle

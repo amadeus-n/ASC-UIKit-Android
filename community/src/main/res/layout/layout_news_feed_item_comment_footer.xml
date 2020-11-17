@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+    </data>
+
+    <merge
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cbLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/ic_uikit_like_selector"
+            android:paddingStart="@dimen/five"
+            android:text="@string/like"
+            style="@style/TextStyleEkoBody"
+            app:checkBoxDefaultColor="@{@color/upstraColorBase}"
+            app:checkBoxDefaultShade="@{ColorShade.SHADE2}"
+            app:checkBoxCheckedColor="@{@color/upstraColorPrimary}"
+            />
+
+        <TextView
+            android:id="@+id/reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/twelve"
+            android:drawableStart="@drawable/ic_uikit_reply"
+            android:drawablePadding="@dimen/eight"
+            android:gravity="center_vertical"
+            android:text="@string/reply"
+            android:visibility="gone"
+            style="@style/TextStyleEkoBody"
+            android:textColor="@{@color/upstraColorBase}"
+            app:textColorShade="@{ColorShade.SHADE2}"
+            app:layout_constraintStart_toEndOf="@id/cbLike"
+            app:layout_constraintTop_toTopOf="@id/cbLike"
+            app:layout_constraintBottom_toBottomOf="@id/cbLike" />
+
+
+        <ImageButton
+            android:id="@+id/btnCommentAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_uikit_more_horizontal"
+            android:tint="@color/upstraColorBase"
+            android:layout_marginStart="@dimen/twelve"
+            app:layout_constraintStart_toEndOf="@id/reply"
+            app:layout_constraintTop_toTopOf="@id/reply"
+            app:layout_constraintBottom_toBottomOf="@id/reply"  />
+
+    </merge>
+</layout>

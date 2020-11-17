@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil"/>
+        <variable
+            name="viewModel"
+            type="com.ekoapp.ekosdk.uikit.chat.editMessage.EkoEditMessageViewModel" />
+    </data>
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thirty_two"
+        app:contentInsetStart="@dimen/zero">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/icCross"
+                android:layout_width="@dimen/fourteen"
+                android:layout_height="@dimen/fourteen"
+                android:src="@drawable/ic_uikit_cross"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="@dimen/sixteen" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/icCross"
+                app:layout_constraintTop_toTopOf="@id/icCross"
+                app:layout_constraintBottom_toBottomOf="@id/icCross"
+                android:layout_marginStart="@dimen/sixteen"
+                android:text="@string/edit_msg"
+                style="@style/TextStyleEkoTitle" />
+
+            <TextView
+                android:id="@+id/tvSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/icCross"
+                app:layout_constraintBottom_toBottomOf="@id/icCross"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/sixteen"
+                android:textColor="@{viewModel.isSaveEnabled() ? viewModel.saveColor : ColorPaletteUtil.INSTANCE.getColor(viewModel.saveColor, ColorShade.SHADE2)}"
+                android:enabled="@{viewModel.isSaveEnabled()}"
+                android:onClick="@{() -> viewModel.saveMessage()}"
+                android:textAllCaps="true"
+                android:text="@string/save"
+                style="@style/TextStyleEkoBody" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.MaterialToolbar>
+</layout>

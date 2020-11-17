@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="avatarStyle" format="reference" />
+    <attr name="followButtonStyle" format="reference" />
+    <attr name="communityNameStyle" format="reference" />
+    <attr name="followerStyle" format="reference" />
+    <declare-styleable name="CommunityHeader">
+        <attr name="avatarStyle" />
+        <attr name="displayNameStyle" format="reference" />
+        <attr name="postCountStyle" format="reference" />
+        <attr name="memberCountStyle" format="reference" />
+        <attr name="followerPreviewStyle" format="reference" />
+        <attr name="descriptionStyle" format="reference" />
+        <attr name="followButtonStyle" />
+    </declare-styleable>
+    <declare-styleable name="RecommendedCommunity">
+        <attr name="avatarStyle"></attr>
+        <attr name="communityNameStyle" />
+        <attr name="followerStyle" />
+        <attr name="followButtonStyle" />
+    </declare-styleable>
+
+    <declare-styleable name="TrendingCommunity">
+        <attr name="avatarStyle"></attr>
+        <attr name="communityNameStyle" />
+        <attr name="communityDescriptionStyle" format="reference" />
+        <attr name="followerStyle"/>
+        <attr name="followButtonStyle" />
+    </declare-styleable>
+</resources>

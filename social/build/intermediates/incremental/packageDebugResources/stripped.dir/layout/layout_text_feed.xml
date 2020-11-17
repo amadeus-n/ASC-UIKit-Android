@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/textFeedLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <com.ekoapp.ekosdk.uikit.common.views.avatar.EkoAvatarView
+        android:id="@+id/avatarView"
+        style="@style/EkoAvatarStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.ekoapp.ekosdk.uikit.common.views.text.EkoTextView
+        android:id="@+id/communityName"
+        style="@style/EkoCommunityNameStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/eight"
+        android:textSize="@dimen/text_size_15"
+        app:layout_constraintLeft_toRightOf="@id/avatarView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.ekoapp.ekosdk.uikit.common.views.text.EkoTextView
+        android:id="@+id/feedPostTime"
+        style="@style/EkoFeedPostTimeStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_15"
+        app:layout_constraintLeft_toRightOf="@id/avatarView"
+        app:layout_constraintTop_toBottomOf="@id/communityName" />
+
+    <ImageButton
+        android:id="@+id/showMoreButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/eight"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_more_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="@id/communityName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.ekoapp.ekosdk.uikit.common.views.text.EkoExpandableTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/avatarView" />
+
+</merge>

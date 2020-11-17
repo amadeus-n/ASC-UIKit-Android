@@ -1,0 +1,7 @@
+apply from: "../gradle/activity.gradle"
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+dependencies {
+    api project(path: ':common')
+}

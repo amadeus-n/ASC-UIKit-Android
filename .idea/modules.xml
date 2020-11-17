@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/UpstraUIKitAndroid.iml" filepath="$PROJECT_DIR$/.idea/modules/UpstraUIKitAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/UpstraUIKitAndroid.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/UpstraUIKitAndroid.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chatkit/UpstraUIKitAndroid.chatkit.iml" filepath="$PROJECT_DIR$/.idea/modules/chatkit/UpstraUIKitAndroid.chatkit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/UpstraUIKitAndroid.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/UpstraUIKitAndroid.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/community/UpstraUIKitAndroid.community.iml" filepath="$PROJECT_DIR$/.idea/modules/community/UpstraUIKitAndroid.community.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/UpstraUIKitAndroid.main.iml" filepath="$PROJECT_DIR$/.idea/modules/main/UpstraUIKitAndroid.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/UpstraUIKitAndroid.sample.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/UpstraUIKitAndroid.sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/upstra-uikit/UpstraUIKitAndroid.upstra-uikit.iml" filepath="$PROJECT_DIR$/.idea/modules/upstra-uikit/UpstraUIKitAndroid.upstra-uikit.iml" />
+    </modules>
+  </component>
+</project>

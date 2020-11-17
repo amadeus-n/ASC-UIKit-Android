@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ekoapp.ekosdk.uikit">
+    <application
+        android:requestLegacyExternalStorage="true"
+        tools:targetApi="q">
+        <activity
+            android:name="com.ekoapp.ekosdk.uikit.imagepreview.EkoImagePreviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImagePreviewTheme" />
+    </application>
+</manifest>

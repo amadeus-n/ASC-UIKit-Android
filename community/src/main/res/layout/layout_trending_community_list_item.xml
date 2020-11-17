@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+        <import type="android.view.View"/>
+        <variable
+            name="ekoCommunity"
+            type="com.ekoapp.ekosdk.community.EkoCommunity" />
+        <variable
+            name="avatarUrl"
+            type="String" />
+        <variable
+            name="listener"
+            type="com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> listener.onCommunitySelected(ekoCommunity)}">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="@dimen/forty"
+            android:layout_height="@dimen/forty"
+            imageUrl="@{avatarUrl}"
+            placeHolder="@{@drawable/ic_uikit_default_community_avatar_small}"
+            style="@style/CircularAvatarStyle"
+            ekoBackgroundColor="@{@color/upstraColorPrimary}"
+            backgroundColorShade="@{ColorShade.SHADE3}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/sixteen"/>
+
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextStyleEkoTitle"
+            android:textColor="@color/upstraColorHighlight"
+            app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintTop_toTopOf="@id/ivAvatar"
+            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+            android:layout_marginStart="@dimen/twelve"/>
+
+        <TextView
+            android:id="@+id/tvCommName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/TextStyleEkoBodyBold"
+            android:textColor="@color/upstraColorBase"
+            android:layout_marginStart="@dimen/fourteen"
+            android:maxLines="1"
+            android:ellipsize="end"
+            safeText="@{ekoCommunity.displayName}"
+            app:layout_constraintStart_toEndOf="@id/tvCount"
+            app:layout_constraintEnd_toStartOf="@id/ivOfficial"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivAvatar"/>
+
+        <ImageView
+            android:id="@+id/ivOfficial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_uikit_verified"
+            android:visibility="@{ekoCommunity.official ? View.VISIBLE : View.GONE}"
+            android:layout_marginStart="@dimen/four"
+            app:layout_constraintTop_toTopOf="@id/tvCommName"
+            app:layout_constraintBottom_toBottomOf="@id/tvCommName"
+            app:layout_constraintStart_toEndOf="@id/tvCommName"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/sixteen"/>
+
+        <TextView
+            android:id="@+id/tvCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="General"
+            android:textColor="@color/upstraColorBase"
+            style="@style/TextStyleEkoCaption"
+            textColorShade="@{ColorShade.SHADE1}"
+            app:layout_constraintStart_toStartOf="@id/tvCommName"
+            app:layout_constraintTop_toBottomOf="@id/tvCommName"/>
+
+        <TextView
+            android:id="@+id/tvDot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bullet"
+            android:textColor="@color/upstraColorBase"
+            style="@style/TextStyleEkoCaption"
+            textColorShade="@{ColorShade.SHADE1}"
+            android:layout_marginStart="@dimen/four"
+            app:layout_constraintStart_toEndOf="@id/tvCategory"
+            app:layout_constraintTop_toTopOf="@id/tvCategory"/>
+
+        <TextView
+            android:id="@+id/tvMembersCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/upstraColorBase"
+            style="@style/TextStyleEkoCaption"
+            textColorShade="@{ColorShade.SHADE1}"
+            android:layout_marginStart="@dimen/four"
+            android:layout_marginEnd="@dimen/sixteen"
+            app:layout_constraintStart_toEndOf="@id/tvDot"
+            app:layout_constraintTop_toTopOf="@id/tvCategory"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

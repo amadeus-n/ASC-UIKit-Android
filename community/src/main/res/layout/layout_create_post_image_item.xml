@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivCross"
+            android:layout_width="@dimen/twenty"
+            android:layout_height="@dimen/twenty"
+            android:layout_margin="@dimen/eight"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_uikit_cross_white"
+            app:shapeAppearanceOverlay="@style/CircleImage"
+            android:background="@color/upstraColorBase"
+            app:ekoBackgroundColorAlpha="@{@integer/alpha_fifty}"
+            app:layout_constraintTop_toTopOf="@id/ivPhoto"
+            app:layout_constraintEnd_toEndOf="@id/ivPhoto" />
+
+        <ProgressBar
+            android:id="@+id/pbImageUpload"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:progressBackgroundTint="@color/white"
+            android:progressTint="@color/upstraColorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/eight"
+            android:layout_marginStart="@dimen/sixteen"
+            android:layout_marginEnd="@dimen/sixteen"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:max="@integer/maxProgressImageUpload"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivError"
+            android:layout_width="@dimen/twenty_five"
+            android:layout_height="@dimen/twenty_five"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_uikit_info"
+            app:shapeAppearanceOverlay="@style/CircleImage"
+            android:background="@color/upstraColorBase"
+            app:ekoBackgroundColorAlpha="@{@integer/alpha_fifty}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

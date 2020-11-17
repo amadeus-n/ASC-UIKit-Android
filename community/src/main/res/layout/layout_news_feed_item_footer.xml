@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="readOnly"
+            type="Boolean" />
+    </data>
+
+    <merge
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/reactionStatusLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvNumberOfLikes"
+                style="@style/TextStyleEkoCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textColorShade="@{ColorShade.SHADE2}"
+                tools:text="1.8k likes" />
+
+            <TextView
+                android:id="@+id/tvNumberOfComments"
+                style="@style/TextStyleEkoCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/sixteen"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textColorShade="@{ColorShade.SHADE2}"
+                tools:text="18 comments" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <View
+            android:id="@+id/separator"
+            style="@style/Divider"
+            android:layout_marginStart="@dimen/sixteen"
+            android:layout_marginTop="@dimen/eight"
+            android:layout_marginEnd="@dimen/sixteen"
+            android:layout_marginBottom="@dimen/eight"
+            app:layout_constraintTop_toBottomOf="@id/reactionStatusLayout" />
+
+
+        <LinearLayout
+            android:id="@+id/postActionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sixteen"
+            android:layout_marginEnd="@dimen/sixteen"
+            android:orientation="horizontal"
+            android:visibility="@{readOnly ? View.GONE : View.VISIBLE}"
+            app:layout_constraintTop_toBottomOf="@id/separator">
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cbLike"
+                style="@style/TextStyleEkoBodyBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/ic_uikit_like_selector"
+                android:paddingStart="@dimen/eight"
+                android:text="@string/like"
+                app:checkBoxCheckedColor="@{@color/upstraColorPrimary}"
+                app:checkBoxDefaultColor="@{@color/upstraColorBase}"
+                app:checkBoxDefaultShade="@{ColorShade.SHADE2}" />
+
+            <TextView
+                android:id="@+id/cbComment"
+                style="@style/TextStyleEkoBodyBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:drawableStart="@drawable/ic_uikit_comment"
+                android:drawablePadding="@dimen/eight"
+                android:gravity="center_vertical"
+                android:text="@string/comment"
+                android:textColor="@{@color/upstraColorBase}"
+                app:layout_constraintBottom_toBottomOf="@id/cbLike"
+                app:layout_constraintStart_toEndOf="@id/cbLike"
+                app:layout_constraintTop_toBottomOf="@id/separator"
+                app:layout_constraintTop_toTopOf="@id/cbLike"
+                app:textColorShade="@{ColorShade.SHADE2}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tvJoinCommunityMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{readOnly ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/postActionLayout"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/sixteen"
+            android:layout_marginTop="@dimen/eight"
+            android:layout_marginEnd="@dimen/sixteen"
+            android:paddingBottom="@dimen/eight">
+
+            <TextView
+
+                style="@style/TextStyleEkoBodyBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/join_community_message"
+                android:textColor="@color/upstraColorBase"
+                app:textColorShade="@{ColorShade.SHADE2}" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/separator2"
+            style="@style/Divider"
+            android:layout_marginStart="@dimen/sixteen"
+            android:layout_marginTop="@dimen/eight"
+            android:layout_marginEnd="@dimen/sixteen"
+            android:layout_marginBottom="@dimen/eight"
+            app:layout_constraintTop_toBottomOf="@id/tvJoinCommunityMessage" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:nestedScrollingEnabled="false"
+            android:id="@+id/rvCommentFooter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/separator2" />
+
+    </merge>
+</layout>

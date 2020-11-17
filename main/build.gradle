@@ -1,0 +1,7 @@
+apply from: "../gradle/activity.gradle"
+
+dependencies {
+    api project(path: ':common')
+    api project(path: ':chatkit')
+    api project(path: ':community')
+}

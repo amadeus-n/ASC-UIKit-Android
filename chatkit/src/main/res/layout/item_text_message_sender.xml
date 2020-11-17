@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+        <import type="android.view.View"/>
+        <import type="com.ekoapp.ekosdk.uikit.utils.ScreenUtils"/>
+        <import type="android.content.Context" />
+        <variable
+            name="vmTextMessage"
+            type="com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoTextMessageViewModel" />
+        <variable
+            name="lonPressListener"
+            type="com.ekoapp.ekosdk.uikit.components.ILongPressListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include android:id="@+id/dateHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_date"
+            android:visibility="@{vmTextMessage.isDateVisible() ? View.VISIBLE : View.GONE}"
+            app:date="@{vmTextMessage.msgDate}"
+            app:dateFillColor="@{vmTextMessage.dateFillColor}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateHeader"
+            android:visibility="@{vmTextMessage.isDeleted() ? View.GONE : View.VISIBLE}">
+
+            <TextView
+                android:id="@+id/tvTimeOutgoing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vmTextMessage.isEdited() ? vmTextMessage.editedAt : vmTextMessage.msgTime}"
+                style="@style/TextStyleEkoCaption"
+                android:textColor="@color/upstraColorBase"
+                textColorShade="@{ColorShade.SHADE2}"
+                android:layout_marginTop="@dimen/four"
+                app:layout_constraintTop_toBottomOf="@id/tvMessageOutgoing"
+                app:layout_constraintEnd_toEndOf="@id/tvMessageOutgoing"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/tvTimeOutgoing"
+                app:layout_constraintTop_toTopOf="@id/tvTimeOutgoing"
+                android:textColor="@color/upstraColorBase"
+                textColorShade="@{ColorShade.SHADE2}"
+                android:text="@string/msg_edited"
+                android:layout_marginEnd="@dimen/four"
+                android:visibility="@{vmTextMessage.isEdited() ? View.VISIBLE : View.GONE}"
+                style="@style/TextStyleEkoCaption"/>
+
+            <com.ekoapp.ekosdk.uikit.components.EkoReadMoreTextView
+                android:id="@+id/tvMessageOutgoing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                message="@{vmTextMessage.text}"
+                isSender="@{true}"
+                longPress="@{lonPressListener}"
+                roundedCorner="@{true}"
+                topRightRadius="@{@dimen/zero}"
+                fillColor="@{vmTextMessage.senderFillColor}"
+                android:layout_marginStart="@dimen/one_hundred_fourteen"
+                android:layout_marginEnd="@dimen/sixteen"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constrainedWidth="true"
+                />
+
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                layout="@layout/layout_msg_error"
+                app:viewModel="@{vmTextMessage}"
+                android:layout_marginEnd="@dimen/four"
+                android:visibility="@{vmTextMessage.isFailed() ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toStartOf="@id/tvMessageOutgoing"
+                app:layout_constraintBottom_toBottomOf="@id/tvMessageOutgoing"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:roundedCorner="@{true}"
+                app:topRightRadius="@{@dimen/zero}"
+                android:backgroundTint="@color/upstraColorBase"
+                android:visibility="@{vmTextMessage.inSelectionMode ? View.VISIBLE : View.GONE}"
+                android:alpha="0.50"
+                app:layout_constraintStart_toStartOf="@id/tvMessageOutgoing"
+                app:layout_constraintEnd_toEndOf="@id/tvMessageOutgoing"
+                app:layout_constraintTop_toTopOf="@id/tvMessageOutgoing"
+                app:layout_constraintBottom_toBottomOf="@id/tvMessageOutgoing"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include layout="@layout/layout_msg_deleted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/twelve"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateHeader"
+            app:viewModel="@{vmTextMessage}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

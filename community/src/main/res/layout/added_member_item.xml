@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+        <variable
+            name="avatarUrl"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lAddedMemberItem"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/amAvatar"
+            android:layout_width="@dimen/twenty_eight"
+            android:layout_height="@dimen/twenty_eight"
+            app:shapeAppearanceOverlay="@style/CircleImage"
+            ekoBackgroundColor="@{@color/upstraColorPrimary}"
+            backgroundColorShade="@{ColorShade.SHADE3}"
+            android:scaleType="centerInside"
+            android:layout_marginStart="@dimen/eight"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/amName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/TextStyleEkoBody"
+            android:textColor="@color/upstraColorBase"
+            android:layout_marginStart="@dimen/six"
+            app:layout_constraintTop_toTopOf="@id/amAvatar"
+            app:layout_constraintBottom_toBottomOf="@id/amAvatar"
+            app:layout_constraintStart_toEndOf="@id/amAvatar"
+            app:layout_constraintEnd_toStartOf="@id/amCross"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <ImageView
+            android:id="@+id/amCross"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/amAvatar"
+            app:layout_constraintBottom_toBottomOf="@id/amAvatar"
+            app:layout_constraintStart_toEndOf="@id/amName"
+            android:src="@drawable/ic_uikit_filled_cross"
+            ekoFillColor="@{@color/upstraColorBase}"
+            ekoFillShade="@{ColorShade.SHADE4}"
+            android:layout_marginEnd="@dimen/nine"
+            android:layout_marginStart="@dimen/eight" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
