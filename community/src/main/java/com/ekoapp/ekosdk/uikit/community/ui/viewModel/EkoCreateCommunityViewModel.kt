@@ -9,7 +9,7 @@ import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.EkoCommunityRepository
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.file.EkoImage
-import com.ekoapp.ekosdk.file.upload.EkoImageUpload
+import com.ekoapp.ekosdk.file.upload.EkoUploadResult
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.uikit.community.data.SelectCategoryItem
 import com.ekoapp.ekosdk.uikit.community.data.SelectMemberItem
@@ -45,7 +45,7 @@ class EkoCreateCommunityViewModel : EkoBaseViewModel() {
         isAdmin.set(!isAdmin.get())
     }
 
-    fun uploadProfilePicture(uri: Uri): Flowable<EkoImageUpload> {
+    fun uploadProfilePicture(uri: Uri): Flowable<EkoUploadResult<EkoImage>> {
         val fileRepository = EkoClient.newFileRepository()
         return fileRepository.uploadImage(uri).isFullImage(true).build().transfer()
     }

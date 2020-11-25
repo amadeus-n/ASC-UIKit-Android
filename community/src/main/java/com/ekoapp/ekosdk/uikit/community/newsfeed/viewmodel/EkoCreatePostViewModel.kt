@@ -10,8 +10,7 @@ import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.file.EkoFile
 import com.ekoapp.ekosdk.file.EkoImage
-import com.ekoapp.ekosdk.file.upload.EkoFileUpload
-import com.ekoapp.ekosdk.file.upload.EkoImageUpload
+import com.ekoapp.ekosdk.file.upload.EkoUploadResult
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.uikit.common.FileUtils
 import com.ekoapp.ekosdk.uikit.community.domain.model.FileAttachment
@@ -212,14 +211,14 @@ class EkoCreatePostViewModel : EkoBaseViewModel() {
         }
     }
 
-    fun uploadImage(feedImage: FeedImage): Flowable<EkoImageUpload> {
+    fun uploadImage(feedImage: FeedImage): Flowable<EkoUploadResult<EkoImage>> {
         return fileRepository
             .uploadImage(feedImage.url)
             .uploadId(feedImage.uploadId!!)
             .isFullImage(true).build().transfer()
     }
 
-    fun uploadFile(attachment: FileAttachment): Flowable<EkoFileUpload> {
+    fun uploadFile(attachment: FileAttachment): Flowable<EkoUploadResult<EkoFile>> {
         return fileRepository
             .uploadFile(attachment.uri)
             .uploadId(attachment.uploadId!!)
@@ -302,23 +301,23 @@ class EkoCreatePostViewModel : EkoBaseViewModel() {
         triggerEvent(EventIdentifier.CREATE_POST_IMAGE_REMOVED, liveDataImage.value?.size ?: 0)
     }
 
-    fun updateImageUploadStatus(feedImage: FeedImage, ekoImageUpload: EkoImageUpload) {
+    fun updateImageUploadStatus(feedImage: FeedImage, ekoImageUpload: EkoUploadResult<EkoImage>) {
         when (ekoImageUpload) {
-            is EkoImageUpload.PROGRESS -> {
+            is EkoUploadResult.PROGRESS -> {
                 val updatedFeedImage = FeedImage(
                     feedImage.id,
                     feedImage.uploadId,
                     feedImage.url,
                     FileUploadState.UPLOADING,
-                    ekoImageUpload.uploadProgress.getProgressPercentage()
+                    ekoImageUpload.getUploadInfo().getProgressPercentage()
                 )
                 updateList(updatedFeedImage)
             }
-            is EkoImageUpload.COMPLETE -> {
+            is EkoUploadResult.COMPLETE -> {
                 uploadFailedImages.remove(feedImage.url.toString())
-                uploadedImageMap[ekoImageUpload.image.getFileId()] = ekoImageUpload.image
+                uploadedImageMap[ekoImageUpload.getFile().getFileId()] = ekoImageUpload.getFile()
                 val updatedFeedImage = FeedImage(
-                    ekoImageUpload.image.getFileId(),
+                    ekoImageUpload.getFile().getFileId(),
                     feedImage.uploadId,
                     feedImage.url,
                     FileUploadState.COMPLETE,
@@ -329,7 +328,7 @@ class EkoCreatePostViewModel : EkoBaseViewModel() {
                     triggerImageUploadFailedEvent()
                 }
             }
-            is EkoImageUpload.ERROR, EkoImageUpload.CANCELLED -> {
+            is EkoUploadResult.ERROR, EkoUploadResult.CANCELLED -> {
                 Log.d(TAG, "Image upload error " + feedImage.url)
                 if (imageMap.containsKey(feedImage.url.toString())) {
 
@@ -486,12 +485,12 @@ class EkoCreatePostViewModel : EkoBaseViewModel() {
         liveDataFiles.value = filesMap.values.toMutableList()
     }
 
-    fun updateFileUploadStatus(fileAttachment: FileAttachment, fileUpload: EkoFileUpload) {
+    fun updateFileUploadStatus(fileAttachment: FileAttachment, fileUpload: EkoUploadResult<EkoFile>) {
         when (fileUpload) {
-            is EkoFileUpload.PROGRESS -> {
+            is EkoUploadResult.PROGRESS -> {
                 Log.d(
                     TAG,
-                    "File upload progress " + fileAttachment.name + fileUpload.uploadProgress.getProgressPercentage()
+                    "File upload progress " + fileAttachment.name + fileUpload.getUploadInfo().getProgressPercentage()
                 )
                 val updatedFileAttachment = FileAttachment(
                     fileAttachment.id,
@@ -502,21 +501,21 @@ class EkoCreatePostViewModel : EkoBaseViewModel() {
                     fileAttachment.readableSize,
                     fileAttachment.mimeType,
                     FileUploadState.UPLOADING,
-                    fileUpload.uploadProgress.getProgressPercentage()
+                    fileUpload.getUploadInfo().getProgressPercentage()
                 )
                 updateList(updatedFileAttachment)
             }
-            is EkoFileUpload.COMPLETE -> {
+            is EkoUploadResult.COMPLETE -> {
                 Log.d(TAG, "File upload Complete " + fileAttachment.name)
-                uploadedFilesMap[fileUpload.file.getFileId()] = fileUpload.file
+                uploadedFilesMap[fileUpload.getFile().getFileId()] = fileUpload.getFile()
                 val updatedFileAttachment =
-                    mapEkoFileToFileAttachment(fileAttachment, fileUpload.file)
+                    mapEkoFileToFileAttachment(fileAttachment, fileUpload.getFile())
                 updateList(updatedFileAttachment)
                 if (!hasPendingFileToUpload() && hasFirstTimeFailedToUploadFiles()) {
                     triggerFileUploadFailedEvent()
                 }
             }
-            is EkoFileUpload.ERROR, EkoFileUpload.CANCELLED -> {
+            is EkoUploadResult.ERROR, EkoUploadResult.CANCELLED -> {
                 Log.d(TAG, "File upload error " + fileAttachment.name)
                 if (filesMap.containsKey(fileAttachment.uri.toString())) {
                     val updatedFileAttachment = FileAttachment(
