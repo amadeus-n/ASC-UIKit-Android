@@ -17,7 +17,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
-import com.ekoapp.ekosdk.file.upload.EkoImageUpload
+import com.ekoapp.ekosdk.file.upload.EkoUploadResult
 import com.ekoapp.ekosdk.uikit.common.toCircularShape
 import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
@@ -202,15 +202,15 @@ abstract class EkoCommunityCreateBaseFragment: Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext { uploadStatus ->
                     when (uploadStatus) {
-                        is EkoImageUpload.COMPLETE -> {
-                            mViewModel.ekoImage = uploadStatus.image
+                        is EkoUploadResult.COMPLETE -> {
+                            mViewModel.ekoImage = uploadStatus.getFile()
                             if (isEditCommunity) {
                                 editCommunity()
                             }else {
                                 createCommunity()
                             }
                         }
-                        is EkoImageUpload.ERROR, EkoImageUpload.CANCELLED -> {
+                        is EkoUploadResult.ERROR, EkoUploadResult.CANCELLED -> {
                             btnCreateCommunity.isEnabled = true
                             mViewModel.initialStateChanged.value = true
                             Toast.makeText(
