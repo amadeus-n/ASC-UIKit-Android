@@ -47,7 +47,6 @@ class EkoImageMsgSenderViewHolder(
     override fun setMessageData(item: EkoMessage) {
         val imageData = item.getData() as EkoMessage.Data.IMAGE
         itemViewModel.imageUrl.set(imageData.getUrl())
-        itemViewModel.uploadProgress.set(imageData.getUploadProgressPercentage())
         if (itemViewModel.imageUrl.get() != null && itemViewModel.imageUrl.get()!!
                 .isNotEmptyOrBlank()
         ) {

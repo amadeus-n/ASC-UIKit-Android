@@ -5,7 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.file.EkoImage
-import com.ekoapp.ekosdk.file.upload.EkoImageUpload
+import com.ekoapp.ekosdk.file.upload.EkoUploadResult
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.ekoapp.ekosdk.user.EkoUser
@@ -40,19 +40,19 @@ class EkoEditUserProfileViewModel : EkoBaseViewModel() {
         return updateUserBuilder.build().update()
     }
 
-    fun uploadProfilePicture(uri: Uri): Flowable<EkoImageUpload> {
+    fun uploadProfilePicture(uri: Uri): Flowable<EkoUploadResult<EkoImage>> {
         updating = true
         checkProfileUpdate()
         return EkoClient.newFileRepository().uploadImage(uri).isFullImage(true).build().transfer()
     }
 
-    fun updateImageUploadStatus(ekoImageUpload: EkoImageUpload) {
+    fun updateImageUploadStatus(ekoImageUpload: EkoUploadResult<EkoImage>) {
         when (ekoImageUpload) {
-            is EkoImageUpload.COMPLETE -> {
-                profileImage = ekoImageUpload.image
+            is EkoUploadResult.COMPLETE -> {
+                profileImage = ekoImageUpload.getFile()
                 triggerEvent(EventIdentifier.PROFILE_PICTURE_UPLOAD_SUCCESS)
             }
-            is EkoImageUpload.ERROR, EkoImageUpload.CANCELLED -> {
+            is EkoUploadResult.ERROR, EkoUploadResult.CANCELLED -> {
                 updating = false
                 checkProfileUpdate()
                 triggerEvent(EventIdentifier.PROFILE_PICTURE_UPLOAD_FAILED)
