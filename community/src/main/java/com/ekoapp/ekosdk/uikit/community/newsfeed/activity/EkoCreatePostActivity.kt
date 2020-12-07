@@ -4,14 +4,23 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragmentContainerActivity
+import com.ekoapp.ekosdk.uikit.base.EkoBaseToolbarFragmentContainerActivity
+import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.explore.activity.EXTRA_PARAM_COMMUNITY
 import com.ekoapp.ekosdk.uikit.community.newsfeed.fragment.EkoPostCreateFragment
 import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED_ID
 
-class EkoCreatePostActivity : EkoBaseFragmentContainerActivity() {
+class EkoCreatePostActivity : EkoBaseToolbarFragmentContainerActivity() {
+
+    override fun initToolbar() {
+        val community = intent?.getParcelableExtra<EkoCommunity>(EXTRA_PARAM_COMMUNITY)
+        getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross))
+        getToolBar()?.setLeftString(if(community != null) community.getDisplayName() else getString(R.string.my_timeline))
+    }
 
     override fun getContentFragment(): Fragment {
         val community = intent?.getParcelableExtra<EkoCommunity>(EXTRA_PARAM_COMMUNITY)

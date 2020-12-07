@@ -24,8 +24,8 @@ class EkoCreateCommunityViewModelTest {
     @Test
     fun initTest() {
         val viewModel = EkoCreateCommunityViewModel()
-        assertEquals(viewModel.initialCategory, "General")
-        assertEquals(viewModel.category.get(), SelectCategoryItem(name = "General"))
+        assertEquals(viewModel.initialCategory, "")
+        assertEquals(viewModel.category.get(), SelectCategoryItem())
         assertTrue(viewModel.initialStateChanged.value == false)
         assertEquals(viewModel.communityId.get(), "")
         assertEquals(viewModel.communityName.get(), "")
@@ -103,12 +103,14 @@ class EkoCreateCommunityViewModelTest {
         every { ekoCommunity.isPublic() } returns true
         every { ekoCommunity.getAvatar() } returns ekoImage
         every { ekoCommunity.getCategories() } returns mockList
+        every { ekoCommunity.getCommunityId() } returns "testID"
 
         val viewModel = EkoCreateCommunityViewModel()
         viewModel.setCommunityDetails(ekoCommunity)
         assertEquals(viewModel.communityName.get(), displayName)
         assertEquals(viewModel.description.get(), description)
         assertEquals(viewModel.avatarUrl.get(), "testUrl")
+        assertEquals(viewModel.communityId.get(), "testID")
         assertTrue(viewModel.isPublic.get())
     }
 

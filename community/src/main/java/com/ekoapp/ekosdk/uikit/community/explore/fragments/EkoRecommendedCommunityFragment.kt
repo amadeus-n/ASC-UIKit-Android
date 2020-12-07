@@ -46,6 +46,10 @@ class EkoRecommendedCommunityFragment : EkoBaseFragment(), IMyCommunityItemClick
         addItemTouchListener()
     }
 
+    internal fun refresh() {
+        getRecommendedCommunity()
+    }
+
     private fun initializeRecyclerView() {
         mAdapter = EkoRecommendedCommunitiesAdapter(this)
         rvRecommCommunity.layoutManager = LinearLayoutManager(
@@ -58,6 +62,10 @@ class EkoRecommendedCommunityFragment : EkoBaseFragment(), IMyCommunityItemClick
             requireContext().resources.getDimensionPixelSize(R.dimen.eight)))
         rvRecommCommunity.setHasFixedSize(true)
 
+        getRecommendedCommunity()
+    }
+
+    private fun getRecommendedCommunity() {
         disposable.add(mViewModel.getRecommendedCommunity().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext {

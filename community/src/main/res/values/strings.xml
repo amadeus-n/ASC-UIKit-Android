@@ -95,7 +95,6 @@
     <string name="upload_incomplete">Upload incomplete</string>
     <string name="image_upload_failed_message">Some images could not be uploaded. Please remove and try again</string>
     <string name="attachment_upload_failed_message">Some files could not be uploaded. Please remove and try again</string>
-    <string name="ok">OK</string>
     <string name="report_post">Report post</string>
     <string name="no_community">No community found</string>
     <string name="bullet">•</string>

@@ -1,6 +1,7 @@
 package com.ekoapp.ekosdk.uikit.community.explore.fragments
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,10 @@ import com.ekoapp.ekosdk.uikit.community.explore.listener.ICategoryPreviewFragme
 import com.ekoapp.ekosdk.uikit.community.explore.listener.IRecommendedCommunityFragmentDelegate
 import com.ekoapp.ekosdk.uikit.community.explore.listener.ITrendingCommunityFragmentDelegate
 import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoExploreCommunityViewModel
+import com.ekoapp.ekosdk.uikit.community.mycommunity.fragment.EkoMyCommunityPreviewFragment
+import com.ekoapp.ekosdk.uikit.community.newsfeed.fragment.EkoGlobalFeedFragment
+import com.google.android.material.appbar.AppBarLayout
+import kotlinx.android.synthetic.main.fragment_news_feed.*
 
 class EkoExploreFragment internal constructor(): Fragment() {
 
@@ -32,6 +37,8 @@ class EkoExploreFragment internal constructor(): Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initListener()
+
         if(savedInstanceState == null) {
             val fragmentManager = childFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
@@ -40,6 +47,29 @@ class EkoExploreFragment internal constructor(): Fragment() {
             fragmentTransaction.add(R.id.categoryContainer, getCategoryPreviewFragment())
             fragmentTransaction.commit()
             fragmentManager.executePendingTransactions()
+        }
+    }
+
+    private fun initListener() {
+        refreshLayout.setColorSchemeResources(R.color.upstraColorPrimary)
+        refreshLayout.setOnRefreshListener {
+            childFragmentManager.fragments.forEach { fragment ->
+                when(fragment) {
+                    is EkoCategoryPreviewFragment -> {
+                        fragment.refresh()
+                    }
+                    is EkoTrendingCommunityFragment -> {
+                        fragment.refresh()
+                    }
+                    is EkoRecommendedCommunityFragment -> {
+                        fragment.refresh()
+                    }
+                }
+            }
+
+            Handler().postDelayed({
+                refreshLayout?.isRefreshing = false
+            }, 1000)
         }
     }
 

@@ -2,11 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ekoapp.ekosdk.uikit.chat">
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
     <application>
-        <activity
-            android:name=".messages.EkoImagePreviewActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.EkoApp" />
         <activity
             android:name=".editMessage.EkoEditMessageActivity"
             android:screenOrientation="portrait"

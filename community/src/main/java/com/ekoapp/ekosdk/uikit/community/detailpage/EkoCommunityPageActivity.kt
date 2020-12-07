@@ -2,39 +2,29 @@ package com.ekoapp.ekosdk.uikit.community.detailpage
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import com.ekoapp.ekosdk.uikit.base.EkoBaseActivity
-import com.ekoapp.ekosdk.uikit.community.BR
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import com.ekoapp.ekosdk.uikit.base.EkoBaseToolbarFragmentContainerActivity
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.ActivityEkoCommunityDetailBinding
 
 class EkoCommunityPageActivity :
-    EkoBaseActivity<ActivityEkoCommunityDetailBinding, EkoCommunityDetailViewModel>(){
+    EkoBaseToolbarFragmentContainerActivity(){
 
-    private val mViewModel: EkoCommunityDetailViewModel by viewModels()
+    override fun initToolbar() {
+        getToolBar()?.setLeftDrawable(
+            ContextCompat.getDrawable(
+                this,
+                R.drawable.ic_uikit_arrow_back
+            )
+        )
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = EkoCommunityPageFragment.Builder()
+    override fun getContentFragment(): Fragment {
+        return EkoCommunityPageFragment.Builder()
             .setCommunityId(intent?.extras?.getString(COMMUNITY_ID) ?: "")
             .createCommunitySuccess(intent?.extras?.getBoolean(IS_CREATE_COMMUNITY) ?: false)
             .build(this)
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
-        fragmentTransaction.commit()
     }
-
-
-
-    override fun getLayoutId(): Int = R.layout.activity_eko_community_detail
-
-    override fun getViewModel(): EkoCommunityDetailViewModel = mViewModel
-
-    override fun getBindingVariable(): Int = BR.viewModel
 
     companion object {
         private const val COMMUNITY_ID = "COMMUNITY_ID"

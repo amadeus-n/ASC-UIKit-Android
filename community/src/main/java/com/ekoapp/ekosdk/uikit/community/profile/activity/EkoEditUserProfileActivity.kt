@@ -2,25 +2,25 @@ package com.ekoapp.ekosdk.uikit.community.profile.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import com.ekoapp.ekosdk.uikit.base.EkoBaseToolbarFragmentContainerActivity
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.profile.fragment.EkoEditUserProfileFragment
 
-class EkoEditUserProfileActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_eko_edit_user_profile)
-        if (savedInstanceState == null)
-            addUserProfileFragment()
+class EkoEditUserProfileActivity : EkoBaseToolbarFragmentContainerActivity() {
+
+    override fun initToolbar() {
+        getToolBar()?.setLeftDrawable(
+            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+        )
+        getToolBar()?.setLeftString(getString(R.string.edit_profile))
     }
 
-    private fun addUserProfileFragment() {
-        val fragment = EkoEditUserProfileFragment.Builder().build(this)
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, fragment)
-        transaction.commit()
+    override fun getContentFragment(): Fragment {
+        return EkoEditUserProfileFragment.Builder().build(this)
     }
+
 
     companion object {
         fun newIntent(context: Context) =

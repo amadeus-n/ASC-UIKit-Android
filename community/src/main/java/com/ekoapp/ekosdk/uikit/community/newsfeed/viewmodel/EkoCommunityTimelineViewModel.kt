@@ -5,6 +5,7 @@ import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.EkoFeedRepository
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.feed.EkoPost
+import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IAvatarClickListener
 import io.reactivex.Flowable
 import io.reactivex.Single
 
@@ -12,6 +13,7 @@ class EkoCommunityTimelineViewModel : EkoBaseFeedViewModel() {
     var communityId : String? = null
     var community : EkoCommunity? = null
     var hasAdminAccess: Boolean = false
+    var avatarClickListener: IAvatarClickListener? = null
 
     override fun getFeed(): Flowable<PagedList<EkoPost>>? {
         if(community != null) {

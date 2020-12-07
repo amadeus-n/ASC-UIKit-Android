@@ -46,16 +46,23 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
             '**/*Adapter$*.class',
             '**/*Fragment.*',
             '**/*Fragment$*.class',
+            '**/*EkoMessageItemUtil.class',
+            '**/EkoPopUp.class',
+            '**/EkoMessageType.class'
     ]
 
     def debugTree = fileTree(
+            dir: "$buildDir/intermediates/classes/debug",
+            excludes: fileFilter
+    )
+    def kotlinDebugTree = fileTree(
             dir: "$buildDir/tmp/kotlin-classes/debug",
             excludes: fileFilter
     )
     def mainSrc = "$projectDir/src/main/java"
 
     sourceDirectories.from = files([mainSrc])
-    classDirectories.from = files([debugTree])
+    classDirectories.from = files([debugTree], [kotlinDebugTree])
     executionData.from = fileTree(
             dir: project.buildDir,
             includes: [

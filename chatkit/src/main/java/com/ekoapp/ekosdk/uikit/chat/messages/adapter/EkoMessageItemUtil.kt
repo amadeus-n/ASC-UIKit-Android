@@ -6,6 +6,7 @@ import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.message.EkoMessage
 import com.ekoapp.ekosdk.uikit.chat.R
 import com.ekoapp.ekosdk.uikit.chat.messages.viewHolder.*
+import com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoAudioMsgViewModel
 import com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoImageMsgViewModel
 import com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoTextMessageViewModel
 import com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoUnknownMsgViewModel
@@ -17,7 +18,8 @@ class EkoMessageItemUtil {
         inflater: LayoutInflater,
         parent: ViewGroup,
         itemType: Int,
-        iViewHolder: EkoMessageListAdapter.ICustomViewHolder?
+        iViewHolder: EkoMessageListAdapter.ICustomViewHolder?,
+        listener: IAudioPlayCallback
     ): EkoChatMessageBaseViewHolder {
         return when (itemType) {
             MessageType.MESSAGE_ID_TEXT_RECEIVER -> getReceiverTextMsgViewHolder(
@@ -43,6 +45,20 @@ class EkoMessageItemUtil {
                 parent,
                 itemType,
                 iViewHolder
+            )
+            MessageType.MESSAGE_ID_AUDIO_RECEIVER -> getReceiverAudioMsgViewHolder(
+                inflater,
+                parent,
+                itemType,
+                iViewHolder,
+                listener
+            )
+            MessageType.MESSAGE_ID_AUDIO_SENDER -> getSenderAudioMsgViewHolder(
+                inflater,
+                parent,
+                itemType,
+                iViewHolder,
+                listener
             )
             MessageType.MESSAGE_ID_CUSTOM_RECEIVER -> getReceiverCustomMessageViewHolder(
                 inflater,
@@ -133,6 +149,42 @@ class EkoMessageItemUtil {
         }
     }
 
+    private fun getReceiverAudioMsgViewHolder(
+        inflater: LayoutInflater, parent: ViewGroup,
+        itemType: Int,
+        iViewHolder: EkoMessageListAdapter.ICustomViewHolder?,
+        listener: IAudioPlayCallback): EkoChatMessageBaseViewHolder {
+        return if (iViewHolder?.getViewHolder(inflater, parent, itemType) != null) {
+            iViewHolder.getViewHolder(inflater, parent, itemType)!!
+        } else {
+            val itemViewModel = EkoAudioMsgViewModel()
+            EkoAudioMsgReceiverViewHolder(
+                inflater.inflate(
+                    R.layout.item_audio_message_receiver,
+                    parent, false
+                ), itemViewModel, parent.context, listener
+            )
+        }
+    }
+
+    private fun getSenderAudioMsgViewHolder(
+        inflater: LayoutInflater, parent: ViewGroup,
+        itemType: Int,
+        iViewHolder: EkoMessageListAdapter.ICustomViewHolder?,
+        listener: IAudioPlayCallback): EkoChatMessageBaseViewHolder {
+        return if (iViewHolder?.getViewHolder(inflater, parent, itemType) != null) {
+            iViewHolder.getViewHolder(inflater, parent, itemType)!!
+        } else {
+            val itemViewModel = EkoAudioMsgViewModel()
+            EkoAudioMsgSenderViewHolder(
+                inflater.inflate(
+                    R.layout.item_audio_message_sender,
+                    parent, false
+                ), itemViewModel, parent.context, listener
+            )
+        }
+    }
+
     private fun getUnknownMessageViewHolder(inflater: LayoutInflater, parent: ViewGroup):
             EkoChatMessageBaseViewHolder {
         return EkoUnknownMessageViewHolder(
@@ -200,6 +252,11 @@ class EkoMessageItemUtil {
                 MessageType.MESSAGE_ID_FILE_SENDER
             } else {
                 MessageType.MESSAGE_ID_FILE_RECEIVER
+            }
+            EkoMessage.DataType.AUDIO -> if (isSelf) {
+                MessageType.MESSAGE_ID_AUDIO_SENDER
+            }else {
+                MessageType.MESSAGE_ID_AUDIO_RECEIVER
             }
             EkoMessage.DataType.CUSTOM -> if (isSelf) {
                 MessageType.MESSAGE_ID_CUSTOM_SENDER

@@ -60,13 +60,13 @@ class EkoPostTargetSelectionFragment internal constructor() : EkoBaseFragment(),
 
     private fun initRecyclerView() {
         mAdapter = EkoCreatePostCommunitySelectionAdapter(this)
-        rvCommunity.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, true)
+        rvCommunity.layoutManager = LinearLayoutManager(requireContext())
         rvCommunity.adapter = mAdapter
         rvCommunity.addItemDecoration(
             EkoRecyclerViewItemDecoration(resources.getDimensionPixelSize(R.dimen.eight),
             0, resources.getDimensionPixelSize(R.dimen.eight))
         )
-
+        rvCommunity.hasFixedSize()
         mViewModel.getCommunityList().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext {

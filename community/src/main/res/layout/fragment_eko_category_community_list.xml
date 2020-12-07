@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
     </data>
 
@@ -13,23 +12,6 @@
         android:layout_height="match_parent"
         tools:context=".explore.activity.EkoCategoryListActivity">
 
-        <com.ekoapp.ekosdk.uikit.components.EkoToolBar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:theme="@style/BaseToolBarStyle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/divider"
-            backgroundColorShade="@{ColorShade.SHADE4}"
-            ekoBackgroundColor="@{@color/upstraColorBase}"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
         <com.ekoapp.ekosdk.uikit.common.views.list.EkoRecyclerView
             android:id="@+id/rvCommunity"
             android:layout_width="match_parent"
@@ -37,7 +19,7 @@
             android:layout_marginStart="@dimen/sixteen"
             android:layout_marginEnd="@dimen/sixteen"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/emptyView"
@@ -47,7 +29,7 @@
             android:orientation="vertical"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/ivIcon"

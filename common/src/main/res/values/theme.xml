@@ -18,6 +18,7 @@
         <item name="colorOnBackground">@color/colorPrimary</item>-->
         <item name="colorError">@color/upstraColorAlert</item>
         <item name="colorOnError">@color/white</item>
+        <item name="android:actionMenuTextColor">@color/upstraColorHighlight</item>
 
         <item name="materialAlertDialogTheme">@style/EkoAlertDialogTheme</item>
         <item name="snackbarStyle">@style/EkoSnackBarStyle</item>

@@ -1,7 +1,7 @@
 package com.ekoapp.ekosdk.uikit.community.home.listener
 
-import androidx.fragment.app.Fragment
+import com.ekoapp.ekosdk.uikit.community.mycommunity.fragment.EkoMyCommunityPreviewFragment
 
 interface IMyCommunityListPreviewFragmentDelegate {
-    fun getMyCommunityListPreviewFragment() : Fragment
+    fun getMyCommunityListPreviewFragment() : EkoMyCommunityPreviewFragment
 }

@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.comment.EkoComment
@@ -35,7 +34,6 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostFileItemClickLis
 import com.ekoapp.ekosdk.uikit.community.newsfeed.util.EkoTimelineType
 import com.ekoapp.ekosdk.uikit.community.newsfeed.util.NewsFeedEvents
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoBaseFeedViewModel
-import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoNewsFeedViewModel
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
@@ -111,6 +109,11 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
     }
 
     abstract fun getViewModel(): EkoBaseFeedViewModel
+
+    internal fun refresh() {
+        NewsFeedEvents.newPostCreated = true
+        getFeeds()
+    }
 
     private fun getFeeds() {
         val disposable = getViewModel().getFeed()

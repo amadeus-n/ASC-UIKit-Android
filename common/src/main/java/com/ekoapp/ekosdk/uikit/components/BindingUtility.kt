@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -19,6 +20,7 @@ import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.ekoapp.ekosdk.uikit.R
 import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
@@ -29,6 +31,7 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
+import java.io.File
 
 
 @BindingAdapter(value = ["textColorShade", "textColorHintShade"], requireAll = false)
@@ -327,14 +330,22 @@ fun setRoundedCorner(
 fun setImageUrl(view: ImageView, imageUrl: String?, placeholder: Drawable?) {
     var glideImageUrl = imageUrl
     var mPlaceholder = placeholder
+    var imageUri: Uri = Uri.EMPTY
     if (imageUrl == null) {
         glideImageUrl = ""
     }
     if (placeholder == null) {
         mPlaceholder = ContextCompat.getDrawable(view.context, R.drawable.ic_uikit_user)
     }
+    val imageSynced = if (glideImageUrl!!.startsWith("https")) {
+        true
+    }else {
+        imageUri = Uri.fromFile(File(glideImageUrl))
+        false
+    }
+
     Glide.with(view.context)
-        .load(glideImageUrl)
+        .load(if (imageSynced) glideImageUrl else imageUri)
         .centerCrop()
         .placeholder(mPlaceholder)
         .error(mPlaceholder)

@@ -45,8 +45,8 @@ class EkoImageMsgSenderViewHolder(
     }
 
     override fun setMessageData(item: EkoMessage) {
-        val imageData = item.getData() as EkoMessage.Data.IMAGE
-        itemViewModel.imageUrl.set(imageData.getUrl())
+        itemViewModel.getImageUploadProgress(item)
+
         if (itemViewModel.imageUrl.get() != null && itemViewModel.imageUrl.get()!!
                 .isNotEmptyOrBlank()
         ) {
@@ -67,7 +67,9 @@ class EkoImageMsgSenderViewHolder(
         }
 
         binding?.ivMsgOutgoing?.setOnClickListener {
-            navigateToImagePreview(imageData.getUrl())
+            itemViewModel.imageUrl.get()?.let {
+                navigateToImagePreview(it)
+            }
         }
 
         binding?.progressBar?.trackColor = ColorPaletteUtil.getColor(

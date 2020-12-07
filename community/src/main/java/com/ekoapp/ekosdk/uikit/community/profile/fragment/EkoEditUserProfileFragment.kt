@@ -2,13 +2,11 @@ package com.ekoapp.ekosdk.uikit.community.profile.fragment
 
 import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -17,20 +15,23 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.base.EkoPickerFragment
+import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
+import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.common.views.dialog.EkoBottomSheetDialogFragment
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoEditUserProfileBinding
 import com.ekoapp.ekosdk.uikit.community.profile.viewmodel.EkoEditUserProfileViewModel
-import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
+import com.ekoapp.ekosdk.uikit.utils.EkoOptionMenuColorUtil
 import com.ekoapp.ekosdk.user.EkoUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_category_list.*
 import java.io.File
 
 
-class EkoEditUserProfileFragment : EkoPickerFragment(), EkoToolBarClickListener {
+class EkoEditUserProfileFragment : EkoPickerFragment() {
+    private var menuItemSaveProfile: MenuItem? = null
+    private val ID_MENU_ITEM_SAVE_PROFILE: Int = 111
     private val TAG = EkoEditUserProfileFragment::class.java.canonicalName
     private val mViewModel: EkoEditUserProfileViewModel by activityViewModels()
     lateinit var mBinding: FragmentEkoEditUserProfileBinding
@@ -75,7 +76,8 @@ class EkoEditUserProfileFragment : EkoPickerFragment(), EkoToolBarClickListener 
             mViewModel.checkProfileUpdate()
         })
         mViewModel.hasProfileUpdate.observe(viewLifecycleOwner, Observer {
-            toolbar.setRightStringActive(it)
+            if (it != null)
+                updateSaveProfileMenu(it)
         })
     }
 
@@ -132,29 +134,38 @@ class EkoEditUserProfileFragment : EkoPickerFragment(), EkoToolBarClickListener 
     }
 
     private fun initToolBar() {
-        toolbar.setLeftDrawable(
-            ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_arrow_back)
-        )
-        toolbar.setLeftString(getString(R.string.edit_profile))
-        toolbar.setRightString(getString(R.string.save))
-        toolbar.setRightStringActive(false)
-        toolbar.setClickListener(this)
-        (activity as AppCompatActivity).supportActionBar?.displayOptions =
-            ActionBar.DISPLAY_SHOW_CUSTOM
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.edit_profile)
     }
 
-    override fun leftIconClick() {
-        activity?.onBackPressed()
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menuItemSaveProfile =
+            menu.add(Menu.NONE, ID_MENU_ITEM_SAVE_PROFILE, Menu.NONE, getString(R.string.save))
+        menuItemSaveProfile?.setTitle(R.string.save)
+            ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        updateSaveProfileMenu(mViewModel.hasProfileUpdate.value ?: false)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun rightIconClick() {
-        if (profileUri == null) {
-            updateUser()
-        } else {
-            uploadProfilePicture(profileUri!!)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == ID_MENU_ITEM_SAVE_PROFILE){
+            if (profileUri == null) {
+                updateUser()
+            } else {
+                uploadProfilePicture(profileUri!!)
+            }
+            return false
         }
+        return super.onOptionsItemSelected(item)
+    }
 
+    private fun updateSaveProfileMenu(enabled: Boolean) {
+        menuItemSaveProfile?.isEnabled = enabled
+        val s = SpannableString(getString(R.string.save))
+        s.setSpan(
+            ForegroundColorSpan(EkoOptionMenuColorUtil.getColor(menuItemSaveProfile?.isEnabled ?: false, requireContext())), 0, s.length, 0
+        )
+        menuItemSaveProfile?.title = s
     }
 
     private fun addViewModelListener() {

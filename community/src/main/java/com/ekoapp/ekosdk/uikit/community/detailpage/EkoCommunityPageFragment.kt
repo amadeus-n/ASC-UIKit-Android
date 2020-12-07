@@ -1,31 +1,32 @@
 package com.ekoapp.ekosdk.uikit.community.detailpage
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.*
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.uikit.base.EkoFragmentStateAdapter
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.setting.EkoCommunitySettingsActivity
 import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoCommunityPageBinding
+import com.ekoapp.ekosdk.uikit.community.detailpage.listener.IEditCommunityProfileClickListener
+import com.ekoapp.ekosdk.uikit.community.detailpage.listener.IMessageClickListener
 import com.ekoapp.ekosdk.uikit.community.edit.EkoCommunityProfileActivity
 import com.ekoapp.ekosdk.uikit.community.members.EkoCommunityMemberSettingsActivity
 import com.ekoapp.ekosdk.uikit.community.newsfeed.fragment.EkoCommunityFeedFragment
 import com.ekoapp.ekosdk.uikit.community.profile.listener.IFeedFragmentDelegate
+import com.ekoapp.ekosdk.uikit.community.setting.EkoCommunitySettingsActivity
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
 import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -35,7 +36,8 @@ import kotlinx.android.synthetic.main.fragment_eko_community_page.*
 private const val ARG_COMMUNITY_ID = "ARG_COMMUNITY_ID"
 private const val ARG_IS_CREATE_COMMUNITY = "ARG_IS_CREATE_COMMUNITY"
 
-class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener {
+class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
+    AppBarLayout.OnOffsetChangedListener {
     private var isCreateCommunity: Boolean = false
 
     private val TAG = EkoCommunityPageFragment::class.java.canonicalName
@@ -47,7 +49,8 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProvider(requireActivity()).get(EkoCommunityDetailViewModel::class.java)
+        mViewModel =
+            ViewModelProvider(requireActivity()).get(EkoCommunityDetailViewModel::class.java)
         arguments?.let {
             mViewModel.communityID = it.getString(ARG_COMMUNITY_ID) ?: ""
             isCreateCommunity = it.getBoolean(ARG_IS_CREATE_COMMUNITY)
@@ -59,8 +62,10 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val mBinding: FragmentEkoCommunityPageBinding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_eko_community_page, container, false)
+        val mBinding: FragmentEkoCommunityPageBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_eko_community_page, container, false
+        )
         mBinding.viewModel = mViewModel
         return mBinding.root
     }
@@ -75,7 +80,10 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener {
         }
         fabCreatePost.setOnClickListener {
             if (mViewModel.ekoCommunity != null)
-                EkoCommunityNavigation.navigateToCreatePost(requireContext(), mViewModel.ekoCommunity!!)
+                EkoCommunityNavigation.navigateToCreatePost(
+                    requireContext(),
+                    mViewModel.ekoCommunity!!
+                )
         }
         tvMembersCount.setOnClickListener {
             navigateToMembersPage()
@@ -90,18 +98,45 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener {
         if (isCreateCommunity) {
             showCommunitySuccessMessage()
         }
+
+        refreshLayout.setColorSchemeResources(R.color.upstraColorPrimary)
+        refreshLayout.setOnRefreshListener {
+            getCommunityDetail()
+            childFragmentManager.fragments.forEach { fragment ->
+                when (fragment) {
+                    is EkoCommunityFeedFragment -> {
+                        fragment.refresh()
+                    }
+                }
+            }
+            Handler().postDelayed({
+                refreshLayout?.isRefreshing = false
+            }, 1000)
+        }
     }
 
     private fun navigateToMembersPage() {
-        val intent = EkoCommunityMemberSettingsActivity.newIntent(requireContext(),
-            mViewModel.communityID, mViewModel.isPublic.get())
+        val intent = EkoCommunityMemberSettingsActivity.newIntent(
+            requireContext(),
+            mViewModel.communityID, mViewModel.isPublic.get()
+        )
         startActivity(intent)
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+        refreshLayout.isEnabled = (verticalOffset == 0)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        appBar.removeOnOffsetChangedListener(this)
     }
 
     override fun onResume() {
         super.onResume()
         setUserRole()
         refreshDetails()
+        appBar.addOnOffsetChangedListener(this)
     }
 
     private fun refreshDetails() {
@@ -113,16 +148,6 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener {
     }
 
     private fun setUpToolbar() {
-        communityDetailToolbar.setLeftDrawable(
-            ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.ic_uikit_arrow_back
-            )
-        )
-
-        (activity as AppCompatActivity).supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        (activity as AppCompatActivity).setSupportActionBar(communityDetailToolbar as Toolbar)
-        communityDetailToolbar.setClickListener(this)
     }
 
     private fun getCommunityDetail() {
@@ -160,9 +185,10 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener {
             arrayListOf(
                 EkoFragmentStateAdapter.EkoPagerModel(
                     getString(R.string.timeline),
-                    getFeedFragment(community))
+                    getFeedFragment(community)
                 )
             )
+        )
 
         ccDetailTab.setAdapter(fragmentStateAdapter)
     }
@@ -171,12 +197,14 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener {
         if (mViewModel.feedFragmentDelegate != null) {
             return mViewModel.feedFragmentDelegate!!.getFeedFragment()
         }
-        return EkoCommunityFeedFragment.Builder().community(community).build(activity as AppCompatActivity)
+        return EkoCommunityFeedFragment.Builder().community(community)
+            .build(activity as AppCompatActivity)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         if (mViewModel.isMember.get()) {
-            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_more_horiz)
+            val drawable =
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_more_horiz)
             drawable?.mutate()
             drawable?.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
                 R.color.black, BlendModeCompat.SRC_ATOP
@@ -200,19 +228,29 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener {
         mViewModel.onEventReceived += { event ->
             when (event.type) {
                 EventIdentifier.EDIT_PROFILE -> {
-                    startActivity(
-                        EkoCommunityProfileActivity.newIntent(
-                            requireContext(),
-                            mViewModel.communityID
+                    if (mViewModel.editCommunityProfileClickListener != null) {
+                        mViewModel.editCommunityProfileClickListener?.onClickEditCommunityProfile(mViewModel.ekoCommunity)
+                    } else {
+                        startActivity(
+                            EkoCommunityProfileActivity.newIntent(
+                                requireContext(),
+                                mViewModel.communityID
+                            )
                         )
-                    )
+                    }
                 }
                 EventIdentifier.MODERATOR_MESSAGE -> Toast.makeText(
                     requireContext(),
                     getString(R.string.moderator_msg),
                     Toast.LENGTH_LONG
                 ).show()
+                EventIdentifier.SEND_MESSAGE -> {
+                    if (mViewModel.messageClickListener != null) {
+                        mViewModel.messageClickListener?.onClickMessage(mViewModel.ekoCommunity)
+                    }
+                }
                 else -> {
+
                 }
             }
         }
@@ -269,6 +307,8 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener {
         private var communityId: String = ""
         private var communityCreated = false
         private var feedFragmentDelegate: IFeedFragmentDelegate? = null
+        private var messageClickListener: IMessageClickListener? = null
+        private var editCommunityProfileClickListener: IEditCommunityProfileClickListener? = null
 
         fun build(activity: AppCompatActivity): EkoCommunityPageFragment {
             val fragment = EkoCommunityPageFragment().apply {
@@ -277,8 +317,11 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener {
                     putBoolean(ARG_IS_CREATE_COMMUNITY, communityCreated)
                 }
             }
-            fragment.mViewModel = ViewModelProvider(activity).get(EkoCommunityDetailViewModel::class.java)
-            fragment.mViewModel.feedFragmentDelegate = this.feedFragmentDelegate
+            fragment.mViewModel =
+                ViewModelProvider(activity).get(EkoCommunityDetailViewModel::class.java)
+            fragment.mViewModel.feedFragmentDelegate = feedFragmentDelegate
+            fragment.mViewModel.messageClickListener = messageClickListener
+            fragment.mViewModel.editCommunityProfileClickListener = editCommunityProfileClickListener
             return fragment
         }
 
@@ -295,6 +338,14 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener {
         fun feedFragmentDelegate(delegate: IFeedFragmentDelegate): Builder {
             feedFragmentDelegate = delegate
             return this
+        }
+
+        fun onClickMessage(onMessageClickListener: IMessageClickListener): Builder {
+            return apply { this.messageClickListener = onMessageClickListener }
+        }
+
+        fun onClickEditCommunityProfile(onEditCommunityProfileClickListener: IEditCommunityProfileClickListener): Builder {
+            return apply { this.editCommunityProfileClickListener = onEditCommunityProfileClickListener }
         }
     }
 }

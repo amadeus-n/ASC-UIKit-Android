@@ -20,4 +20,7 @@
     <string name="album">Album</string>
     <string name="file">File</string>
     <string name="location">Location</string>
+    <string name="hold_to_record">Hold to record</string>
+    <string name="message_is_too_short">Message is too short.</string>
+    <string name="playback_error">Unable to play message.</string>
 </resources>

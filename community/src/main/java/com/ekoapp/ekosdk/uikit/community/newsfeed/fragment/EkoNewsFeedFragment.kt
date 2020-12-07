@@ -2,6 +2,7 @@ package com.ekoapp.ekosdk.uikit.community.newsfeed.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,9 +23,11 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoNewsFeedViewModel
 import com.ekoapp.ekosdk.uikit.community.ui.view.EkoCommunityCreateActivity
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_news_feed.*
 
-class EkoNewsFeedFragment internal constructor(): EkoBaseFragment() {
+class EkoNewsFeedFragment internal constructor() : EkoBaseFragment(),
+    AppBarLayout.OnOffsetChangedListener {
 
     private lateinit var mBinding: FragmentNewsFeedBinding
     private lateinit var mViewModel: EkoNewsFeedViewModel
@@ -60,24 +63,56 @@ class EkoNewsFeedFragment internal constructor(): EkoBaseFragment() {
 
         fabCreatePost.setOnClickListener {
             activity?.let {
-                if(mViewModel.createPostButtonClickListener != null)
+                if (mViewModel.createPostButtonClickListener != null)
                     mViewModel.createPostButtonClickListener!!.onClickCreatePost()
                 else
                     EkoCommunityNavigation.navigateToCreatePostRoleSelection(it)
             }
 
         }
+
+        refreshLayout.setColorSchemeResources(R.color.upstraColorPrimary)
+        refreshLayout.setOnRefreshListener {
+            childFragmentManager.fragments.forEach { fragment ->
+                when (fragment) {
+                    is EkoGlobalFeedFragment -> {
+                        fragment.refresh()
+                    }
+                    is EkoMyCommunityPreviewFragment -> {
+                        fragment.refresh()
+                    }
+                }
+            }
+
+            Handler().postDelayed({
+                refreshLayout?.isRefreshing = false
+            }, 1000)
+        }
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+        refreshLayout.isEnabled = (verticalOffset == 0)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        appBar.addOnOffsetChangedListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        appBar.removeOnOffsetChangedListener(this)
     }
 
     private fun getMyCommunityPreviewFragment(): Fragment {
-        if(mViewModel.myCommunityListPreviewFragmentDelegate != null)
+        if (mViewModel.myCommunityListPreviewFragmentDelegate != null)
             return mViewModel.myCommunityListPreviewFragmentDelegate!!.getMyCommunityListPreviewFragment()
 
         return EkoMyCommunityPreviewFragment.Builder().build(activity as AppCompatActivity)
     }
 
     private fun getGlobalFeed(): Fragment {
-        if(mViewModel.globalFeedFragmentDelegate != null)
+        if (mViewModel.globalFeedFragmentDelegate != null)
             return mViewModel.globalFeedFragmentDelegate!!.getGlobalFeedFragment()
 
         return EkoGlobalFeedFragment.Builder()
@@ -85,17 +120,19 @@ class EkoNewsFeedFragment internal constructor(): EkoBaseFragment() {
     }
 
     private fun addViewModelListener() {
-        mViewModel.onEventReceived += {event->
-            when(event.type) {
+        mViewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.EMPTY_GLOBAL_FEED -> mViewModel.emptyGlobalFeed.set(event.dataObj as Boolean)
                 EventIdentifier.EMPTY_MY_COMMUNITY -> mViewModel.emptyCommunityList.set(event.dataObj as Boolean)
-                else -> {}
+                else -> {
+                }
             }
         }
     }
 
     class Builder {
-        private var myCommunityListPreviewFragmentDelegate: IMyCommunityListPreviewFragmentDelegate? = null
+        private var myCommunityListPreviewFragmentDelegate: IMyCommunityListPreviewFragmentDelegate? =
+            null
         private var globalFeedFragmentDelegate: IGlobalFeedFragmentDelegate? = null
         private var createPostButtonClickListener: ICreatePostButtonClickListener? = null
 
@@ -103,11 +140,13 @@ class EkoNewsFeedFragment internal constructor(): EkoBaseFragment() {
             val fragment = EkoNewsFeedFragment()
             fragment.mViewModel =
                 ViewModelProvider(activity).get(EkoNewsFeedViewModel::class.java)
-            fragment.mViewModel.myCommunityListPreviewFragmentDelegate = myCommunityListPreviewFragmentDelegate
+            fragment.mViewModel.myCommunityListPreviewFragmentDelegate =
+                myCommunityListPreviewFragmentDelegate
             fragment.mViewModel.globalFeedFragmentDelegate = globalFeedFragmentDelegate
             fragment.mViewModel.createPostButtonClickListener = createPostButtonClickListener
             return fragment
         }
+
         private fun createPostButtonClickListener(listener: ICreatePostButtonClickListener): Builder {
             this.createPostButtonClickListener = listener
             return this

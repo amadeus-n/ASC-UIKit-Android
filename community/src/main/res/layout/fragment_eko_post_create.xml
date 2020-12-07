@@ -12,20 +12,10 @@
         android:layout_height="match_parent"
         tools:context=".newsfeed.activity.EkoCreatePostActivity">
 
-        <com.ekoapp.ekosdk.uikit.components.EkoToolBar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentTop="true"
-            android:theme="@style/BaseToolBarStyle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/bottomBar"
-            android:layout_below="@id/toolbar">
+            android:layout_above="@id/bottomBar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clContent"

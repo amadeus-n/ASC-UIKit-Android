@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             if (etUserId.text.isNotEmpty() && etUserName.text.isNotEmpty()) {
                 setUserRole()
-                EkoClient.registerDevice(etUserId.text.toString(), etUserName.text.toString())
+                EkoClient.registerDevice(etUserId.text.toString())
+                    .displayName(etUserName.text.toString()).build().submit()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnComplete {

@@ -1,7 +1,7 @@
 package com.ekoapp.ekosdk.uikit.community.explore.listener
 
-import androidx.fragment.app.Fragment
+import com.ekoapp.ekosdk.uikit.community.explore.fragments.EkoTrendingCommunityFragment
 
 interface ITrendingCommunityFragmentDelegate {
-    fun trendingCommunityFragment() : Fragment
+    fun trendingCommunityFragment() : EkoTrendingCommunityFragment
 }

@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -19,11 +18,10 @@ import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoMyCommunityBinding
 import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
-import com.ekoapp.ekosdk.uikit.community.mycommunity.viewmodel.EkoMyCommunityListViewModel
-import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener
 import com.ekoapp.ekosdk.uikit.community.mycommunity.adapter.EkoMyCommunityListAdapter
+import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener
+import com.ekoapp.ekosdk.uikit.community.mycommunity.viewmodel.EkoMyCommunityListViewModel
 import com.ekoapp.ekosdk.uikit.community.ui.view.EkoCommunityCreateActivity
-import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.ekoapp.ekosdk.uikit.utils.AndroidUtil
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
@@ -33,7 +31,7 @@ import kotlinx.android.synthetic.main.fragment_eko_my_community.*
 
 private const val ARG_SHOW_SEARCH = "ARG_SHOW_SEARCH"
 private const val ARG_SHOW_OPTIONS_MENU = "ARG_SHOW_OPTIONS_MENU"
-class EkoMyCommunityFragment internal constructor(): EkoBaseFragment(), EkoToolBarClickListener,
+class EkoMyCommunityFragment internal constructor(): EkoBaseFragment(),
     IMyCommunityItemClickListener {
     private val TAG = EkoMyCommunityFragment::class.java.simpleName
     private lateinit var mViewModel: EkoMyCommunityListViewModel
@@ -96,15 +94,7 @@ class EkoMyCommunityFragment internal constructor(): EkoBaseFragment(), EkoToolB
     }
 
     private fun setUpToolBar() {
-        if(activity == null)
-            return
-        myCommunityToolbar.setLeftDrawable(
-            ContextCompat.getDrawable(requireActivity(), R.drawable.ic_uikit_arrow_back)
-        )
-        myCommunityToolbar.setLeftString(getString(R.string.my_community))
-        myCommunityToolbar.setClickListener(this)
-        (activity as AppCompatActivity).supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        (activity as AppCompatActivity).setSupportActionBar(myCommunityToolbar)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.my_community)
     }
 
     private fun subscribeObservers() {
@@ -164,15 +154,6 @@ class EkoMyCommunityFragment internal constructor(): EkoBaseFragment(), EkoToolB
         val createCommunityIntent = Intent(requireActivity(), EkoCommunityCreateActivity::class.java)
         startActivity(createCommunityIntent)
         return super.onOptionsItemSelected(item)
-    }
-
-
-    override fun leftIconClick() {
-        backPressFragment()
-    }
-
-    override fun rightIconClick() {
-        TODO("Not yet implemented")
     }
 
     override fun onCommunitySelected(ekoCommunity: EkoCommunity?) {

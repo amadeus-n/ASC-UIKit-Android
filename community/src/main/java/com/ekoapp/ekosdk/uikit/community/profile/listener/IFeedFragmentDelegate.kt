@@ -1,7 +1,7 @@
 package com.ekoapp.ekosdk.uikit.community.profile.listener
 
-import androidx.fragment.app.Fragment
+import com.ekoapp.ekosdk.uikit.community.newsfeed.fragment.EkoBaseFeedFragment
 
 interface IFeedFragmentDelegate {
-    fun getFeedFragment() : Fragment
+    fun getFeedFragment() : EkoBaseFeedFragment
 }

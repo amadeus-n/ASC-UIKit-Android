@@ -1,7 +1,7 @@
 package com.ekoapp.ekosdk.uikit.chat.home.callback
 
-import androidx.fragment.app.Fragment
+import com.ekoapp.ekosdk.uikit.chat.directory.fragment.EkoDirectoryFragment
 
 interface IDirectoryFragmentDelegate {
-    fun directoryFragment(): Fragment
+    fun directoryFragment(): EkoDirectoryFragment
 }

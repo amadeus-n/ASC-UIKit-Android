@@ -5,15 +5,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -37,14 +35,12 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.adapter.EkoPostViewFileAdapter
 import com.ekoapp.ekosdk.uikit.community.newsfeed.adapter.PostImageItemAdapter
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.*
 import com.ekoapp.ekosdk.uikit.community.newsfeed.model.FileUploadState
-import com.ekoapp.ekosdk.uikit.community.newsfeed.util.EkoTimelineType
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoPostDetailsViewModel
 import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED
 import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED_ID
-import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_TIMELINE_TYPE
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
-import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
+import com.ekoapp.ekosdk.user.EkoUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -53,11 +49,12 @@ import kotlinx.android.synthetic.main.layout_comment_compose_bar.*
 import kotlinx.android.synthetic.main.layout_news_feed_item_footer.*
 import kotlinx.android.synthetic.main.layout_news_feed_item_header.*
 
-class EkoPostDetailFragment internal constructor(): EkoBaseFragment(), EkoToolBarClickListener,
+class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
     IPostImageItemClickListener, INewsFeedCommentShowMoreActionListener,
     INewsFeedCommentItemClickListener, INewsFeedActionLikeListener,
     IPostFileItemClickListener {
     private val TAG = EkoPostDetailsActivity::class.java.canonicalName
+    private val ID_MENU_ITEM = 222
     private lateinit var newsFeed: EkoPost
     private var attachmentAdapter: EkoPostViewFileAdapter? = null
     lateinit var mViewModel: EkoPostDetailsViewModel
@@ -69,6 +66,7 @@ class EkoPostDetailFragment internal constructor(): EkoBaseFragment(), EkoToolBa
     private var commentActionIndex: Int? = null
     private lateinit var itemDecor: SpacesItemDecoration
     lateinit var imageAdapter: PostImageItemAdapter
+    private var menuItem: MenuItem? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -97,7 +95,7 @@ class EkoPostDetailFragment internal constructor(): EkoBaseFragment(), EkoToolBa
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupToolBar()
+        setHasOptionsMenu(true)
         getPostDetails(feedId)
         subscribeUiEvent()
     }
@@ -126,18 +124,6 @@ class EkoPostDetailFragment internal constructor(): EkoBaseFragment(), EkoToolBa
             disposal.dispose()
         }
         super.onDestroy()
-    }
-
-    private fun setupToolBar() {
-        toolbar.setLeftDrawable(
-            ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_arrow_back)
-        )
-        toolbar.setClickListener(this)
-
-        (activity as AppCompatActivity).supportActionBar?.displayOptions =
-            ActionBar.DISPLAY_SHOW_CUSTOM
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-
     }
 
     private fun initAttachmentsAdapter(attachments: List<EkoFile>) {
@@ -234,20 +220,23 @@ class EkoPostDetailFragment internal constructor(): EkoBaseFragment(), EkoToolBa
             hideKeyboard()
         }
 
+        newsFeedHeader.setNewsFeedActionAvatarClickListener(object :
+            INewsFeedActionAvatarClickListener {
+            override fun onClickUserAvatar(user: EkoUser) {
+                if (mViewModel.avatarClickListener != null) {
+                    mViewModel.avatarClickListener?.onClickUserAvatar(user)
+                } else {
+                    EkoCommunityNavigation.navigateToUserProfile(requireContext(), user.getUserId())
+                }
+            }
+        })
+
         initFeedDetails()
         initPostDetailsViewButton()
         initUserData()
         //TODO check other condition
         if (mViewModel.isReadOnlyPage()) {
             setupViewReadOnlyMode()
-        } else {
-            toolbar.setRightDrawable(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.ic_uikit_more_horizontal
-                )
-            )
-            toolbar.setRightStringActive(true)
         }
 
         initEkoPostCommentRecyclerview()
@@ -446,15 +435,11 @@ class EkoPostDetailFragment internal constructor(): EkoBaseFragment(), EkoToolBa
         )
     }
 
-    override fun leftIconClick() {
-        //TODO look for Better solution
-        activity?.setResult(AppCompatActivity.RESULT_OK)
-        activity?.finish()
-    }
-
-    override fun rightIconClick() {
-        showFeedAction()
-    }
+    /* override fun leftIconClick() {
+         //TODO look for Better solution
+         activity?.setResult(AppCompatActivity.RESULT_OK)
+         activity?.finish()
+     }*/
 
     override fun onClickItem(position: Int) {
         if (context == null)
@@ -677,20 +662,46 @@ class EkoPostDetailFragment internal constructor(): EkoBaseFragment(), EkoToolBa
         FileManager.saveFile(requireContext(), file.uri.toString(), file.name, file.mimeType)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        if (!mViewModel.isReadOnlyPage()) {
+            val drawable =
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_more_horiz)
+            drawable?.mutate()
+            drawable?.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                R.color.black, BlendModeCompat.SRC_ATOP
+            )
+            menuItem = menu.add(Menu.NONE, ID_MENU_ITEM, Menu.NONE, getString(R.string.cancel))
+            menuItem?.setIcon(drawable)?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        }
+        super.onCreateOptionsMenu(menu, inflater)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == ID_MENU_ITEM) {
+            showFeedAction()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     class Builder {
         private var postId: String? = null
         private var comment: EkoComment? = null
+        private var avatarClickListener: IAvatarClickListener? = null
 
         fun build(activity: AppCompatActivity): EkoPostDetailFragment {
             if (postId == null)
                 throw IllegalArgumentException("Post id is required")
-            return EkoPostDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(EXTRA_PARAM_NEWS_FEED_ID, this@Builder.postId)
-                    putParcelable(EXTRA_PARAM_COMMENT, this@Builder.comment)
-                }
+
+            val fragment = EkoPostDetailFragment()
+            fragment.mViewModel = ViewModelProvider(activity).get(EkoPostDetailsViewModel::class.java)
+            fragment.mViewModel.avatarClickListener = avatarClickListener
+            fragment.arguments = Bundle().apply {
+                putString(EXTRA_PARAM_NEWS_FEED_ID, this@Builder.postId)
+                putParcelable(EXTRA_PARAM_COMMENT, this@Builder.comment)
             }
+            return fragment
         }
 
         fun postId(postId: String): Builder {
@@ -703,12 +714,14 @@ class EkoPostDetailFragment internal constructor(): EkoBaseFragment(), EkoToolBa
             return this
         }
 
+        fun onClickUserAvatar(onAvatarClickListener: IAvatarClickListener): Builder {
+            return apply { this.avatarClickListener = onAvatarClickListener }
+        }
+
         //TODO uncomment after reply integration
         private fun commentToExpand(comment: EkoComment): Builder {
             this.comment = comment
             return this
         }
-
-
     }
 }

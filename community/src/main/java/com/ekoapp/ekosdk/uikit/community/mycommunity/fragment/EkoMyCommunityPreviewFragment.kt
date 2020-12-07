@@ -56,6 +56,10 @@ class EkoMyCommunityPreviewFragment internal constructor(): EkoBaseFragment(),
         addItemTouchListener()
     }
 
+    internal fun refresh() {
+        getCommunityList()
+    }
+
     private fun initRecyclerView() {
         mAdapter = EkoMyCommunityListAdapter(this, true)
         rvMyCommunity.layoutManager =
@@ -69,15 +73,22 @@ class EkoMyCommunityPreviewFragment internal constructor(): EkoBaseFragment(),
             )
         )
         rvMyCommunity.setHasFixedSize(true)
+        getCommunityList()
+    }
 
-        mViewModel.getCommunityList().subscribeOn(Schedulers.io())
+    private fun getCommunityList() {
+        disposable.add(mViewModel.getCommunityList().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { list ->
                 mAdapter.submitList(list)
-                newFeedViewModel.triggerEvent(EventIdentifier.EMPTY_MY_COMMUNITY, list.size == 0)
+                newFeedViewModel.triggerEvent(
+                    EventIdentifier.EMPTY_MY_COMMUNITY,
+                    list.size == 0
+                )
             }.doOnError {
                 Log.e(TAG, "initRecyclerView: ${it.localizedMessage}")
             }.subscribe()
+        )
     }
 
     private fun addItemTouchListener() {

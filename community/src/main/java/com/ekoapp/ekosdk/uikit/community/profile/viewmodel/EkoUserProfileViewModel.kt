@@ -2,6 +2,7 @@ package com.ekoapp.ekosdk.uikit.community.profile.viewmodel
 
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
+import com.ekoapp.ekosdk.uikit.community.profile.listener.IEditUserProfileClickListener
 import com.ekoapp.ekosdk.uikit.community.profile.listener.IFeedFragmentDelegate
 import com.ekoapp.ekosdk.user.EkoUser
 import io.reactivex.Flowable
@@ -9,6 +10,7 @@ import io.reactivex.Single
 
 class EkoUserProfileViewModel : EkoBaseViewModel() {
     var feedFragmentDelegate: IFeedFragmentDelegate? = null
+    var editUserProfileClickListener: IEditUserProfileClickListener? = null
     var userId: String? = null
 
     fun getUser(): Flowable<EkoUser> {
