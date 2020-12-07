@@ -9,17 +9,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
+import android.text.SpannableString
 import android.text.TextWatcher
+import android.text.style.ForegroundColorSpan
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -27,10 +25,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ekoapp.ekosdk.EkoClient
-import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.base.SpacesItemDecoration
 import com.ekoapp.ekosdk.uikit.common.FileUtils
+import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
+import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.common.views.dialog.EkoAlertDialogFragment
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.domain.model.FileAttachment
@@ -41,13 +40,11 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.ICreatePostFileAction
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.ICreatePostImageActionListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.model.FeedImage
 import com.ekoapp.ekosdk.uikit.community.newsfeed.model.FileUploadState
-import com.ekoapp.ekosdk.uikit.community.newsfeed.util.NewsFeedEvents
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoCreatePostViewModel
-import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED_ID
-import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.ekoapp.ekosdk.uikit.utils.EkoCameraUtil
 import com.ekoapp.ekosdk.uikit.utils.EkoConstants
+import com.ekoapp.ekosdk.uikit.utils.EkoOptionMenuColorUtil
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.engine.impl.GlideEngine
@@ -67,10 +64,11 @@ const val IMAGE_COUNT_SINGLE = 1
 const val IMAGE_COUNT_DOUBLE = 2
 
 abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
-    EkoToolBarClickListener, ICreatePostImageActionListener, ICreatePostFileActionListener,
+    ICreatePostImageActionListener, ICreatePostFileActionListener,
     EkoAlertDialogFragment.IAlertDialogActionListener {
 
-    private var consumeBackPress = true
+    private val ID_MENU_ITEM_POST: Int = 133
+    private var menuItemPost: MenuItem? = null
     protected val mViewModel: EkoCreatePostViewModel by activityViewModels()
     private val TAG = EkoPostCreateFragment::class.java.canonicalName
     protected var compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -85,23 +83,10 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        consumeBackPress = true
         mViewModel.community = arguments?.getParcelable(EXTRA_PARAM_COMMUNITY)
-        listenBackPress()
-
     }
 
-    private fun listenBackPress() {
-        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (consumeBackPress) {
-                    handleCancelPost()
-                } else {
-                    isEnabled = false
-                    activity?.onBackPressed()
-                }
-            }
-        })
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -113,7 +98,8 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupToolBar()
+        setHasOptionsMenu(true)
+        addPostEditTextListener()
         setupComposeBar()
         observeImageData()
         observeFileAttachments()
@@ -121,6 +107,25 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
         layoutPostAsCommunity.visibility = if (showPostAsCommunity()) View.VISIBLE else View.GONE
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menuItemPost =
+            menu.add(Menu.NONE, ID_MENU_ITEM_POST, Menu.NONE, getString(R.string.save))
+        menuItemPost?.setTitle(getPostMenuText())
+            ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        updatePostMenu(isRightButtonActive())
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == ID_MENU_ITEM_POST) {
+            handlePostMenuItemClick()
+            return false
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    abstract fun handlePostMenuItemClick()
 
     private fun observeImageData() {
         mViewModel.getImages().observe(viewLifecycleOwner, Observer {
@@ -260,17 +265,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
         }
     }
 
-    private fun setupToolBar() {
-        if (context != null)
-            toolbar.setLeftDrawable(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_cross)
-            )
-        setToolBarText()
-        toolbar.setClickListener(this)
-        (activity as AppCompatActivity).supportActionBar?.displayOptions =
-            ActionBar.DISPLAY_SHOW_CUSTOM
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-
+    private fun addPostEditTextListener() {
         etPost.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
 
@@ -296,6 +291,8 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
     abstract fun setToolBarText()
 
+    abstract fun getPostMenuText() : String
+
 
     fun isEditMode(): Boolean {
         return mViewModel.postId != null
@@ -313,11 +310,21 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
     }
     private fun handleButtonActiveInactiveBehavior() {
         //TODO move to viewmodel with a observable field
-
-        toolbar.setRightStringActive(isRightButtonActive())
+        updatePostMenu(isRightButtonActive())
         btnUploadPhotos.isEnabled = !mViewModel.hasAttachments()
         btnUploadAttachment.isEnabled = !mViewModel.hasImages()
         btnTakePhoto.isEnabled = !mViewModel.hasAttachments()
+    }
+
+    fun updatePostMenu(enabled: Boolean) {
+        menuItemPost?.isEnabled = enabled
+        val title = menuItemPost?.title
+        val spannableString = SpannableString(title)
+        spannableString.setSpan(
+            ForegroundColorSpan(
+                EkoOptionMenuColorUtil.getColor(menuItemPost?.isEnabled ?: false, requireContext())), 0, spannableString.length, 0
+        )
+        menuItemPost?.title = spannableString
     }
 
     private fun isEmptyFileAttachments(): Boolean {
@@ -332,8 +339,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
         return etPost.text.toString().trim().isEmpty()
     }
 
-
-    override fun leftIconClick() {
+    override fun handleBackPress() {
         handleCancelPost()
     }
 
@@ -341,8 +347,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
         if (hasDraft()) {
             showExitConfirmationDialog()
         } else {
-            consumeBackPress = false
-            activity?.onBackPressed()
+            backPressFragment()
         }
     }
 
@@ -688,7 +693,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
     }
 
 
-    internal fun refreshGlobalFeed() {
+    internal fun refresh() {
         EkoClient.newFeedRepository()
             .getGlobalFeed()
             .build()

@@ -1,13 +1,12 @@
 package com.ekoapp.ekosdk.uikit.community.newsfeed.fragment
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -22,18 +21,20 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.activity.EXTRA_PARAM_COMMENT_T
 import com.ekoapp.ekosdk.uikit.community.newsfeed.activity.EkoEditCommentActivity
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoEditCommentViewModel
 import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED
-import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
+import com.ekoapp.ekosdk.uikit.utils.EkoOptionMenuColorUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_edit_comment.*
 
-class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoToolBarClickListener, EkoAlertDialogFragment.IAlertDialogActionListener {
+class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoAlertDialogFragment.IAlertDialogActionListener {
+    private val ID_MENU_ITEM_ADD_COMMENT: Int = 144
+    private var menuItemComment: MenuItem? = null
     private val TAG = EkoEditCommentActivity::class.java.canonicalName
 
     private val mViewModel: EkoEditCommentViewModel by activityViewModels()
     lateinit var  mBinding: FragmentEkoEditCommentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        consumeBackPress = true
         setupInitialData()
     }
 
@@ -56,6 +57,7 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoToolB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         setupToolbar()
         addEditCommentViewTextWatcher()
     }
@@ -77,32 +79,63 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoToolB
         })
 
         mViewModel.hasCommentUpdate.observe(viewLifecycleOwner, Observer {
-            toolbar.setRightStringActive(it?:false)
+            updateCommentMenu(it)
         })
     }
 
 
     private fun setupToolbar() {
-        if(context != null) {
-            toolbar.setLeftDrawable(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_cross)
-            )
-            if (mViewModel.editMode()) {
-                toolbar.setLeftString(getString(R.string.edit_comment))
-                toolbar.setRightString(getString(R.string.save))
-            } else {
-                toolbar.setLeftString(getString(R.string.add_comment))
-                toolbar.setRightString(getString(R.string.post))
-            }
-            toolbar.setClickListener(this)
+        if(mViewModel.editMode()) {
+            (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.edit_comment)
+        }else {
+            (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.add_comment)
         }
     }
 
-
-
-    override fun leftIconClick() {
-        handleCancelPost()
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menuItemComment =
+            menu.add(Menu.NONE, ID_MENU_ITEM_ADD_COMMENT, Menu.NONE, getMenuItemCommentTitle())
+        menuItemComment?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        updateCommentMenu(mViewModel.hasCommentUpdate.value?:false)
+        super.onCreateOptionsMenu(menu, inflater)
     }
+
+    private fun getMenuItemCommentTitle(): String {
+        return if(mViewModel.editMode())
+            getString(R.string.save)
+        else
+            getString(R.string.post_caps)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == ID_MENU_ITEM_ADD_COMMENT) {
+            updateCommentMenu(false)
+            if (mViewModel.editMode()) {
+                updateComment()
+            } else {
+                addComment()
+            }
+            return false
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun updateCommentMenu(enabled: Boolean) {
+        if(menuItemComment != null) {
+            menuItemComment?.isEnabled = enabled
+            val s = SpannableString(menuItemComment?.title)
+            s.setSpan(
+                ForegroundColorSpan(
+                    EkoOptionMenuColorUtil.getColor(
+                        menuItemComment?.isEnabled ?: false,
+                        requireContext()
+                    )
+                ), 0, s.length, 0
+            )
+            menuItemComment?.title = s
+        }
+    }
+
 
     override fun handleBackPress() {
         handleCancelPost()
@@ -126,15 +159,6 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoToolB
         exitConfirmationDialogFragment.listener = this
     }
 
-    override fun rightIconClick() {
-        toolbar.setRightStringActive(false)
-        if (mViewModel.editMode()) {
-            updateComment()
-        } else {
-            addComment()
-        }
-    }
-
     private fun updateComment() {
         mViewModel.updateComment()
             ?.subscribeOn(Schedulers.io())
@@ -144,7 +168,7 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoToolB
                 backPressFragment()
             }
             ?.doOnError {
-                toolbar.setRightStringActive(true)
+                updateCommentMenu(true)
                 Log.d(TAG, it.message)
                 Toast.makeText(
                     activity,
@@ -166,7 +190,7 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoToolB
                 backPressFragment()
             }
             ?.doOnError {
-                toolbar.setRightStringActive(true)
+                updateCommentMenu(true)
                 Log.d(TAG, it.message)
                 Toast.makeText(
                     activity,

@@ -50,6 +50,10 @@ class EkoCategoryPreviewFragment internal constructor(): EkoBaseFragment(), IEko
         }
     }
 
+    internal fun refresh() {
+        getCategories()
+    }
+
     private fun initializeRecyclerView() {
         mAdapter = EkoCommunityCategoryAdapter(this)
         rvCommunityCategory.layoutManager = GridLayoutManager(requireContext(), 2)

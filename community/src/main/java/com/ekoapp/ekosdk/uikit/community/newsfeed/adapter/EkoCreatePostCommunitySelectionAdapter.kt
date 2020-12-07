@@ -64,7 +64,9 @@ class EkoCreatePostCommunitySelectionAdapter(private val listener: ICreatePostCo
                 oldItem.getCommunityId() == newItem.getCommunityId()
 
             override fun areContentsTheSame(oldItem: EkoCommunity, newItem: EkoCommunity): Boolean =
-                oldItem == newItem
+                oldItem.getAvatar()?.getUrl() == newItem.getAvatar()?.getUrl()
+                        && oldItem.getDisplayName() == newItem.getDisplayName()
+                        && oldItem.isOfficial() == newItem.isOfficial()
         }
     }
 }

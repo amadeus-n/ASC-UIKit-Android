@@ -2,22 +2,25 @@ package com.ekoapp.ekosdk.uikit.community.members
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import com.ekoapp.ekosdk.uikit.base.EkoBaseToolbarFragmentContainerActivity
 import com.ekoapp.ekosdk.uikit.community.R
 
-class EkoCommunityMemberSettingsActivity : AppCompatActivity() {
+class EkoCommunityMemberSettingsActivity : EkoBaseToolbarFragmentContainerActivity() {
 
+    override fun initToolbar() {
+        getToolBar()?.setLeftDrawable(
+            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+        )
+        getToolBar()?.setLeftString(getString(R.string.members_capital))
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_community_member_settings)
-
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, EkoCommunityMemberSettingsFragment.Builder()
+    override fun getContentFragment(): Fragment {
+        return EkoCommunityMemberSettingsFragment.Builder()
             .communityId(intent?.getStringExtra(COMMUNITY_ID) ?: "")
-            .build(this))
-        transaction.commit()
+            .build(this)
     }
 
     companion object {

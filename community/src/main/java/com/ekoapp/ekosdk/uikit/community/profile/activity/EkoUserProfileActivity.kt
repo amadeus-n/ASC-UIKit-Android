@@ -2,27 +2,21 @@ package com.ekoapp.ekosdk.uikit.community.profile.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import com.ekoapp.ekosdk.uikit.base.EkoBaseToolbarFragmentContainerActivity
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.profile.fragment.EkoUserProfilePageFragment
 
-class EkoUserProfileActivity : AppCompatActivity() {
+class EkoUserProfileActivity : EkoBaseToolbarFragmentContainerActivity() {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_eko_user_profile)
-        if (savedInstanceState == null)
-            addUserProfileFragment()
+    override fun initToolbar() {
+        getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back))
     }
 
-    private fun addUserProfileFragment() {
+    override fun getContentFragment(): Fragment {
         val userId = intent.extras!!.getString(EXTRA_PARAM_USER_ID)!!
-        val fragment = EkoUserProfilePageFragment.Builder().userId(userId).build(this)
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, fragment)
-        transaction.commit()
+        return EkoUserProfilePageFragment.Builder().userId(userId).build(this)
     }
 
     companion object {

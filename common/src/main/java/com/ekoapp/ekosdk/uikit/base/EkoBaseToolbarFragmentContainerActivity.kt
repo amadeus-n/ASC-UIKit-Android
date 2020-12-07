@@ -1,18 +1,28 @@
 package com.ekoapp.ekosdk.uikit.base
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.ekoapp.ekosdk.uikit.R
 import com.ekoapp.ekosdk.uikit.components.EkoToolBar
+import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
+import com.ekoapp.ekosdk.uikit.databinding.ActivityEkoBaseToolbarFragmentContainerBinding
 import kotlinx.android.synthetic.main.activity_eko_base_toolbar_fragment_container.*
 
-abstract class EkoBaseToolbarFragmentContainerActivity : AppCompatActivity() {
+
+abstract class EkoBaseToolbarFragmentContainerActivity : AppCompatActivity(),
+    EkoToolBarClickListener {
+    lateinit var binding: ActivityEkoBaseToolbarFragmentContainerBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_eko_base_toolbar_fragment_container)
-        if(savedInstanceState == null) {
+        binding = DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_eko_base_toolbar_fragment_container
+        )
+        if (savedInstanceState == null) {
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             val fragment = getContentFragment()
@@ -22,6 +32,8 @@ abstract class EkoBaseToolbarFragmentContainerActivity : AppCompatActivity() {
 
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         setSupportActionBar(toolbar)
+        toolbar?.setClickListener(this)
+
         initToolbar()
     }
 
@@ -29,7 +41,19 @@ abstract class EkoBaseToolbarFragmentContainerActivity : AppCompatActivity() {
         return toolbar
     }
 
+    fun showToolbarDivider() {
+        binding.divider.visibility = View.VISIBLE
+    }
+
     abstract fun initToolbar()
 
     abstract fun getContentFragment(): Fragment
+
+    override fun leftIconClick() {
+        onBackPressed()
+    }
+
+    override fun rightIconClick() {
+
+    }
 }

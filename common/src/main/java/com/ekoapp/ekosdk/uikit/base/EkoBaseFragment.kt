@@ -13,11 +13,12 @@ import io.reactivex.disposables.CompositeDisposable
 
 open class EkoBaseFragment : Fragment() {
     protected var disposable: CompositeDisposable = CompositeDisposable()
-    private var consumeBackPress = true
+    var consumeBackPress = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        listenBackPress()
     }
 
     private fun listenBackPress() {

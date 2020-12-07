@@ -4,4 +4,6 @@ apply plugin: 'kotlin-android'
 
 dependencies {
     api project(path: ':common')
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }

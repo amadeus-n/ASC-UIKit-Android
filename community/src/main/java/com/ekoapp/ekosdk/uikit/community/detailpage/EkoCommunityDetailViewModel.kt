@@ -7,6 +7,8 @@ import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.uikit.common.formatCount
+import com.ekoapp.ekosdk.uikit.community.detailpage.listener.IEditCommunityProfileClickListener
+import com.ekoapp.ekosdk.uikit.community.detailpage.listener.IMessageClickListener
 import com.ekoapp.ekosdk.uikit.community.profile.listener.IFeedFragmentDelegate
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import io.reactivex.Completable
@@ -28,6 +30,8 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
     val isCreator = ObservableBoolean(false)
     val isModerator = ObservableBoolean(false)
     var feedFragmentDelegate: IFeedFragmentDelegate? = null
+    var messageClickListener: IMessageClickListener? = null
+    var editCommunityProfileClickListener: IEditCommunityProfileClickListener? = null
 
     fun getCommunityDetail(): Flowable<EkoCommunity> {
         val communityRepository = EkoClient.newCommunityRepository()
@@ -56,9 +60,18 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
     fun onPrimaryButtonClick() {
         if (isCreator.get()) {
             triggerEvent(EventIdentifier.EDIT_PROFILE)
-        } else if (isModerator.get()) {
-            triggerEvent(EventIdentifier.MODERATOR_MESSAGE)
         }
+        /*else if (isModerator.get()) { //TODO Uncomment when SDK already support role feature.
+            triggerEvent(EventIdentifier.MODERATOR_MESSAGE)
+        }*/
+        else {
+            triggerEvent(EventIdentifier.SEND_MESSAGE)
+        }
+
+
     }
 
+    fun onSecondaryButtonClick() {
+        triggerEvent(EventIdentifier.SEND_MESSAGE)
+    }
 }

@@ -4,6 +4,7 @@ import androidx.paging.PagedList
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.community.query.EkoCommunityFilter
+import com.ekoapp.ekosdk.community.query.EkoCommunitySortOption
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.user.EkoUser
 import io.reactivex.Flowable
@@ -19,6 +20,7 @@ class EkoCreatePostRoleSelectionViewModel : EkoBaseViewModel() {
         val communityRepository = EkoClient.newCommunityRepository()
         return communityRepository.getCommunityCollection()
             .filter(EkoCommunityFilter.MEMBER)
+            .sortBy(EkoCommunitySortOption.DISPLAY_NAME)
             .includeDeleted(false)
             .build()
             .query()

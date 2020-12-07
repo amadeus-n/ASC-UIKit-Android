@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekoapp.ekosdk.community.category.EkoCommunityCategory
@@ -16,7 +14,6 @@ import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.explore.adapter.EkoCategoryListAdapter
 import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCategoryItemClickListener
 import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoCategoryListViewModel
-import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -24,8 +21,7 @@ import kotlinx.android.synthetic.main.fragment_eko_category_list.*
 
 const val ARG_DEFAULT_SELECTION = "default_selection"
 
-abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragment(), IEkoCategoryItemClickListener,
-    EkoToolBarClickListener {
+abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragment(), IEkoCategoryItemClickListener{
     internal lateinit var mViewModel: EkoCategoryListViewModel
 
     private lateinit var adapter: EkoCategoryListAdapter
@@ -38,14 +34,7 @@ abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragm
     abstract fun getCategoryListAdapter() : EkoCategoryListAdapter
 
     private fun setupToolBar() {
-        toolbar.setLeftDrawable(
-            ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_arrow_back)
-        )
-        toolbar.setClickListener(this)
-        toolbar.setLeftString(getString(R.string.category))
-        (activity as AppCompatActivity).supportActionBar?.displayOptions =
-            ActionBar.DISPLAY_SHOW_CUSTOM
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.category)
     }
 
     override fun onCreateView(
@@ -86,17 +75,6 @@ abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragm
                     adapter.submitList(result)
                 }
             })
-    }
-
-
-    override fun leftIconClick() {
-        activity?.onBackPressed()
-    }
-
-    override fun rightIconClick() {
-        if (activity is EkoToolBarClickListener) {
-            (activity as EkoToolBarClickListener).rightIconClick()
-        }
     }
 
     override fun onCategorySelected(category: EkoCommunityCategory) {

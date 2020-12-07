@@ -1,13 +1,12 @@
 package com.ekoapp.ekosdk.uikit.community.profile.fragment
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -18,22 +17,23 @@ import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoUserProfilePageB
 import com.ekoapp.ekosdk.uikit.community.newsfeed.fragment.EkoMyFeedFragment
 import com.ekoapp.ekosdk.uikit.community.newsfeed.fragment.EkoUserFeedFragment
 import com.ekoapp.ekosdk.uikit.community.profile.activity.EkoEditUserProfileActivity
+import com.ekoapp.ekosdk.uikit.community.profile.listener.IEditUserProfileClickListener
 import com.ekoapp.ekosdk.uikit.community.profile.listener.IFeedFragmentDelegate
 import com.ekoapp.ekosdk.uikit.community.profile.viewmodel.EkoUserProfileViewModel
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
-import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
 import com.ekoapp.ekosdk.user.EkoUser
+import com.google.android.material.appbar.AppBarLayout
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_category_list.toolbar
 import kotlinx.android.synthetic.main.fragment_eko_community_home_page.tabLayout
-import kotlinx.android.synthetic.main.fragment_eko_user_profile_page.*
-import java.lang.IllegalArgumentException
+import kotlinx.android.synthetic.main.fragment_eko_user_profile_page.appBar
+import kotlinx.android.synthetic.main.fragment_eko_user_profile_page.fabCreatePost
+import kotlinx.android.synthetic.main.fragment_eko_user_profile_page.refreshLayout
 
 const val ARG_USER_ID = "com.ekoapp.ekosdk.uikit.community.profile.userid"
 
 class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
-    EkoToolBarClickListener {
+    AppBarLayout.OnOffsetChangedListener {
     private var TAG = EkoUserProfilePageFragment::class.java.canonicalName
 
     lateinit var mViewModel: EkoUserProfileViewModel
@@ -67,22 +67,55 @@ class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initTabLayout()
-        initToolBar()
+        appBar.setExpanded(true)
         getUserDetails()
         fabCreatePost.setOnClickListener {
             EkoCommunityNavigation.navigateToCreatePost(requireContext())
         }
 
         mBinding.userProfileHeader.btnUserProfileAction.setOnClickListener {
-            if (mViewModel.isLoggedInUser()) {
-                activity?.also {
-                    val intent = EkoEditUserProfileActivity.newIntent(it)
-                    startActivity(intent)
-
+            if (mViewModel.editUserProfileClickListener != null) {
+                mViewModel.editUserProfileClickListener?.onClickEditUserProfile(mViewModel.userId)
+            } else {
+                if (mViewModel.isLoggedInUser()) {
+                    activity?.also {
+                        val intent = EkoEditUserProfileActivity.newIntent(it)
+                        startActivity(intent)
+                    }
                 }
             }
         }
 
+        refreshLayout.setColorSchemeResources(R.color.upstraColorPrimary)
+        refreshLayout.setOnRefreshListener {
+            childFragmentManager.fragments.forEach { fragment ->
+                when (fragment) {
+                    is EkoMyFeedFragment -> {
+                        fragment.refresh()
+                    }
+                    is EkoUserFeedFragment -> {
+                        fragment.refresh()
+                    }
+                }
+            }
+            Handler().postDelayed({
+                refreshLayout?.isRefreshing = false
+            }, 1000)
+        }
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+        refreshLayout.isEnabled = (verticalOffset == 0)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        appBar.addOnOffsetChangedListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        appBar.removeOnOffsetChangedListener(this)
     }
 
     private fun getUserDetails() {
@@ -103,26 +136,6 @@ class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
         }
     }
 
-    private fun initToolBar() {
-        appBar.setExpanded(true)
-        toolbar.setLeftDrawable(
-            ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_arrow_back)
-        )
-        if (mViewModel.isLoggedInUser()) {
-            toolbar.setRightDrawable(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.ic_uikit_more_horizontal
-                )
-            )
-            toolbar.setRightStringActive(true)
-        }
-        toolbar.setClickListener(this)
-        (activity as AppCompatActivity).supportActionBar?.displayOptions =
-            ActionBar.DISPLAY_SHOW_CUSTOM
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-    }
-
     private fun initTabLayout() {
         fragmentStateAdapter.setFragmentList(
             arrayListOf(
@@ -141,23 +154,17 @@ class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
         if (mViewModel.isLoggedInUser()) {
             return EkoMyFeedFragment()
         } else {
-            return EkoUserFeedFragment.Builder().userId(mViewModel.userId!!).build(activity as AppCompatActivity)
+            return EkoUserFeedFragment.Builder().userId(mViewModel.userId!!)
+                .build(activity as AppCompatActivity)
         }
-    }
-
-    override fun leftIconClick() {
-        activity?.onBackPressed()
-    }
-
-    override fun rightIconClick() {
-
     }
 
     class Builder() {
         private var userId: String? = null
         var feedFragmentDelegate: IFeedFragmentDelegate? = null
+        var editUserProfileClickListener: IEditUserProfileClickListener? = null
         fun build(activity: AppCompatActivity): EkoUserProfilePageFragment {
-            if(userId == null)
+            if (userId == null)
                 throw IllegalArgumentException("Require userId or user")
             val fragment = EkoUserProfilePageFragment().apply {
                 arguments = Bundle().apply {
@@ -168,6 +175,7 @@ class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
             fragment.mViewModel =
                 ViewModelProvider(activity).get(EkoUserProfileViewModel::class.java)
             fragment.mViewModel.feedFragmentDelegate = feedFragmentDelegate
+            fragment.mViewModel.editUserProfileClickListener = editUserProfileClickListener
             return fragment
         }
 
@@ -184,6 +192,10 @@ class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
         fun feedFragmentDelegate(delegate: IFeedFragmentDelegate): Builder {
             this.feedFragmentDelegate = delegate
             return this
+        }
+
+        fun onClickEditUserProfile(onEditUserProfileClickListener: IEditUserProfileClickListener): Builder {
+            return apply { this.editUserProfileClickListener = onEditUserProfileClickListener }
         }
     }
 }

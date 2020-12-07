@@ -32,6 +32,7 @@
     <string name="unable_to_delete">Unable to delete the file</string>
     <string name="try_again">Please try again</string>
     <string name="image_preview_title">%1$d/%2$d</string>
+    <string name="release_to_send">Release to send</string>
     <plurals name="number_of_days">
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>
@@ -44,4 +45,6 @@
         <item quantity="one">%d min</item>
         <item quantity="other">%d mins</item>
     </plurals>
+    <string name="time">0:%1s</string>
+    <string name="ok">OK</string>
 </resources>

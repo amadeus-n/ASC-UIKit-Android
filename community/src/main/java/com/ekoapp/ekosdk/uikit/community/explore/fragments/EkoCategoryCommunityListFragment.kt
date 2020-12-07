@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,23 +13,21 @@ import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.community.category.EkoCommunityCategory
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
 import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoCategoryCommunityListBinding
+import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
 import com.ekoapp.ekosdk.uikit.community.explore.adapter.EkoCategoryCommunityListAdapter
 import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCommunityItemClickListener
 import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoCategoryCommunityListViewModel
-import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_eko_category_community_list.*
-import java.lang.IllegalArgumentException
 
 const val ARG_CATEGORY_ID = "Category_id"
 const val ARG_CATEGORY_NAME = "Category_name"
 
 class EkoCategoryCommunityListFragment internal constructor() : EkoBaseFragment(),
-    IEkoCommunityItemClickListener, EkoToolBarClickListener {
+    IEkoCommunityItemClickListener {
     private lateinit var mViewModel: EkoCategoryCommunityListViewModel
     private lateinit var adapter: EkoCategoryCommunityListAdapter
     private var categoryId: String? = null
@@ -72,18 +68,9 @@ class EkoCategoryCommunityListFragment internal constructor() : EkoBaseFragment(
     }
 
     private fun setupToolBar() {
-        toolbar.setLeftDrawable(
-            ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_arrow_back)
-        )
-        toolbar.setClickListener(this)
-
         categoryName?.let {
-            toolbar.setLeftString(it)
+            (activity as AppCompatActivity).title =it
         }
-
-        (activity as AppCompatActivity).supportActionBar?.displayOptions =
-            ActionBar.DISPLAY_SHOW_CUSTOM
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
     }
 
     private fun initView() {
@@ -126,14 +113,6 @@ class EkoCategoryCommunityListFragment internal constructor() : EkoBaseFragment(
                 .newIntent(requireContext(), community.getCommunityId())
             startActivity(detailIntent)
         }
-    }
-
-    override fun leftIconClick() {
-        activity?.onBackPressed()
-    }
-
-    override fun rightIconClick() {
-
     }
 
     class Builder() {

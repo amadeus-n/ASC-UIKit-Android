@@ -39,6 +39,10 @@ class EkoTrendingCommunityFragment : EkoBaseFragment(), IMyCommunityItemClickLis
         initializeRecyclerView()
     }
 
+    internal fun refresh() {
+        getTrendingCommunity()
+    }
+
     private fun initializeRecyclerView() {
         adapter = EkoTrendingCommunityAdapter(this)
         rvTrendingCommunity.layoutManager = LinearLayoutManager(requireContext())
@@ -48,6 +52,10 @@ class EkoTrendingCommunityFragment : EkoBaseFragment(), IMyCommunityItemClickLis
             requireContext().resources.getDimensionPixelSize(R.dimen.zero),
             requireContext().resources.getDimensionPixelSize(R.dimen.eight)))
 
+        getTrendingCommunity()
+    }
+
+    private fun getTrendingCommunity() {
         disposable.add(mViewModel.getTrendingCommunity().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext {

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="vm"
             type="com.ekoapp.ekosdk.uikit.community.profile.viewmodel.EkoEditUserProfileViewModel" />
@@ -16,71 +18,52 @@
         tools:context=".profile.fragment.EkoEditUserProfileFragment">
 
 
-        <com.ekoapp.ekosdk.uikit.components.EkoToolBar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:theme="@style/BaseToolBarStyle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/divider"
-            backgroundColorShade="@{ColorShade.SHADE4}"
-            ekoBackgroundColor="@{@color/upstraColorBase}"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
         <FrameLayout
             android:id="@+id/avatarView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/sixteen"
             android:layout_marginTop="@dimen/sixteen"
-            app:layout_constraintEnd_toEndOf="@id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivAvatar"
-                app:backgroundColorShade="@{ColorShade.SHADE3}"
-                app:ekoBackgroundColor="@{@color/upstraColorPrimary}"
                 android:layout_width="@dimen/sixty_four"
                 android:layout_height="@dimen/sixty_four"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_uikit_default_profile_64"
-                app:shapeAppearanceOverlay="@style/CircleImage"
-                />
+                app:backgroundColorShade="@{ColorShade.SHADE3}"
+                app:ekoBackgroundColor="@{@color/upstraColorPrimary}"
+                app:shapeAppearanceOverlay="@style/CircleImage" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_camera"
+                backgroundColorShade="@{ColorShade.SHADE4}"
+                ekoBackgroundColor="@{@color/upstraColorBase}"
                 android:layout_width="@dimen/twenty_eight"
                 android:layout_height="@dimen/twenty_eight"
-                ekoBackgroundColor="@{@color/upstraColorBase}"
-                backgroundColorShade="@{ColorShade.SHADE4}"
                 android:layout_gravity="bottom|end"
-                android:src="@drawable/ic_uikit_camera"
                 android:scaleType="centerInside"
+                android:src="@drawable/ic_uikit_camera"
+                app:shapeAppearanceOverlay="@style/CircleImage"
                 app:strokeColor="@color/white"
-                app:strokeWidth="2dp"
-                app:shapeAppearanceOverlay="@style/CircleImage" />
+                app:strokeWidth="2dp" />
         </FrameLayout>
-
 
 
         <TextView
             android:id="@+id/tvDisplayNameLabel"
             android:layout_width="match_parent"
-            android:layout_marginStart="@dimen/sixteen"
-            android:layout_marginEnd="@dimen/sixteen"
             android:layout_height="wrap_content"
-            android:text="@string/display_name"
-            app:required="@{true}"
+            android:layout_marginStart="@dimen/sixteen"
             android:layout_marginTop="@dimen/sixteen"
+            android:layout_marginEnd="@dimen/sixteen"
+            android:text="@string/display_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/avatarView" />
+            app:layout_constraintTop_toBottomOf="@id/avatarView"
+            app:required="@{true}" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDisplayName"
@@ -88,8 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/sixteen"
             android:layout_marginEnd="@dimen/sixteen"
-            android:textColor="@color/upstraColorBase"
             android:text="@={vm.displayName}"
+            android:textColor="@color/upstraColorBase"
             app:layout_constraintTop_toBottomOf="@id/tvDisplayNameLabel" />
 
         <TextView
@@ -106,8 +89,8 @@
             android:id="@+id/tvAboutCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/sixteen"
             android:layout_marginTop="@dimen/thirty_two"
+            android:layout_marginEnd="@dimen/sixteen"
             android:text='@{vm.about.trim().length() +"/180"}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etDisplayName" />

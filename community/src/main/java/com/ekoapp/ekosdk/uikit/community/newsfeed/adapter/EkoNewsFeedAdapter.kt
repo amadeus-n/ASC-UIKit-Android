@@ -88,7 +88,8 @@ class EkoNewsFeedAdapter(
         ): Boolean {
             for ((index, _) in oldComments.withIndex()) {
                 if(oldComments[index].getData() != newComments[index].getData()
-                    && oldComments[index].getReactionCount() != newComments[index].getReactionCount()){
+                    || oldComments[index].getReactionCount() != newComments[index].getReactionCount()
+                    || oldComments[index].getEditedAt() != newComments[index].getEditedAt()){
                     return false
                 }
             }

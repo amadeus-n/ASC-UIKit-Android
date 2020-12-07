@@ -11,8 +11,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val intent = Intent(this, EkoMessageListActivity::class.java)
-        startActivity(intent)
+//        val intent = Intent(this, EkoMessageListActivity::class.java)
+//        startActivity(intent)
 
     }
 }

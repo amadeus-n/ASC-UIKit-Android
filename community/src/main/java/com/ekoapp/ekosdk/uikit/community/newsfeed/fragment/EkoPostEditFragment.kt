@@ -12,7 +12,6 @@ import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED_ID
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_eko_create_post.etPost
-import kotlinx.android.synthetic.main.activity_eko_create_post.toolbar
 
 class EkoPostEditFragment internal constructor(): EkoBaseCreatePostFragment() {
 
@@ -29,13 +28,16 @@ class EkoPostEditFragment internal constructor(): EkoBaseCreatePostFragment() {
         hideComposeBar()
     }
 
-    override fun setToolBarText() {
-        toolbar.setLeftString(getString(R.string.edit_post))
-        toolbar.setRightString(getString(R.string.save_caps))
+    override fun handlePostMenuItemClick() {
+        updatePost()
     }
 
-    override fun rightIconClick() {
-        updatePost()
+    override fun setToolBarText() {
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.edit_post)
+    }
+
+    override fun getPostMenuText(): String {
+        return getString(R.string.save_caps)
     }
 
     override fun isRightButtonActive() : Boolean{
@@ -47,13 +49,13 @@ class EkoPostEditFragment internal constructor(): EkoBaseCreatePostFragment() {
     }
 
     private fun updatePost() {
-        toolbar.setRightStringActive(false)
+        updatePostMenu(false)
         val disposable = mViewModel.deleteImageOrFileInPost()
             .andThen(mViewModel.updatePostText(etPost.text.toString()))
             .doOnComplete {
                 mViewModel.getNewsFeed()?.let { handleEditPostSuccessResponse(it) }
             }.doOnError {
-                toolbar.setRightStringActive(true)
+                updatePostMenu(true)
                 showErrorMessage(it.message)
             }
             .subscribeOn(Schedulers.io())
@@ -70,7 +72,7 @@ class EkoPostEditFragment internal constructor(): EkoBaseCreatePostFragment() {
             post.getPostId()
         )
         activity?.setResult(Activity.RESULT_OK, resultIntent)
-        refreshGlobalFeed()
+        refresh()
         NewsFeedEvents.newPostCreated = false
         activity?.finish()
     }

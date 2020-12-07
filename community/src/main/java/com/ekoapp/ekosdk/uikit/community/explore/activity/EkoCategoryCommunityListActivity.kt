@@ -2,29 +2,30 @@ package com.ekoapp.ekosdk.uikit.community.explore.activity
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.ekoapp.ekosdk.community.category.EkoCommunityCategory
+import com.ekoapp.ekosdk.uikit.base.EkoBaseToolbarFragmentContainerActivity
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.explore.fragments.EkoCategoryCommunityListFragment
 
-class EkoCategoryCommunityListActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_eko_category_community_list)
-        if(savedInstanceState == null)
-            loadFragment()
+class EkoCategoryCommunityListActivity : EkoBaseToolbarFragmentContainerActivity() {
+
+    override fun initToolbar() {
+        val category : EkoCommunityCategory = intent.getParcelableExtra(INTENT_CATEGORY)
+        getToolBar()?.setLeftDrawable(
+            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+        )
+        getToolBar()?.setLeftString(category.getName())
+        showToolbarDivider()
     }
 
-    private fun loadFragment() {
+    override fun getContentFragment(): Fragment {
         val category : EkoCommunityCategory = intent.getParcelableExtra(INTENT_CATEGORY)
-        val transaction = supportFragmentManager.beginTransaction()
-        val fragment = EkoCategoryCommunityListFragment
+        return EkoCategoryCommunityListFragment
             .Builder()
             .category(category)
             .build(this)
-        transaction.replace(R.id.fragmentContainer, fragment)
-        transaction.commit()
     }
 
     companion object {

@@ -53,8 +53,9 @@
                 android:id="@+id/ivVoiceMsg"
                 android:layout_width="@dimen/twenty_four"
                 android:layout_height="@dimen/twenty_four"
-                android:src="@drawable/ic_uikit_voice_message"
+                android:src="@{viewModel.isVoiceMsgUi() ? @drawable/ic_uikit_keyboard : @drawable/ic_uikit_voice_message}"
                 android:layout_marginHorizontal="@dimen/twelve"
+                android:onClick="@{() -> viewModel.toggleRecordingView()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/etMessage"
                 app:layout_constraintBottom_toBottomOf="@id/etMessage"
@@ -67,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:maxLines="4"
+                android:enabled="@{!viewModel.isVoiceMsgUi()}"
                 android:text="@={viewModel.text}"
                 android:hint="@string/type_message"
                 android:textColorHint="@{@color/upstraColorBase}"
@@ -78,6 +80,32 @@
                 app:layout_constraintBottom_toTopOf="@id/composeBar"
                 android:layout_marginTop="@dimen/ten"
                 android:layout_marginBottom="@dimen/ten"/>
+
+            <View
+                android:id="@+id/recordBackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewModel.isVoiceMsgUi() ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="@id/etMessage"
+                app:layout_constraintEnd_toEndOf="@id/etMessage"
+                app:layout_constraintTop_toTopOf="@id/etMessage"
+                app:layout_constraintBottom_toBottomOf="@id/etMessage"/>
+
+            <TextView
+                android:id="@+id/tvRecord"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:textColor="@color/upstraColorBase"
+                style="@style/TextStyleEkoBodyBold"
+                android:drawablePadding="2dp"
+                android:visibility="@{viewModel.isVoiceMsgUi() ? View.VISIBLE : View.GONE}"
+                android:text="@string/hold_to_record"
+                app:layout_constraintStart_toStartOf="@id/etMessage"
+                app:layout_constraintEnd_toEndOf="@id/etMessage"
+                app:layout_constraintTop_toTopOf="@id/etMessage"
+                app:layout_constraintBottom_toBottomOf="@id/etMessage"
+                app:drawableStartCompat="@drawable/ic_uikit_mic" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/rightBarrier"
@@ -129,6 +157,14 @@
                 app:layout_constraintTop_toBottomOf="@id/etMessage"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:clickListener="@{viewModel.composeBarClickListener}"/>
+
+            <com.ekoapp.ekosdk.uikit.components.EkoAudioRecorderView
+                android:id="@+id/recorderView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{viewModel.isRecording() ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

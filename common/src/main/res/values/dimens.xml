@@ -40,6 +40,7 @@
     <dimen name="one_hundred_three">103dp</dimen>
     <dimen name="three_hundred_twenty_eight">328dp</dimen>
     <dimen name="forty">40dp</dimen>
+    <dimen name="forty_eight">48dp</dimen>
     <dimen name="fifty_five">55dp</dimen>
     <dimen name="one_hundred_twenty">120dp</dimen>
     <dimen name="sixty_two">62dp</dimen>
