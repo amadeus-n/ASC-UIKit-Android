@@ -11,8 +11,11 @@ object EkoDateUtils {
     private const val YEAR = "yyyy"
     private const val MONTH_WITH_DATE = "MMMM d"
     private const val TIME_FORMAT = "h:mm a"
-    private const val TIME_MINUTE_FORMAT = "mm:ss"
+    const val TIME_MINUTE_FORMAT = "m:ss"
     private const val TIME_HOUR_FORMAT = "HH:mm:ss"
+    private const val HOUR_IN_MILLISECOND = 3600000
+    private const val EMPTY_FORMATTED_TIME = "0:00"
+    private const val TRANSFORMED_EMPTY_FORMATTED_TIME = "0:01"
     private var formatter = SimpleDateFormat(TIME_MINUTE_FORMAT, Locale.getDefault())
 
     private fun getTimeStr(timestamp: Long): String =
@@ -43,5 +46,21 @@ object EkoDateUtils {
         val cal = Calendar.getInstance()
         cal.timeInMillis = timestamp
         return year == cal.get(Calendar.YEAR)
+    }
+
+    private fun getFormattedTime(milliSeconds: Int): String {
+        if (milliSeconds / HOUR_IN_MILLISECOND > 0) {
+            formatter = SimpleDateFormat(TIME_MINUTE_FORMAT, Locale.getDefault())
+        }
+        val date = Date(milliSeconds.toLong())
+        return formatter.format(date)
+    }
+
+    fun getFormattedTimeForChat(milliSeconds: Int): String {
+        var formattedTime = getFormattedTime(milliSeconds)
+        if (formattedTime == EMPTY_FORMATTED_TIME) {
+            formattedTime = TRANSFORMED_EMPTY_FORMATTED_TIME
+        }
+        return formattedTime
     }
 }

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+        <variable
+            name="vmAudioMsg"
+            type="com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoAudioMsgViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include android:id="@+id/dateHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_date"
+            android:visibility="@{vmAudioMsg.isDateVisible() ? View.VISIBLE : View.GONE}"
+            app:date="@{vmAudioMsg.msgDate}"
+            app:dateFillColor="@{vmAudioMsg.dateFillColor}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutAudio"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:onLongClick="@{() -> vmAudioMsg.onLongPress()}"
+            android:layout_marginEnd="@dimen/sixteen"
+            roundedCorner="@{true}"
+            fillColor="@{vmAudioMsg.senderFillColor}"
+            topRightRadius="@{@dimen/zero}"
+            android:visibility="@{vmAudioMsg.isDeleted() ? View.GONE : View.VISIBLE}"
+            app:layout_constraintTop_toBottomOf="@id/dateHeader"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/ivPlay"
+                android:layout_width="@dimen/twenty_four"
+                android:layout_height="@dimen/twenty_four"
+                android:clickable="@{!vmAudioMsg.uploading}"
+                android:src="@{vmAudioMsg.isPlaying() ? @drawable/ic_uikit_pause : @drawable/ic_uikit_play}"
+                android:onClick="@{() -> vmAudioMsg.playButtonClicked()}"
+                android:layout_margin="@dimen/eight"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/ten"
+                android:text="@{vmAudioMsg.duration}"
+                style="@style/TextStyleEkoBody"
+                android:textColor="@color/white"
+                android:visibility="@{vmAudioMsg.uploading ? View.GONE : View.VISIBLE}"
+                app:layout_constraintTop_toTopOf="@id/ivPlay"
+                app:layout_constraintBottom_toBottomOf="@id/ivPlay"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.google.android.material.progressindicator.ProgressIndicator
+                android:layout_width="@dimen/eighteen"
+                android:layout_height="@dimen/eighteen"
+                android:layout_marginEnd="@dimen/two"
+                app:indicatorColor="@color/white"
+                app:trackColor="#80FFFFFF"
+                app:circularRadius="@dimen/nine"
+                app:indicatorWidth="@dimen/two"
+                android:progress="@{vmAudioMsg.uploadProgress}"
+                android:visibility="@{vmAudioMsg.uploading ? View.VISIBLE : View.GONE}"
+                style="@style/Widget.MaterialComponents.ProgressIndicator.Circular.Determinate"
+                app:layout_constraintTop_toTopOf="@id/ivPlay"
+                app:layout_constraintBottom_toBottomOf="@id/ivPlay"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:roundedCorner="@{true}"
+            app:topRightRadius="@{@dimen/zero}"
+            android:backgroundTint="@color/upstraColorBase"
+            android:visibility="@{vmAudioMsg.inSelectionMode ? View.VISIBLE : View.GONE}"
+            android:alpha="0.5"
+            app:layout_constraintStart_toStartOf="@id/layoutAudio"
+            app:layout_constraintEnd_toEndOf="@id/layoutAudio"
+            app:layout_constraintTop_toTopOf="@id/layoutAudio"
+            app:layout_constraintBottom_toBottomOf="@id/layoutAudio"/>
+
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_msg_error"
+            app:viewModel="@{vmAudioMsg}"
+            android:visibility="@{vmAudioMsg.isFailed() ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toStartOf="@id/layoutAudio"
+            android:layout_marginEnd="@dimen/four"
+            app:layout_constraintTop_toTopOf="@id/layoutAudio"
+            app:layout_constraintBottom_toBottomOf="@id/layoutAudio"/>
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{vmAudioMsg.msgTime}"
+            android:visibility="@{vmAudioMsg.isDeleted() ? View.GONE : View.VISIBLE}"
+            style="@style/TextStyleEkoCaption"
+            android:textColor="@color/upstraColorBase"
+            textColorShade="@{ColorShade.SHADE2}"
+            android:layout_marginEnd="@dimen/four"
+            android:layout_marginTop="@dimen/four"
+            app:layout_constraintTop_toBottomOf="@id/layoutAudio"
+            app:layout_constraintEnd_toEndOf="@id/layoutAudio"/>
+
+        <include layout="@layout/layout_msg_deleted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/twelve"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateHeader"
+            app:viewModel="@{vmAudioMsg}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

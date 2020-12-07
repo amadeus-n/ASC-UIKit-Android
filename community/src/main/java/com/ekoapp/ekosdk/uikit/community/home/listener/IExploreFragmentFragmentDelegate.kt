@@ -1,7 +1,7 @@
 package com.ekoapp.ekosdk.uikit.community.home.listener
 
-import androidx.fragment.app.Fragment
+import com.ekoapp.ekosdk.uikit.community.explore.fragments.EkoExploreFragment
 
 interface IExploreFragmentFragmentDelegate {
-    fun getExploreFragment() : Fragment
+    fun getExploreFragment() : EkoExploreFragment
 }

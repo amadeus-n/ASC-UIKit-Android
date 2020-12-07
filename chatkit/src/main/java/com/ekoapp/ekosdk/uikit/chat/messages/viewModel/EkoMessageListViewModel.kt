@@ -26,6 +26,15 @@ class EkoMessageListViewModel: EkoChatMessageBaseViewModel() {
     val stickyDate = ObservableField<String>("")
     val showComposeBar = ObservableBoolean(false)
     val keyboardHeight = ObservableInt(0)
+    val isVoiceMsgUi = ObservableBoolean(false)
+    val isRecording = ObservableBoolean(false)
+
+    fun toggleRecordingView() {
+        isVoiceMsgUi.set(!isVoiceMsgUi.get())
+        if (isVoiceMsgUi.get()) {
+            triggerEvent(EventIdentifier.SHOW_AUDIO_RECORD_UI)
+        }
+    }
 
     fun getChannelType(): Flowable<EkoChannel> {
         val channelRepository: EkoChannelRepository = EkoClient.newChannelRepository()
@@ -59,19 +68,22 @@ class EkoMessageListViewModel: EkoChatMessageBaseViewModel() {
     }
 
     fun sendMessage() {
-        val messageRepository: EkoMessageRepository = EkoClient.newMessageRepository()
-        addDisposable(messageRepository.createMessage(channelID).with()
-            .text(text.get())
-            .build().send().subscribeWith(object : DisposableCompletableObserver(){
-                override fun onComplete() {
-                    triggerEvent(EventIdentifier.MSG_SEND_SUCCESS)
-                }
+        if (!isVoiceMsgUi.get()) {
+            val messageRepository: EkoMessageRepository = EkoClient.newMessageRepository()
+            addDisposable(messageRepository.createMessage(channelID).with()
+                .text(text.get())
+                .build().send().subscribeWith(object : DisposableCompletableObserver(){
+                    override fun onComplete() {
+                        triggerEvent(EventIdentifier.MSG_SEND_SUCCESS)
+                    }
 
-                override fun onError(e: Throwable) {
-                    triggerEvent(EventIdentifier.MSG_SEND_ERROR)
-                }
-            }))
-        text.set("")
+                    override fun onError(e: Throwable) {
+                        triggerEvent(EventIdentifier.MSG_SEND_ERROR)
+                    }
+                }))
+            text.set("")
+        }
+
 
     }
 
@@ -81,8 +93,13 @@ class EkoMessageListViewModel: EkoChatMessageBaseViewModel() {
             .image(imageUri).build().send()
     }
 
+    fun sendAudioMessage(audioFileUri: Uri): Completable {
+        val messageRepository: EkoMessageRepository = EkoClient.newMessageRepository()
+        return messageRepository.createMessage(channelID).with()
+            .audio(audioFileUri).build().send()
+    }
+
     fun toggleComposeBar() {
-        //showComposeBar.set(!showComposeBar.get())
         triggerEvent(EventIdentifier.TOGGLE_CHAT_COMPOSE_BAR)
     }
 

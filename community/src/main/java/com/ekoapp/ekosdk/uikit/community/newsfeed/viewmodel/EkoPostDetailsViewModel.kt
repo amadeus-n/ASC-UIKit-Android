@@ -9,6 +9,7 @@ import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.feed.EkoPostTarget
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.uikit.community.domain.repository.EkoChannelRepository
+import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IAvatarClickListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -16,6 +17,8 @@ import io.reactivex.Single
 
 class EkoPostDetailsViewModel : EkoBaseViewModel() {
     var newsFeed: EkoPost? = null
+    var avatarClickListener: IAvatarClickListener? = null
+
     private val feedRepository: EkoFeedRepository = EkoClient.newFeedRepository()
     private val commentRepository: EkoCommentRepository = EkoClient.newCommentRepository()
 

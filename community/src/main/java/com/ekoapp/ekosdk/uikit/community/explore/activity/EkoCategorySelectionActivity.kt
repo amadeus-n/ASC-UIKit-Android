@@ -3,65 +3,40 @@ package com.ekoapp.ekosdk.uikit.community.explore.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.ekoapp.ekosdk.community.category.EkoCommunityCategory
-import com.ekoapp.ekosdk.uikit.base.EkoBaseActivity
-import com.ekoapp.ekosdk.uikit.community.BR
+import com.ekoapp.ekosdk.uikit.base.EkoBaseToolbarFragmentContainerActivity
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.data.SelectCategoryItem
-import com.ekoapp.ekosdk.uikit.community.databinding.ActivityEkoCategoryListBinding
-import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCategoryItemClickListener
-import com.ekoapp.ekosdk.uikit.community.explore.fragments.EkoCategoryListFragment
 import com.ekoapp.ekosdk.uikit.community.explore.fragments.EkoSelectCategoryListFragment
-import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoCategorySelectionViewModel
-import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
+import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCategoryItemClickListener
 
 const val EXTRA_DEFAULT_CATEGORY_SELECTION = "default_category_selection"
 
 class EkoCategorySelectionActivity :
-    EkoBaseActivity<ActivityEkoCategoryListBinding, EkoCategorySelectionViewModel>(),
-    EkoToolBarClickListener, IEkoCategoryItemClickListener {
-
+    EkoBaseToolbarFragmentContainerActivity(), IEkoCategoryItemClickListener {
 
     private lateinit var defaultSelection: SelectCategoryItem
-    private val categorySelectionViewModel: EkoCategorySelectionViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        defaultSelection = intent.getParcelableExtra(EXTRA_DEFAULT_CATEGORY_SELECTION) ?: SelectCategoryItem()
-        if (savedInstanceState == null) {
-            addCategoryListFragment()
-        }
+
+    override fun initToolbar() {
+        showToolbarDivider()
+        getToolBar()?.setLeftDrawable(
+            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+        )
+        getToolBar()?.setLeftString(getString(R.string.category))
     }
 
-    private fun addCategoryListFragment() {
+    override fun getContentFragment(): Fragment {
+        defaultSelection = intent.getParcelableExtra(EXTRA_DEFAULT_CATEGORY_SELECTION) ?: SelectCategoryItem()
         val fragment = EkoSelectCategoryListFragment.Builder()
             .defaultSelection(defaultSelection.name)
             .build(this)
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, fragment)
-        transaction.commit()
         fragment.setCategoryItemClickListener(this)
+        return fragment
     }
-
-    override fun leftIconClick() {
-        this.finish()
-    }
-
-    override fun rightIconClick() {
-        var resultIntent = Intent()
-        resultIntent.putExtra(EXTRA_DEFAULT_CATEGORY_SELECTION, defaultSelection)
-        setResult(Activity.RESULT_OK, resultIntent)
-        this.finish()
-
-    }
-    override fun getLayoutId(): Int = R.layout.activity_eko_category_list
-
-    override fun getViewModel(): EkoCategorySelectionViewModel = categorySelectionViewModel
-
-    override fun getBindingVariable(): Int = BR.viewModel
 
     override fun onCategorySelected(category: EkoCommunityCategory) {
         defaultSelection = SelectCategoryItem(category.getCategoryId(), category.getName())

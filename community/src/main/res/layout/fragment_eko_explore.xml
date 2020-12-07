@@ -11,42 +11,50 @@
             type="com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoExploreCommunityViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".explore.fragments.EkoExploreFragment">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            tools:context=".explore.fragments.EkoExploreFragment">
 
-            <FrameLayout
-                android:id="@+id/recommendedContainer"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                ekoBackgroundColor="@{@color/upstraColorBase}"
-                backgroundColorShade="@{ColorShade.SHADE4}"
-                android:visibility="@{viewModel.emptyRecommendedList ? View.GONE : View.VISIBLE}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/trendingContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="@{viewModel.emptyTrendingList ? View.GONE : View.VISIBLE}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recommendedContainer" />
+                <FrameLayout
+                    android:id="@+id/recommendedContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    ekoBackgroundColor="@{@color/upstraColorBase}"
+                    backgroundColorShade="@{ColorShade.SHADE4}"
+                    android:visibility="@{viewModel.emptyRecommendedList ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <FrameLayout
-                android:id="@+id/categoryContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="@{viewModel.emptyCategoryList ? View.GONE : View.VISIBLE}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/trendingContainer" />
+                <FrameLayout
+                    android:id="@+id/trendingContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.emptyTrendingList ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recommendedContainer" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <FrameLayout
+                    android:id="@+id/categoryContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.emptyCategoryList ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/trendingContainer" />
 
-    </androidx.core.widget.NestedScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </layout>

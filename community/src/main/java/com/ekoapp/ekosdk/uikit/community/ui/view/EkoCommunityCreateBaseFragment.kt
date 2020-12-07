@@ -22,9 +22,9 @@ import com.ekoapp.ekosdk.uikit.common.toCircularShape
 import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
 import com.ekoapp.ekosdk.uikit.community.data.SelectCategoryItem
 import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoCreateCommunityBinding
+import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
 import com.ekoapp.ekosdk.uikit.community.explore.activity.EkoCategorySelectionActivity
 import com.ekoapp.ekosdk.uikit.community.ui.viewModel.EkoCreateCommunityViewModel
 import com.ekoapp.ekosdk.uikit.contract.EkoPickImageContract

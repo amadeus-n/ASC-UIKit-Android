@@ -40,8 +40,7 @@ class EkoImageMsgReceiverViewHolder(itemView: View,
     }
 
     override fun setMessageData(item: EkoMessage) {
-        val imageData = item.getData() as EkoMessage.Data.IMAGE
-        itemViewModel.imageUrl.set(imageData.getUrl())
+        itemViewModel.getImageUploadProgress(item)
         if (itemViewModel.imageUrl.get() != null && itemViewModel.imageUrl.get()!!.isNotEmptyOrBlank()) {
             val radius = context.resources.getDimension(com.ekoapp.ekosdk.uikit.R.dimen.six)
             binding?.ivImageIncoming?.shapeAppearanceModel = binding?.ivImageIncoming?.shapeAppearanceModel
@@ -57,7 +56,9 @@ class EkoImageMsgReceiverViewHolder(itemView: View,
         }
 
         binding?.ivImageIncoming?.setOnClickListener {
-            navigateToImagePreview(imageData.getUrl())
+            itemViewModel.imageUrl.get()?.let {
+                navigateToImagePreview(it)
+            }
         }
 
     }

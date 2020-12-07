@@ -7,12 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.LayoutMyTimelineFeedEmptyViewBinding
 import com.ekoapp.ekosdk.uikit.community.databinding.LayoutOtherUserTimelineEmptyViewBinding
+import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IAvatarClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.util.EkoTimelineType
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoBaseFeedViewModel
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoCommunityTimelineViewModel
@@ -23,25 +24,28 @@ import io.reactivex.schedulers.Schedulers
 
 const val ARG_COMMUNITY = "community"
 const val ARG_COMMUNITY_ID = "community_id"
+
 class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
     private val TAG = EkoCommunityFeedFragment::class.java.simpleName
-    private val mViewModel: EkoCommunityTimelineViewModel by activityViewModels()
+    private lateinit var mViewModel: EkoCommunityTimelineViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mViewModel =
+            ViewModelProvider(requireActivity()).get(EkoCommunityTimelineViewModel::class.java)
         arguments.let {
             mViewModel.communityId = it?.getString(ARG_COMMUNITY_ID)
             mViewModel.community = it?.getParcelable(ARG_COMMUNITY)
-            if(mViewModel.community == null) {
+            if (mViewModel.community == null) {
                 getCommunityDetails()
-            }else {
+            } else {
                 mViewModel.updateAdminAccess()
             }
         }
     }
 
     private fun getCommunityDetails() {
-        mViewModel
+        val communityDisposable = mViewModel
             .getCommunity(mViewModel.communityId!!)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
@@ -50,9 +54,11 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
                 mViewModel.updateAdminAccess()
             }
             ?.doOnError {
-              Log.d(TAG, it.message)
+                Log.d(TAG, it.message)
             }
             ?.subscribe()
+
+        communityDisposable?.let { disposable.add(it) }
     }
 
     override fun getFeedType(): EkoTimelineType = EkoTimelineType.COMMUNITY
@@ -96,32 +102,43 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
     }
 
     override fun onClickUserAvatar(feed: EkoPost, user: EkoUser, position: Int) {
-        EkoCommunityNavigation.navigateToUserProfile(requireContext(), user.getUserId())
+        if (mViewModel.avatarClickListener != null) {
+            mViewModel.avatarClickListener?.onClickUserAvatar(user)
+        } else {
+            EkoCommunityNavigation.navigateToUserProfile(requireContext(), user.getUserId())
+        }
     }
 
     class Builder() {
         private var communityId: String? = null
         private var community: EkoCommunity? = null
+        private var avatarClickListener: IAvatarClickListener? = null
 
         fun build(activity: AppCompatActivity): EkoCommunityFeedFragment {
-            if(communityId == null && community == null)
+            if (communityId == null && community == null) {
                 throw IllegalArgumentException("Missing either communityId or community")
-            return EkoCommunityFeedFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(ARG_COMMUNITY, this@Builder.community)
-                    putString(ARG_COMMUNITY_ID, this@Builder.communityId)
-                }
             }
+
+            val fragment = EkoCommunityFeedFragment()
+            fragment.mViewModel = ViewModelProvider(activity).get(EkoCommunityTimelineViewModel::class.java)
+            fragment.mViewModel.avatarClickListener = avatarClickListener
+            fragment.arguments = Bundle().apply {
+                putParcelable(ARG_COMMUNITY, this@Builder.community)
+                putString(ARG_COMMUNITY_ID, this@Builder.communityId)
+            }
+            return fragment
         }
 
         fun communityId(communityId: String): Builder {
-            this.communityId = communityId
-            return this
+            return apply { this.communityId = communityId }
         }
 
         fun community(community: EkoCommunity?): Builder {
-            this.community = community
-            return this
+            return apply { this.community = community }
+        }
+
+        fun onClickUserAvatar(onAvatarClickListener: IAvatarClickListener): Builder {
+            return apply { this.avatarClickListener = onAvatarClickListener }
         }
     }
 }

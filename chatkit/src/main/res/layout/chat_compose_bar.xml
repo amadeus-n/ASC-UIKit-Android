@@ -89,7 +89,8 @@
             backgroundColorShade="@{ColorShade.SHADE4}"
             app:layout_constraintStart_toEndOf="@id/ivAlbum"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ivCamera"/>
+            app:layout_constraintTop_toTopOf="@id/ivCamera"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/tvFile"
@@ -103,7 +104,8 @@
             android:gravity="center"
             app:layout_constraintStart_toStartOf="@id/ivFile"
             app:layout_constraintEnd_toEndOf="@id/ivFile"
-            app:layout_constraintTop_toBottomOf="@id/ivFile"/>
+            app:layout_constraintTop_toBottomOf="@id/ivFile"
+            android:visibility="invisible"/>
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivLocation"
@@ -116,7 +118,8 @@
             backgroundColorShade="@{ColorShade.SHADE4}"
             app:layout_constraintStart_toStartOf="@id/ivCamera"
             app:layout_constraintTop_toBottomOf="@id/ivCamera"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/tvLocation"
@@ -130,6 +133,7 @@
             android:gravity="center"
             app:layout_constraintStart_toStartOf="@id/ivLocation"
             app:layout_constraintEnd_toEndOf="@id/ivLocation"
-            app:layout_constraintTop_toBottomOf="@id/ivLocation"/>
+            app:layout_constraintTop_toBottomOf="@id/ivLocation"
+            android:visibility="invisible"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

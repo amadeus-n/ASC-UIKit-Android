@@ -88,7 +88,7 @@ abstract class EkoSelectableMessageViewHolder(
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.doOnComplete {
-
+                itemViewModel.triggerEvent(EventIdentifier.MESSAGE_DELETE_SUCCESS, itemViewModel.ekoMessage?.getMessageId()!!)
             }?.doOnError {
                 showDeleteFailedDialog()
             }?.subscribe()

@@ -17,13 +17,16 @@ import kotlinx.android.synthetic.main.fragment_eko_post_create.*
 
 class EkoPostCreateFragment internal constructor(): EkoBaseCreatePostFragment() {
 
-    override fun setToolBarText() {
-            toolbar.setLeftString(getToolbarTitleForCreatePost())
-            toolbar.setRightString(getString(R.string.post_caps))
+    override fun handlePostMenuItemClick() {
+        createPost()
     }
 
-    override fun rightIconClick() {
-        createPost()
+    override fun setToolBarText() {
+        (activity as AppCompatActivity).supportActionBar?.title = getToolbarTitleForCreatePost()
+    }
+
+    override fun getPostMenuText(): String {
+        return getString(R.string.post_caps)
     }
     private fun getToolbarTitleForCreatePost(): String {
         if (mViewModel.community != null)
@@ -36,7 +39,7 @@ class EkoPostCreateFragment internal constructor(): EkoBaseCreatePostFragment() 
             return
         }
         isLoading = true
-        toolbar.setRightStringActive(false)
+        updatePostMenu(false)
         val ekoPostSingle = mViewModel.createPost(etPost.text.toString())
 
         val disposable = ekoPostSingle
@@ -46,7 +49,7 @@ class EkoPostCreateFragment internal constructor(): EkoBaseCreatePostFragment() 
                 handleCreatePostSuccessResponse(it)
             }
             .doOnError {
-                toolbar.setRightStringActive(true)
+                updatePostMenu(true)
                 isLoading = false
                 showErrorMessage(it.message)
             }
@@ -61,7 +64,7 @@ class EkoPostCreateFragment internal constructor(): EkoBaseCreatePostFragment() 
             post.getPostId()
         )
         activity?.setResult(Activity.RESULT_OK, resultIntent)
-        refreshGlobalFeed()
+        refresh()
         NewsFeedEvents.newPostCreated = true
         activity?.finish()
     }

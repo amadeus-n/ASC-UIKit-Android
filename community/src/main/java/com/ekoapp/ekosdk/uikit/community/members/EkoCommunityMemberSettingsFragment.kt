@@ -1,27 +1,19 @@
 package com.ekoapp.ekosdk.uikit.community.members
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.ekoapp.ekosdk.uikit.base.EkoFragmentStateAdapter
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
 import kotlinx.android.synthetic.main.fragment_eko_community_member_settings.*
 
-/**
- * A simple [Fragment] subclass.
- * Use the [EkoCommunityMemberSettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 private const val ARG_COMMUNITY_ID = "ARG_COMMUNITY_ID"
 private const val ARG_IS_PUBLIC = "ARG_IS_PUBLIC"
-class EkoCommunityMemberSettingsFragment internal constructor(): Fragment(), EkoToolBarClickListener {
+class EkoCommunityMemberSettingsFragment internal constructor(): Fragment() {
 
     private lateinit var fragmentStateAdapter: EkoFragmentStateAdapter
     private val mViewModel: EkoCommunityMembersViewModel by activityViewModels()
@@ -53,14 +45,7 @@ class EkoCommunityMemberSettingsFragment internal constructor(): Fragment(), Eko
     }
 
     private fun setUpToolbar() {
-        membersToolbar.setLeftDrawable(
-            ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_arrow_back)
-        )
-        membersToolbar.setLeftString(getString(R.string.members_capital))
-        membersToolbar.setClickListener(this)
-        (activity as AppCompatActivity).supportActionBar?.displayOptions =
-            ActionBar.DISPLAY_SHOW_CUSTOM
-        (activity as AppCompatActivity).setSupportActionBar(membersToolbar)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.members_capital)
     }
 
     private fun setUpTabLayout() {
@@ -69,14 +54,6 @@ class EkoCommunityMemberSettingsFragment internal constructor(): Fragment(), Eko
             //EkoFragmentStateAdapter.EkoPagerModel(getString(R.string.moderators), EkoModeratorsFragment.newInstance())
         ))
         membersTabLayout.setAdapter(fragmentStateAdapter)
-    }
-
-    override fun leftIconClick() {
-        requireActivity().finish()
-    }
-
-    override fun rightIconClick() {
-        TODO("Not yet implemented")
     }
 
     class Builder {
