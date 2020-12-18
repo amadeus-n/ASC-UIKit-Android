@@ -107,6 +107,7 @@
     <string name="leave_community_msg">You won\’t no longer be able to post and interact in this community after leaving.</string>
     <string name="moderators">Moderators</string>
     <string name="report_user">Report User</string>
+    <string name="unreport_user">Unreport User</string>
     <string name="choose_existing">Choose Existing</string>
     <string name="take_photo">Take Photo</string>
     <string name="upload_failed_profile_picture">Failed to update profile picture</string>
@@ -116,7 +117,10 @@
     <string name="file_max_limit_exceed_message">The selected file is larger than 1GB. Please select a new file.</string>
     <string name="duplicate_files">One or more files are already added</string>
     <string name="report_sent">Report sent.</string>
+    <string name="unreport_sent">Unreport sent.</string>
     <string name="report_has_been_sent">Report has been sent</string>
+    <string name="unreport_post">Unreport post</string>
+    <string name="unreport_comment">Unreport comment</string>
     <string name="report_comment">Report Comment</string>
     <string name="community_success">Successfully created community</string>
     <string name="connectivity_issue">Unable to reach server</string>

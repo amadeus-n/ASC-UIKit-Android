@@ -1,5 +1,6 @@
 package com.ekoapp.ekosdk.uikit.community.newsfeed.fragment
 
+import android.Manifest
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -317,7 +318,10 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
                 showDeletePostWarning()
             }
             R.id.actionReportPost -> {
-                sendReport(newsFeed)
+                sendReportPost(newsFeed, true)
+            }
+            R.id.actionUnreportPost -> {
+                sendReportPost(newsFeed, false)
             }
         }
     }
@@ -346,7 +350,6 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
     }
 
     private fun showDeleteCommentWarning(comment: EkoComment) {
-
         val deleteConfirmationDialogFragment = EkoAlertDialogFragment
             .newInstance(
                 R.string.delete_comment_title, R.string.delete_comment_warning_message,
@@ -396,42 +399,53 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
         )
     }
 
-    private fun sendReport(comment: EkoComment) {
-        disposal.add(
-            mViewModel
-                .reportComment(comment)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError {
-                    Log.d(TAG, it.message)
-                }
-                .doOnComplete {
-                    showReportSentMessage()
-                }
-                .subscribe())
+    private fun sendReportComment(comment: EkoComment, isReport: Boolean) {
+        val viewModel = if (isReport) {
+            mViewModel.reportComment(comment)
+        } else {
+            mViewModel.unreportComment(comment)
+        }
+        disposal.add(viewModel
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                Log.d(TAG, it.message)
+            }
+            .doOnComplete {
+                showReportSentMessage(isReport)
+            }
+            .subscribe())
     }
 
-    private fun sendReport(feed: EkoPost) {
-        disposal.add(
-            mViewModel
-                .reportPost(feed)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError {
-                    Log.d(TAG, it.message)
-                }
-                .doOnComplete {
-                    showReportSentMessage()
-                }
-                .subscribe())
+    private fun sendReportPost(feed: EkoPost, isReport: Boolean) {
+        val viewModel = if (isReport) {
+            mViewModel.reportPost(feed)
+        } else {
+            mViewModel.unreportPost(feed)
+        }
+        disposal.add(viewModel
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                Log.d(TAG, it.message)
+            }
+            .doOnComplete {
+                showReportSentMessage(isReport)
+            }
+            .subscribe())
     }
 
-    private fun showReportSentMessage() {
+    private fun showReportSentMessage(isReport: Boolean) {
+        val messageSent = if (isReport) {
+            R.string.report_sent
+        } else {
+            R.string.unreport_sent
+        }
         EkoCustomToast.showMessage(
             parentLayout,
             requireContext(),
             layoutInflater,
-            getString(R.string.report_sent)
+            getString(messageSent)
         )
     }
 
@@ -490,7 +504,7 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
 
     private fun showCommentActionAdmin(ekoComment: EkoComment) {
         val menu =
-            if (ekoComment.isFlaggedByMe()) R.menu.eko_commnet_action_menu_admin_with_already_reported
+            if (ekoComment.isFlaggedByMe()) R.menu.eko_commnet_action_menu_admin_with_unreport
             else R.menu.eko_commnet_action_menu_admin
         val fragment =
             EkoBottomSheetDialogFragment.newInstance(menu)
@@ -520,7 +534,7 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
 
     private fun showFeedActionByOtherUser(feed: EkoPost) {
         var menu =
-            if (feed.isFlaggedByMe) R.menu.eko_feed_action_menu_already_reported else R.menu.eko_feed_action_menu_report
+            if (feed.isFlaggedByMe) R.menu.eko_feed_action_menu_unreport_post else R.menu.eko_feed_action_menu_report_post
 
         val fragment = EkoBottomSheetDialogFragment.newInstance(menu)
         fragment.show(childFragmentManager, EkoBottomSheetDialogFragment.toString())
@@ -536,7 +550,7 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
     private fun showFeedActionByAdmin(feed: EkoPost) {
         //TODO better solution for menu
         var menu =
-            if (feed.isFlaggedByMe) R.menu.eko_feed_action_menu_admin_with_already_reported else R.menu.eko_feed_action_menu_admin
+            if (feed.isFlaggedByMe) R.menu.eko_feed_action_menu_admin_with_unreport else R.menu.eko_feed_action_menu_admin
         val fragment = EkoBottomSheetDialogFragment.newInstance(menu)
 
         fragment.show(childFragmentManager, EkoBottomSheetDialogFragment.toString())
@@ -565,7 +579,7 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
 
     private fun showCommentActionByOtherUser(ekoComment: EkoComment) {
         val menu =
-            if (ekoComment.isFlaggedByMe()) R.menu.eko_comment_action_menu_already_reported
+            if (ekoComment.isFlaggedByMe()) R.menu.eko_comment_action_menu_unreport
             else R.menu.eko_comment_action_menu_report
         val fragment =
             EkoBottomSheetDialogFragment.newInstance(menu)
@@ -606,7 +620,10 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
                 showDeleteCommentWarning(ekoComment)
             }
             R.id.actionReportComment -> {
-                sendReport(ekoComment)
+                sendReportComment(ekoComment, true)
+            }
+            R.id.actionUnreportComment -> {
+                sendReportComment(ekoComment, false)
             }
         }
     }
@@ -657,9 +674,20 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
     }
 
     override fun onClickFileItem(file: FileAttachment) {
-        if (context == null)
+        if (context == null) {
             return
-        FileManager.saveFile(requireContext(), file.uri.toString(), file.name, file.mimeType)
+        }
+
+        if (hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            context?.let {
+                FileManager.saveFile(it, file.uri.toString(), file.name, file.mimeType)
+            }
+        } else {
+            this.requestPermission(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                REQUEST_STORAGE_PERMISSION_IMAGE_UPLOAD
+            )
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -695,7 +723,8 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
                 throw IllegalArgumentException("Post id is required")
 
             val fragment = EkoPostDetailFragment()
-            fragment.mViewModel = ViewModelProvider(activity).get(EkoPostDetailsViewModel::class.java)
+            fragment.mViewModel =
+                ViewModelProvider(activity).get(EkoPostDetailsViewModel::class.java)
             fragment.mViewModel.avatarClickListener = avatarClickListener
             fragment.arguments = Bundle().apply {
                 putString(EXTRA_PARAM_NEWS_FEED_ID, this@Builder.postId)

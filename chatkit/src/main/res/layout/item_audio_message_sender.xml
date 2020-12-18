@@ -56,7 +56,7 @@
                 android:text="@{vmAudioMsg.duration}"
                 style="@style/TextStyleEkoBody"
                 android:textColor="@color/white"
-                android:visibility="@{vmAudioMsg.uploading ? View.GONE : View.VISIBLE}"
+                android:visibility="@{vmAudioMsg.uploading || vmAudioMsg.buffering ? View.GONE : View.VISIBLE}"
                 app:layout_constraintTop_toTopOf="@id/ivPlay"
                 app:layout_constraintBottom_toBottomOf="@id/ivPlay"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -72,6 +72,19 @@
                 android:progress="@{vmAudioMsg.uploadProgress}"
                 android:visibility="@{vmAudioMsg.uploading ? View.VISIBLE : View.GONE}"
                 style="@style/Widget.MaterialComponents.ProgressIndicator.Circular.Determinate"
+                app:layout_constraintTop_toTopOf="@id/ivPlay"
+                app:layout_constraintBottom_toBottomOf="@id/ivPlay"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.google.android.material.progressindicator.ProgressIndicator
+                android:layout_width="@dimen/eighteen"
+                android:layout_height="@dimen/eighteen"
+                android:layout_marginEnd="@dimen/two"
+                app:trackColor="@color/white"
+                app:circularRadius="@dimen/nine"
+                app:indicatorWidth="@dimen/two"
+                android:visibility="@{vmAudioMsg.buffering ? View.VISIBLE : View.GONE}"
+                style="@style/Widget.MaterialComponents.ProgressIndicator.Circular.Indeterminate"
                 app:layout_constraintTop_toTopOf="@id/ivPlay"
                 app:layout_constraintBottom_toBottomOf="@id/ivPlay"
                 app:layout_constraintEnd_toEndOf="parent"/>

@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.MenuRes
 import com.ekoapp.ekosdk.uikit.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.layout_bottom_sheet_dialog.*
 import kotlin.properties.Delegates
 
@@ -37,7 +35,7 @@ class EkoBottomSheetDialogFragment private constructor() : BottomSheetDialogFrag
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigationView.menu.clear();
+        navigationView.menu.clear()
         navigationView.inflateMenu(menu)
         navigationView.setNavigationItemSelectedListener { item ->
             navListener?.onItemSelected(item)

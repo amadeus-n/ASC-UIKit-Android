@@ -81,8 +81,16 @@ abstract class EkoBaseFeedViewModel : EkoBaseViewModel() {
         return post.report().flag()
     }
 
+    fun unreportPost(post: EkoPost): Completable {
+        return post.report().unflag()
+    }
+
     fun reportComment(comment: EkoComment): Completable {
         return comment.report().flag()
+    }
+
+    fun unreportComment(comment: EkoComment): Completable {
+        return comment.report().unflag()
     }
 
 }

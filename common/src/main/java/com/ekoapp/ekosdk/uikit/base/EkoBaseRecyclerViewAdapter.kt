@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class EkoBaseRecyclerViewAdapter<T>():
+abstract class EkoBaseRecyclerViewAdapter<T>:
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val list: ArrayList<T> = arrayListOf()

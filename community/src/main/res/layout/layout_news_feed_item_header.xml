@@ -15,6 +15,9 @@
         <variable
             name="showFeedAction"
             type="Boolean" />
+        <variable
+            name="isModerator"
+            type="Boolean" />
     </data>
 
     <merge
@@ -81,8 +84,6 @@
                 android:id="@+id/tvPostBy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_uikit_moderator"
-                android:drawableEnd="@drawable/ic_uikit_dot"
                 android:drawablePadding="2dp"
                 android:layout_marginEnd="@dimen/four"
                 android:gravity="center_vertical"
@@ -94,8 +95,9 @@
                 app:drawableTintShade="@{ColorShade.SHADE1}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:visibility="gone"
-                />
+                android:visibility="@{isModerator ? View.VISIBLE : View.GONE}"
+                app:drawableStartCompat="@drawable/ic_uikit_moderator"
+                app:drawableEndCompat="@drawable/ic_uikit_dot" />
 
             <TextView
                 android:id="@+id/feedPostTime"

@@ -57,7 +57,7 @@ open class NewsFeedViewHolder(
             this.footerLayout.setItemClickListener(object : INewsFeedCommentItemClickListener{
                 override fun onClickItem(comment: EkoComment, position: Int) {
                     val postId = (comment.getReference() as? EkoCommentReference.Post)?.getPostId() ?: ""
-                   itemActionLister.onClickItem(data, position)
+                   itemActionLister.onClickItem(postId, position)
                 }
 
             })
@@ -95,12 +95,12 @@ open class NewsFeedViewHolder(
                     feed.showCompleteText()
                     this.feed.tag = this.feed.getVisibleLineCount()
                 }else {
-                    itemActionLister.onClickItem(data, position)
+                    itemActionLister.onClickItem(data.getPostId(), position)
                 }
 
             }
             footerLayout.setOnClickListener{
-                itemActionLister.onClickItem(data, position)
+                itemActionLister.onClickItem(data.getPostId(), position)
             }
 
             feedAction.setOnClickListener{

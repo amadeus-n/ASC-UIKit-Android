@@ -34,8 +34,12 @@ class EkoChatMessageBaseViewModelTest {
         val mockMessage: EkoMessage = mockk()
         every { mockMessage.delete() } returns Completable.complete()
         baseViewModel.ekoMessage = mockMessage
-        val res = baseViewModel.deleteMessage()?.test()
+        var res = baseViewModel.deleteMessage()?.test()
         res?.assertComplete()
+
+        baseViewModel.ekoMessage = null
+        res = baseViewModel.deleteMessage()?.test()
+        Assert.assertNull(res)
     }
 
     @Test

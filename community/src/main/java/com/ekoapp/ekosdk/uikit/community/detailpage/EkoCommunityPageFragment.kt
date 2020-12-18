@@ -116,10 +116,14 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
     }
 
     private fun navigateToMembersPage() {
-        val intent = EkoCommunityMemberSettingsActivity.newIntent(
-            requireContext(),
-            mViewModel.communityID, mViewModel.isPublic.get()
-        )
+        val intent = mViewModel.ekoCommunity?.let { community ->
+            EkoCommunityMemberSettingsActivity.newIntent(
+                requireContext(), community)
+        } ?: kotlin.run {
+            EkoCommunityMemberSettingsActivity.newIntent(
+                requireContext(),
+                mViewModel.communityID, mViewModel.isPublic.get())
+        }
         startActivity(intent)
     }
 
@@ -229,7 +233,9 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
             when (event.type) {
                 EventIdentifier.EDIT_PROFILE -> {
                     if (mViewModel.editCommunityProfileClickListener != null) {
-                        mViewModel.editCommunityProfileClickListener?.onClickEditCommunityProfile(mViewModel.ekoCommunity)
+                        mViewModel.editCommunityProfileClickListener?.onClickEditCommunityProfile(
+                            mViewModel.ekoCommunity
+                        )
                     } else {
                         startActivity(
                             EkoCommunityProfileActivity.newIntent(
@@ -321,7 +327,8 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
                 ViewModelProvider(activity).get(EkoCommunityDetailViewModel::class.java)
             fragment.mViewModel.feedFragmentDelegate = feedFragmentDelegate
             fragment.mViewModel.messageClickListener = messageClickListener
-            fragment.mViewModel.editCommunityProfileClickListener = editCommunityProfileClickListener
+            fragment.mViewModel.editCommunityProfileClickListener =
+                editCommunityProfileClickListener
             return fragment
         }
 
@@ -345,7 +352,9 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
         }
 
         fun onClickEditCommunityProfile(onEditCommunityProfileClickListener: IEditCommunityProfileClickListener): Builder {
-            return apply { this.editCommunityProfileClickListener = onEditCommunityProfileClickListener }
+            return apply {
+                this.editCommunityProfileClickListener = onEditCommunityProfileClickListener
+            }
         }
     }
 }

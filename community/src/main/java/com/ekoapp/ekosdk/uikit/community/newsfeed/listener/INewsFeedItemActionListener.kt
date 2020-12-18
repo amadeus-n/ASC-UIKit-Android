@@ -7,7 +7,7 @@ import com.ekoapp.ekosdk.user.EkoUser
 
 interface INewsFeedItemActionListener {
     fun onFeedAction(feed: EkoPost, position: Int)
-    fun onClickItem(feed: EkoPost, position: Int)
+    fun onClickItem(postId: String, position: Int)
     fun onCommentAction(feed: EkoPost, comment: EkoComment, position: Int)
     fun showAllReply(feed: EkoPost, comment: EkoComment, position: Int)
     fun onLikeAction(liked: Boolean, ekoPost: EkoPost, position: Int)

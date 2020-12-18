@@ -129,6 +129,7 @@ open class EkoMessageListAdapter(
         if (!vh.audioMsgBaseViewModel.isPlaying.get()) {
             resetMediaPlayer()
             playingAudioHolder?.audioMsgBaseViewModel?.isPlaying?.set(false)
+            playingAudioHolder?.audioMsgBaseViewModel?.buffering?.set(false)
             playingAudioHolder = vh
         }
         exoPlayer.addListener(exoPlayerListener)
@@ -139,6 +140,7 @@ open class EkoMessageListAdapter(
                 updateNotPlayingState()
             }else {
                 playingMsgId = playingAudioHolder?.audioMsgBaseViewModel?.ekoMessage?.getMessageId() ?: "-1"
+                playingAudioHolder?.audioMsgBaseViewModel?.buffering?.set(true)
                 val url: String = playingAudioHolder?.audioMsgBaseViewModel?.audioUrl?.get() ?: ""
                 val mediaItem = MediaItem.fromUri(url.toUri()).buildUpon().build()
                 val mediaSource = ProgressiveMediaSource.Factory(okHttpDataSourceFactory)
@@ -170,8 +172,7 @@ open class EkoMessageListAdapter(
                 Player.STATE_ENDED -> {
                     exoPlayer.seekTo(0)
                     updateNotPlayingState()
-                    playingAudioHolder?.audioMsgBaseViewModel?.duration?.set(
-                        EkoDateUtils.getFormattedTimeForChat(exoPlayer.duration.toInt()))
+                    playingAudioHolder?.audioMsgBaseViewModel?.duration?.set("0:00")
                     exoPlayer.stop(true)
                 }
                 else -> {
@@ -184,6 +185,7 @@ open class EkoMessageListAdapter(
         override fun onPlayerError(error: ExoPlaybackException) {
             super.onPlayerError(error)
             Log.e(TAG, "onPlayerError: ${error.printStackTrace()}")
+            playingAudioHolder?.audioMsgBaseViewModel?.buffering?.set(false)
             Toast.makeText(context, context.getString(R.string.playback_error), Toast.LENGTH_SHORT).show()
         }
     }
@@ -201,12 +203,14 @@ open class EkoMessageListAdapter(
         playingAudioHolder?.audioMsgBaseViewModel?.duration?.set(
             EkoDateUtils.getFormattedTimeForChat(exoPlayer.duration.toInt())
         )
+        playingAudioHolder?.audioMsgBaseViewModel?.buffering?.set(false)
         playingAudioHolder?.audioMsgBaseViewModel?.isPlaying?.set(true)
         uiUpdateHandler.post(updateSeekBar)
     }
 
     private fun updateNotPlayingState() {
         playingAudioHolder?.audioMsgBaseViewModel?.isPlaying?.set(false)
+        playingAudioHolder?.audioMsgBaseViewModel?.buffering?.set(false)
         uiUpdateHandler.removeCallbacks(updateSeekBar)
     }
 

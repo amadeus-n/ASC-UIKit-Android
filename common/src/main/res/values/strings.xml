@@ -47,4 +47,5 @@
     </plurals>
     <string name="time">0:%1s</string>
     <string name="ok">OK</string>
+    <string name="remove_user">Remove from community</string>
 </resources>

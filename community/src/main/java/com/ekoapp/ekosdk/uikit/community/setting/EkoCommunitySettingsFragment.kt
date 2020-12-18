@@ -81,9 +81,14 @@ class EkoCommunitySettingsFragment : Fragment() {
         }
 
         groupMembers.setOnClickListener {
-            val intent = EkoCommunityMemberSettingsActivity.newIntent(requireContext(),
-                mViewModel.communityId.get() ?: "", mViewModel.isPublic.get())
-            startActivity(intent)
+            mViewModel.ekoCommunity?.let {
+                val intent = EkoCommunityMemberSettingsActivity.newIntent(requireContext(), it)
+                startActivity(intent)   
+            } ?: kotlin.run {
+                val intent = EkoCommunityMemberSettingsActivity.newIntent(requireContext(),
+                    mViewModel.communityId.get() ?: "", mViewModel.isPublic.get())
+                startActivity(intent)
+            }
         }
 
         tvLeaveCommunity.setOnClickListener {

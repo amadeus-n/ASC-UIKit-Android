@@ -163,8 +163,8 @@ class EkoSelectMembersListFragment internal constructor(): Fragment(), EkoSelect
             member.getAvatar()?.getUrl(EkoImage.Size.MEDIUM) ?: "",
             member.getDisplayName() ?: getString(R.string.anonymous), member.getDescription(), false)
         if (mViewModel.selectedMemberSet.contains(member.getUserId())) {
-            mViewModel.selectedMemberSet.remove(member.getUserId())
             mViewModel.prepareSelectedMembersList(selectMemberItem, false)
+            mViewModel.selectedMemberSet.remove(member.getUserId())
             updateListOnSelection(member.getUserId())
         }else {
             mViewModel.selectedMemberSet.add(member.getUserId())

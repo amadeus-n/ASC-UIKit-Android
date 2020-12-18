@@ -11,8 +11,8 @@
         android:title="@string/delete_comment"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/actionAlreadyReported"
-        android:title="@string/report_has_been_sent"
+        android:id="@+id/actionUnreportComment"
+        android:title="@string/unreport_comment"
         app:showAsAction="always"/>
 
 </menu>

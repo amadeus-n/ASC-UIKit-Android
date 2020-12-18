@@ -89,7 +89,7 @@
                     style="@style/TextStyleEkoBody"
                     android:text="@{vmAudioMsg.duration}"
                     android:textColor="@color/upstraColorBase"
-                    android:visibility="@{vmAudioMsg.uploading ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{vmAudioMsg.uploading || vmAudioMsg.buffering ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toTopOf="@id/ivPlay"
                     app:layout_constraintBottom_toBottomOf="@id/ivPlay"
                     app:layout_constraintEnd_toEndOf="parent"/>
@@ -102,7 +102,7 @@
                     app:indicatorWidth="@dimen/two"
                     android:layout_marginEnd="@dimen/two"
                     app:circularRadius="@dimen/nine"
-                    android:visibility="@{vmAudioMsg.uploading ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{vmAudioMsg.uploading || vmAudioMsg.buffering ? View.VISIBLE : View.GONE}"
                     style="@style/Widget.MaterialComponents.ProgressIndicator.Circular.Determinate"
                     app:layout_constraintTop_toTopOf="@id/ivPlay"
                     app:layout_constraintBottom_toBottomOf="@id/ivPlay"

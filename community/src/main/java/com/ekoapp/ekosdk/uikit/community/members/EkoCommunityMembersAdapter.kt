@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.community.membership.EkoCommunityMembership
 import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewPagedAdapter
 import com.ekoapp.ekosdk.uikit.common.views.dialog.EkoBottomSheetDialogFragment
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.LayoutCommunityMembershipItemBinding
+import com.ekoapp.ekosdk.user.EkoUser
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -23,12 +25,18 @@ class EkoCommunityMembersAdapter(
 ) :
     EkoBaseRecyclerViewPagedAdapter<EkoCommunityMembership>(diffCallBack) {
 
+    private var isJoined: Boolean = false
+
     override fun getLayoutId(position: Int, obj: EkoCommunityMembership?): Int =
         R.layout.layout_community_membership_item
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
         val itemViewModel = EkoMembershipItemViewModel()
         return EkoMembershipViewHolder(view, context, listener, itemViewModel)
+    }
+
+    fun setUserIsJoined(isJoined: Boolean) {
+        this.isJoined = isJoined
     }
 
     inner class EkoMembershipViewHolder(
@@ -43,37 +51,82 @@ class EkoCommunityMembersAdapter(
             binding?.avatarUrl = data?.getUser()?.getAvatar()?.getUrl(EkoImage.Size.MEDIUM)
             binding?.communityMemberShip = data
             binding?.listener = listener
-
+            binding?.isJoined = isJoined
             binding?.ivMore?.setOnClickListener {
-                showBottomSheet(context, data?.getUserId())
+                if (!data?.getUserId().isNullOrEmpty()) {
+                    getUser(data?.getUserId()!!)
+                } else {
+                    //TODO Handle when user id is null or empty
+                }
             }
+
+            binding?.isMyUser = data?.getUserId() == EkoClient.getUserId()
         }
 
-        private fun showBottomSheet(context: Context, userId: String?) {
-            val fragment =
-                EkoBottomSheetDialogFragment.newInstance(R.menu.eko_community_member_menu)
+        private fun getUser(userId: String) {
+            itemViewModel.getUser(userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .firstOrError()
+                .doOnError {
+
+                }
+                .doOnSuccess { ekoUser ->
+                    showBottomSheet(context, ekoUser)
+                }
+                .subscribe()
+        }
+
+        private fun showBottomSheet(context: Context, ekoUser: EkoUser) {
+            val fragment = if (ekoUser.isFlaggedByMe()) {
+                EkoBottomSheetDialogFragment.newInstance(R.menu.eko_community_member_unreport_user_menu)
+            } else {
+                EkoBottomSheetDialogFragment.newInstance(R.menu.eko_community_member_report_user_menu)
+            }
             val manager = (context as AppCompatActivity).supportFragmentManager
             fragment.show(manager, EkoBottomSheetDialogFragment.toString())
             fragment.setOnNavigationItemSelectedListener(object :
                 EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
                 override fun onItemSelected(item: MenuItem) {
-                    if (userId != null) {
-                        itemViewModel.reportUser(userId).subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doOnComplete {
-                                val snackBar = Snackbar.make(
-                                    itemView,
-                                    context.getString(R.string.report_msg),
-                                    Snackbar.LENGTH_SHORT
-                                )
-                                snackBar.show()
-                            }.doOnError {
-
-                            }.subscribe()
+                    when (item.itemId) {
+                        R.id.reportUser -> {
+                            sendReportUser(ekoUser, true)
+                        }
+                        R.id.unreportUser -> {
+                            sendReportUser(ekoUser, false)
+                        }
                     }
 
                 }
             })
+        }
+
+        private fun sendReportUser(ekoUser: EkoUser, isReport: Boolean) {
+            val viewModel = if (isReport) {
+                itemViewModel.reportUser(ekoUser)
+            } else {
+                itemViewModel.unreportUser(ekoUser)
+            }
+            viewModel.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete {
+                    showDialogSentReportMessage(isReport)
+                }.doOnError {
+
+                }.subscribe()
+        }
+
+        private fun showDialogSentReportMessage(isReport: Boolean) {
+            val messageSent = if (isReport) {
+                R.string.report_sent
+            } else {
+                R.string.unreport_sent
+            }
+            Snackbar.make(
+                itemView,
+                context.getString(messageSent),
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 

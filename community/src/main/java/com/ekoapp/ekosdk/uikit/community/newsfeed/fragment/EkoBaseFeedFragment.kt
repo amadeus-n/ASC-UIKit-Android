@@ -214,13 +214,13 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
         EkoCommunityNavigation.navigateToPostDetails(requireContext(), feed, comment, getFeedType())
     }
 
-    override fun onClickItem(post: EkoPost, position: Int) {
+    override fun onClickItem(postId: String, position: Int) {
         if (getViewModel().postItemClickListener != null) {
-            getViewModel().postItemClickListener!!.onClickPostItem(post)
+            getViewModel().postItemClickListener!!.onClickPostItem(postId)
         } else
             EkoCommunityNavigation.navigateToPostDetails(
                 requireContext(),
-                post.getPostId(),
+                postId,
                 getFeedType()
             )
     }
@@ -252,7 +252,7 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
     private fun showFeedActionByOtherUser(feed: EkoPost) {
         if (isAdded) {
             val menu =
-                if (feed.isFlaggedByMe) R.menu.eko_feed_action_menu_already_reported else R.menu.eko_feed_action_menu_report
+                if (feed.isFlaggedByMe) R.menu.eko_feed_action_menu_unreport_post else R.menu.eko_feed_action_menu_report_post
 
             val fragment =
                 EkoBottomSheetDialogFragment.newInstance(menu)
@@ -271,7 +271,7 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
 
     private fun showFeedActionByAdmin(feed: EkoPost) {
         var menu =
-            if (feed.isFlaggedByMe) R.menu.eko_feed_action_menu_admin_with_already_reported else R.menu.eko_feed_action_menu_admin
+            if (feed.isFlaggedByMe) R.menu.eko_feed_action_menu_admin_with_unreport else R.menu.eko_feed_action_menu_admin
         val fragment = EkoBottomSheetDialogFragment.newInstance(menu)
         fragment.show(childFragmentManager, EkoBottomSheetDialogFragment.toString())
         fragment.setOnNavigationItemSelectedListener(object :
@@ -293,36 +293,45 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
             showDeletePostWarning(feed)
 
         } else if (item.itemId == R.id.actionReportPost) {
-            sendReport(feed)
+            sendReportPost(feed, true)
+        } else if (item.itemId == R.id.actionUnreportPost) {
+            sendReportPost(feed, false)
         }
     }
 
-    private fun sendReport(feed: EkoPost) {
-        disposable.add(
-            getViewModel()
-                .reportPost(feed)
+    private fun sendReportPost(feed: EkoPost, isReport: Boolean) {
+        val viewModel = if (isReport) {
+            getViewModel().reportPost(feed)
+        } else {
+            getViewModel().unreportPost(feed)
+        }
+        disposable.add(viewModel
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError {
                     Log.d(TAG, it.message)
                 }
                 .doOnComplete {
-                    showReportSentMessage()
+                    showReportSentMessage(isReport)
                 }
                 .subscribe())
     }
 
-    private fun showReportSentMessage() {
+    private fun showReportSentMessage(isReport: Boolean) {
         if (activity?.applicationContext != null) {
+            val messageSent = if (isReport) {
+                R.string.report_sent
+            } else {
+                R.string.unreport_sent
+            }
             view?.let {
                 EkoCustomToast.showMessage(
                     it,
                     requireActivity().applicationContext,
                     layoutInflater,
-                    getString(R.string.report_sent)
+                    getString(messageSent)
                 )
             }
-
         }
     }
 
@@ -407,11 +416,15 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
     }
 
     private fun showCommentActionByOtherUser(ekoComment: EkoComment) {
-        if (!isAdded)
+        if (!isAdded) {
             return
+        }
         val menu =
-            if (ekoComment.isFlaggedByMe()) R.menu.eko_comment_action_menu_already_reported
-            else R.menu.eko_comment_action_menu_report
+            if (ekoComment.isFlaggedByMe()) {
+                R.menu.eko_comment_action_menu_unreport
+            } else {
+                R.menu.eko_comment_action_menu_report
+            }
         val fragment =
             EkoBottomSheetDialogFragment.newInstance(menu)
 
@@ -430,7 +443,7 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
         if (!isAdded)
             return
         val menu =
-            if (ekoComment.isFlaggedByMe()) R.menu.eko_commnet_action_menu_admin_with_already_reported
+            if (ekoComment.isFlaggedByMe()) R.menu.eko_commnet_action_menu_admin_with_unreport
             else R.menu.eko_commnet_action_menu_admin
         val fragment =
             EkoBottomSheetDialogFragment.newInstance(menu)
@@ -454,22 +467,28 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
                 showDeleteCommentWarning(ekoComment)
             }
             R.id.actionReportComment -> {
-                sendReport(ekoComment)
+                sendReportComment(ekoComment, true)
+            }
+            R.id.actionUnreportComment -> {
+                sendReportComment(ekoComment, false)
             }
         }
     }
 
-    private fun sendReport(comment: EkoComment) {
-        disposable.add(
-            getViewModel()
-                .reportComment(comment)
+    private fun sendReportComment(comment: EkoComment, isReport: Boolean) {
+        val viewModel = if (isReport) {
+            getViewModel().reportComment(comment)
+        } else {
+            getViewModel().unreportComment(comment)
+        }
+        disposable.add(viewModel
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError {
                     Log.d(TAG, it.message)
                 }
                 .doOnComplete {
-                    showReportSentMessage()
+                    showReportSentMessage(isReport)
                 }
                 .subscribe())
     }

@@ -138,7 +138,15 @@ class EkoPostDetailsViewModel : EkoBaseViewModel() {
         return feed.report().flag()
     }
 
+    fun unreportPost(feed: EkoPost): Completable {
+        return feed.report().unflag()
+    }
+
     fun reportComment(comment: EkoComment): Completable {
         return comment.report().flag()
+    }
+
+    fun unreportComment(comment: EkoComment): Completable {
+        return comment.report().unflag()
     }
 }

@@ -72,6 +72,11 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
 
         mBinding.avatarUrl = data.getPostedUser()?.getAvatar()?.getUrl(EkoImage.Size.LARGE)
 
+        //TODO Uncomment after check with SDK and Backend, How to check moderator?
+        //mBinding.isModerator = data.getPostedUser()?.getRoles()?.any { it == "moderator" }
+
+        data.getPostedUser()?.getRoles()
+
         avatarView.setOnClickListener {
            handleUserClick(data)
         }

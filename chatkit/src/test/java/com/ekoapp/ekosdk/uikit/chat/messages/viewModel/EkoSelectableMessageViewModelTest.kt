@@ -22,6 +22,7 @@ class EkoSelectableMessageViewModelTest {
         var editClick = false
         var deleteClick = false
         var reportClick = false
+        var failedClick = true
 
         viewModel.onEventReceived += {event->
             when(event.type) {
@@ -29,6 +30,7 @@ class EkoSelectableMessageViewModelTest {
                 EventIdentifier.EDIT_MESSAGE -> editClick = true
                 EventIdentifier.DELETE_MESSAGE -> deleteClick = true
                 EventIdentifier.REPORT_MESSAGE -> reportClick = true
+                EventIdentifier.FAILED_MESSAGE -> failedClick = true
                 else -> {}
             }
         }
@@ -44,5 +46,8 @@ class EkoSelectableMessageViewModelTest {
 
         viewModel.onReportClick()
         Assert.assertTrue(reportClick)
+
+        viewModel.onFailedMsgClick()
+        Assert.assertTrue(failedClick)
     }
 }

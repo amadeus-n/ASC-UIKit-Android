@@ -86,8 +86,9 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:visibility="@{viewModel.isVoiceMsgUi() ? View.VISIBLE : View.GONE}"
+                android:layout_marginEnd="@dimen/sixteen"
                 app:layout_constraintStart_toStartOf="@id/etMessage"
-                app:layout_constraintEnd_toEndOf="@id/etMessage"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/etMessage"
                 app:layout_constraintBottom_toBottomOf="@id/etMessage"/>
 
@@ -121,7 +122,7 @@
                 android:src="@{viewModel.showComposeBar ? @drawable/ic_uikit_cross : @drawable/ic_uikit_chat_add}"
                 ekoTintColor="@{@color/upstraColorBase}"
                 ekoTintShade="@{ColorShade.SHADE1}"
-                android:visibility="@{TextUtils.isEmpty(viewModel.text.trim()) ? View.VISIBLE : View.GONE}"
+                android:visibility="@{TextUtils.isEmpty(viewModel.text.trim()) &amp; !viewModel.isVoiceMsgUi() ? View.VISIBLE : View.GONE}"
                 android:layout_marginStart="@dimen/eight"
                 android:layout_marginEnd="@dimen/sixteen"
                 android:onClick="@{() -> viewModel.toggleComposeBar()}"
@@ -137,7 +138,7 @@
                 android:layout_height="@dimen/twenty_four"
                 app:icon="@drawable/ic_uikit_arrow_upward"
                 style="@style/EkoIconButtonStyle"
-                android:visibility="@{TextUtils.isEmpty(viewModel.text.trim()) ? View.GONE : View.VISIBLE}"
+                android:visibility="@{TextUtils.isEmpty(viewModel.text.trim()) || viewModel.isVoiceMsgUi() ? View.GONE : View.VISIBLE}"
                 app:shapeAppearanceOverlay="@style/CircleImage"
                 android:onClick="@{() -> viewModel.sendMessage()}"
                 app:layout_constraintStart_toEndOf="@id/rightBarrier"

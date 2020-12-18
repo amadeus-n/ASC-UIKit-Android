@@ -12,8 +12,8 @@
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/actionAlreadyReported"
-        android:title="@string/report_has_been_sent"
+        android:id="@+id/actionUnreportPost"
+        android:title="@string/unreport_post"
         app:showAsAction="always"/>
 
 </menu>

@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+        <import type="android.view.View"/>
         <variable
             name="avatarUrl"
             type="String" />
         <variable
+            name="isMyUser"
+            type="Boolean" />
+        <variable
+            name="isJoined"
+            type="Boolean" />
+        <variable
             name="communityMemberShip"
             type="com.ekoapp.ekosdk.community.membership.EkoCommunityMembership" />
-
         <variable
             name="listener"
             type="com.ekoapp.ekosdk.uikit.community.members.IMemberClickListener" />
@@ -56,6 +63,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_uikit_more_horiz"
             android:layout_marginEnd="@dimen/sixteen"
+            android:visibility="@{(!isJoined || isMyUser) ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toEndOf="@id/tvMemberName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivAvatar"
