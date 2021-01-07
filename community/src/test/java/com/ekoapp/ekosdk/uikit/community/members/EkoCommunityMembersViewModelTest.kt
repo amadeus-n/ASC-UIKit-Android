@@ -19,7 +19,6 @@ class EkoCommunityMembersViewModelTest {
         val viewModel = EkoCommunityMembersViewModel()
         assertEquals(viewModel.communityId, "")
         assertEquals(viewModel.searchString.get(), "")
-        assertTrue(viewModel.isPublic.get())
         assertFalse(viewModel.emptyMembersList.get())
     }
 

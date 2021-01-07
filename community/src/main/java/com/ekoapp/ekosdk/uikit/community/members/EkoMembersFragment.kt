@@ -70,18 +70,26 @@ class EkoMembersFragment : EkoBaseFragment(), IMemberClickListener {
     }
 
     private fun initRecyclerView() {
-        mAdapter = EkoCommunityMembersAdapter(requireContext(), this)
+        mAdapter = EkoCommunityMembersAdapter(requireContext(), this, mViewModel)
         rvCommunityMembers.layoutManager = LinearLayoutManager(requireContext())
         rvCommunityMembers.adapter = mAdapter
         rvCommunityMembers.addItemDecoration(
             EkoRecyclerViewItemDecoration(requireContext().resources.getDimensionPixelSize(R.dimen.sixteen))
         )
+    }
 
+    override fun onResume() {
+        super.onResume()
         mViewModel.community?.let { community ->
             getCommunityMembers(community)
         } ?: kotlin.run {
             getCommunityDetail()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        disposable.dispose()
     }
 
     private fun getCommunityDetail() {
@@ -92,15 +100,15 @@ class EkoMembersFragment : EkoBaseFragment(), IMemberClickListener {
             .doOnSuccess { community ->
                 getCommunityMembers(community)
             }.doOnError {
-                Log.e(TAG, "getCommunityMembers: ${it.localizedMessage}")
+                Log.e(TAG, "getCommunityDetail: ${it.localizedMessage}")
             }.subscribe()
         )
     }
 
     private fun getCommunityMembers(community: EkoCommunity) {
         mAdapter.setUserIsJoined(community.isJoined())
+        mViewModel.isJoined.set(community.isJoined())
         mViewModel.communityId = community.getCommunityId()
-        mViewModel.isPublic.set(community.isPublic())
         mViewModel.getCommunityMembers()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

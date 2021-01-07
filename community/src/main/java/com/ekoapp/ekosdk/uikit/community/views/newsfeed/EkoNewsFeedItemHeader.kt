@@ -7,6 +7,9 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.ekoapp.ekosdk.EkoClient
+import com.ekoapp.ekosdk.community.membership.query.EkoCommunityMembershipFilter
+import com.ekoapp.ekosdk.community.membership.query.EkoCommunityMembershipSortOption
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.feed.EkoPostTarget
 import com.ekoapp.ekosdk.file.EkoImage
@@ -16,6 +19,9 @@ import com.ekoapp.ekosdk.uikit.community.databinding.LayoutNewsFeedItemHeaderBin
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedActionAvatarClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedActionCommunityClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.util.EkoTimelineType
+import com.ekoapp.ekosdk.uikit.utils.EkoConstants
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.layout_news_feed_item_header.view.*
 
 class EkoNewsFeedItemHeader : ConstraintLayout {
@@ -57,7 +63,7 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
 
     fun showFeedAction(showFeedAction: Boolean) {
         this.showFeedAction = showFeedAction
-        mBinding.showFeedAction = showFeedAction && !(mBinding.readOnly?:false)
+        mBinding.showFeedAction = showFeedAction && !(mBinding.readOnly ?: false)
     }
 
     fun setFeed(data: EkoPost, timelineType: EkoTimelineType?) {
@@ -69,16 +75,13 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
         }
 
         feedPostTime.text = data.getCreatedAt()!!.millis.readableFeedPostTime(context)
-
+        mBinding.isModerator = false
         mBinding.avatarUrl = data.getPostedUser()?.getAvatar()?.getUrl(EkoImage.Size.LARGE)
-
-        //TODO Uncomment after check with SDK and Backend, How to check moderator?
-        //mBinding.isModerator = data.getPostedUser()?.getRoles()?.any { it == "moderator" }
 
         data.getPostedUser()?.getRoles()
 
         avatarView.setOnClickListener {
-           handleUserClick(data)
+            handleUserClick(data)
         }
         userName.setOnClickListener {
             handleUserClick(data)
@@ -91,29 +94,52 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
         tvEdited.visibility = editedVisibility
         val target = data.getTarget()
 
-        if(timelineType != EkoTimelineType.COMMUNITY && target is EkoPostTarget.COMMUNITY) {
+        if (timelineType != EkoTimelineType.COMMUNITY && target is EkoPostTarget.COMMUNITY) {
             val community = target.getCommunity()
             community?.also {
-                userName.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(context, R.drawable.ic_uikit_arrow), null)
+                if (!data.getPostedUserId().isNullOrEmpty()) {
+                    getCommunityModerators(it.getCommunityId(), data.getPostedUserId()!!)
+                } else {
+                    mBinding.isModerator = false
+                }
+                userName.setCompoundDrawablesWithIntrinsicBounds(
+                    null,
+                    null,
+                    ContextCompat.getDrawable(context, R.drawable.ic_uikit_arrow),
+                    null
+                )
                 communityName.text = it.getDisplayName().trim()
-                if(community.isOfficial())
-                    communityName.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(context, R.drawable.ic_uikit_verified), null)
+                if (community.isOfficial()) {
+                    communityName.setCompoundDrawablesWithIntrinsicBounds(
+                        null,
+                        null,
+                        ContextCompat.getDrawable(context, R.drawable.ic_uikit_verified),
+                        null
+                    )
+                } else {
+                    //TODO Handle when community isn't official
+                }
+
                 communityName.visibility = View.VISIBLE
                 mBinding.readOnly = !community.isJoined()
             }
-        }else if (target is EkoPostTarget.COMMUNITY) {
+        } else if (target is EkoPostTarget.COMMUNITY) {
+            val communityId = target.getCommunity()?.getCommunityId()
+            if (!data.getPostedUserId().isNullOrEmpty() && !communityId.isNullOrEmpty()) {
+                getCommunityModerators(communityId, data.getPostedUserId()!!)
+            } else {
+                mBinding.isModerator = false
+            }
+
             val community = target.getCommunity()
             showFeedAction = community!!.isJoined()
-        }
-        else {
+        } else {
             mBinding.readOnly = false
             communityName.visibility = View.GONE
             userName.setCompoundDrawables(null, null, null, null)
         }
 
-        mBinding.showFeedAction = showFeedAction && !(mBinding.readOnly?:false)
-
-
+        mBinding.showFeedAction = showFeedAction && !(mBinding.readOnly ?: false)
 
 
         /*data.avatarUrl?.run {
@@ -128,10 +154,31 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
 
     }
 
+    private fun getCommunityModerators(communityId: String, userIdPostCreator: String) {
+        val communityRepository = EkoClient.newCommunityRepository()
+        communityRepository.membership(communityId).getCollection()
+            .filter(EkoCommunityMembershipFilter.MEMBER)
+            .sortBy(EkoCommunityMembershipSortOption.FIRST_CREATED)
+            .roles(listOf(EkoConstants.MODERATOR_ROLE))
+            .build()
+            .query()
+            .firstOrError()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess { members ->
+                mBinding.isModerator = members.any { it.getUserId() == userIdPostCreator }
+            }
+            .doOnError {
+                mBinding.isModerator = false
+            }.subscribe()
+    }
+
     private fun handleCommunityClick(data: EkoPost) {
-        if(data.getTarget() is EkoPostTarget.COMMUNITY) {
+        if (data.getTarget() is EkoPostTarget.COMMUNITY) {
             val community = (data.getTarget() as EkoPostTarget.COMMUNITY).getCommunity()!!
             newsFeedActionCommunityClickListener?.onClickCommunity(community)
+        } else {
+            //TODO Handle when target isn't community
         }
     }
 

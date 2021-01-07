@@ -468,6 +468,10 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
         hideKeyboard()
     }
 
+    override fun onClickAvatar(user: EkoUser) {
+        EkoCommunityNavigation.navigateToUserProfile(requireContext(), user.getUserId())
+    }
+
     override fun onClickNewsFeedCommentShowMoreAction(comment: EkoComment, position: Int) {
         commentActionIndex = position
         mViewModel.commentShowMoreActionClicked(newsFeed, comment)

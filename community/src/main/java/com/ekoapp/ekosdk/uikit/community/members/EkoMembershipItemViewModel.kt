@@ -9,13 +9,14 @@ import io.reactivex.Flowable
 class EkoMembershipItemViewModel : EkoBaseViewModel() {
 
     var communityId = ""
+    var isModerator = false
 
-    fun reportUser(userId: EkoUser): Completable {
-        return userId.report().flag()
+    fun reportUser(ekoUser: EkoUser): Completable {
+        return ekoUser.report().flag()
     }
 
-    fun unreportUser(userId: EkoUser): Completable {
-        return userId.report().unflag()
+    fun unReportUser(ekoUser: EkoUser): Completable {
+        return ekoUser.report().unflag()
     }
 
     fun getUser(userId: String): Flowable<EkoUser> {
@@ -26,5 +27,17 @@ class EkoMembershipItemViewModel : EkoBaseViewModel() {
     fun removeUser(list: List<String>): Completable {
         val communityRepository = EkoClient.newCommunityRepository()
         return communityRepository.membership(communityId).removeUsers(list)
+    }
+
+    fun assignRole(role: String, userIdList: List<String>): Completable {
+        val communityRepository = EkoClient.newCommunityRepository()
+        return communityRepository.moderate(communityId)
+            .addRole(role, userIdList)
+    }
+
+    fun removeRole(role: String, userIdList: List<String>): Completable {
+        val communityRepository = EkoClient.newCommunityRepository()
+        return communityRepository.moderate(communityId)
+            .removeRole(role, userIdList)
     }
 }

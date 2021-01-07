@@ -7,16 +7,20 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.ekoapp.ekosdk.community.EkoCommunity
+import com.ekoapp.ekosdk.permission.EkoPermission
+import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.base.EkoFragmentStateAdapter
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.utils.EkoSelectMemberContract
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_eko_community_member_settings.*
 
 private const val ARG_COMMUNITY_ID = "ARG_COMMUNITY_ID"
-private const val ARG_IS_PUBLIC = "ARG_IS_PUBLIC"
+private const val ARG_IS_MEMBER = "ARG_IS_MEMBER"
 private const val ARG_IS_COMMUNITY = "ARG_COMMUNITY"
 
-class EkoCommunityMemberSettingsFragment internal constructor() : Fragment() {
+class EkoCommunityMemberSettingsFragment internal constructor() : EkoBaseFragment() {
 
     private lateinit var fragmentStateAdapter: EkoFragmentStateAdapter
     private val mViewModel: EkoCommunityMembersViewModel by activityViewModels()
@@ -25,7 +29,7 @@ class EkoCommunityMemberSettingsFragment internal constructor() : Fragment() {
         super.onCreate(savedInstanceState)
 
         mViewModel.communityId = arguments?.getString(ARG_COMMUNITY_ID) ?: ""
-        mViewModel.isPublic.set(arguments?.getBoolean(ARG_IS_PUBLIC) ?: true)
+        mViewModel.isJoined.set(arguments?.getBoolean(ARG_IS_MEMBER) ?: false)
         mViewModel.community = arguments?.getParcelable(ARG_IS_COMMUNITY)
 
         fragmentStateAdapter = EkoFragmentStateAdapter(
@@ -51,7 +55,22 @@ class EkoCommunityMemberSettingsFragment internal constructor() : Fragment() {
     private fun setUpToolbar() {
         (activity as AppCompatActivity).supportActionBar?.title =
             getString(R.string.members_capital)
-        setHasOptionsMenu(false)
+        if (mViewModel.isJoined.get()) {
+            disposable.add(mViewModel.checkModeratorPermissionAtCommunity(
+                EkoPermission.ADD_COMMUNITY_USER,
+                mViewModel.communityId
+            )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext {
+                    setHasOptionsMenu(it)
+                    mViewModel.isModerator.set(it)
+                }.doOnError {
+
+                }.subscribe()
+            )
+        }
+
 
     }
 
@@ -61,12 +80,11 @@ class EkoCommunityMemberSettingsFragment internal constructor() : Fragment() {
                 EkoFragmentStateAdapter.EkoPagerModel(
                     getString(R.string.members_capital),
                     EkoMembersFragment.newInstance()
+                ),
+                EkoFragmentStateAdapter.EkoPagerModel(
+                    getString(R.string.moderators),
+                    EkoModeratorsFragment.newInstance()
                 )
-//                ,
-//                EkoFragmentStateAdapter.EkoPagerModel(
-//                    getString(R.string.moderators),
-//                    EkoModeratorsFragment.newInstance()
-//                )
             )
         )
         membersTabLayout.setAdapter(fragmentStateAdapter)
@@ -91,14 +109,14 @@ class EkoCommunityMemberSettingsFragment internal constructor() : Fragment() {
     class Builder {
 
         private var communityId = ""
-        private var isPublic = true
+        private var isMember = false
         private var community: EkoCommunity? = null
 
         fun build(activity: AppCompatActivity): EkoCommunityMemberSettingsFragment {
             return EkoCommunityMemberSettingsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_COMMUNITY_ID, communityId)
-                    putBoolean(ARG_IS_PUBLIC, isPublic)
+                    putBoolean(ARG_IS_MEMBER, isMember)
                     putParcelable(ARG_IS_COMMUNITY, community)
                 }
             }
@@ -109,12 +127,14 @@ class EkoCommunityMemberSettingsFragment internal constructor() : Fragment() {
             return this
         }
 
-        fun isPublic(value: Boolean): Builder {
-            isPublic = value
+        fun isMember(value: Boolean): Builder {
+            isMember = value
             return this
         }
 
         fun community(community: EkoCommunity): Builder {
+            communityId = community.getCommunityId()
+            isMember = community.isJoined()
             return apply { this.community = community }
         }
     }

@@ -11,6 +11,7 @@ import com.ekoapp.ekosdk.uikit.community.detailpage.listener.IEditCommunityProfi
 import com.ekoapp.ekosdk.uikit.community.detailpage.listener.IMessageClickListener
 import com.ekoapp.ekosdk.uikit.community.profile.listener.IFeedFragmentDelegate
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
+import com.ekoapp.ekosdk.uikit.utils.EkoConstants
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
@@ -32,6 +33,13 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
     var feedFragmentDelegate: IFeedFragmentDelegate? = null
     var messageClickListener: IMessageClickListener? = null
     var editCommunityProfileClickListener: IEditCommunityProfileClickListener? = null
+    val userId = ObservableField<String>()
+
+    init {
+        userId.addOnPropertyChanged {
+            triggerEvent(EventIdentifier.ASSIGN_MODERATOR_ROLE)
+        }
+    }
 
     fun getCommunityDetail(): Flowable<EkoCommunity> {
         val communityRepository = EkoClient.newCommunityRepository()
@@ -50,6 +58,9 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
         isMember.set(ekoCommunity.isJoined())
         isOfficial.set(ekoCommunity.isOfficial())
         isCreator.set(ekoCommunity.getUserId() == EkoClient.getUserId())
+        if (userId.get() == null) {
+            userId.set(ekoCommunity.getUserId())
+        }
     }
 
     fun joinCommunity(): Completable {
@@ -69,6 +80,12 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
         }
 
 
+    }
+
+    fun assignRole(): Completable {
+        val communityRepository = EkoClient.newCommunityRepository()
+        return communityRepository.moderate(communityID)
+            .addRole(EkoConstants.MODERATOR_ROLE, listOf(EkoClient.getUserId()))
     }
 
     fun onSecondaryButtonClick() {

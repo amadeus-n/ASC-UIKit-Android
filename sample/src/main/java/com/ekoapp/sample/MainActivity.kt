@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ekoapp.ekosdk.EkoClient
-import com.ekoapp.ekosdk.uikit.base.EkoUiKitClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         }
         btnLogin.setOnClickListener {
             if (etUserId.text.isNotEmpty() && etUserName.text.isNotEmpty()) {
-                setUserRole()
                 EkoClient.registerDevice(etUserId.text.toString())
                     .displayName(etUserName.text.toString()).build().submit()
                     .subscribeOn(Schedulers.io())
@@ -42,13 +40,5 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-    }
-
-    private fun setUserRole() {
-        val userRoleSet = HashSet<String>()
-        if (cbModerator.isChecked) {
-            userRoleSet.add(cbModerator.text.toString())
-        }
-        EkoUiKitClient.setUserRole(this, userRoleSet)
     }
 }

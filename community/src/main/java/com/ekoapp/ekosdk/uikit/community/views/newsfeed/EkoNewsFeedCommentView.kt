@@ -79,7 +79,7 @@ class EkoNewsFeedCommentView : ConstraintLayout {
         else
             cbLike.text = context.getString(R.string.like)
 
-        tvUserName.text = comment.getUser()?.getDisplayName()
+        tvUserName.text = comment.getUser()?.getDisplayName() ?: context.getString(R.string.anonymous)
         tvCommentTime.text = comment.getCreatedAt()?.millis?.readableFeedPostTime(context)
 
         if (comment.getChildrenNumber() > 0) {
@@ -90,17 +90,12 @@ class EkoNewsFeedCommentView : ConstraintLayout {
             tvViewAllReply.visibility = View.GONE
         }
 
-
         //TODO Uncomment after integration reply comment
 //        tvViewAllReply.setOnClickListener {
 //            commentActionListener?.showAllReplies()
 //        }
 
-        if (comment.getUserId() == EkoClient.getUserId()) {
-            btnCommentAction.visibility = View.VISIBLE
-        } else {
-            btnCommentAction.visibility = View.GONE
-        }
+        mBinding.readOnly = comment.getUserId() == EkoClient.getUserId()
 
         btnCommentAction.setOnClickListener {
             commentActionListener?.showMoreAction()

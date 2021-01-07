@@ -7,9 +7,11 @@ import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.community.membership.EkoCommunityMembership
 import com.ekoapp.ekosdk.community.membership.query.EkoCommunityMembershipFilter
+import com.ekoapp.ekosdk.community.membership.query.EkoCommunityMembershipSortOption
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.uikit.community.data.SelectMemberItem
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
+import com.ekoapp.ekosdk.uikit.utils.EkoConstants
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,11 +20,12 @@ class EkoCommunityMembersViewModel : EkoBaseViewModel() {
 
     var communityId: String = ""
     var community: EkoCommunity? = null
-    val isPublic = ObservableBoolean(true)
     val searchString = ObservableField("")
     val emptyMembersList = ObservableBoolean(false)
     val selectMembersList = ArrayList<SelectMemberItem>()
     val membersSet = HashSet<String>()
+    val isJoined = ObservableBoolean(false)
+    val isModerator = ObservableBoolean(false)
 
     fun getCommunityMembers(): Flowable<PagedList<EkoCommunityMembership>> {
         val communityRepository = EkoClient.newCommunityRepository()
@@ -41,6 +44,8 @@ class EkoCommunityMembersViewModel : EkoBaseViewModel() {
         val communityRepository = EkoClient.newCommunityRepository()
         return communityRepository.membership(communityId).getCollection()
             .filter(EkoCommunityMembershipFilter.MEMBER)
+            .sortBy(EkoCommunityMembershipSortOption.FIRST_CREATED)
+            .roles(listOf(EkoConstants.MODERATOR_ROLE))
             .build()
             .query()
     }
@@ -58,13 +63,13 @@ class EkoCommunityMembersViewModel : EkoBaseViewModel() {
         for (item in selectMembersList) {
             if (newList.contains(item)) {
                 newList.remove(item)
-            }else {
+            } else {
                 removedMembers.add(item.id)
                 toRemoveMembers.add(item)
             }
         }
         for (item in newList) {
-           addedMembers.add(item.id)
+            addedMembers.add(item.id)
         }
         if (removedMembers.isNotEmpty()) {
             removeUsersFromCommunity(removedMembers)
@@ -80,20 +85,24 @@ class EkoCommunityMembersViewModel : EkoBaseViewModel() {
 
     private fun removeUsersFromCommunity(list: List<String>) {
         val communityRepository = EkoClient.newCommunityRepository()
-        addDisposable(communityRepository.membership(communityId)
-            .removeUsers(list)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe())
+        addDisposable(
+            communityRepository.membership(communityId)
+                .removeUsers(list)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        )
     }
 
     private fun addMembersToCommunity(list: List<String>) {
         val communityRepository = EkoClient.newCommunityRepository()
-        addDisposable(communityRepository.membership(communityId)
-            .addUsers(list)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe())
+        addDisposable(
+            communityRepository.membership(communityId)
+                .addUsers(list)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        )
     }
 
     fun updateSelectedMembersList(member: SelectMemberItem) {
