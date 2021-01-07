@@ -94,7 +94,7 @@
                 android:background="@android:color/transparent"
                 android:drawableEnd="@drawable/ic_uikit_filled_cross"
                 android:hint="@string/cc_hint"
-                android:maxLength="30"
+                android:maxLength="100"
                 android:text="@={viewModel.communityName}"
                 android:textColor="@color/upstraColorBase"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +106,7 @@
                 textColorShade="@{ColorShade.SHADE1}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text='@{viewModel.communityName.trim().length() +"/30"}'
+                android:text='@{viewModel.communityName.trim().length() +"/100"}'
                 android:textColor="@color/upstraColorBase"
                 app:layout_constraintEnd_toEndOf="@id/ccName"
                 app:layout_constraintTop_toTopOf="@id/tvCommName" />

@@ -135,4 +135,6 @@
         <item quantity="one">%d Comment</item>
         <item quantity="other">%d Comments</item>
     </plurals>
+    <string name="promote_moderator">Promote to moderator</string>
+    <string name="remove_moderator">Dismiss moderator</string>
 </resources>

@@ -12,7 +12,9 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.community.EkoCommunity
+import com.ekoapp.ekosdk.permission.EkoPermission
 import com.ekoapp.ekosdk.uikit.base.EkoFragmentStateAdapter
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoCommunityPageBinding
@@ -26,6 +28,7 @@ import com.ekoapp.ekosdk.uikit.community.setting.EkoCommunitySettingsActivity
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
 import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
+import com.ekoapp.ekosdk.uikit.utils.EkoConstants
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -118,11 +121,13 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
     private fun navigateToMembersPage() {
         val intent = mViewModel.ekoCommunity?.let { community ->
             EkoCommunityMemberSettingsActivity.newIntent(
-                requireContext(), community)
+                requireContext(), community
+            )
         } ?: kotlin.run {
             EkoCommunityMemberSettingsActivity.newIntent(
                 requireContext(),
-                mViewModel.communityID, mViewModel.isPublic.get())
+                mViewModel.communityID, mViewModel.isMember.get()
+            )
         }
         startActivity(intent)
     }
@@ -138,7 +143,6 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
 
     override fun onResume() {
         super.onResume()
-        setUserRole()
         refreshDetails()
         appBar.addOnOffsetChangedListener(this)
     }
@@ -175,6 +179,18 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
                 setUpTabLayout(null)
             }.subscribe()
         )
+
+        disposable.add(mViewModel.checkModeratorPermissionAtCommunity(
+            EkoPermission.EDIT_COMMUNITY,
+            mViewModel.communityID)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnNext {
+                mViewModel.isModerator.set(it)
+            }.doOnError {
+                mViewModel.isModerator.set(false)
+            }.subscribe()
+        )
     }
 
     private fun showCommunitySuccessMessage() {
@@ -182,6 +198,18 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
             Snackbar.make(fabCreatePost, R.string.community_success, Snackbar.LENGTH_LONG)
         snackBar.anchorView = fabCreatePost
         snackBar.show()
+    }
+
+    private fun assignModeratorRole() {
+        disposable.add(mViewModel.assignRole()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnComplete {
+                mViewModel.isModerator.set(true)
+            }.doOnError {
+                Log.e(TAG, "Error while assigning user role")
+            }.subscribe()
+        )
     }
 
     private fun setUpTabLayout(community: EkoCommunity?) {
@@ -255,6 +283,11 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
                         mViewModel.messageClickListener?.onClickMessage(mViewModel.ekoCommunity)
                     }
                 }
+                EventIdentifier.ASSIGN_MODERATOR_ROLE -> {
+                    if (isCreateCommunity) {
+                        assignModeratorRole()
+                    }
+                }
                 else -> {
 
                 }
@@ -286,27 +319,6 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
     override fun onDestroy() {
         super.onDestroy()
         disposable.dispose()
-    }
-
-    private fun setUserRole() {
-//        disposable.add(EkoClient.getCurrentUser()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .doOnNext {
-//                mViewModel.isModerator.set(false)
-//                mViewModel.isMember.set(true)
-//                //FIXME uncomment after moderator integration
-//                /*val userRole = EkoUiKitClient.getCurrentUserRole(this, it.getRoles())
-//                if (userRole == EkoUserRole.MODERATOR) {
-//                    mViewModel.isModerator.set(true)
-//                } else {
-//                    mViewModel.isModerator.set(false)
-//                }*/
-//            }.doOnError {
-//                mViewModel.isModerator.set(false)
-//                mViewModel.isMember.set(true)
-//            }.subscribe()
-//        )
     }
 
     class Builder {

@@ -94,19 +94,20 @@
                     app:layout_constraintBottom_toBottomOf="@id/ivPlay"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
-                <com.google.android.material.progressindicator.ProgressIndicator
+                <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:layout_width="@dimen/eighteen"
                     android:layout_height="@dimen/eighteen"
-                    app:indicatorColor="@color/upstraColorBase"
-                    app:trackColor="#33000000"
-                    app:indicatorWidth="@dimen/two"
                     android:layout_marginEnd="@dimen/two"
-                    app:circularRadius="@dimen/nine"
+                    android:indeterminate="true"
                     android:visibility="@{vmAudioMsg.uploading || vmAudioMsg.buffering ? View.VISIBLE : View.GONE}"
-                    style="@style/Widget.MaterialComponents.ProgressIndicator.Circular.Determinate"
-                    app:layout_constraintTop_toTopOf="@id/ivPlay"
+                    app:indicatorColor="@color/upstraColorBase"
+                    app:indicatorDirectionCircular="clockwise"
+                    app:indicatorSize="@dimen/eighteen"
                     app:layout_constraintBottom_toBottomOf="@id/ivPlay"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ivPlay"
+                    app:trackColor="#33000000"
+                    app:trackThickness="@dimen/two" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -60,6 +60,9 @@ open class NewsFeedViewHolder(
                    itemActionLister.onClickItem(postId, position)
                 }
 
+                override fun onClickAvatar(user: EkoUser) {
+                    itemActionLister.onClickUserAvatar(data, user, position)
+                }
             })
             this.footerLayout.setShowAllReplyListener(object : INewsFeedCommentShowAllReplyListener{
                 override fun onClickShowAllReplies(comment: EkoComment, position: Int) {

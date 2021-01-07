@@ -1,6 +1,7 @@
 package com.ekoapp.ekosdk.uikit.community.members
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -34,6 +35,7 @@ class EkoCommunityModeratorAdapter(
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
         val itemViewModel = EkoMembershipItemViewModel()
         itemViewModel.communityId = communityMemberViewModel.communityId
+        itemViewModel.isModerator = communityMemberViewModel.isModerator.get()
         return EkoModeratorViewHolder(view, context, listener, itemViewModel)
     }
 
@@ -50,6 +52,7 @@ class EkoCommunityModeratorAdapter(
             binding?.communityMemberShip = data
             binding?.listener = listener
             binding?.isMyUser = data?.getUserId() == EkoClient.getUserId()
+            binding?.isJoined = communityMemberViewModel.isJoined.get()
 
             binding?.ivMore?.setOnClickListener {
                 if (!data?.getUserId().isNullOrEmpty()) {
@@ -77,6 +80,14 @@ class EkoCommunityModeratorAdapter(
 
         private fun showBottomSheet(context: Context, ekoUser: EkoUser) {
             val itemList = arrayListOf<EkoMenuItem>()
+            if (itemViewModel.isModerator) {
+                itemList.add(
+                    EkoMenuItem(
+                        EkoConstants.ID_REMOVE_MODERATOR,
+                        context.getString(R.string.remove_moderator)
+                    )
+                )
+            }
             if (ekoUser.isFlaggedByMe()) {
                 itemList.add(
                     EkoMenuItem(
@@ -92,12 +103,15 @@ class EkoCommunityModeratorAdapter(
                     )
                 )
             }
-            itemList.add(
-                EkoMenuItem(
-                    EkoConstants.ID_REMOVE_USER,
-                    context.getString(R.string.remove_user)
+            if (itemViewModel.isModerator) {
+                itemList.add(
+                    EkoMenuItem(
+                        EkoConstants.ID_REMOVE_USER,
+                        context.getString(R.string.remove_user)
+                    )
                 )
-            )
+            }
+
 
             val manager = (context as AppCompatActivity).supportFragmentManager
             val fragment = EkoBottomSheetListFragment.newInstance(itemList)
@@ -109,6 +123,7 @@ class EkoCommunityModeratorAdapter(
                         EkoConstants.ID_REPORT_USER -> sendReportUser(ekoUser, true)
                         EkoConstants.ID_UN_REPORT_USER -> sendReportUser(ekoUser, false)
                         EkoConstants.ID_REMOVE_USER -> removeUser(ekoUser)
+                        EkoConstants.ID_REMOVE_MODERATOR -> removeModerator(ekoUser)
                     }
                 }
             })
@@ -119,7 +134,7 @@ class EkoCommunityModeratorAdapter(
             val viewModel = if (isReport) {
                 itemViewModel.reportUser(ekoUser)
             } else {
-                itemViewModel.unreportUser(ekoUser)
+                itemViewModel.unReportUser(ekoUser)
             }
             viewModel.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -160,6 +175,18 @@ class EkoCommunityModeratorAdapter(
                 }.doOnError {
 
                 }.subscribe()
+        }
+
+        private fun removeModerator(ekoUser: EkoUser) {
+            itemViewModel.removeRole(EkoConstants.MODERATOR_ROLE, listOf(ekoUser.getUserId()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete {
+
+                }.doOnError {
+                    Log.e("ModeratorAdapter", "removeModerator: $it")
+                }.subscribe()
+
         }
     }
 

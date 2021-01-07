@@ -12,6 +12,7 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedCommentItemC
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedCommentShowAllReplyListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedCommentShowMoreActionListener
 import com.ekoapp.ekosdk.uikit.community.views.newsfeed.EkoNewsFeedCommentView
+import kotlinx.android.synthetic.main.layout_news_feed_item_comment.view.*
 
 
 class EkoNewsFeedCommentViewHolder(
@@ -22,42 +23,58 @@ class EkoNewsFeedCommentViewHolder(
     private val showMoreActionListener: INewsFeedCommentShowMoreActionListener?,
     private val preExpandCommentId: String? = null,
     val readOnlyMode: Boolean
-) : RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewAdapter.IBinder<EkoComment>  {
+) : RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewAdapter.IBinder<EkoComment> {
     private var newsFeedCommentAdapter: EkoNewsFeedCommentAdapter? = null
-    private val ekoNewsFeedComment: EkoNewsFeedCommentView = itemView.findViewById(R.id.ekoNewsFeedComment)
+    private val ekoNewsFeedComment: EkoNewsFeedCommentView =
+        itemView.findViewById(R.id.ekoNewsFeedComment)
     private val rvReply: RecyclerView = itemView.findViewById(R.id.rvReply)
 
     override fun bind(data: EkoComment?, position: Int) {
-         data?.let { ekoComment ->
-             ekoNewsFeedComment.setComment(ekoComment)
-             ekoNewsFeedComment.setOnExpandClickListener(View.OnClickListener {
-                 itemClickListener?.onClickItem(ekoComment, position)
-             })
-             if(preExpandCommentId != null && ekoComment.getCommentId() == preExpandCommentId) {
-                 handleShowAllReply(ekoComment)
-             }
-             ekoNewsFeedComment.setReadOnlyMode(readOnlyMode)
+        data?.let { ekoComment ->
+            ekoNewsFeedComment.setComment(ekoComment)
+            ekoNewsFeedComment.setOnExpandClickListener(View.OnClickListener {
+                itemClickListener?.onClickItem(ekoComment, position)
+            })
+            if (preExpandCommentId != null && ekoComment.getCommentId() == preExpandCommentId) {
+                handleShowAllReply(ekoComment)
+            }
+            ekoNewsFeedComment.setReadOnlyMode(readOnlyMode)
             /* if(readOnlyMode)
                  ekoNewsFeedComment.enableReadOnlyMode()*/
-             setVerticalDivider(ekoComment, position)
-             addCommentActionListener(ekoComment, position)
-             addItemClickListener(ekoComment, position)
-         }
+            setVerticalDivider(ekoComment, position)
+            addCommentActionListener(ekoComment, position)
+            addItemClickListener(ekoComment, position)
+        }
     }
 
     private fun addItemClickListener(comment: EkoComment, position: Int) {
         itemView.setOnClickListener {
             itemClickListener?.onClickItem(comment, position)
         }
+
+        itemView.ivAvatar.setOnClickListener {
+            onClickAvatarListener(comment)
+        }
+
+        itemView.tvUserName.setOnClickListener {
+            onClickAvatarListener(comment)
+        }
+    }
+
+    private fun onClickAvatarListener(comment: EkoComment) {
+        comment.getUser()?.let { user ->
+            itemClickListener?.onClickAvatar(user)
+        }
     }
 
     private fun addCommentActionListener(comment: EkoComment, position: Int) {
-        ekoNewsFeedComment.setCommentActionListener(object : EkoNewsFeedCommentView.ICommentActionListener {
+        ekoNewsFeedComment.setCommentActionListener(object :
+            EkoNewsFeedCommentView.ICommentActionListener {
             override fun showAllReplies() {
-                if(showAllReplyListener == null) {
+                if (showAllReplyListener == null) {
                     handleShowAllReply(comment)
 
-                }else {
+                } else {
                     showAllReplyListener.onClickShowAllReplies(comment, position)
                 }
             }
@@ -88,9 +105,9 @@ class EkoNewsFeedCommentViewHolder(
 
     private fun setVerticalDivider(data: EkoComment, position: Int) {
         var visibility = View.GONE
-        if(data.getChildrenNumber() > 0) {
+        if (data.getChildrenNumber() > 0) {
             visibility = View.VISIBLE
-        }else if(itemCount != null && position < itemCount -1) {
+        } else if (itemCount != null && position < itemCount - 1) {
             visibility = View.VISIBLE
         }
         ekoNewsFeedComment.setVerticalDividerVisibility(visibility)
@@ -103,7 +120,14 @@ class EkoNewsFeedCommentViewHolder(
     }
 
     private fun initEkoPostCommentRecyclerview(size: Int) {
-        newsFeedCommentAdapter = EkoNewsFeedCommentAdapter(size, itemClickListener, showAllReplyListener, showMoreActionListener, null, readOnlyMode)
+        newsFeedCommentAdapter = EkoNewsFeedCommentAdapter(
+            size,
+            itemClickListener,
+            showAllReplyListener,
+            showMoreActionListener,
+            null,
+            readOnlyMode
+        )
 //        val space8 = itemView.context.resources.getDimensionPixelSize(R.dimen.eight)
 //        val spaceItemDecoration = EkoRecyclerViewItemDecoration(space8, 0, space8, 0)
 //        rvReply.addItemDecoration(spaceItemDecoration)
@@ -111,7 +135,7 @@ class EkoNewsFeedCommentViewHolder(
         rvReply.adapter = newsFeedCommentAdapter
     }
 
-    private fun setReplies(pagedList: PagedList<EkoComment>){
+    private fun setReplies(pagedList: PagedList<EkoComment>) {
         newsFeedCommentAdapter?.submitList(pagedList)
     }
 }

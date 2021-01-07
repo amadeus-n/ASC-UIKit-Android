@@ -69,19 +69,19 @@
                 app:layout_constraintTop_toTopOf="@id/ivMsgOutgoing"
                 app:layout_constraintBottom_toBottomOf="@id/ivMsgOutgoing"/>
 
-            <com.google.android.material.progressindicator.ProgressIndicator
+            <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/progressBar"
                 android:layout_width="@dimen/thirty_six"
                 android:layout_height="@dimen/thirty_six"
-                style="@style/Widget.MaterialComponents.ProgressIndicator.Circular.Determinate"
-                app:indicatorColor="@color/white"
-                app:circularRadius="@dimen/eighteen"
+                android:indeterminate="true"
                 android:progress="@{vmImageMessage.uploadProgress}"
                 android:visibility="@{vmImageMessage.uploading &amp; !vmImageMessage.isFailed() ? View.VISIBLE : View.GONE}"
-                app:layout_constraintStart_toStartOf="@id/ivMsgOutgoing"
+                app:layout_constraintBottom_toBottomOf="@id/ivMsgOutgoing"
                 app:layout_constraintEnd_toEndOf="@id/ivMsgOutgoing"
+                app:layout_constraintStart_toStartOf="@id/ivMsgOutgoing"
                 app:layout_constraintTop_toTopOf="@id/ivMsgOutgoing"
-                app:layout_constraintBottom_toBottomOf="@id/ivMsgOutgoing"/>
+                app:trackColor="@color/white"
+                app:trackThickness="@dimen/two" />
 
             <include
                 android:layout_width="wrap_content"

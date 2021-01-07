@@ -41,15 +41,17 @@
 
         <TextView
             android:id="@+id/tvUserName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_uikit_dot"
-            android:drawablePadding="@dimen/four"
             android:layout_marginStart="@dimen/eight"
+            android:layout_marginEnd="@dimen/sixteen"
+            android:ellipsize="end"
+            android:maxLines="1"
             style="@style/TextStyleEkoBodyBold"
             android:textColor="@color/upstraColorBase"
             app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
             app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivAvatar"
             tools:text="Jackie" />
 
@@ -57,13 +59,13 @@
             android:id="@+id/tvCommentTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/four"
             android:layout_marginStart="@dimen/four"
             style="@style/TextStyleEkoCaption"
             android:textColor="@color/upstraColorBase"
             app:textColorShade="@{ColorShade.SHADE1}"
-            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
-            app:layout_constraintStart_toEndOf="@id/tvUserName"
-            app:layout_constraintTop_toTopOf="@id/ivAvatar"
+            app:layout_constraintTop_toBottomOf="@id/tvUserName"
+            app:layout_constraintStart_toStartOf="@id/tvUserName"
             tools:text="10 min" />
 
         <TextView
@@ -78,9 +80,8 @@
             style="@style/TextStyleEkoCaption"
             android:textColor="@color/upstraColorBase"
             app:textColorShade="@{ColorShade.SHADE1}"
-            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+            app:layout_constraintTop_toTopOf="@id/tvCommentTime"
             app:layout_constraintStart_toEndOf="@id/tvCommentTime"
-            app:layout_constraintTop_toTopOf="@id/ivAvatar"
              />
 
         <com.ekoapp.ekosdk.uikit.common.views.text.EkoExpandableTextView
@@ -94,7 +95,7 @@
             android:textColor="@color/upstraColorBase"
             android:paddingBottom="@{addBottomSpace ? @dimen/eight : 0}"
             app:layout_constraintStart_toStartOf="@id/tvUserName"
-            app:layout_constraintTop_toBottomOf="@id/tvUserName"
+            app:layout_constraintTop_toBottomOf="@id/tvCommentTime"
             tools:text="orem ipsum dolor sit amet, consectetur. " />
 
         <com.google.android.material.checkbox.MaterialCheckBox

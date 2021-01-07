@@ -19,4 +19,9 @@ object EkoConstants {
     const val ID_REPORT_USER = 1000
     const val ID_UN_REPORT_USER = 1001
     const val ID_REMOVE_USER = 1002
+    const val ID_PROMOTE_MODERATOR = 1003
+    const val ID_REMOVE_MODERATOR = 1004
+
+    const val MODERATOR_ROLE = "moderator"
+    const val MEMBER_ROLE = "member"
 }

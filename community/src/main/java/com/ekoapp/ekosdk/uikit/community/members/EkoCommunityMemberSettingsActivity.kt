@@ -23,20 +23,20 @@ class EkoCommunityMemberSettingsActivity : EkoBaseToolbarFragmentContainerActivi
             fragment.community(community).build(this)
         } ?: kotlin.run {
             fragment.communityId(intent?.getStringExtra(COMMUNITY_ID) ?: "")
-                .isPublic(intent?.getBooleanExtra(IS_PUBLIC, true) ?: true)
+                .isMember(intent?.getBooleanExtra(IS_MEMBER, false) ?: false)
                 .build(this)
         }
     }
 
     companion object {
         private const val COMMUNITY_ID = "COMMUNITY_ID"
-        private const val IS_PUBLIC = "IS_PUBLIC"
+        private const val IS_MEMBER = "IS_MEMBER"
         private const val COMMUNITY_MODEL = "COMMUNITY_MODEL"
 
-        fun newIntent(context: Context, id: String, isPublic: Boolean): Intent =
+        fun newIntent(context: Context, id: String, isMember: Boolean): Intent =
             Intent(context, EkoCommunityMemberSettingsActivity::class.java).apply {
                 putExtra(COMMUNITY_ID, id)
-                putExtra(IS_PUBLIC, isPublic)
+                putExtra(IS_MEMBER, isMember)
             }
 
         fun newIntent(context: Context, community: EkoCommunity): Intent =

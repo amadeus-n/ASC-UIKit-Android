@@ -61,33 +61,35 @@
                 app:layout_constraintBottom_toBottomOf="@id/ivPlay"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <com.google.android.material.progressindicator.ProgressIndicator
+            <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:layout_width="@dimen/eighteen"
                 android:layout_height="@dimen/eighteen"
                 android:layout_marginEnd="@dimen/two"
-                app:indicatorColor="@color/white"
-                app:trackColor="#80FFFFFF"
-                app:circularRadius="@dimen/nine"
-                app:indicatorWidth="@dimen/two"
+                android:indeterminate="true"
                 android:progress="@{vmAudioMsg.uploadProgress}"
                 android:visibility="@{vmAudioMsg.uploading ? View.VISIBLE : View.GONE}"
-                style="@style/Widget.MaterialComponents.ProgressIndicator.Circular.Determinate"
-                app:layout_constraintTop_toTopOf="@id/ivPlay"
+                app:indicatorDirectionCircular="clockwise"
+                app:indicatorSize="@dimen/eighteen"
                 app:layout_constraintBottom_toBottomOf="@id/ivPlay"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ivPlay"
+                app:showAnimationBehavior="inward"
+                app:trackColor="#80FFFFFF"
+                app:trackThickness="@dimen/two" />
 
-            <com.google.android.material.progressindicator.ProgressIndicator
+            <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:layout_width="@dimen/eighteen"
                 android:layout_height="@dimen/eighteen"
                 android:layout_marginEnd="@dimen/two"
-                app:trackColor="@color/white"
-                app:circularRadius="@dimen/nine"
-                app:indicatorWidth="@dimen/two"
+                android:indeterminate="true"
                 android:visibility="@{vmAudioMsg.buffering ? View.VISIBLE : View.GONE}"
-                style="@style/Widget.MaterialComponents.ProgressIndicator.Circular.Indeterminate"
-                app:layout_constraintTop_toTopOf="@id/ivPlay"
+                app:indicatorDirectionCircular="clockwise"
+                app:indicatorSize="@dimen/eighteen"
                 app:layout_constraintBottom_toBottomOf="@id/ivPlay"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ivPlay"
+                app:trackColor="@color/white"
+                app:trackThickness="@dimen/two" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

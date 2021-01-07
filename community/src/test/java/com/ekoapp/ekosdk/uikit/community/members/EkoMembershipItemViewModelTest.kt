@@ -1,10 +1,8 @@
 package com.ekoapp.ekosdk.uikit.community.members
 
-import com.ekoapp.ekosdk.EkoClient
-import com.ekoapp.ekosdk.EkoUserRepository
+import com.ekoapp.ekosdk.user.EkoUser
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.mockkStatic
 import io.reactivex.Completable
 import org.junit.Test
 
@@ -12,23 +10,20 @@ class EkoMembershipItemViewModelTest {
 
     @Test
     fun when_reportUser_expect_success() {
-        mockkStatic(EkoClient::class)
-        val userRepository: EkoUserRepository = mockk()
-        every { EkoClient.newUserRepository() } returns userRepository
-        every { userRepository.report(any()).flag() } returns Completable.complete()
+
+        val ekoUser: EkoUser = mockk()
+        every { ekoUser.report().flag() } returns Completable.complete()
         val viewModel = EkoMembershipItemViewModel()
-        val res = viewModel.reportUser("123").test()
+        val res = viewModel.reportUser(ekoUser).test()
         res.assertComplete()
     }
 
     @Test
     fun when_reportUser_expect_failure() {
-        mockkStatic(EkoClient::class)
-        val userRepository: EkoUserRepository = mockk()
-        every { EkoClient.newUserRepository() } returns userRepository
-        every { userRepository.report(any()).flag() } returns Completable.error(Exception("test_error"))
+        val ekoUser: EkoUser = mockk()
+        every { ekoUser.report().flag() } returns Completable.error(Exception("test_error"))
         val viewModel = EkoMembershipItemViewModel()
-        val res = viewModel.reportUser("123").test()
+        val res = viewModel.reportUser(ekoUser).test()
         res.assertErrorMessage("test_error")
     }
 }
