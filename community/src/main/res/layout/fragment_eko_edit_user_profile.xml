@@ -65,6 +65,18 @@
             app:layout_constraintTop_toBottomOf="@id/avatarView"
             app:required="@{true}" />
 
+        <TextView
+            android:id="@+id/tvUserNameCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sixteen"
+            android:layout_marginTop="@dimen/sixteen"
+            android:layout_marginEnd="@dimen/sixteen"
+            android:text='@{vm.displayName.trim().length() + "/" + vm.userNameMaxTextLength}'
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/avatarView"
+            tools:text="100/100" />
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDisplayName"
             android:layout_width="match_parent"
@@ -91,9 +103,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/thirty_two"
             android:layout_marginEnd="@dimen/sixteen"
-            android:text='@{vm.about.trim().length() +"/180"}'
+            android:text='@{vm.about.trim().length() + "/" + vm.aboutMaxTextLength}'
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etDisplayName" />
+            app:layout_constraintTop_toBottomOf="@id/etDisplayName"
+            tools:text="180/180" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etAbout"

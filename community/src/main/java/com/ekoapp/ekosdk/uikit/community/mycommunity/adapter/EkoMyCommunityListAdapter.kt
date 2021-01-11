@@ -19,16 +19,20 @@ class EkoMyCommunityListAdapter(
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == R.layout.layout_my_community_item) EkoMyCommunityListViewHolder( view, listener)
-        else
+        return if (viewType == R.layout.layout_my_community_item) {
+            EkoMyCommunityListViewHolder(view, previewMode, listener)
+        } else {
             EkoMyCommunitiesViewHolder(view, listener)
+        }
     }
 
     override fun getItemCount(): Int {
-        return if(previewMode) super.getItemCount().coerceAtMost(9) else super.getItemCount()
+        return if (previewMode) {
+            super.getItemCount().coerceAtMost(9)
+        } else {
+            super.getItemCount()
+        }
     }
-
-
 
     companion object {
         private val diffCallBack = object : DiffUtil.ItemCallback<EkoCommunity>() {

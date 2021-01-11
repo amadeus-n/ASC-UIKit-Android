@@ -18,6 +18,9 @@ class EkoEditUserProfileViewModel : EkoBaseViewModel() {
     var updating: Boolean = false
     var user: EkoUser? = null
 
+    var userNameMaxTextLength = 100
+    var aboutMaxTextLength = 180
+
     val displayName = MutableLiveData<String>().apply { value = "" }
     val about = MutableLiveData<String>().apply { value = "" }
     val hasProfileUpdate = MutableLiveData<Boolean>(false)

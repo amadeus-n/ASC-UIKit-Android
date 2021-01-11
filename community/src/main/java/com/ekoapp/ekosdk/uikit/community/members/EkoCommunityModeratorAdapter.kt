@@ -175,6 +175,8 @@ class EkoCommunityModeratorAdapter(
                 }.doOnError {
 
                 }.subscribe()
+
+            removeModerator(ekoUser)
         }
 
         private fun removeModerator(ekoUser: EkoUser) {

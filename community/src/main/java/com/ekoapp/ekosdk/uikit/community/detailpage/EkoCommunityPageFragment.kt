@@ -180,17 +180,17 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
             }.subscribe()
         )
 
-        disposable.add(mViewModel.checkModeratorPermissionAtCommunity(
-            EkoPermission.EDIT_COMMUNITY,
-            mViewModel.communityID)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext {
-                mViewModel.isModerator.set(it)
-            }.doOnError {
-                mViewModel.isModerator.set(false)
-            }.subscribe()
-        )
+//        disposable.add(mViewModel.checkModeratorPermissionAtCommunity(
+//            EkoPermission.EDIT_COMMUNITY,
+//            mViewModel.communityID)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnNext {
+//                mViewModel.isModerator.set(it)
+//            }.doOnError {
+//                mViewModel.isModerator.set(false)
+//            }.subscribe()
+//        )
     }
 
     private fun showCommunitySuccessMessage() {

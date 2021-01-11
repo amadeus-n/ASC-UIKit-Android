@@ -15,12 +15,13 @@ import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemCl
 
 class EkoMyCommunityListViewHolder(
     itemView: View,
+    private val previewMode: Boolean,
     private val listener: IMyCommunityItemClickListener
 ) : RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewPagedAdapter.Binder<EkoCommunity> {
     private val binding: LayoutMyCommunityItemBinding? = DataBindingUtil.bind(itemView)
 
     override fun bind(data: EkoCommunity?, position: Int) {
-        if (position == 8) {
+        if (position == 8 && previewMode) {
             binding?.listener = listener
             binding?.executePendingBindings()
             binding?.tvName?.text = itemView.context.getString(R.string.see_all)

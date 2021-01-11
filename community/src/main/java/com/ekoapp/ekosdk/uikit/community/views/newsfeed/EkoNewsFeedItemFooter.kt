@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.ekoapp.ekosdk.comment.EkoComment
+import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.feed.EkoPostTarget
 import com.ekoapp.ekosdk.uikit.common.readableNumber
@@ -79,9 +80,11 @@ class EkoNewsFeedItemFooter : ConstraintLayout {
         setLikeCheckboxText()
         val target = feed.getTarget()
         if (target is EkoPostTarget.COMMUNITY) {
-            val community = target.getCommunity()
-            readOnlyView = !community!!.isJoined()
-            mBinding.readOnly = !community.isJoined()
+            val community: EkoCommunity? = target.getCommunity()
+            if (community != null) {
+                readOnlyView = !community.isJoined()
+                mBinding.readOnly = !community.isJoined()
+            }
         } else {
             readOnlyView = false
             mBinding.readOnly = false
