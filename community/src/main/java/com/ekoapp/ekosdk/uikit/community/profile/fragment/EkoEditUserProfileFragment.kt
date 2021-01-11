@@ -2,21 +2,20 @@ package com.ekoapp.ekosdk.uikit.community.profile.fragment
 
 import android.net.Uri
 import android.os.Bundle
+import android.text.InputFilter
+import android.text.InputFilter.LengthFilter
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.base.EkoPickerFragment
-import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
-import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.common.views.dialog.EkoBottomSheetDialogFragment
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoEditUserProfileBinding
@@ -26,6 +25,7 @@ import com.ekoapp.ekosdk.uikit.utils.EkoOptionMenuColorUtil
 import com.ekoapp.ekosdk.user.EkoUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_eko_edit_user_profile.*
 import java.io.File
 
 
@@ -68,6 +68,9 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
         }
 
         observeProfileUpdate()
+
+        etDisplayName.filters = arrayOf<InputFilter>(LengthFilter(mViewModel.userNameMaxTextLength))
+        etAbout.filters = arrayOf<InputFilter>(LengthFilter(mViewModel.aboutMaxTextLength))
     }
 
 
@@ -163,7 +166,11 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
         menuItemSaveProfile?.isEnabled = enabled
         val s = SpannableString(getString(R.string.save))
         s.setSpan(
-            ForegroundColorSpan(EkoOptionMenuColorUtil.getColor(menuItemSaveProfile?.isEnabled ?: false, requireContext())), 0, s.length, 0
+            ForegroundColorSpan(
+                EkoOptionMenuColorUtil.getColor(
+                    menuItemSaveProfile?.isEnabled ?: false, requireContext()
+                )
+            ), 0, s.length, 0
         )
         menuItemSaveProfile?.title = s
     }
@@ -249,7 +256,7 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
     }
 
 
-    class Builder() {
+    class Builder {
         fun build(activity: AppCompatActivity): EkoEditUserProfileFragment {
             return EkoEditUserProfileFragment()
         }

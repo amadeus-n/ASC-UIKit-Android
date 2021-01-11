@@ -4,17 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <import type="android.view.View" />
+
         <variable
             name="avatarUrl"
             type="String" />
+
         <variable
             name="readOnly"
             type="Boolean" />
+
         <variable
             name="showFeedAction"
             type="Boolean" />
+
         <variable
             name="isModerator"
             type="Boolean" />
@@ -29,91 +35,114 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/avatarView"
             style="@style/CircularAvatarStyle"
+            backgroundColorShade="@{ColorShade.SHADE3}"
+            ekoBackgroundColor="@{@color/upstraColorPrimary}"
             imageUrl="@{avatarUrl}"
             placeHolder="@{@drawable/ic_uikit_default_profile_large}"
-            ekoBackgroundColor="@{@color/upstraColorPrimary}"
-            backgroundColorShade="@{ColorShade.SHADE3}"
-            android:layout_height="@dimen/forty"
             android:layout_width="@dimen/forty"
+            android:layout_height="@dimen/forty"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutPostedBy"
-            android:gravity="center_vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/four"
             android:layout_marginStart="@dimen/four"
-            app:layout_constraintLeft_toRightOf="@id/avatarView"
+            android:layout_marginBottom="@dimen/four"
+            app:layout_constraintEnd_toStartOf="@+id/btnFeedAction"
+            app:layout_constraintStart_toEndOf="@id/avatarView"
             app:layout_constraintTop_toTopOf="@id/avatarView">
 
             <com.ekoapp.ekosdk.uikit.common.views.text.EkoTextView
                 android:id="@+id/userName"
+                style="@style/TextStyleEkoBodyBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/four"
-                android:layout_marginEnd="@dimen/four"
-                tools:text="Thailand"
-                style="@style/TextStyleEkoBodyBold"
-                android:textColor="@color/upstraColorBase" />
+                android:drawablePadding="@dimen/three"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/communityName"
+                tools:text="Thailand" />
 
             <com.ekoapp.ekosdk.uikit.common.views.text.EkoTextView
                 android:id="@+id/communityName"
+                style="@style/TextStyleEkoBodyBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/four"
                 android:layout_marginEnd="@dimen/four"
-                tools:text="Thailand"
-                style="@style/TextStyleEkoBodyBold"
+                android:drawablePadding="@dimen/four"
+                android:ellipsize="end"
+                android:maxEms="30"
+                android:maxLines="1"
+                android:paddingStart="@dimen/four"
+                android:paddingEnd="@dimen/four"
                 android:textColor="@color/upstraColorBase"
-                app:layout_constraintLeft_toRightOf="@id/avatarView"
+                app:layout_constraintStart_toEndOf="@+id/userName"
+                tools:text="Thailand" />
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/flow"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:constraint_referenced_ids="userName,communityName"
+                app:flow_horizontalAlign="start"
+                app:flow_horizontalBias="0"
+                app:flow_horizontalGap="0dp"
+                app:flow_horizontalStyle="packed"
+                app:flow_maxElementsWrap="2"
+                app:flow_wrapMode="chain"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_marginStart="@dimen/four"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintLeft_toRightOf="@id/avatarView"
             app:layout_constraintTop_toBottomOf="@id/layoutPostedBy">
 
             <TextView
                 android:id="@+id/tvPostBy"
+                style="@style/TextStyleEkoCaptionBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="2dp"
                 android:layout_marginEnd="@dimen/four"
+                android:drawablePadding="2dp"
                 android:gravity="center_vertical"
                 android:text="@string/moderator"
-                style="@style/TextStyleEkoCaptionBold"
                 android:textColor="@color/upstraColorBase"
-                app:textColorShade="@{ColorShade.SHADE1}"
+                android:visibility="@{isModerator ? View.VISIBLE : View.GONE}"
+                app:drawableEndCompat="@drawable/ic_uikit_dot"
+                app:drawableStartCompat="@drawable/ic_uikit_moderator"
                 app:drawableTintColor="@{@color/upstraColorBase}"
                 app:drawableTintShade="@{ColorShade.SHADE1}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:visibility="@{isModerator ? View.VISIBLE : View.GONE}"
-                app:drawableStartCompat="@drawable/ic_uikit_moderator"
-                app:drawableEndCompat="@drawable/ic_uikit_dot" />
+                app:textColorShade="@{ColorShade.SHADE1}" />
 
             <TextView
                 android:id="@+id/feedPostTime"
+                style="@style/TextStyleEkoCaption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="bottom"
-                style="@style/TextStyleEkoCaption"
                 android:textColor="@color/upstraColorBase"
-                app:textColorShade="@{ColorShade.SHADE1}"
                 app:layout_constraintBottom_toBottomOf="@id/tvPostBy"
                 app:layout_constraintLeft_toRightOf="@id/tvPostBy"
                 app:layout_constraintTop_toTopOf="@id/tvPostBy"
-                />
+                app:textColorShade="@{ColorShade.SHADE1}" />
 
             <TextView
                 android:id="@+id/tvEdited"
+                style="@style/TextStyleEkoCaption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
@@ -121,13 +150,12 @@
                 android:drawablePadding="2dp"
                 android:gravity="bottom"
                 android:text="@string/edited"
-                style="@style/TextStyleEkoCaption"
                 android:textColor="@color/upstraColorBase"
-                app:textColorShade="@{ColorShade.SHADE1}"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/feedPostTime"
                 app:layout_constraintLeft_toRightOf="@id/feedPostTime"
                 app:layout_constraintTop_toTopOf="@id/feedPostTime"
-                android:visibility="gone"/>
+                app:textColorShade="@{ColorShade.SHADE1}" />
 
         </LinearLayout>
 
@@ -135,11 +163,11 @@
             android:id="@+id/btnFeedAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{showFeedAction ? View.VISIBLE : View.GONE}"
             android:layout_marginTop="@dimen/eight"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_uikit_more_horizontal"
             android:tint="@color/upstraColorBase"
+            android:visibility="@{showFeedAction ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="@id/communityName"
             app:layout_constraintTop_toTopOf="parent" />

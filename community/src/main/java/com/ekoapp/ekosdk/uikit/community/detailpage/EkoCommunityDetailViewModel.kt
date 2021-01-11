@@ -28,7 +28,6 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
     val isPublic = ObservableBoolean(true)
     val isMember = ObservableBoolean(true)
     val isOfficial = ObservableBoolean(false)
-    val isCreator = ObservableBoolean(false)
     val isModerator = ObservableBoolean(false)
     var feedFragmentDelegate: IFeedFragmentDelegate? = null
     var messageClickListener: IMessageClickListener? = null
@@ -57,10 +56,10 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
         isPublic.set(ekoCommunity.isPublic())
         isMember.set(ekoCommunity.isJoined())
         isOfficial.set(ekoCommunity.isOfficial())
-        isCreator.set(ekoCommunity.getUserId() == EkoClient.getUserId())
         if (userId.get() == null) {
             userId.set(ekoCommunity.getUserId())
         }
+        isModerator.set(ekoCommunity.getUserId() == EkoClient.getUserId())
     }
 
     fun joinCommunity(): Completable {
@@ -69,7 +68,7 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
     }
 
     fun onPrimaryButtonClick() {
-        if (isCreator.get()) {
+        if (isModerator.get()) {
             triggerEvent(EventIdentifier.EDIT_PROFILE)
         }
         /*else if (isModerator.get()) { //TODO Uncomment when SDK already support role feature.
