@@ -26,11 +26,6 @@ class EkoMyCommunityListAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        super.onBindViewHolder(holder, position)
-        holder.setIsRecyclable(false)
-    }
-
     override fun getItemCount(): Int {
         return if (previewMode) {
             super.getItemCount().coerceAtMost(9)

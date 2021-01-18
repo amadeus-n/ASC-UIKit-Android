@@ -74,6 +74,8 @@ class EkoNewsFeedAdapter(
             override fun areContentsTheSame(oldItem: EkoPost, newItem: EkoPost): Boolean {
                 return oldItem.getPostId() == newItem.getPostId()
                         && oldItem.getPostedUser()?.getDisplayName() == newItem.getPostedUser()?.getDisplayName()
+                        && oldItem.getPostedUser()?.getRoles() == newItem.getPostedUser()?.getRoles()
+                        && oldItem.getPostedUser()?.getAvatar()?.getUrl() == newItem.getPostedUser()?.getAvatar()?.getUrl()
                         && oldItem.getCommentCount() == newItem.getCommentCount()
                         && oldItem.getReactionCount() == newItem.getReactionCount()
                         && oldItem.getEditedAt() == newItem.getEditedAt()
