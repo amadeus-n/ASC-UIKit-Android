@@ -5,7 +5,7 @@ import com.ekoapp.ekosdk.uikit.chat.home.callback.IDirectoryFragmentDelegate
 import com.ekoapp.ekosdk.uikit.chat.home.callback.IRecentChatFragmentDelegate
 import com.ekoapp.ekosdk.uikit.chat.home.callback.IRecentChatItemClickListener
 
-class EkoChatHomePageViewModel: EkoBaseViewModel() {
+class EkoChatHomePageViewModel : EkoBaseViewModel() {
 
     var recentChatItemClickListener: IRecentChatItemClickListener? = null
     var recentChatFragmentDelegate: IRecentChatFragmentDelegate? = null

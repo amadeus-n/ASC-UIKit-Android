@@ -19,7 +19,7 @@ class EkoCategoryListFragment : EkoBaseCategoryListFragment() {
             return fragment
         }
 
-        private fun categoryItemClickListener(listener: IEkoCategoryItemClickListener) : Builder {
+        private fun categoryItemClickListener(listener: IEkoCategoryItemClickListener): Builder {
             this.categoryItemClickListener = listener
             return this
         }

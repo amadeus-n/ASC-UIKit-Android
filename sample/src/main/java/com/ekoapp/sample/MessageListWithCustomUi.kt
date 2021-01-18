@@ -1,9 +1,9 @@
 package com.ekoapp.sample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.ekoapp.ekosdk.uikit.chat.messages.adapter.EkoMessageListAdapter
 import com.ekoapp.ekosdk.uikit.chat.messages.fragment.EkoMessageListFragment
 import com.ekoapp.ekosdk.uikit.chat.messages.viewHolder.EkoChatMessageBaseViewHolder
@@ -30,9 +30,10 @@ class MessageListWithCustomUi : AppCompatActivity(), EkoMessageListAdapter.ICust
         parent: ViewGroup,
         viewType: Int
     ): EkoChatMessageBaseViewHolder? {
-        return when(viewType) {
+        return when (viewType) {
             MessageType.MESSAGE_ID_TEXT_RECEIVER -> TextReceiverViewHolder(
-                inflater.inflate(R.layout.item_text_receiver, parent, false), MyTextMsgViewModel())
+                inflater.inflate(R.layout.item_text_receiver, parent, false), MyTextMsgViewModel()
+            )
             MessageType.MESSAGE_ID_TEXT_SENDER -> TextSenderViewHolder(
                 inflater.inflate(R.layout.item_text_sender, parent, false), MyTextMsgViewModel()
             )

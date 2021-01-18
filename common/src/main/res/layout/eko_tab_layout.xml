@@ -10,7 +10,7 @@
         android:layout_height="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tab_header"/>
+        app:layout_constraintTop_toBottomOf="@id/tab_header" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_header"
@@ -21,7 +21,7 @@
         android:layout_marginStart="@dimen/six"
         app:tabIndicatorFullWidth="false"
         app:tabIndicatorColor="@color/upstraColorPrimary"
-        app:tabMode="auto"/>
+        app:tabMode="auto" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/eko_viewPager"
@@ -30,7 +30,6 @@
         app:layout_constraintTop_toBottomOf="@id/divider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

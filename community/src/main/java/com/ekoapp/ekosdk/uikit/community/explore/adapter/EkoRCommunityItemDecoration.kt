@@ -21,7 +21,7 @@ class EkoRCommunityItemDecoration(
             }
             right = if (parent.getChildAdapterPosition(view) == 3) {
                 2 * mRight
-            }else {
+            } else {
                 mRight
             }
             bottom = mBottom

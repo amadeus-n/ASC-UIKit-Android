@@ -17,7 +17,7 @@
     </declare-styleable>
 
     <declare-styleable name="ExpandableText">
-        <attr name="maxLines" format="integer"/>
+        <attr name="maxLines" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="Text">
@@ -44,21 +44,21 @@
     </declare-styleable>
 
     <declare-styleable name="EkoToolBarStyle">
-        <attr name="leftDrawableStyle" format="reference"/>
-        <attr name="leftTextViewStyle" format="reference"/>
-        <attr name="rightTextViewStyle" format="reference"/>
+        <attr name="leftDrawableStyle" format="reference" />
+        <attr name="leftTextViewStyle" format="reference" />
+        <attr name="rightTextViewStyle" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="EkoRippleBackground">
         <attr name="rbColor" format="color" />
-        <attr name="rbStrokeWidth" format="dimension"/>
-        <attr name="rbRadius" format="dimension"/>
-        <attr name="rbDuration" format="integer"/>
-        <attr name="rbRippleAmount" format="integer"/>
-        <attr name="rbScale" format="float"/>
+        <attr name="rbStrokeWidth" format="dimension" />
+        <attr name="rbRadius" format="dimension" />
+        <attr name="rbDuration" format="integer" />
+        <attr name="rbRippleAmount" format="integer" />
+        <attr name="rbScale" format="float" />
         <attr name="rbType" format="enum">
-            <enum name="fillRipple" value="0"/>
-            <enum name="strokeRipple" value="1"/>
+            <enum name="fillRipple" value="0" />
+            <enum name="strokeRipple" value="1" />
         </attr>
     </declare-styleable>
 

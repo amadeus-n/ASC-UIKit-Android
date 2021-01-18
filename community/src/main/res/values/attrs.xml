@@ -24,7 +24,7 @@
         <attr name="avatarStyle"></attr>
         <attr name="communityNameStyle" />
         <attr name="communityDescriptionStyle" format="reference" />
-        <attr name="followerStyle"/>
+        <attr name="followerStyle" />
         <attr name="followButtonStyle" />
     </declare-styleable>
 </resources>

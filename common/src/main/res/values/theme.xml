@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="Base.Theme.MaterialThemeBuilder" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
-        <item name="android:navigationBarColor" tools:ignore="NewApi">?android:attr/colorBackground</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">
+            ?android:attr/colorBackground
+        </item>
         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
-        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">?attr/colorControlHighlight</item>
+        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">
+            ?attr/colorControlHighlight
+        </item>
     </style>
 
     <style name="Base.Theme.EkoApp" parent="Base.Theme.MaterialThemeBuilder">
@@ -13,9 +18,9 @@
         <item name="colorSecondary">@color/upstraColorSecondary</item>
         <item name="android:colorBackground">@color/white</item>
         <item name="colorSurface">@color/white</item>
-       <!-- <item name="colorOnPrimary">@color/colorSecondary</item>
-        <item name="colorOnSecondary">@color/colorPrimary</item>
-        <item name="colorOnBackground">@color/colorPrimary</item>-->
+        <!-- <item name="colorOnPrimary">@color/colorSecondary</item>
+         <item name="colorOnSecondary">@color/colorPrimary</item>
+         <item name="colorOnBackground">@color/colorPrimary</item>-->
         <item name="colorError">@color/upstraColorAlert</item>
         <item name="colorOnError">@color/white</item>
         <item name="android:actionMenuTextColor">@color/upstraColorHighlight</item>
@@ -24,14 +29,18 @@
         <item name="snackbarStyle">@style/EkoSnackBarStyle</item>
         <item name="searchViewStyle">@style/EkoSearchViewStyle</item>
         <!--Material shape attributes-->
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.EkoTheme.SmallComponent</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.EkoTheme.MediumComponent</item>
-        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.EkoTheme.LargeComponent</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.EkoTheme.SmallComponent
+        </item>
+        <item name="shapeAppearanceMediumComponent">
+            @style/ShapeAppearance.EkoTheme.MediumComponent
+        </item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.EkoTheme.LargeComponent
+        </item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.EkoTheme.BottomSheetDialog</item>
     </style>
 
-    <style name="AppTheme1" parent="Base.Theme.EkoApp"/>
+    <style name="AppTheme1" parent="Base.Theme.EkoApp" />
 
     <style name="AppTheme2" parent="Base.Theme.EkoApp">
         <item name="colorPrimary">#ff4081</item>
@@ -82,7 +91,8 @@
     <style name="EkoAlertDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="colorSurface">#fff</item>
         <item name="colorOnSurface">@color/upstraColorBase</item>
-        <item name="materialAlertDialogTitleTextStyle">@style/EkoAlertDialogTheme.App.Title.Text</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/EkoAlertDialogTheme.App.Title.Text
+        </item>
     </style>
 
     <style name="EkoAlertDialogTheme.App.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">

@@ -11,7 +11,7 @@ data class Channel(
     val numberOfFollowers: Long,
     val followersName: List<String>,
     val description: String,
-    var verified : Boolean = false,
+    var verified: Boolean = false,
     var private: Boolean = false,
     var moderators: List<String> = listOf()
-): Parcelable
+) : Parcelable

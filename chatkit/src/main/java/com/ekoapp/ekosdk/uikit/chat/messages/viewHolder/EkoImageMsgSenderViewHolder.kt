@@ -80,7 +80,7 @@ class EkoImageMsgSenderViewHolder(
 
     private fun navigateToImagePreview(imageUrl: String) {
         val imageList = mutableListOf(PreviewImage(imageUrl))
-        val intent = EkoImagePreviewActivity.newIntent( context, 0, false, ArrayList(imageList))
+        val intent = EkoImagePreviewActivity.newIntent(context, 0, false, ArrayList(imageList))
         context.startActivity(intent)
     }
 

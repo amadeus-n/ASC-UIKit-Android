@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="clickListener"
             type="com.ekoapp.ekosdk.uikit.components.EkoChatComposeBarClickListener" />
@@ -34,7 +36,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ivAlbum"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/ivLocation"/>
+            app:layout_constraintBottom_toTopOf="@id/ivLocation" />
 
         <TextView
             android:id="@+id/tvCamera"
@@ -48,7 +50,7 @@
             android:gravity="center"
             app:layout_constraintStart_toStartOf="@id/ivCamera"
             app:layout_constraintEnd_toEndOf="@id/ivCamera"
-            app:layout_constraintTop_toBottomOf="@id/ivCamera"/>
+            app:layout_constraintTop_toBottomOf="@id/ivCamera" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivAlbum"
@@ -61,7 +63,7 @@
             backgroundColorShade="@{ColorShade.SHADE4}"
             app:layout_constraintStart_toEndOf="@id/ivCamera"
             app:layout_constraintEnd_toStartOf="@id/ivFile"
-            app:layout_constraintTop_toTopOf="@id/ivCamera"/>
+            app:layout_constraintTop_toTopOf="@id/ivCamera" />
 
         <TextView
             android:id="@+id/tvAlbum"
@@ -75,7 +77,7 @@
             android:gravity="center"
             app:layout_constraintStart_toStartOf="@id/ivAlbum"
             app:layout_constraintEnd_toEndOf="@id/ivAlbum"
-            app:layout_constraintTop_toBottomOf="@id/ivAlbum"/>
+            app:layout_constraintTop_toBottomOf="@id/ivAlbum" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivFile"
@@ -90,7 +92,7 @@
             app:layout_constraintStart_toEndOf="@id/ivAlbum"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivCamera"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/tvFile"
@@ -105,7 +107,7 @@
             app:layout_constraintStart_toStartOf="@id/ivFile"
             app:layout_constraintEnd_toEndOf="@id/ivFile"
             app:layout_constraintTop_toBottomOf="@id/ivFile"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivLocation"
@@ -119,7 +121,7 @@
             app:layout_constraintStart_toStartOf="@id/ivCamera"
             app:layout_constraintTop_toBottomOf="@id/ivCamera"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/tvLocation"
@@ -134,6 +136,6 @@
             app:layout_constraintStart_toStartOf="@id/ivLocation"
             app:layout_constraintEnd_toEndOf="@id/ivLocation"
             app:layout_constraintTop_toBottomOf="@id/ivLocation"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

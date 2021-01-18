@@ -5,16 +5,18 @@ import android.view.View
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.ekoapp.ekosdk.user.EkoUser
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewPagedAdapter
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.ui.clickListener.EkoSelectMemberListener
 import com.ekoapp.ekosdk.uikit.community.ui.viewHolder.EkoMemberListHeaderViewHolder
 import com.ekoapp.ekosdk.uikit.community.ui.viewHolder.EkoMemberListItemViewHolder
 import com.ekoapp.ekosdk.uikit.community.ui.viewModel.EkoSelectMembersViewModel
+import com.ekoapp.ekosdk.user.EkoUser
 
-class EkoMembersListAdapter(private val listener: EkoSelectMemberListener,
-                            private val viewModel: EkoSelectMembersViewModel) :
+class EkoMembersListAdapter(
+    private val listener: EkoSelectMemberListener,
+    private val viewModel: EkoSelectMembersViewModel
+) :
     EkoBaseRecyclerViewPagedAdapter<EkoUser>(diffCallback) {
 
     private val selectedMemberSet = HashSet<String>()
@@ -31,15 +33,20 @@ class EkoMembersListAdapter(private val listener: EkoSelectMemberListener,
             } else {
                 viewModel.memberMap[currentUser.getUserId()] = position
                 val prevUser = getItem(position - 1)!!
-                if (currentUser.getDisplayName()?.isEmpty() != false && prevUser.getDisplayName()?.isEmpty() != false) {
+                if (currentUser.getDisplayName()?.isEmpty() != false && prevUser.getDisplayName()
+                        ?.isEmpty() != false
+                ) {
                     R.layout.select_member_item
-                }else if (currentUser.getDisplayName() != null && prevUser.getDisplayName()?.isEmpty() != false) {
+                } else if (currentUser.getDisplayName() != null && prevUser.getDisplayName()
+                        ?.isEmpty() != false
+                ) {
                     R.layout.select_member_item_header
-                }else {
+                } else {
                     if (currentUser.getDisplayName()!![0]
-                            .equals(prevUser.getDisplayName()!![0], true)) {
+                            .equals(prevUser.getDisplayName()!![0], true)
+                    ) {
                         R.layout.select_member_item
-                    }else {
+                    } else {
                         R.layout.select_member_item_header
                     }
                 }
@@ -49,9 +56,13 @@ class EkoMembersListAdapter(private val listener: EkoSelectMemberListener,
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType) {
-            R.layout.select_member_item_header -> EkoMemberListHeaderViewHolder(view, listener, selectedMemberSet)
-            else  -> EkoMemberListItemViewHolder(view, listener, selectedMemberSet)
+        return when (viewType) {
+            R.layout.select_member_item_header -> EkoMemberListHeaderViewHolder(
+                view,
+                listener,
+                selectedMemberSet
+            )
+            else -> EkoMemberListItemViewHolder(view, listener, selectedMemberSet)
         }
     }
 

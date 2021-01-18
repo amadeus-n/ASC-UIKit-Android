@@ -24,14 +24,15 @@ class EkoSelectableMessageViewModelTest {
         var reportClick = false
         var failedClick = true
 
-        viewModel.onEventReceived += {event->
-            when(event.type) {
+        viewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.MESSAGE_LONG_PRESS -> longPress = true
                 EventIdentifier.EDIT_MESSAGE -> editClick = true
                 EventIdentifier.DELETE_MESSAGE -> deleteClick = true
                 EventIdentifier.REPORT_MESSAGE -> reportClick = true
                 EventIdentifier.FAILED_MESSAGE -> failedClick = true
-                else -> {}
+                else -> {
+                }
             }
         }
 

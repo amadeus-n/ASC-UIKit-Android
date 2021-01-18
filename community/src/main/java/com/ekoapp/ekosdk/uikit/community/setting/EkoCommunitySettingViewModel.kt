@@ -9,10 +9,10 @@ import com.ekoapp.ekosdk.uikit.common.formatCount
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-class EkoCommunitySettingViewModel: EkoBaseViewModel() {
+class EkoCommunitySettingViewModel : EkoBaseViewModel() {
 
     val communityId = ObservableField("")
-    var ekoCommunity: EkoCommunity ? = null
+    var ekoCommunity: EkoCommunity? = null
     val isAdmin = ObservableBoolean(false)
     val membersCount = ObservableField("0")
     val isPublic = ObservableBoolean(true)

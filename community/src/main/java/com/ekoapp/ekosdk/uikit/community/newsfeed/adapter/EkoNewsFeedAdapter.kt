@@ -23,7 +23,7 @@ class EkoNewsFeedAdapter(
 
     override fun getLayoutId(position: Int, obj: EkoPost?): Int {
         return obj?.let { ekoPost ->
-            if (!ekoPost.getChildren().isNullOrEmpty()){
+            if (!ekoPost.getChildren().isNullOrEmpty()) {
                 when (ekoPost.getChildren().first().getData()) {
                     is EkoPost.Data.IMAGE -> {
                         R.layout.layout_news_feed_item_image
@@ -73,6 +73,7 @@ class EkoNewsFeedAdapter(
 
             override fun areContentsTheSame(oldItem: EkoPost, newItem: EkoPost): Boolean {
                 return oldItem.getPostId() == newItem.getPostId()
+                        && oldItem.getPostedUser()?.getDisplayName() == newItem.getPostedUser()?.getDisplayName()
                         && oldItem.getCommentCount() == newItem.getCommentCount()
                         && oldItem.getReactionCount() == newItem.getReactionCount()
                         && oldItem.getEditedAt() == newItem.getEditedAt()
@@ -84,12 +85,14 @@ class EkoNewsFeedAdapter(
 
         }
 
-        private fun areContentSame(oldComments: List<EkoComment>, newComments: List<EkoComment>
+        private fun areContentSame(
+            oldComments: List<EkoComment>, newComments: List<EkoComment>
         ): Boolean {
             for ((index, _) in oldComments.withIndex()) {
-                if(oldComments[index].getData() != newComments[index].getData()
+                if (oldComments[index].getData() != newComments[index].getData()
                     || oldComments[index].getReactionCount() != newComments[index].getReactionCount()
-                    || oldComments[index].getEditedAt() != newComments[index].getEditedAt()){
+                    || oldComments[index].getEditedAt() != newComments[index].getEditedAt()
+                ) {
                     return false
                 }
             }

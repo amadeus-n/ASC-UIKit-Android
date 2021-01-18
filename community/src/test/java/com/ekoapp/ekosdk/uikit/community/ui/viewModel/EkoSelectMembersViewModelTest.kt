@@ -33,7 +33,9 @@ class EkoSelectMembersViewModelTest {
         mockkStatic(EkoClient::class)
         val userRepository: EkoUserRepository = mockk()
         every { EkoClient.newUserRepository() } returns userRepository
-        every { userRepository.searchUserByDisplayName(any()).build().query() } returns Flowable.just(mockList)
+        every {
+            userRepository.searchUserByDisplayName(any()).build().query()
+        } returns Flowable.just(mockList)
 
         val viewModel = EkoSelectMembersViewModel()
         val res = viewModel.getAllUsers().blockingFirst()
@@ -47,7 +49,9 @@ class EkoSelectMembersViewModelTest {
         mockkStatic(EkoClient::class)
         val userRepository: EkoUserRepository = mockk()
         every { EkoClient.newUserRepository() } returns userRepository
-        every { userRepository.searchUserByDisplayName(any()).build().query() } returns Flowable.just(mockList)
+        every {
+            userRepository.searchUserByDisplayName(any()).build().query()
+        } returns Flowable.just(mockList)
 
         val viewModel = EkoSelectMembersViewModel()
         viewModel.searchString.set("Sum")
@@ -71,10 +75,11 @@ class EkoSelectMembersViewModelTest {
     fun when_searchString_change_expect_event_SEARCH_STRING_CHANGED() {
         var searchStringChanged = false
         val viewModel = EkoSelectMembersViewModel()
-        viewModel.onEventReceived += {event->
-            when(event.type) {
+        viewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.SEARCH_STRING_CHANGED -> searchStringChanged = true
-                else -> {}
+                else -> {
+                }
             }
         }
         viewModel.setPropertyChangeCallback()

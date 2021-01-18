@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -18,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekoapp.ekosdk.comment.EkoComment
+import com.ekoapp.ekosdk.exception.EkoError
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.file.EkoFile
 import com.ekoapp.ekosdk.file.EkoImage
@@ -46,9 +48,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_eko_post_detail.*
+import kotlinx.android.synthetic.main.fragment_eko_user_profile_page.*
 import kotlinx.android.synthetic.main.layout_comment_compose_bar.*
 import kotlinx.android.synthetic.main.layout_news_feed_item_footer.*
 import kotlinx.android.synthetic.main.layout_news_feed_item_header.*
+import org.bson.types.ObjectId
 
 class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
     IPostImageItemClickListener, INewsFeedCommentShowMoreActionListener,
@@ -111,8 +115,8 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
             val disposable = mViewModel.getComments(it)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    newsFeedFooter.submitComments(it)
+                .subscribe({ commentList ->
+                    newsFeedFooter.submitComments(commentList)
                 }, {
 
                 })
@@ -199,14 +203,19 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
 
         btnPost.setOnClickListener {
             feedId?.let { postId ->
-                val disposable = mViewModel.addComment(postId, etPostComment.text.toString())
+                val commentId = ObjectId.get().toHexString()
+                val disposable = mViewModel.addComment(commentId, postId, etPostComment.text.toString())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSuccess {
                         //TODO remove after sdk (core) fix bug for fetch post data
                         mViewModel.fetchPostData(postId)
                     }
-                    .doOnError {}
+                    .doOnError {
+                        if (EkoError.from(it) == EkoError.BAN_WORD_FOUND) {
+                            mViewModel.deleteComment(commentId).subscribe()
+                        }
+                    }
                     .subscribe()
                 disposal.add(disposable)
             }
@@ -409,7 +418,7 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError {
-                Log.d(TAG, it.message)
+                Log.d(TAG, it.message ?: "")
             }
             .doOnComplete {
                 showReportSentMessage(isReport)
@@ -427,7 +436,7 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError {
-                Log.d(TAG, it.message)
+                Log.d(TAG, it.message ?: "")
             }
             .doOnComplete {
                 showReportSentMessage(isReport)
@@ -661,19 +670,17 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
         registerForActivityResult(EkoEditCommentActivity.EkoAddCommentActivityContract()) {
             if (it != null && it == true) {
                 etPostComment.setText("")
-                Handler().postDelayed(Runnable {
+                Handler(Looper.getMainLooper()).postDelayed({
                     newsFeedFooter.scrollToBottomComments()
                     topLayout.fullScroll(View.FOCUS_DOWN)
                 }, 200)
-
-
             }
 
         }
 
     override fun onLikeAction(liked: Boolean) {
         disposal.add(mViewModel.postReaction(liked, newsFeed).doOnError {
-            Log.d(TAG, it.message)
+            Log.d(TAG, it.message ?: "")
         }.subscribe())
     }
 

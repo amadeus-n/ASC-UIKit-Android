@@ -6,17 +6,19 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
-import com.ekoapp.ekosdk.*
-import com.ekoapp.ekosdk.message.EkoMessage
+import com.ekoapp.ekosdk.EkoChannelRepository
+import com.ekoapp.ekosdk.EkoClient
+import com.ekoapp.ekosdk.EkoMessageRepository
 import com.ekoapp.ekosdk.channel.EkoChannel
 import com.ekoapp.ekosdk.channel.membership.EkoChannelMembership
+import com.ekoapp.ekosdk.message.EkoMessage
 import com.ekoapp.ekosdk.uikit.components.EkoChatComposeBarClickListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.observers.DisposableCompletableObserver
 
-class EkoMessageListViewModel: EkoChatMessageBaseViewModel() {
+class EkoMessageListViewModel : EkoChatMessageBaseViewModel() {
 
     val text = ObservableField<String>()
     val title = ObservableField<String>()
@@ -70,17 +72,19 @@ class EkoMessageListViewModel: EkoChatMessageBaseViewModel() {
     fun sendMessage() {
         if (!isVoiceMsgUi.get()) {
             val messageRepository: EkoMessageRepository = EkoClient.newMessageRepository()
-            addDisposable(messageRepository.createMessage(channelID).with()
-                .text(text.get())
-                .build().send().subscribeWith(object : DisposableCompletableObserver(){
-                    override fun onComplete() {
-                        triggerEvent(EventIdentifier.MSG_SEND_SUCCESS)
-                    }
+            addDisposable(
+                messageRepository.createMessage(channelID).with()
+                    .text(text.get())
+                    .build().send().subscribeWith(object : DisposableCompletableObserver() {
+                        override fun onComplete() {
+                            triggerEvent(EventIdentifier.MSG_SEND_SUCCESS)
+                        }
 
-                    override fun onError(e: Throwable) {
-                        triggerEvent(EventIdentifier.MSG_SEND_ERROR)
-                    }
-                }))
+                        override fun onError(e: Throwable) {
+                            triggerEvent(EventIdentifier.MSG_SEND_ERROR)
+                        }
+                    })
+            )
             text.set("")
         }
 

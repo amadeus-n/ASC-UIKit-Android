@@ -41,7 +41,9 @@ class EkoMessageListViewModelTest {
         mockkStatic(EkoClient::class)
         val channelRepository: EkoChannelRepository = mockk()
         every { EkoClient.newChannelRepository() } returns channelRepository
-        every { channelRepository.joinChannel(any()).ignoreElement() } returns Completable.complete()
+        every {
+            channelRepository.joinChannel(any()).ignoreElement()
+        } returns Completable.complete()
 
         val viewModel = EkoMessageListViewModel()
         val res = viewModel.joinChannel().test()
@@ -53,7 +55,9 @@ class EkoMessageListViewModelTest {
         mockkStatic(EkoClient::class)
         val channelRepository: EkoChannelRepository = mockk()
         every { EkoClient.newChannelRepository() } returns channelRepository
-        every { channelRepository.joinChannel(any()).ignoreElement() } returns Completable.error(Exception("error_message"))
+        every { channelRepository.joinChannel(any()).ignoreElement() } returns Completable.error(
+            Exception("error_message")
+        )
 
         val viewModel = EkoMessageListViewModel()
         val res = viewModel.joinChannel().test()
@@ -166,7 +170,9 @@ class EkoMessageListViewModelTest {
         mockkStatic(EkoClient::class)
         val messageRepository: EkoMessageRepository = mockk()
         every { EkoClient.newMessageRepository() } returns messageRepository
-        every { messageRepository.createMessage(any()).with().image(any()).build().send() } returns Completable.complete()
+        every {
+            messageRepository.createMessage(any()).with().image(any()).build().send()
+        } returns Completable.complete()
         val imageUri: Uri = mockk()
         val res = viewModel.sendImageMessage(imageUri).test()
         res.assertComplete()
@@ -178,7 +184,9 @@ class EkoMessageListViewModelTest {
         mockkStatic(EkoClient::class)
         val messageRepository: EkoMessageRepository = mockk()
         every { EkoClient.newMessageRepository() } returns messageRepository
-        every { messageRepository.createMessage(any()).with().image(any()).build().send() } returns Completable.error(Exception("test_exception"))
+        every {
+            messageRepository.createMessage(any()).with().image(any()).build().send()
+        } returns Completable.error(Exception("test_exception"))
         val imageUri: Uri = mockk()
         val res = viewModel.sendImageMessage(imageUri).test()
         res.assertErrorMessage("test_exception")
@@ -192,12 +200,13 @@ class EkoMessageListViewModelTest {
         var centerIconClick = false
         var rightIconClick = false
 
-        viewModel.onEventReceived += {event->
-            when(event.type) {
+        viewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.CAMERA_CLICKED -> leftIconClick = true
                 EventIdentifier.PICK_IMAGE -> centerIconClick = true
                 EventIdentifier.PICK_FILE -> rightIconClick = true
-                else  -> {}
+                else -> {
+                }
             }
         }
 
@@ -230,7 +239,10 @@ class EkoMessageListViewModelTest {
         testWhenNotScrollable(recyclerView, viewModel)
     }
 
-    private fun initialScrollStateTest(recyclerView: RecyclerView, viewModel: EkoMessageListViewModel) {
+    private fun initialScrollStateTest(
+        recyclerView: RecyclerView,
+        viewModel: EkoMessageListViewModel
+    ) {
         viewModel.onRVScrollStateChanged(recyclerView, RecyclerView.SCROLL_STATE_IDLE)
         Assert.assertFalse(viewModel.isRVScrolling)
     }
@@ -249,7 +261,10 @@ class EkoMessageListViewModelTest {
         Assert.assertFalse(viewModel.isRVScrolling)
     }
 
-    private fun testWhenNotScrollable(recyclerView: RecyclerView, viewModel: EkoMessageListViewModel) {
+    private fun testWhenNotScrollable(
+        recyclerView: RecyclerView,
+        viewModel: EkoMessageListViewModel
+    ) {
         viewModel.isRVScrolling = true
         viewModel.onRVScrollStateChanged(recyclerView, RecyclerView.SCROLL_STATE_IDLE)
         Assert.assertFalse(viewModel.isRVScrolling)
@@ -269,11 +284,12 @@ class EkoMessageListViewModelTest {
         val viewModel = EkoMessageListViewModel()
         Assert.assertFalse(viewModel.isVoiceMsgUi.get())
         var showAudioUi = false
-        viewModel.onEventReceived += {event->
-            when(event.type) {
+        viewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.SHOW_AUDIO_RECORD_UI -> showAudioUi = true
                 EventIdentifier.TOGGLE_CHAT_COMPOSE_BAR -> toggleComposeBar = true
-                else -> {}
+                else -> {
+                }
             }
         }
 
@@ -307,7 +323,9 @@ class EkoMessageListViewModelTest {
         mockkStatic(EkoClient::class)
         val channelRepository: EkoChannelRepository = mockk()
         every { EkoClient.newChannelRepository() } returns channelRepository
-        every { channelRepository.membership(any()).getCollection().build().query() } returns Flowable.just(mockList)
+        every {
+            channelRepository.membership(any()).getCollection().build().query()
+        } returns Flowable.just(mockList)
 
         val viewModel = EkoMessageListViewModel()
         val res = viewModel.getDisplayName().blockingFirst()
@@ -320,8 +338,10 @@ class EkoMessageListViewModelTest {
         mockkStatic(EkoClient::class)
         val messageRepository: EkoMessageRepository = mockk()
         every { EkoClient.newMessageRepository() } returns messageRepository
-        every { messageRepository.createMessage(any()).with()
-            .audio(any()).build().send() } returns Completable.complete()
+        every {
+            messageRepository.createMessage(any()).with()
+                .audio(any()).build().send()
+        } returns Completable.complete()
 
         val viewModel = EkoMessageListViewModel()
         val res = viewModel.sendAudioMessage(audioFileUri).test()
@@ -334,8 +354,10 @@ class EkoMessageListViewModelTest {
         mockkStatic(EkoClient::class)
         val messageRepository: EkoMessageRepository = mockk()
         every { EkoClient.newMessageRepository() } returns messageRepository
-        every { messageRepository.createMessage(any()).with()
-            .audio(any()).build().send() } returns Completable.error(Exception("test"))
+        every {
+            messageRepository.createMessage(any()).with()
+                .audio(any()).build().send()
+        } returns Completable.error(Exception("test"))
 
         val viewModel = EkoMessageListViewModel()
         val res = viewModel.sendAudioMessage(audioFileUri).test()

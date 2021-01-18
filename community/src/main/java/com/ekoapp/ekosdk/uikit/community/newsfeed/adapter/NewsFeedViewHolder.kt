@@ -27,19 +27,21 @@ open class NewsFeedViewHolder(
     private var headerLayout = itemView.findViewById<EkoNewsFeedItemHeader>(R.id.newsFeedHeader)
     private var footerLayout = itemView.findViewById<EkoNewsFeedItemFooter>(R.id.newsFeedFooter)
     override fun bind(data: EkoPost?, position: Int) {
-        if(data != null) {
+        if (data != null) {
             //TODO data binding
             headerLayout.setFeed(data, timelineType)
             footerLayout.setFeed(data)
 
-            headerLayout.setNewsFeedActionAvatarClickListener(object : INewsFeedActionAvatarClickListener {
+            headerLayout.setNewsFeedActionAvatarClickListener(object :
+                INewsFeedActionAvatarClickListener {
                 override fun onClickUserAvatar(user: EkoUser) {
                     itemActionLister.onClickUserAvatar(data, user, position)
                 }
 
             })
 
-            headerLayout.setNewsFeedActionCommunityClickListener(object : INewsFeedActionCommunityClickListener {
+            headerLayout.setNewsFeedActionCommunityClickListener(object :
+                INewsFeedActionCommunityClickListener {
 
                 override fun onClickCommunity(community: EkoCommunity) {
                     itemActionLister.onClickCommunity(community)
@@ -49,29 +51,32 @@ open class NewsFeedViewHolder(
 
             this.footerLayout.setFeedLikeActionListener(object : INewsFeedActionLikeListener {
                 override fun onLikeAction(liked: Boolean) {
-                    itemActionLister.onLikeAction(liked, data,  position)
+                    itemActionLister.onLikeAction(liked, data, position)
                 }
 
             })
 
-            this.footerLayout.setItemClickListener(object : INewsFeedCommentItemClickListener{
+            this.footerLayout.setItemClickListener(object : INewsFeedCommentItemClickListener {
                 override fun onClickItem(comment: EkoComment, position: Int) {
-                    val postId = (comment.getReference() as? EkoCommentReference.Post)?.getPostId() ?: ""
-                   itemActionLister.onClickItem(postId, position)
+                    val postId =
+                        (comment.getReference() as? EkoCommentReference.Post)?.getPostId() ?: ""
+                    itemActionLister.onClickItem(postId, position)
                 }
 
                 override fun onClickAvatar(user: EkoUser) {
                     itemActionLister.onClickUserAvatar(data, user, position)
                 }
             })
-            this.footerLayout.setShowAllReplyListener(object : INewsFeedCommentShowAllReplyListener{
+            this.footerLayout.setShowAllReplyListener(object :
+                INewsFeedCommentShowAllReplyListener {
                 override fun onClickShowAllReplies(comment: EkoComment, position: Int) {
                     itemActionLister.showAllReply(data, comment, position)
                 }
 
             })
 
-            this.footerLayout.setShowMoreActionListener(object : INewsFeedCommentShowMoreActionListener{
+            this.footerLayout.setShowMoreActionListener(object :
+                INewsFeedCommentShowMoreActionListener {
                 override fun onClickNewsFeedCommentShowMoreAction(
                     comment: EkoComment,
                     commentPosition: Int
@@ -82,31 +87,32 @@ open class NewsFeedViewHolder(
             })
 
             this.feed.text = (data.getData() as? EkoPost.Data.TEXT)?.getText() ?: ""
-            if(this.feed.tag != this.feed.getVisibleLineCount()) {
+            if (this.feed.tag != this.feed.getVisibleLineCount()) {
                 this.feed.forceLayout()
                 this.feed.tag = this.feed.getVisibleLineCount()
             }
 
-            this.feed.visibility = if(this.feed.text.isEmpty()) View.GONE else View.VISIBLE
+            this.feed.visibility = if (this.feed.text.isEmpty()) View.GONE else View.VISIBLE
 
 
-            footerLayout.submitComments(data.getLatestComments().filter { !it.isDeleted() }.takeLast(2))
+            footerLayout.submitComments(data.getLatestComments().filter { !it.isDeleted() }
+                .takeLast(2))
             feed.setExpandOnlyOnReadMoreClick(true)
 
-            feed.setOnClickListener{
-                if(feed.isReadMoreClicked()){
+            feed.setOnClickListener {
+                if (feed.isReadMoreClicked()) {
                     feed.showCompleteText()
                     this.feed.tag = this.feed.getVisibleLineCount()
-                }else {
+                } else {
                     itemActionLister.onClickItem(data.getPostId(), position)
                 }
 
             }
-            footerLayout.setOnClickListener{
+            footerLayout.setOnClickListener {
                 itemActionLister.onClickItem(data.getPostId(), position)
             }
 
-            feedAction.setOnClickListener{
+            feedAction.setOnClickListener {
                 itemActionLister.onFeedAction(data, position)
             }
         }

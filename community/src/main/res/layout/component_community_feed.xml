@@ -8,8 +8,7 @@
         android:id="@+id/avatarView"
         style="@style/EkoAvatarStyle"
         app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </com.ekoapp.ekosdk.uikit.common.views.avatar.EkoAvatarView>
+        app:layout_constraintTop_toTopOf="parent"></com.ekoapp.ekosdk.uikit.common.views.avatar.EkoAvatarView>
 
     <TextView
         android:id="@+id/nameTextView"
@@ -17,7 +16,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/avatarView"
         app:layout_constraintTop_toTopOf="@id/avatarView"
-        android:text="Jo March"/>
+        android:text="Jo March" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

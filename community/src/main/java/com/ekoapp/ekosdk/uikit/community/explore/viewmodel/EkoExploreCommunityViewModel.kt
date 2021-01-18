@@ -14,7 +14,7 @@ import com.ekoapp.ekosdk.uikit.community.explore.listener.ITrendingCommunityFrag
 import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener
 import io.reactivex.Flowable
 
-class EkoExploreCommunityViewModel: EkoBaseViewModel() {
+class EkoExploreCommunityViewModel : EkoBaseViewModel() {
 
     var categoryItemClickListener: IEkoCategoryItemClickListener? = null
     var trendingCommunityItemClickListener: IMyCommunityItemClickListener? = null

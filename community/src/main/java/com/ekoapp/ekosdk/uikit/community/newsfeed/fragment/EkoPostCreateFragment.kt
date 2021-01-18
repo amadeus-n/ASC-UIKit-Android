@@ -15,7 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_eko_post_create.*
 
-class EkoPostCreateFragment internal constructor(): EkoBaseCreatePostFragment() {
+class EkoPostCreateFragment internal constructor() : EkoBaseCreatePostFragment() {
 
     override fun handlePostMenuItemClick() {
         createPost()
@@ -28,6 +28,7 @@ class EkoPostCreateFragment internal constructor(): EkoBaseCreatePostFragment() 
     override fun getPostMenuText(): String {
         return getString(R.string.post_caps)
     }
+
     private fun getToolbarTitleForCreatePost(): String {
         if (mViewModel.community != null)
             return mViewModel.community!!.getDisplayName()
@@ -86,12 +87,12 @@ class EkoPostCreateFragment internal constructor(): EkoBaseCreatePostFragment() 
             return this
         }
 
-        fun onCommunityFeed(communityId: String) : Builder {
+        fun onCommunityFeed(communityId: String): Builder {
             this.communityId = communityId
             return this
         }
 
-        fun onCommunityFeed(community: EkoCommunity?) : Builder {
+        fun onCommunityFeed(community: EkoCommunity?): Builder {
             this.community = community
             return this
         }

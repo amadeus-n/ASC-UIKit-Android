@@ -12,7 +12,8 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.reactivex.Flowable
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class EkoMyCommunityListViewModelTest {
@@ -24,10 +25,12 @@ class EkoMyCommunityListViewModelTest {
         mockkStatic(EkoClient::class)
         val communityRepository: EkoCommunityRepository = mockk()
         every { EkoClient.newCommunityRepository() } returns communityRepository
-        every { communityRepository.getCommunityCollection().withKeyword(any())
-            .filter(EkoCommunityFilter.MEMBER).sortBy(EkoCommunitySortOption.DISPLAY_NAME)
-            .includeDeleted(false)
-            .build().query() } returns Flowable.just(mockList)
+        every {
+            communityRepository.getCommunityCollection().withKeyword(any())
+                .filter(EkoCommunityFilter.MEMBER).sortBy(EkoCommunitySortOption.DISPLAY_NAME)
+                .includeDeleted(false)
+                .build().query()
+        } returns Flowable.just(mockList)
 
         val viewModel = EkoMyCommunityListViewModel()
         val res = viewModel.getCommunityList().blockingFirst()
@@ -38,10 +41,11 @@ class EkoMyCommunityListViewModelTest {
     fun when_searchString_change_expect_event_SEARCH_STRING_CHANGED() {
         var searchStringChanged = false
         val viewModel = EkoMyCommunityListViewModel()
-        viewModel.onEventReceived += {event->
-            when(event.type) {
+        viewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.SEARCH_STRING_CHANGED -> searchStringChanged = true
-                else -> {}
+                else -> {
+                }
             }
         }
         viewModel.setPropertyChangeCallback()

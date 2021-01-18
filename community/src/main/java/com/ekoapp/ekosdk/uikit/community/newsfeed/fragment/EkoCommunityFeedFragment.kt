@@ -54,7 +54,7 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
                 mViewModel.updateAdminAccess()
             }
             ?.doOnError {
-                Log.d(TAG, it.message)
+                Log.d(TAG, it.message ?: "")
             }
             ?.subscribe()
 
@@ -120,7 +120,8 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
             }
 
             val fragment = EkoCommunityFeedFragment()
-            fragment.mViewModel = ViewModelProvider(activity).get(EkoCommunityTimelineViewModel::class.java)
+            fragment.mViewModel =
+                ViewModelProvider(activity).get(EkoCommunityTimelineViewModel::class.java)
             fragment.mViewModel.avatarClickListener = avatarClickListener
             fragment.arguments = Bundle().apply {
                 putParcelable(ARG_COMMUNITY, this@Builder.community)

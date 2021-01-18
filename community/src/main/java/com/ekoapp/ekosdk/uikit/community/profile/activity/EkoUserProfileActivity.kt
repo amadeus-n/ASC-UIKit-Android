@@ -11,7 +11,12 @@ import com.ekoapp.ekosdk.uikit.community.profile.fragment.EkoUserProfilePageFrag
 class EkoUserProfileActivity : EkoBaseToolbarFragmentContainerActivity() {
 
     override fun initToolbar() {
-        getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back))
+        getToolBar()?.setLeftDrawable(
+            ContextCompat.getDrawable(
+                this,
+                R.drawable.ic_uikit_arrow_back
+            )
+        )
     }
 
     override fun getContentFragment(): Fragment {

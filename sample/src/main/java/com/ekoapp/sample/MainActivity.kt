@@ -31,7 +31,11 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     .doOnError {
-                        Toast.makeText(this, "Could not register user "+ it.message, Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this,
+                            "Could not register user " + it.message,
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                     .subscribe()
             } else {

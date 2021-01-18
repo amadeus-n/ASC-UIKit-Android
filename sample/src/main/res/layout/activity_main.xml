@@ -13,28 +13,28 @@
         android:layout_height="wrap_content"
         android:hint="Enter user id"
         android:layout_marginTop="64dp"
-        android:layout_marginHorizontal="@dimen/thirty_two"/>
+        android:layout_marginHorizontal="@dimen/thirty_two" />
 
     <EditText
         android:id="@+id/etUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Display Name"
-        android:layout_marginHorizontal="@dimen/thirty_two"/>
+        android:layout_marginHorizontal="@dimen/thirty_two" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:text="Choose user role"
-        android:layout_marginTop="@dimen/sixteen"/>
+        android:layout_marginTop="@dimen/sixteen" />
 
     <CheckBox
         android:id="@+id/cbModerator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="moderator"/>
+        android:text="moderator" />
 
 
     <Button
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/sixteen"
         android:layout_gravity="center_horizontal"
-        android:text="Login"/>
+        android:text="Login" />
 
 
 </LinearLayout>

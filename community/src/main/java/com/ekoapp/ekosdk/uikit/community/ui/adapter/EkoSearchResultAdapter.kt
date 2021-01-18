@@ -4,16 +4,13 @@ import android.view.View
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.ekoapp.ekosdk.user.EkoUser
-import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewAdapter
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewPagedAdapter
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.data.SelectMemberItem
 import com.ekoapp.ekosdk.uikit.community.ui.clickListener.EkoSelectMemberListener
 import com.ekoapp.ekosdk.uikit.community.ui.viewHolder.EkoMemberListItemViewHolder
-import com.ekoapp.ekosdk.uikit.community.utils.SelectMemberItemDiffCallBack
+import com.ekoapp.ekosdk.user.EkoUser
 
-class EkoSearchResultAdapter(private val listener: EkoSelectMemberListener):
+class EkoSearchResultAdapter(private val listener: EkoSelectMemberListener) :
     EkoBaseRecyclerViewPagedAdapter<EkoUser>(diffCallback) {
 
     private val selectedMemberSet = HashSet<String>()

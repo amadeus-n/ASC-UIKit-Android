@@ -13,7 +13,7 @@ class EkoUserTimelineViewModel : EkoBaseFeedViewModel() {
     var avatarClickListener: IAvatarClickListener? = null
 
     override fun getFeed(): Flowable<PagedList<EkoPost>> {
-        val feedRepository : EkoFeedRepository = EkoClient.newFeedRepository()
+        val feedRepository: EkoFeedRepository = EkoClient.newFeedRepository()
         return feedRepository.getUserFeed(userId)
             .includeDeleted(false)
             .build()

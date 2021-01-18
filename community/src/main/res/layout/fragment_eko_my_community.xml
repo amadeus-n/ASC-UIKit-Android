@@ -4,8 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
-        <import type="android.view.View"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.ekoapp.ekosdk.uikit.community.mycommunity.viewmodel.EkoMyCommunityListViewModel" />
@@ -22,8 +25,7 @@
             android:singleLine="true"
             style="@style/SearchEditTextStyle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMyCommunities"
@@ -34,7 +36,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etSearch"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,7 +49,7 @@
             android:layout_marginTop="@dimen/thirty"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etSearch"/>
+            app:layout_constraintTop_toBottomOf="@id/etSearch" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

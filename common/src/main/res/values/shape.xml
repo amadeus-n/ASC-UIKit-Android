@@ -23,7 +23,9 @@
     </style>
 
     <style name="Widget.EkoTheme.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="shapeAppearanceOverlay">@style/ThemeOverlay.EkoThemeShapeAppearanceBottomSheetDialog</item>
+        <item name="shapeAppearanceOverlay">
+            @style/ThemeOverlay.EkoThemeShapeAppearanceBottomSheetDialog
+        </item>
     </style>
 
     <style name="ThemeOverlay.EkoThemeShapeAppearanceBottomSheetDialog" parent="">

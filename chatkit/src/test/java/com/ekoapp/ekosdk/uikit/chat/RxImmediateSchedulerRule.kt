@@ -7,9 +7,8 @@ import io.reactivex.plugins.RxJavaPlugins
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
-import java.util.concurrent.Executor
 
-class RxImmediateSchedulerRule: TestRule {
+class RxImmediateSchedulerRule : TestRule {
     private val immediate = object : Scheduler() {
         override fun createWorker(): Worker {
             return ExecutorScheduler.ExecutorWorker({ it.run() }, true)

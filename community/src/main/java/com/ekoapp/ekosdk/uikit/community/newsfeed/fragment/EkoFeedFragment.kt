@@ -3,15 +3,15 @@ package com.ekoapp.ekosdk.uikit.community.newsfeed.fragment
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.user.EkoUser
 
-class EkoFeedFragment private constructor(){
+class EkoFeedFragment private constructor() {
 
     class Builder {
 
-        fun  ofUser(userId: String): EkoUserFeedFragment.Builder {
+        fun ofUser(userId: String): EkoUserFeedFragment.Builder {
             return EkoUserFeedFragment.Builder().userId(userId)
         }
-        
-        fun  ofUser(user: EkoUser): EkoUserFeedFragment.Builder {
+
+        fun ofUser(user: EkoUser): EkoUserFeedFragment.Builder {
             return EkoUserFeedFragment.Builder().user(user)
         }
 
@@ -27,7 +27,7 @@ class EkoFeedFragment private constructor(){
             return EkoMyFeedFragment.Builder()
         }
 
-        fun global() : EkoGlobalFeedFragment.Builder {
+        fun global(): EkoGlobalFeedFragment.Builder {
             return EkoGlobalFeedFragment.Builder()
         }
     }

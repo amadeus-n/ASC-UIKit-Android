@@ -39,7 +39,7 @@ class EkoAvatarView : ConstraintLayout {
         applyStyle()
     }
 
-    fun setImage(url : String) {
+    fun setImage(url: String) {
         style.avatarUrl = url
         applyStyle()
     }
@@ -53,12 +53,10 @@ class EkoAvatarView : ConstraintLayout {
         background = ContextCompat.getDrawable(context, R.drawable.default_ring)
         image_avatar.layoutParams.height = style.avatarHeight
         image_avatar.layoutParams.width = style.avatarWidth
-        if (style.avatarDrawable != -1)
-        {
+        if (style.avatarDrawable != -1) {
             Glide.with(context).load(style.avatarDrawable)
                 .into(image_avatar)
-        }
-        else if (style.avatarUrl != null) {
+        } else if (style.avatarUrl != null) {
             Glide.with(context)
                 .load(style.avatarUrl)
                 .centerCrop()

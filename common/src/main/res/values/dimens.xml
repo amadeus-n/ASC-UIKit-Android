@@ -74,7 +74,7 @@
     <dimen name="text_size_17">17sp</dimen>
     <dimen name="hundred">100dp</dimen>
     <dimen name="twenty_five">25dp</dimen>
-    
+
     <dimen name="ts_upstra_headline">20sp</dimen>
     <dimen name="ts_upstra_title">16sp</dimen>
     <dimen name="ts_upstra_body">14sp</dimen>

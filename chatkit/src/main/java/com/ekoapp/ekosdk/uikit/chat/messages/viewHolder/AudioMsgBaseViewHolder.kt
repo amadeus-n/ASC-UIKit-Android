@@ -16,7 +16,7 @@ abstract class AudioMsgBaseViewHolder(
     val audioMsgBaseViewModel: EkoAudioMsgViewModel,
     private val context: Context,
     private val audioPlayListener: IAudioPlayCallback
-): EkoSelectableMessageViewHolder(itemView, audioMsgBaseViewModel, context) {
+) : EkoSelectableMessageViewHolder(itemView, audioMsgBaseViewModel, context) {
 
     init {
         addViewModelListener()
@@ -25,12 +25,15 @@ abstract class AudioMsgBaseViewHolder(
     abstract fun getAudioViewHolder(): AudioMsgBaseViewHolder
 
     private fun addViewModelListener() {
-        audioMsgBaseViewModel.onEventReceived += {event->
-            when(event.type) {
-                EventIdentifier.AUDIO_PLAYER_PLAY_CLICKED -> audioPlayListener.playAudio(getAudioViewHolder())
+        audioMsgBaseViewModel.onEventReceived += { event ->
+            when (event.type) {
+                EventIdentifier.AUDIO_PLAYER_PLAY_CLICKED -> audioPlayListener.playAudio(
+                    getAudioViewHolder()
+                )
                 EventIdentifier.MESSAGE_DELETE_SUCCESS -> audioPlayListener.messageDeleted(event.dataObj as String)
                 //EventIdentifier.SET_AUDIO_FILE_PROPERTIES -> setAudioFileProperties()
-                else -> {}
+                else -> {
+                }
             }
         }
     }
@@ -46,7 +49,7 @@ abstract class AudioMsgBaseViewHolder(
             val duration = AndroidUtil.getMediaLength(context, file.absolutePath)
             audioMsgBaseViewModel.progressMax.set(duration)
             audioMsgBaseViewModel.duration.set(EkoDateUtils.getFormattedTimeForChat(duration))
-        }else {
+        } else {
             audioMsgBaseViewModel.duration.set("0:00")
             audioMsgBaseViewModel.isPlaying.set(false)
         }

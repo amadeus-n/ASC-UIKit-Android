@@ -16,7 +16,7 @@ import com.ekoapp.ekosdk.uikit.databinding.EkoToolbarBinding
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.android.synthetic.main.eko_toolbar.view.*
 
-class EkoToolBar: MaterialToolbar {
+class EkoToolBar : MaterialToolbar {
 
     private lateinit var mBinding: EkoToolbarBinding
 
@@ -28,13 +28,17 @@ class EkoToolBar: MaterialToolbar {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init()
     }
 
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.eko_toolbar,  this, true)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.eko_toolbar, this, true)
         mBinding.rightStringActive = false
         toggleRightTextColor(false)
         setContentInsetsRelative(0, 0)
@@ -57,7 +61,8 @@ class EkoToolBar: MaterialToolbar {
     fun setLeftDrawable(value: Drawable?, color: Int? = null) {
         mBinding.leftDrawable = value
         if (color != null && mBinding.leftDrawable != null) {
-            mBinding.leftDrawable!!.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+            mBinding.leftDrawable!!.colorFilter =
+                PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
         }
 
     }
@@ -75,18 +80,24 @@ class EkoToolBar: MaterialToolbar {
         if (value) {
             tv_right.setTextColor(
                 ColorPaletteUtil.getColor(
-                ContextCompat.getColor(context, R.color.upstraColorHighlight), ColorShade.DEFAULT))
-        }else {
+                    ContextCompat.getColor(context, R.color.upstraColorHighlight),
+                    ColorShade.DEFAULT
+                )
+            )
+        } else {
             tv_right.setTextColor(
                 ColorPaletteUtil.getColor(
-                    ContextCompat.getColor(context, R.color.upstraColorHighlight), ColorShade.SHADE2))
+                    ContextCompat.getColor(context, R.color.upstraColorHighlight), ColorShade.SHADE2
+                )
+            )
         }
     }
 
     fun setRightDrawable(value: Drawable?, color: Int? = null) {
         mBinding.rightDrawable = value
         if (color != null && mBinding.rightDrawable != null) {
-            mBinding.rightDrawable!!.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+            mBinding.rightDrawable!!.colorFilter =
+                PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
         }
     }
 

@@ -69,7 +69,7 @@ class EkoCategoryCommunityListFragment internal constructor() : EkoBaseFragment(
 
     private fun setupToolBar() {
         categoryName?.let {
-            (activity as AppCompatActivity).title =it
+            (activity as AppCompatActivity).title = it
         }
     }
 
@@ -137,11 +137,11 @@ class EkoCategoryCommunityListFragment internal constructor() : EkoBaseFragment(
         }
 
         fun build(activity: AppCompatActivity): EkoCategoryCommunityListFragment {
-            if(categoryId == null && category == null)
+            if (categoryId == null && category == null)
                 throw IllegalArgumentException("categoryId or category is required")
             val fragment = EkoCategoryCommunityListFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_CATEGORY_ID, categoryId?:category!!.getCategoryId())
+                    putString(ARG_CATEGORY_ID, categoryId ?: category!!.getCategoryId())
                     putString(ARG_CATEGORY_NAME, category?.getName())
                 }
             }

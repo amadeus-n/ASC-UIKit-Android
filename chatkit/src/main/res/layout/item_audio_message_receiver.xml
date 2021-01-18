@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="vmAudioMsg"
             type="com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoAudioMsgViewModel" />
@@ -14,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include android:id="@+id/dateHeader"
+        <include
+            android:id="@+id/dateHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/layout_date"
@@ -22,7 +26,7 @@
             app:date="@{vmAudioMsg.msgDate}"
             app:dateFillColor="@{vmAudioMsg.dateFillColor}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutAudioReceiver"
@@ -42,7 +46,7 @@
                 android:visibility="@{vmAudioMsg.isSenderVisible() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="@dimen/sixteen"/>
+                android:layout_marginStart="@dimen/sixteen" />
 
             <TextView
                 android:id="@+id/tvName"
@@ -55,7 +59,7 @@
                 android:textColor="@color/upstraColorBase"
                 textColorShade="@{ColorShade.SHADE1}"
                 android:text="@{vmAudioMsg.sender}"
-                android:layout_marginStart="@dimen/twelve"/>
+                android:layout_marginStart="@dimen/twelve" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutAudio"
@@ -80,7 +84,7 @@
                     android:layout_margin="@dimen/eight"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -92,7 +96,7 @@
                     android:visibility="@{vmAudioMsg.uploading || vmAudioMsg.buffering ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toTopOf="@id/ivPlay"
                     app:layout_constraintBottom_toBottomOf="@id/ivPlay"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:layout_width="@dimen/eighteen"
@@ -122,7 +126,7 @@
                 app:layout_constraintStart_toStartOf="@id/layoutAudio"
                 app:layout_constraintEnd_toEndOf="@id/layoutAudio"
                 app:layout_constraintTop_toTopOf="@id/layoutAudio"
-                app:layout_constraintBottom_toBottomOf="@id/layoutAudio"/>
+                app:layout_constraintBottom_toBottomOf="@id/layoutAudio" />
 
             <include
                 android:layout_width="wrap_content"
@@ -133,7 +137,7 @@
                 app:layout_constraintStart_toEndOf="@id/layoutAudio"
                 android:layout_marginStart="@dimen/four"
                 app:layout_constraintTop_toTopOf="@id/layoutAudio"
-                app:layout_constraintBottom_toBottomOf="@id/layoutAudio"/>
+                app:layout_constraintBottom_toBottomOf="@id/layoutAudio" />
 
             <TextView
                 android:id="@+id/tvTime"
@@ -147,13 +151,13 @@
                 android:layout_marginStart="@dimen/four"
                 android:layout_marginTop="@dimen/four"
                 app:layout_constraintTop_toBottomOf="@id/layoutAudio"
-                app:layout_constraintStart_toStartOf="@id/layoutAudio"/>
-
+                app:layout_constraintStart_toStartOf="@id/layoutAudio" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <include layout="@layout/layout_msg_deleted"
+        <include
+            layout="@layout/layout_msg_deleted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"

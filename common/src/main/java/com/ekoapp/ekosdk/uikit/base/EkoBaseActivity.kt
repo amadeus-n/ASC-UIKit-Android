@@ -96,8 +96,7 @@ abstract class EkoBaseActivity<T : ViewDataBinding, V : EkoBaseViewModel> : AppC
     fun requestPermission(permission: Array<String>, requestCode: Int) {
         ActivityCompat.requestPermissions(
             this,
-            permission
-            , requestCode
+            permission, requestCode
         )
     }
 

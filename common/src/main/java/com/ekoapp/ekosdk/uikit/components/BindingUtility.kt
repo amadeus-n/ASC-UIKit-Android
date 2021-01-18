@@ -20,7 +20,6 @@ import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.ekoapp.ekosdk.uikit.R
 import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
@@ -100,7 +99,7 @@ fun setBackgroundAlpha(view: ShapeableImageView, ekoBackgroundColorAlpha: Int) {
 fun setBackgroundAlpha(view: MaterialButton, shade: ColorShade) {
     val strokeColor = view.strokeColor.defaultColor
 
-    val colorDefault = ColorPaletteUtil.getColor( strokeColor, ColorShade.SHADE3)
+    val colorDefault = ColorPaletteUtil.getColor(strokeColor, ColorShade.SHADE3)
     val states = arrayOf(
         intArrayOf(android.R.attr.state_enabled),
         intArrayOf(-android.R.attr.state_enabled)
@@ -185,7 +184,6 @@ fun setText(view: EkoReadMoreTextView, message: String?, isSender: Boolean) {
 }
 
 
-
 @BindingAdapter(value = ["longPress", "maxLines"], requireAll = false)
 fun setListener(view: EkoReadMoreTextView, listener: ILongPressListener?, maxLines: Int?) {
     if (listener != null) {
@@ -227,17 +225,17 @@ fun setShowCameraIcon(view: EkoAvatarView, showCameraIcon: Boolean = false) {
 
 @BindingAdapter("required")
 fun setRequiredInLabel(view: TextView, required: Boolean = false) {
-   if(required) {
-       val required: Spannable = SpannableString("*")
+    if (required) {
+        val required: Spannable = SpannableString("*")
 
-       required.setSpan(
-           ForegroundColorSpan(Color.RED),
-           0,
-           required.length,
-           Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-       )
-       view.append(required)
-   }
+        required.setSpan(
+            ForegroundColorSpan(Color.RED),
+            0,
+            required.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        view.append(required)
+    }
 }
 
 @BindingAdapter(
@@ -339,7 +337,7 @@ fun setImageUrl(view: ImageView, imageUrl: String?, placeholder: Drawable?) {
     }
     val imageSynced = if (glideImageUrl!!.startsWith("https")) {
         true
-    }else {
+    } else {
         imageUri = Uri.fromFile(File(glideImageUrl))
         false
     }
@@ -400,7 +398,7 @@ fun setRoundedImageView(imageView: ImageView, fillColor: Int, shade: ColorShade)
 fun setText(textView: TextView, input: CharSequence?) {
     if (input != null && input.isNotEmpty()) {
         textView.text = input
-    }else {
+    } else {
         textView.text = textView.context.getString(R.string.anonymous)
     }
 }

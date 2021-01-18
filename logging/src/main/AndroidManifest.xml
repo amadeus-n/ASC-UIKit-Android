@@ -4,9 +4,9 @@
 
     <application>
         <provider
-            android:authorities="com.ekoapp.ekosdk.uikit"
+            android:authorities="${applicationId}.UikitLoggingProvider"
             android:name=".UiKitProvider"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

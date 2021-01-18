@@ -33,7 +33,7 @@
             android:layout_marginEnd="@dimen/twenty_four"
             app:layout_constraintTop_toTopOf="@id/tvTitle"
             app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCommunityCategory"
@@ -44,7 +44,7 @@
             android:layout_marginHorizontal="@dimen/sixteen"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,7 +6,6 @@ import com.ekoapp.ekosdk.uikit.community.profile.listener.IEditUserProfileClickL
 import com.ekoapp.ekosdk.uikit.community.profile.listener.IFeedFragmentDelegate
 import com.ekoapp.ekosdk.user.EkoUser
 import io.reactivex.Flowable
-import io.reactivex.Single
 
 class EkoUserProfileViewModel : EkoBaseViewModel() {
     var feedFragmentDelegate: IFeedFragmentDelegate? = null
@@ -21,7 +20,7 @@ class EkoUserProfileViewModel : EkoBaseViewModel() {
         }
     }
 
-    fun isLoggedInUser() : Boolean {
+    fun isLoggedInUser(): Boolean {
         return userId == null || EkoClient.getUserId() == userId
     }
 

@@ -12,7 +12,8 @@ import com.ekoapp.ekosdk.uikit.community.utils.AddedMemberItemDecoration
 import com.ekoapp.ekosdk.uikit.community.utils.EkoSelectMemberContract
 
 
-class EkoCommunityCreateFragment internal constructor(): EkoCommunityCreateBaseFragment(), EkoAddedMemberClickListener {
+class EkoCommunityCreateFragment internal constructor() : EkoCommunityCreateBaseFragment(),
+    EkoAddedMemberClickListener {
 
     private lateinit var mAdapter: EkoAddedMembersAdapter
 

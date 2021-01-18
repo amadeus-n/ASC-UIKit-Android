@@ -2,8 +2,8 @@ package com.ekoapp.ekosdk.uikit.chat.messages
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.ekoapp.ekosdk.uikit.chat.R
 import com.ekoapp.ekosdk.uikit.chat.messages.fragment.EkoMessageListFragment
 import com.ekoapp.ekosdk.uikit.utils.ThemeUtil

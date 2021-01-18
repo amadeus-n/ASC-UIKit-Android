@@ -6,7 +6,7 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseToolbarFragmentContainerActivity
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.newsfeed.fragment.EkoPostTargetSelectionFragment
 
-class EkoPostTargetSelectionActivity : EkoBaseToolbarFragmentContainerActivity(){
+class EkoPostTargetSelectionActivity : EkoBaseToolbarFragmentContainerActivity() {
 
     override fun getContentFragment(): Fragment {
         return EkoPostTargetSelectionFragment.Builder().build(this)

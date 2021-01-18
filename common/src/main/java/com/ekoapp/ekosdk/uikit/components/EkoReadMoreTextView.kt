@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.ekoapp.ekosdk.uikit.R
 import com.ekoapp.ekosdk.uikit.databinding.LayoutReadMoreBinding
 
-class EkoReadMoreTextView: ConstraintLayout {
+class EkoReadMoreTextView : ConstraintLayout {
 
     private lateinit var mBinding: LayoutReadMoreBinding
     private var isSender = true
@@ -25,7 +25,11 @@ class EkoReadMoreTextView: ConstraintLayout {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init()
     }
 
@@ -76,7 +80,7 @@ class EkoReadMoreTextView: ConstraintLayout {
 
                 if (mBinding.tvMessage.lineCount > mBinding.tvMessage.maxLines) {
                     mBinding.tvReadMore.visibility = View.VISIBLE
-                }else {
+                } else {
                     mBinding.tvReadMore.visibility = View.GONE
                 }
             }

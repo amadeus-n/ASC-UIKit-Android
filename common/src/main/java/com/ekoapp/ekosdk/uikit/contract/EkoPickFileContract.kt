@@ -6,7 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContract
 
-class EkoPickFileContract: ActivityResultContract<String, Uri?>() {
+class EkoPickFileContract : ActivityResultContract<String, Uri?>() {
     override fun createIntent(context: Context, input: String?): Intent {
         return Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "file/*"

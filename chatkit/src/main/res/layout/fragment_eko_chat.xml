@@ -4,9 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.text.TextUtils" />
-        <import type="android.view.View"/>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="viewModel"
             type="com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoMessageListViewModel" />
@@ -39,15 +43,15 @@
                 app:layout_constraintTop_toBottomOf="@id/chatToolBar"
                 app:layout_constraintBottom_toTopOf="@id/etMessage" />
 
-            <include layout="@layout/layout_date"
+            <include
+                layout="@layout/layout_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="@{viewModel.isScrollable() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/rvChatList"
                 app:dateFillColor="@{viewModel.dateFillColor}"
-                app:date="@{viewModel.stickyDate}"
-                />
+                app:date="@{viewModel.stickyDate}" />
 
             <ImageView
                 android:id="@+id/ivVoiceMsg"
@@ -59,8 +63,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/etMessage"
                 app:layout_constraintBottom_toBottomOf="@id/etMessage"
-                app:layout_constraintEnd_toStartOf="@id/etMessage"
-                />
+                app:layout_constraintEnd_toStartOf="@id/etMessage" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etMessage"
@@ -79,7 +82,7 @@
                 app:layout_constraintTop_toBottomOf="@id/rvChatList"
                 app:layout_constraintBottom_toTopOf="@id/composeBar"
                 android:layout_marginTop="@dimen/ten"
-                android:layout_marginBottom="@dimen/ten"/>
+                android:layout_marginBottom="@dimen/ten" />
 
             <View
                 android:id="@+id/recordBackground"
@@ -90,7 +93,7 @@
                 app:layout_constraintStart_toStartOf="@id/etMessage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/etMessage"
-                app:layout_constraintBottom_toBottomOf="@id/etMessage"/>
+                app:layout_constraintBottom_toBottomOf="@id/etMessage" />
 
             <TextView
                 android:id="@+id/tvRecord"
@@ -113,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:barrierDirection="start"
-                app:constraint_referenced_ids="btnAdd,ivSend"/>
+                app:constraint_referenced_ids="btnAdd,ivSend" />
 
             <ImageView
                 android:id="@+id/btnAdd"
@@ -129,8 +132,7 @@
                 app:layout_constraintTop_toTopOf="@id/etMessage"
                 app:layout_constraintBottom_toBottomOf="@id/etMessage"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/rightBarrier"
-                />
+                app:layout_constraintStart_toEndOf="@id/rightBarrier" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/ivSend"
@@ -146,9 +148,10 @@
                 android:layout_marginStart="@dimen/eight"
                 android:layout_marginEnd="@dimen/sixteen"
                 android:layout_marginBottom="@dimen/eight"
-                app:layout_constraintBottom_toBottomOf="@id/etMessage"/>
+                app:layout_constraintBottom_toBottomOf="@id/etMessage" />
 
-            <include android:id="@+id/composeBar"
+            <include
+                android:id="@+id/composeBar"
                 layout="@layout/chat_compose_bar"
                 android:visibility="@{viewModel.showComposeBar ? View.VISIBLE : View.GONE}"
                 android:layout_width="0dp"
@@ -157,7 +160,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/etMessage"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:clickListener="@{viewModel.composeBarClickListener}"/>
+                app:clickListener="@{viewModel.composeBarClickListener}" />
 
             <com.ekoapp.ekosdk.uikit.components.EkoAudioRecorderView
                 android:id="@+id/recorderView"
@@ -165,7 +168,7 @@
                 android:layout_height="match_parent"
                 android:visibility="@{viewModel.isRecording() ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

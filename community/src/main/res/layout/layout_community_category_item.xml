@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="communityCategory"
             type="com.ekoapp.ekosdk.community.category.EkoCommunityCategory" />
+
         <variable
             name="listener"
             type="com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCategoryItemClickListener" />
+
         <variable
             name="avatarUrl"
             type="String" />
@@ -30,7 +34,7 @@
             ekoBackgroundColor="@{@color/upstraColorPrimary}"
             backgroundColorShade="@{ColorShade.SHADE3}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="0dp"
@@ -44,7 +48,7 @@
             app:layout_constraintStart_toEndOf="@id/ivAvatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivAvatar"
-            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"/>
+            app:layout_constraintBottom_toBottomOf="@id/ivAvatar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

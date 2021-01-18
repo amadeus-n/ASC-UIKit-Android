@@ -17,9 +17,9 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
 import com.ekoapp.ekosdk.uikit.community.mycommunity.activity.EkoMyCommunityActivity
+import com.ekoapp.ekosdk.uikit.community.mycommunity.adapter.EkoMyCommunityListAdapter
 import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener
 import com.ekoapp.ekosdk.uikit.community.mycommunity.viewmodel.EkoMyCommunityListViewModel
-import com.ekoapp.ekosdk.uikit.community.mycommunity.adapter.EkoMyCommunityListAdapter
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoNewsFeedViewModel
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
@@ -27,9 +27,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_eko_my_community_list.*
 
-class EkoMyCommunityPreviewFragment internal constructor(): EkoBaseFragment(),
+class EkoMyCommunityPreviewFragment internal constructor() : EkoBaseFragment(),
     IMyCommunityItemClickListener {
-    lateinit var  mViewModel: EkoMyCommunityListViewModel
+    lateinit var mViewModel: EkoMyCommunityListViewModel
     private val newFeedViewModel: EkoNewsFeedViewModel by activityViewModels()
     private lateinit var mAdapter: EkoMyCommunityListAdapter
     private val TAG = EkoMyCommunityPreviewFragment::class.java.canonicalName
@@ -38,7 +38,8 @@ class EkoMyCommunityPreviewFragment internal constructor(): EkoBaseFragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mViewModel = ViewModelProvider(requireActivity()).get(EkoMyCommunityListViewModel::class.java)
+        mViewModel =
+            ViewModelProvider(requireActivity()).get(EkoMyCommunityListViewModel::class.java)
         return inflater.inflate(R.layout.fragment_eko_my_community_list, container, false)
     }
 
@@ -51,6 +52,11 @@ class EkoMyCommunityPreviewFragment internal constructor(): EkoBaseFragment(),
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        mAdapter.notifyDataSetChanged()
+    }
+
     override fun onResume() {
         super.onResume()
         addItemTouchListener()
@@ -58,6 +64,7 @@ class EkoMyCommunityPreviewFragment internal constructor(): EkoBaseFragment(),
 
     internal fun refresh() {
         getCommunityList()
+        rvMyCommunity.smoothScrollToPosition(0)
     }
 
     private fun initRecyclerView() {
@@ -102,7 +109,9 @@ class EkoMyCommunityPreviewFragment internal constructor(): EkoBaseFragment(),
                     false
                 } else {
                     when (action) {
-                        MotionEvent.ACTION_MOVE -> rv.parent.requestDisallowInterceptTouchEvent(false)
+                        MotionEvent.ACTION_MOVE -> rv.parent.requestDisallowInterceptTouchEvent(
+                            false
+                        )
                     }
                     false
                 }
@@ -123,7 +132,7 @@ class EkoMyCommunityPreviewFragment internal constructor(): EkoBaseFragment(),
                 ekoCommunity.getCommunityId()
             )
             startActivity(detailIntent)
-        }else {
+        } else {
             val myCommunityIntent = Intent(requireContext(), EkoMyCommunityActivity::class.java)
             startActivity(myCommunityIntent)
         }
@@ -143,7 +152,7 @@ class EkoMyCommunityPreviewFragment internal constructor(): EkoBaseFragment(),
             return fragment
         }
 
-        private fun myCommunityItemClickListener(listener: IMyCommunityItemClickListener) : Builder {
+        private fun myCommunityItemClickListener(listener: IMyCommunityItemClickListener): Builder {
             this.myCommunityItemClickListener = listener
             return this
         }

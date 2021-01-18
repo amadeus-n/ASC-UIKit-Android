@@ -29,7 +29,7 @@ class EkoCreatePostImageViewHolder(
     private val radius: Float = itemView.context.resources.getDimension(R.dimen.four)
     override fun bind(data: FeedImage?, position: Int) {
         setupShape()
-        if(container.tag != itemChangeListener.itemCount().toString()) {
+        if (container.tag != itemChangeListener.itemCount().toString()) {
 
             var containerHeight = getHeight(itemChangeListener.itemCount())
             var containerWidth = getWidth(itemChangeListener.itemCount())
@@ -52,17 +52,17 @@ class EkoCreatePostImageViewHolder(
         progrssBar.visibility =
             if (data.uploadState == FileUploadState.UPLOADING) View.VISIBLE else View.GONE
 
-        if(data.uploadState == FileUploadState.UPLOADING) {
-            if(progrssBar.visibility != View.VISIBLE)
+        if (data.uploadState == FileUploadState.UPLOADING) {
+            if (progrssBar.visibility != View.VISIBLE)
                 progrssBar.visibility = View.VISIBLE
 
-        }else {
+        } else {
             progrssBar.visibility = View.GONE
         }
         progrssBar.progress = data.currentProgress
-        if(data.uploadState == FileUploadState.COMPLETE) {
+        if (data.uploadState == FileUploadState.COMPLETE) {
             photo.alpha = 1F
-        }else if(photo.alpha != 0.6F) {
+        } else if (photo.alpha != 0.6F) {
             photo.alpha = 0.6F
         }
 
@@ -88,7 +88,7 @@ class EkoCreatePostImageViewHolder(
         dimenRes = when (itemCount) {
             1, 2 -> R.dimen.three_hundred_twenty_eight
             else -> {
-              R.dimen.one_hundred_twenty
+                R.dimen.one_hundred_twenty
             }
         }
         return itemView.context.resources.getDimensionPixelSize(dimenRes)

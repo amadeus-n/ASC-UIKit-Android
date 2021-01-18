@@ -34,4 +34,20 @@ object AlertDialogUtil {
         }
         dialog.show()
     }
+
+    fun showNoPermissionDialog(context: Context, listener: DialogInterface.OnClickListener) {
+        val builder = MaterialAlertDialogBuilder(context)
+        builder.setTitle(context.getString(R.string.no_permission_title))
+            .setMessage(context.getString(R.string.no_permission_message))
+            .setPositiveButton(context.getText(R.string.ok)) { dialog, _ ->
+                listener.onClick(dialog, DialogInterface.BUTTON_POSITIVE)
+
+            }
+        val dialog = builder.create()
+        dialog.setOnShowListener {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setTextColor(ContextCompat.getColor(context, R.color.upstraColorPrimary))
+        }
+        dialog.show()
+    }
 }

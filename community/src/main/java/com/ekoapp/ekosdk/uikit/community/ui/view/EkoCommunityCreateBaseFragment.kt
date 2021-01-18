@@ -2,6 +2,7 @@ package com.ekoapp.ekosdk.uikit.community.ui.view
 
 import android.Manifest
 import android.content.DialogInterface
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -17,7 +18,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.HttpException
+import com.ekoapp.ekosdk.exception.EkoException
 import com.ekoapp.ekosdk.file.upload.EkoUploadResult
+import com.ekoapp.ekosdk.internal.api.socket.request.EkoSocketException
 import com.ekoapp.ekosdk.uikit.common.toCircularShape
 import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
@@ -26,15 +30,17 @@ import com.ekoapp.ekosdk.uikit.community.data.SelectCategoryItem
 import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoCreateCommunityBinding
 import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
 import com.ekoapp.ekosdk.uikit.community.explore.activity.EkoCategorySelectionActivity
+import com.ekoapp.ekosdk.uikit.community.home.activity.EkoCommunityHomePageActivity
 import com.ekoapp.ekosdk.uikit.community.ui.viewModel.EkoCreateCommunityViewModel
 import com.ekoapp.ekosdk.uikit.contract.EkoPickImageContract
 import com.ekoapp.ekosdk.uikit.utils.AlertDialogUtil
+import com.ekoapp.ekosdk.uikit.utils.EkoConstants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_eko_create_community.*
 
-abstract class EkoCommunityCreateBaseFragment: Fragment() {
+abstract class EkoCommunityCreateBaseFragment : Fragment() {
 
     private val TAG = EkoCommunityCreateBaseFragment::class.java.canonicalName
     var disposable = CompositeDisposable()
@@ -163,15 +169,17 @@ abstract class EkoCommunityCreateBaseFragment: Fragment() {
     }
 
     private fun setUpBackPress() {
-        activity?.onBackPressedDispatcher?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (mViewModel.initialStateChanged.value == true) {
-                    showDialog()
-                } else {
-                    requireActivity().finish()
+        activity?.onBackPressedDispatcher?.addCallback(
+            requireActivity(),
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (mViewModel.initialStateChanged.value == true) {
+                        showDialog()
+                    } else {
+                        requireActivity().finish()
+                    }
                 }
-            }
-        })
+            })
     }
 
     private fun showDialog() {
@@ -192,7 +200,7 @@ abstract class EkoCommunityCreateBaseFragment: Fragment() {
     fun uploadImage(isEditCommunity: Boolean) {
         if (isEditCommunity) {
             mViewModel.initialStateChanged.value = false
-        }else {
+        } else {
             mBinding.btnCreateCommunity.isEnabled = false
         }
 
@@ -206,7 +214,7 @@ abstract class EkoCommunityCreateBaseFragment: Fragment() {
                             mViewModel.ekoImage = uploadStatus.getFile()
                             if (isEditCommunity) {
                                 editCommunity()
-                            }else {
+                            } else {
                                 createCommunity()
                             }
                         }
@@ -232,20 +240,47 @@ abstract class EkoCommunityCreateBaseFragment: Fragment() {
         } else {
             if (isEditCommunity) {
                 editCommunity()
-            }else {
+            } else {
                 createCommunity()
             }
         }
     }
 
-        private fun editCommunity() {
+    private fun editCommunity() {
         mViewModel.editCommunity().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSuccess {
                 requireActivity().finish()
-            }.doOnError {
-                Log.e(TAG, "save: ${it.localizedMessage}")
+            }.doOnError {exception->
+                if (exception is EkoException) {
+                    if (exception.code == EkoConstants.NO_PERMISSION_ERROR_CODE) {
+                        AlertDialogUtil.showNoPermissionDialog(requireContext(),
+                            DialogInterface.OnClickListener { dialog, _ ->
+                                dialog?.dismiss()
+                                checkUserRole()
+                            })
+                    }
+                }
+
             }.subscribe()
+    }
+
+    private fun checkUserRole() {
+        disposable.add(mViewModel.getCommunityDetail().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .firstOrError()
+            .doOnSuccess {
+                if (it.isJoined()) {
+                    requireActivity().finish()
+                } else {
+                    val intent = Intent(requireContext(), EkoCommunityHomePageActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                }
+            }.doOnError {
+                Log.e(TAG, "checkUserRole: ${it.localizedMessage}")
+            }.subscribe()
+        )
     }
 
     override fun onDestroy() {

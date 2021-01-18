@@ -198,17 +198,17 @@ class FileUtils {
             return fileExtension.equals("pdf", ignoreCase = true)
         }
 
-        fun getFileIcon(mimeType: String):Int{
-            return (when(mimeType) {
-                "application/x-msdos-program", 
-                "application/vnd.microsoft.portable-executable" ,
-                "application/octet-stream"-> R.drawable.ic_uikit_exe_large
+        fun getFileIcon(mimeType: String): Int {
+            return (when (mimeType) {
+                "application/x-msdos-program",
+                "application/vnd.microsoft.portable-executable",
+                "application/octet-stream" -> R.drawable.ic_uikit_exe_large
                 "application/rar" -> R.drawable.ic_uikit_rar_large
                 "application/pdf" -> R.drawable.ic_uikit_pdf_large
                 "application/msword",
                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document" -> R.drawable.ic_uikit_doc_large
-                 "application/vnd.ms-excel",
-                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"  -> R.drawable.ic_xls_large
+                "application/vnd.ms-excel",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" -> R.drawable.ic_xls_large
                 "text/html" -> R.drawable.ic_uikit_html_large
                 "video/mp4" -> R.drawable.ic_uikit_mp4_large
                 "video/quicktime" -> R.drawable.ic_uikit_mov_large
@@ -221,8 +221,8 @@ class FileUtils {
                 "video/mpeg" -> R.drawable.ic_mpeg_large
                 "video/x-msvideo" -> R.drawable.ic_uikit_avi_large
                 else -> {
-                    if(mimeType.startsWith("audio")) R.drawable.ic_uikit_audio_large
-                    else if(mimeType.startsWith("image")) R.drawable.ic_uikit_img_large
+                    if (mimeType.startsWith("audio")) R.drawable.ic_uikit_audio_large
+                    else if (mimeType.startsWith("image")) R.drawable.ic_uikit_img_large
                     else R.drawable.ic_uikit_file_type_unknown
                 }
             })

@@ -4,10 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="vm"
             type="com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoEditCommentViewModel" />
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +29,7 @@
             android:hint="@string/post_comment_hint"
             android:textColorHint="@color/upstraColorBase"
             app:textColorHintShade="@{ColorShade.SHADE2}"
-            android:layout_margin="@dimen/sixteen"/>
+            android:layout_margin="@dimen/sixteen" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

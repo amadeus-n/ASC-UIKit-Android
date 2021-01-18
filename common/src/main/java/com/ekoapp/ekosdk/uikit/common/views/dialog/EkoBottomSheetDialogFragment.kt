@@ -13,13 +13,15 @@ import kotlin.properties.Delegates
 
 
 const val EXTRA_PARAM_NAV_MENU = "nav_menu"
+
 class EkoBottomSheetDialogFragment private constructor() : BottomSheetDialogFragment() {
-    private var navListener: OnNavigationItemSelectedListener? =null
+    private var navListener: OnNavigationItemSelectedListener? = null
     var menu by Delegates.notNull<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         menu = requireArguments().getInt(EXTRA_PARAM_NAV_MENU)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,9 +48,8 @@ class EkoBottomSheetDialogFragment private constructor() : BottomSheetDialogFrag
     }
 
 
-
-    companion object{
-        fun newInstance(@MenuRes menu : Int): EkoBottomSheetDialogFragment{
+    companion object {
+        fun newInstance(@MenuRes menu: Int): EkoBottomSheetDialogFragment {
             val args = Bundle()
 
             val fragment = EkoBottomSheetDialogFragment()

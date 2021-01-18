@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="viewModel"
             type="com.ekoapp.ekosdk.uikit.community.home.fragments.EkoCommunityHomeViewModel" />
@@ -33,6 +36,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:visibility="@{viewModel.emptySearchString &amp; viewModel.isSearchMode() ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +57,7 @@
             android:visibility="@{viewModel.emptySearch &amp;&amp; viewModel.isSearchMode() ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

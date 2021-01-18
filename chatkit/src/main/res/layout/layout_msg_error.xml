@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="viewModel"
             type="com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoSelectableMessageViewModel" />
@@ -21,7 +23,7 @@
             android:src="@drawable/ic_uikit_error"
             android:onClick="@{() -> viewModel.onFailedMsgClick()}"
             ekoTintColor="@{@color/upstraColorBase}"
-            ekoTintShade="@{ColorShade.SHADE2}"/>
+            ekoTintShade="@{ColorShade.SHADE2}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

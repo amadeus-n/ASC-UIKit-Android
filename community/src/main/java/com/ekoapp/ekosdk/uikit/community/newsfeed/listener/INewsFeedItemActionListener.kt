@@ -1,8 +1,8 @@
 package com.ekoapp.ekosdk.uikit.community.newsfeed.listener
 
-import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.comment.EkoComment
 import com.ekoapp.ekosdk.community.EkoCommunity
+import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.user.EkoUser
 
 interface INewsFeedItemActionListener {

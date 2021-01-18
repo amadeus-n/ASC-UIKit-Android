@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class EkoBaseRecyclerViewAdapter<T>:
+abstract class EkoBaseRecyclerViewAdapter<T> :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val list: ArrayList<T> = arrayListOf()
@@ -15,7 +15,9 @@ abstract class EkoBaseRecyclerViewAdapter<T>:
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         getViewHolder(
             LayoutInflater.from(parent.context).inflate(
-            viewType, parent, false), viewType)
+                viewType, parent, false
+            ), viewType
+        )
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         (holder as IBinder<T>).bind(list[position], position)
@@ -26,10 +28,10 @@ abstract class EkoBaseRecyclerViewAdapter<T>:
 
     protected abstract fun getLayoutId(position: Int, obj: T?): Int
 
-    abstract fun getViewHolder(view: View, viewType: Int):RecyclerView.ViewHolder
+    abstract fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder
 
     fun setItems(listItems: List<T>, diffCallBack: DiffUtil.Callback) {
-        val  diffResult = DiffUtil.calculateDiff(diffCallBack)
+        val diffResult = DiffUtil.calculateDiff(diffCallBack)
         list.clear()
         list.addAll(listItems)
         diffResult.dispatchUpdatesTo(this)

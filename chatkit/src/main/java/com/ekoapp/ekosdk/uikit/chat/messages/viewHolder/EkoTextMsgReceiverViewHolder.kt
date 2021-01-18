@@ -17,7 +17,7 @@ class EkoTextMsgReceiverViewHolder(
     itemView: View,
     private val itemViewModel: EkoTextMessageViewModel,
     context: Context
-): EkoSelectableMessageViewHolder(itemView, itemViewModel, context), ILongPressListener {
+) : EkoSelectableMessageViewHolder(itemView, itemViewModel, context), ILongPressListener {
 
     private val binding: ItemTextMessageReceiverBinding? = DataBindingUtil.bind(itemView)
     private var popUp: EkoPopUp? = null
@@ -29,10 +29,11 @@ class EkoTextMsgReceiverViewHolder(
     }
 
     private fun addViewModelListener() {
-        itemViewModel.onEventReceived += { event->
-            when(event.type) {
+        itemViewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.DISMISS_POPUP -> popUp?.dismiss()
-                else -> {}
+                else -> {
+                }
             }
         }
     }
@@ -47,8 +48,10 @@ class EkoTextMsgReceiverViewHolder(
         popUp = EkoPopUp()
         val anchor: View = itemView.findViewById(R.id.tvMessageIncoming)
         val inflater: LayoutInflater = LayoutInflater.from(anchor.context)
-        val binding: MsgReportPopupBinding = DataBindingUtil.inflate(inflater,
-            R.layout.msg_report_popup, null, true)
+        val binding: MsgReportPopupBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.msg_report_popup, null, true
+        )
         binding.viewModel = itemViewModel
         popUp?.showPopUp(binding.root, anchor, itemViewModel, EkoPopUp.PopUpGravity.START)
     }

@@ -9,12 +9,12 @@ import com.ekoapp.sample.databinding.ItemTextSenderBinding
 class TextSenderViewHolder(
     itemView: View,
     private val itemViewModel: MyTextMsgViewModel
-): EkoChatMessageBaseViewHolder(itemView, itemViewModel) {
+) : EkoChatMessageBaseViewHolder(itemView, itemViewModel) {
 
-    private val binding: ItemTextSenderBinding? =  DataBindingUtil.bind(itemView)
+    private val binding: ItemTextSenderBinding? = DataBindingUtil.bind(itemView)
 
     init {
-        binding?.viewModel  = itemViewModel
+        binding?.viewModel = itemViewModel
     }
 
     override fun setMessage(message: EkoMessage) {

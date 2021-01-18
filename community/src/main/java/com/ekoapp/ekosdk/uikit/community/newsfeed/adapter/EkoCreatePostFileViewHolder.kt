@@ -1,6 +1,5 @@
 package com.ekoapp.ekosdk.uikit.community.newsfeed.adapter
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -20,7 +19,7 @@ class EkoCreatePostFileViewHolder(
     private val errorFile: ImageView = itemView.findViewById(R.id.ivError)
     private val overlayView: View = itemView.findViewById(R.id.overlay)
     private val progressBar: ProgressBar = itemView.findViewById(R.id.progress)
-    private var layoutPreparingFile : LinearLayout = itemView.findViewById(R.id.layoutPreparingFile)
+    private var layoutPreparingFile: LinearLayout = itemView.findViewById(R.id.layoutPreparingFile)
 
     override fun bind(data: FileAttachment?, position: Int) {
         super.bind(data, position)
@@ -28,12 +27,13 @@ class EkoCreatePostFileViewHolder(
             removeFile.setOnClickListener {
                 listener?.onRemoveFile(data, position)
             }
-           // progressBar.visibility = if(data.uploadState == FileUploadState.UPLOADING) View.VISIBLE else View.GONE
+            // progressBar.visibility = if(data.uploadState == FileUploadState.UPLOADING) View.VISIBLE else View.GONE
             progressBar.progress = data.progress
-            layoutPreparingFile.visibility = if(data.uploadState == FileUploadState.PENDING) View.VISIBLE else View.GONE
-            if(data.uploadState == FileUploadState.PENDING || data.uploadState == FileUploadState.FAILED) {
+            layoutPreparingFile.visibility =
+                if (data.uploadState == FileUploadState.PENDING) View.VISIBLE else View.GONE
+            if (data.uploadState == FileUploadState.PENDING || data.uploadState == FileUploadState.FAILED) {
                 overlayView.visibility = View.VISIBLE
-            }else if(overlayView.visibility == View.VISIBLE) {
+            } else if (overlayView.visibility == View.VISIBLE) {
                 overlayView.visibility = View.GONE
             }
 

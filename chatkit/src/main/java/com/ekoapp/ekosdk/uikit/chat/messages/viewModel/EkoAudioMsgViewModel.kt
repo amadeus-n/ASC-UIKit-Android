@@ -7,15 +7,13 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.EkoFileRepository
-import com.ekoapp.ekosdk.file.upload.EkoUploadInfo
 import com.ekoapp.ekosdk.message.EkoMessage
 import com.ekoapp.ekosdk.uikit.chat.R
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
-import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class EkoAudioMsgViewModel: EkoSelectableMessageViewModel() {
+class EkoAudioMsgViewModel : EkoSelectableMessageViewModel() {
 
     val audioUrl = ObservableField("")
     var audioUri: Uri? = Uri.EMPTY
@@ -32,7 +30,7 @@ class EkoAudioMsgViewModel: EkoSelectableMessageViewModel() {
         uploadProgress.addOnPropertyChanged {
             if (uploadProgress.get() == 100) {
                 uploading.set(false)
-            }else {
+            } else {
                 uploading.set(true)
             }
         }
@@ -50,14 +48,14 @@ class EkoAudioMsgViewModel: EkoSelectableMessageViewModel() {
     }
 
     fun playButtonClicked() {
-        if (!buffering.get()){
+        if (!buffering.get()) {
             triggerEvent(EventIdentifier.AUDIO_PLAYER_PLAY_CLICKED)
         }
     }
 
     fun getUploadProgress(ekoMessage: EkoMessage) {
         if (!ekoMessage.isDeleted()) {
-            when(ekoMessage.getState()) {
+            when (ekoMessage.getState()) {
                 EkoMessage.State.SYNCED, EkoMessage.State.SYNCING -> {
                     uploading.set(false)
                     duration.set("0:00")
@@ -80,7 +78,8 @@ class EkoAudioMsgViewModel: EkoSelectableMessageViewModel() {
                         }.subscribe()
                     )
                 }
-                else -> {   }
+                else -> {
+                }
 
             }
         }

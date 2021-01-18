@@ -3,12 +3,12 @@ package com.ekoapp.ekosdk.uikit.community.setting
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.uikit.community.R
@@ -48,8 +48,10 @@ class EkoCommunitySettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val mBinding: FragmentEkoCommunitySettingsBinding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_eko_community_settings, container, false)
+        val mBinding: FragmentEkoCommunitySettingsBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_eko_community_settings, container, false
+        )
         mBinding.viewModel = mViewModel
         return mBinding.root
     }
@@ -69,24 +71,29 @@ class EkoCommunitySettingsFragment : Fragment() {
                     mViewModel.setCommunity(it)
                 }.doOnError {
 
-                }.subscribe())
+                }.subscribe()
+            )
         }
     }
 
     private fun handleClickEvents() {
         groupEditProfile.setOnClickListener {
-            val intent = EkoCommunityProfileActivity.newIntent(requireContext(),
-                mViewModel.communityId.get() ?: "")
+            val intent = EkoCommunityProfileActivity.newIntent(
+                requireContext(),
+                mViewModel.communityId.get() ?: ""
+            )
             startActivity(intent)
         }
 
         groupMembers.setOnClickListener {
             mViewModel.ekoCommunity?.let {
                 val intent = EkoCommunityMemberSettingsActivity.newIntent(requireContext(), it)
-                startActivity(intent)   
+                startActivity(intent)
             } ?: kotlin.run {
-                val intent = EkoCommunityMemberSettingsActivity.newIntent(requireContext(),
-                    mViewModel.communityId.get() ?: "", mViewModel.isPublic.get())
+                val intent = EkoCommunityMemberSettingsActivity.newIntent(
+                    requireContext(),
+                    mViewModel.communityId.get() ?: "", mViewModel.isPublic.get()
+                )
                 startActivity(intent)
             }
         }

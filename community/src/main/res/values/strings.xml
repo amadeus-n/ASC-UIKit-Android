@@ -66,12 +66,13 @@
     <string name="view_replies">View all %d replies</string>
     <string name="community_name">Community name<font fgcolor='#FF0000'>*</font></string>
     <string name="category">Category</string>
+    <string name="category_required_field">Category<font fgcolor='#FF0000'>*</font></string>
     <string name="please_select_category">Please Select Category</string>
     <string name="categories">Categories</string>
     <string name="error_name">This name has already been taken.</string>
     <string name="cc_leave">Leave without finishing</string>
     <string name="cc_dialog_msg">Your progress won\'t be saved and your group won\'t be created.</string>
-    <string name="done">DONE</string>
+    <string name="uikit_done">DONE</string>
     <string name="delete_comment">Delete Comment</string>
     <string name="edit_comment">Edit Comment</string>
     <string name="delete_comment_title">Delete Comment</string>
@@ -87,7 +88,7 @@
     <string name="timeline">TIMELINE</string>
     <string name="no_post">No posts yet</string>
     <string name="comment_deleted_message">This comment has been deleted</string>
-    <string name="select_category">Select  category</string>
+    <string name="select_category">Select category</string>
     <string name="start_post">Start your first post</string>
     <string name="no_user_found">No user found</string>
     <string name="my_community">My Community</string>
@@ -137,4 +138,6 @@
     </plurals>
     <string name="promote_moderator">Promote to moderator</string>
     <string name="remove_moderator">Dismiss moderator</string>
+    <string name="remove">Remove</string>
+    <string name="remove_user_msg">This user won\’t no longer be able to search, post and interact in the community</string>
 </resources>

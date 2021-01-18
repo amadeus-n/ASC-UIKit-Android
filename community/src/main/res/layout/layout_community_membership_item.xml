@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
-        <import type="android.view.View"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
+        <import type="android.view.View" />
+
         <variable
             name="avatarUrl"
             type="String" />
+
         <variable
             name="isMyUser"
             type="Boolean" />
+
         <variable
             name="isJoined"
             type="Boolean" />
+
         <variable
             name="communityMemberShip"
             type="com.ekoapp.ekosdk.community.membership.EkoCommunityMembership" />
+
         <variable
             name="listener"
             type="com.ekoapp.ekosdk.uikit.community.members.IMemberClickListener" />
@@ -55,7 +61,7 @@
             app:layout_constraintStart_toEndOf="@id/ivAvatar"
             app:layout_constraintEnd_toStartOf="@id/ivMore"
             app:layout_constraintTop_toTopOf="@id/ivAvatar"
-            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"/>
+            app:layout_constraintBottom_toBottomOf="@id/ivAvatar" />
 
         <ImageView
             android:id="@+id/ivMore"
@@ -67,7 +73,7 @@
             app:layout_constraintStart_toEndOf="@id/tvMemberName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivAvatar"
-            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"/>
+            app:layout_constraintBottom_toBottomOf="@id/ivAvatar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

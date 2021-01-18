@@ -8,11 +8,9 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.ekoapp.ekosdk.community.category.EkoCommunityCategory
 import com.ekoapp.ekosdk.file.EkoImage
-import com.ekoapp.ekosdk.uikit.common.loadImage
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.LayoutCategoryListItemBinding
 import kotlinx.android.synthetic.main.layout_category_list_item.view.*
-import kotlinx.android.synthetic.main.layout_news_feed_item_header.view.*
 
 class EkoCommunityCategoryView : ConstraintLayout {
     private lateinit var mBinding: LayoutCategoryListItemBinding

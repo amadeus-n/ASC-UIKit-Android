@@ -64,7 +64,8 @@ class EkoUserFeedFragment internal constructor() : EkoBaseFeedFragment() {
             }
 
             val fragment = EkoUserFeedFragment()
-            fragment.mViewModel = ViewModelProvider(activity).get(EkoUserTimelineViewModel::class.java)
+            fragment.mViewModel =
+                ViewModelProvider(activity).get(EkoUserTimelineViewModel::class.java)
             fragment.mViewModel.avatarClickListener = avatarClickListener
             fragment.arguments = Bundle().apply {
                 putString(ARG_USER_ID, this@Builder.userId)

@@ -3,12 +3,13 @@ package com.ekoapp.ekosdk.uikit.chat.editMessage
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.EkoMessageRepository
 import com.ekoapp.ekosdk.message.EkoMessage
-import io.mockk.*
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.mockkStatic
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import org.junit.Assert
 import org.junit.Test
-import java.lang.Exception
 
 class EkoEditMessageViewModelTest {
 
@@ -75,7 +76,9 @@ class EkoEditMessageViewModelTest {
     fun when_saveMessage_expect_completableAsFailed() {
         val editMessageViewModel = EkoEditMessageViewModel()
         val mockData: EkoMessage.Data.TEXT = mockk()
-        every { mockData.edit().text(any()).build().apply() } returns Completable.error(Exception("test Exception"))
+        every {
+            mockData.edit().text(any()).build().apply()
+        } returns Completable.error(Exception("test Exception"))
         editMessageViewModel.textData.set(mockData)
         editMessageViewModel.message.set("test")
         Assert.assertEquals(editMessageViewModel.textData.get(), mockData)

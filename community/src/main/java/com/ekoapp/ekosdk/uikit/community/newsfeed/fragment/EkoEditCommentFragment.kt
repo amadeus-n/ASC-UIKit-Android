@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.ekoapp.ekosdk.comment.EkoComment
+import com.ekoapp.ekosdk.exception.EkoError
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.common.views.dialog.EkoAlertDialogFragment
@@ -24,14 +25,16 @@ import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED
 import com.ekoapp.ekosdk.uikit.utils.EkoOptionMenuColorUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.bson.types.ObjectId
 
-class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoAlertDialogFragment.IAlertDialogActionListener {
+class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
+    EkoAlertDialogFragment.IAlertDialogActionListener {
     private val ID_MENU_ITEM_ADD_COMMENT: Int = 144
     private var menuItemComment: MenuItem? = null
     private val TAG = EkoEditCommentActivity::class.java.canonicalName
 
     private val mViewModel: EkoEditCommentViewModel by activityViewModels()
-    lateinit var  mBinding: FragmentEkoEditCommentBinding
+    lateinit var mBinding: FragmentEkoEditCommentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         consumeBackPress = true
@@ -69,7 +72,7 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoAlert
         val ekoPost: EkoPost? = arguments?.getParcelable(EXTRA_PARAM_NEWS_FEED)
         mViewModel.setPost(ekoPost)
         val commentText: String? = arguments?.getString(EXTRA_PARAM_COMMENT_TEXT)
-        if(!commentText.isNullOrEmpty())
+        if (!commentText.isNullOrEmpty())
             mViewModel.setCommentData(commentText)
     }
 
@@ -85,10 +88,12 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoAlert
 
 
     private fun setupToolbar() {
-        if(mViewModel.editMode()) {
-            (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.edit_comment)
-        }else {
-            (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.add_comment)
+        if (mViewModel.editMode()) {
+            (activity as AppCompatActivity).supportActionBar?.title =
+                getString(R.string.edit_comment)
+        } else {
+            (activity as AppCompatActivity).supportActionBar?.title =
+                getString(R.string.add_comment)
         }
     }
 
@@ -96,19 +101,19 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoAlert
         menuItemComment =
             menu.add(Menu.NONE, ID_MENU_ITEM_ADD_COMMENT, Menu.NONE, getMenuItemCommentTitle())
         menuItemComment?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        updateCommentMenu(mViewModel.hasCommentUpdate.value?:false)
+        updateCommentMenu(mViewModel.hasCommentUpdate.value ?: false)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     private fun getMenuItemCommentTitle(): String {
-        return if(mViewModel.editMode())
+        return if (mViewModel.editMode())
             getString(R.string.save)
         else
             getString(R.string.post_caps)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == ID_MENU_ITEM_ADD_COMMENT) {
+        if (item.itemId == ID_MENU_ITEM_ADD_COMMENT) {
             updateCommentMenu(false)
             if (mViewModel.editMode()) {
                 updateComment()
@@ -121,7 +126,7 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoAlert
     }
 
     private fun updateCommentMenu(enabled: Boolean) {
-        if(menuItemComment != null) {
+        if (menuItemComment != null) {
             menuItemComment?.isEnabled = enabled
             val s = SpannableString(menuItemComment?.title)
             s.setSpan(
@@ -169,7 +174,7 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoAlert
             }
             ?.doOnError {
                 updateCommentMenu(true)
-                Log.d(TAG, it.message)
+                Log.d(TAG, it.message ?: "")
                 Toast.makeText(
                     activity,
                     getString(R.string.update_comment_error_message),
@@ -180,8 +185,8 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoAlert
     }
 
     private fun addComment() {
-
-        mViewModel.addComment()
+        val commentId = ObjectId.get().toHexString()
+        mViewModel.addComment(commentId)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.doOnSuccess {
@@ -190,8 +195,11 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoAlert
                 backPressFragment()
             }
             ?.doOnError {
+                if (EkoError.from(it) == EkoError.BAN_WORD_FOUND) {
+                    mViewModel.deleteComment(commentId).subscribe()
+                }
                 updateCommentMenu(true)
-                Log.d(TAG, it.message)
+                Log.d(TAG, it.message ?: "")
                 Toast.makeText(
                     activity,
                     getString(R.string.add_comment_error_message),
@@ -226,7 +234,7 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoAlert
         }
 
         fun setNewsFeed(post: EkoPost?): Builder {
-           this.ekoPost = post
+            this.ekoPost = post
             return this
         }
 
@@ -235,7 +243,7 @@ class EkoEditCommentFragment internal constructor(): EkoBaseFragment(), EkoAlert
             return this
         }
 
-        fun setCommentText(comment: String?) : Builder {
+        fun setCommentText(comment: String?): Builder {
             this.commentText = comment
             return this
         }

@@ -29,11 +29,12 @@ class EkoChatHomePageFragment internal constructor() : Fragment() {
             requireActivity().lifecycle
         )
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-         return inflater.inflate(R.layout.fragment_chat_home_page, container, false)
+        return inflater.inflate(R.layout.fragment_chat_home_page, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,23 +45,29 @@ class EkoChatHomePageFragment internal constructor() : Fragment() {
 
     private fun initToolbar() {
         chatHomeToolBar.setLeftString(getString(R.string.chat))
-        (activity as AppCompatActivity).supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        (activity as AppCompatActivity).supportActionBar?.displayOptions =
+            ActionBar.DISPLAY_SHOW_CUSTOM
         (activity as AppCompatActivity).setSupportActionBar(chatHomeToolBar as Toolbar)
         setHasOptionsMenu(true)
     }
 
     private fun initTabLayout() {
-        fragmentStateAdapter.setFragmentList(arrayListOf(
-            EkoFragmentStateAdapter.EkoPagerModel(getString(R.string.title_recent_chat), getRecentChatFragment())
-            //EkoFragmentStateAdapter.EkoPagerModel(getString(R.string.title_directory), directoryFragment)
-        ))
+        fragmentStateAdapter.setFragmentList(
+            arrayListOf(
+                EkoFragmentStateAdapter.EkoPagerModel(
+                    getString(R.string.title_recent_chat),
+                    getRecentChatFragment()
+                )
+                //EkoFragmentStateAdapter.EkoPagerModel(getString(R.string.title_directory), directoryFragment)
+            )
+        )
         tabLayout.setAdapter(fragmentStateAdapter)
     }
 
     private fun getRecentChatFragment(): Fragment {
         return if (mViewModel.recentChatFragmentDelegate != null) {
             mViewModel.recentChatFragmentDelegate!!.recentChatFragment()
-        }else {
+        } else {
             val builder = EkoRecentChatFragment.Builder()
             if (mViewModel.recentChatItemClickListener != null) {
                 builder.recentChatItemClickListener(mViewModel.recentChatItemClickListener!!)
@@ -82,9 +89,9 @@ class EkoChatHomePageFragment internal constructor() : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.search) {
+        if (item.itemId == R.id.search) {
 
-        } else if(item.itemId == R.id.create) {
+        } else if (item.itemId == R.id.create) {
             navigateToCreateGroupChat()
         }
         return super.onOptionsItemSelected(item)
@@ -104,7 +111,8 @@ class EkoChatHomePageFragment internal constructor() : Fragment() {
 
         fun build(activity: AppCompatActivity): EkoChatHomePageFragment {
             val fragment = EkoChatHomePageFragment()
-            fragment.mViewModel = ViewModelProvider(activity).get(EkoChatHomePageViewModel::class.java)
+            fragment.mViewModel =
+                ViewModelProvider(activity).get(EkoChatHomePageViewModel::class.java)
             fragment.mViewModel.recentChatItemClickListener = mListener
             fragment.mViewModel.recentChatFragmentDelegate = this.recentChatFragmentDelegate
             fragment.mViewModel.directoryFragmentDelegate = this.directoryFragmentDelegate

@@ -2,6 +2,7 @@ package com.ekoapp.ekosdk.uikit.community.profile.fragment
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,9 @@ class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
     lateinit var mViewModel: EkoUserProfileViewModel
     private lateinit var fragmentStateAdapter: EkoFragmentStateAdapter
     private lateinit var mBinding: FragmentEkoUserProfilePageBinding
+
+    private var isRefreshing = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mViewModel.userId = requireArguments().getString(ARG_USER_ID)
@@ -88,20 +92,17 @@ class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
 
         refreshLayout.setColorSchemeResources(R.color.upstraColorPrimary)
         refreshLayout.setOnRefreshListener {
-            childFragmentManager.fragments.forEach { fragment ->
-                when (fragment) {
-                    is EkoMyFeedFragment -> {
-                        fragment.refresh()
-                    }
-                    is EkoUserFeedFragment -> {
-                        fragment.refresh()
-                    }
-                }
-            }
-            Handler().postDelayed({
-                refreshLayout?.isRefreshing = false
-            }, 1000)
+            refreshFeed()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (isRefreshing) {
+            refreshLayout?.isRefreshing = true
+            refreshFeed()
+        }
+        isRefreshing = true
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
@@ -118,6 +119,22 @@ class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
         appBar.removeOnOffsetChangedListener(this)
     }
 
+    private fun refreshFeed() {
+        childFragmentManager.fragments.forEach { fragment ->
+            when (fragment) {
+                is EkoMyFeedFragment -> {
+                    fragment.refresh()
+                }
+                is EkoUserFeedFragment -> {
+                    fragment.refresh()
+                }
+            }
+        }
+        Handler(Looper.getMainLooper()).postDelayed({
+            refreshLayout?.isRefreshing = false
+        }, 1000)
+    }
+
     private fun getUserDetails() {
         mBinding.userProfileHeader.setIsLoggedInUser(mViewModel.isLoggedInUser())
         mViewModel.getUser()?.let {
@@ -130,7 +147,7 @@ class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
                         fabCreatePost.visibility =
                             if (mViewModel.isLoggedInUser()) View.VISIBLE else View.GONE
                     }, {
-                        Log.d(TAG, it.message)
+                        Log.d(TAG, it.message ?: "")
                     })
             )
         }

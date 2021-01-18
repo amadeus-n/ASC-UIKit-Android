@@ -5,5 +5,5 @@ apply plugin: 'com.android.library'
 dependencies {
     api project(path: ':community')
     api project(path: ':chatkit')
-    api ("com.github.EkoCommunications.EkoMessagingSDKAndroid:eko-sdk:$ekoMessagingSdkVersion")
+    api("com.github.EkoCommunications.EkoMessagingSDKAndroid:eko-sdk:$ekoMessagingSdkVersion")
 }

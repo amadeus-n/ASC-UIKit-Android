@@ -22,15 +22,15 @@ class EkoChannelRepository : IChannelRepository {
         val liveMessageData = MutableLiveData<PagedList<NewsFeed>>()
 
 
-        var edited : Boolean = false
+        var edited: Boolean = false
 
-        private val ekoComments : MutableList<Comment> = getDummyComment()
+        private val ekoComments: MutableList<Comment> = getDummyComment()
         val liveCommnetData = MutableLiveData<List<Comment>>()
 
 
         private fun getDummyComment(): MutableList<Comment> {
             val commnets = ArrayList<Comment>()
-            var ekoUser1 = User("victimAndroid" , "VictimAndroid", "")
+            var ekoUser1 = User("victimAndroid", "VictimAndroid", "")
 //            ekoUser1.userId = "victimAndroid"
 //            ekoUser1.displayName = "VictimAndroid"
 
@@ -39,18 +39,93 @@ class EkoChannelRepository : IChannelRepository {
 //            ekoUser2.displayName = "Greg"
 
 
-            var comment = Comment(UUID.randomUUID().toString(), System.currentTimeMillis() - 12 * 60000, false,false, ekoUser1, "orem ipsum dolor sit amet, consectetur. ", 1001, 0, System.currentTimeMillis() - 12 * 60000, null)
+            var comment = Comment(
+                UUID.randomUUID().toString(),
+                System.currentTimeMillis() - 12 * 60000,
+                false,
+                false,
+                ekoUser1,
+                "orem ipsum dolor sit amet, consectetur. ",
+                1001,
+                0,
+                System.currentTimeMillis() - 12 * 60000,
+                null
+            )
             commnets.add(comment)
 
             var replies = ArrayList<Comment>()
-            replies.add(Comment(UUID.randomUUID().toString(), System.currentTimeMillis() - 12 * 60000, false,false, ekoUser2, "orem ipsum dolor sit amet, consectetur. ", 999, 0, System.currentTimeMillis() - 16 * 60000, null,  "2"))
-            replies.add(Comment(UUID.randomUUID().toString(), System.currentTimeMillis() - 12 * 60000, false,false,ekoUser1, "orem ipsum dolor sit amet, consectetur. ", 0, 0, System.currentTimeMillis() - 17 * 60000, null, "2"))
-            replies.add(Comment(UUID.randomUUID().toString(), System.currentTimeMillis() - 12 * 60000, false,false,ekoUser2, "orem ipsum dolor sit amet, consectetur. ", 0, 0, System.currentTimeMillis() - 18 * 60000, null, "2"))
+            replies.add(
+                Comment(
+                    UUID.randomUUID().toString(),
+                    System.currentTimeMillis() - 12 * 60000,
+                    false,
+                    false,
+                    ekoUser2,
+                    "orem ipsum dolor sit amet, consectetur. ",
+                    999,
+                    0,
+                    System.currentTimeMillis() - 16 * 60000,
+                    null,
+                    "2"
+                )
+            )
+            replies.add(
+                Comment(
+                    UUID.randomUUID().toString(),
+                    System.currentTimeMillis() - 12 * 60000,
+                    false,
+                    false,
+                    ekoUser1,
+                    "orem ipsum dolor sit amet, consectetur. ",
+                    0,
+                    0,
+                    System.currentTimeMillis() - 17 * 60000,
+                    null,
+                    "2"
+                )
+            )
+            replies.add(
+                Comment(
+                    UUID.randomUUID().toString(),
+                    System.currentTimeMillis() - 12 * 60000,
+                    false,
+                    false,
+                    ekoUser2,
+                    "orem ipsum dolor sit amet, consectetur. ",
+                    0,
+                    0,
+                    System.currentTimeMillis() - 18 * 60000,
+                    null,
+                    "2"
+                )
+            )
 
-            comment = Comment(UUID.randomUUID().toString(), System.currentTimeMillis() - 12 * 60000, false,false,ekoUser2, "orem ipsum dolor sit amet, consectetur. ", 124, 2, System.currentTimeMillis() - 15 * 60000, replies)
+            comment = Comment(
+                UUID.randomUUID().toString(),
+                System.currentTimeMillis() - 12 * 60000,
+                false,
+                false,
+                ekoUser2,
+                "orem ipsum dolor sit amet, consectetur. ",
+                124,
+                2,
+                System.currentTimeMillis() - 15 * 60000,
+                replies
+            )
             commnets.add(comment)
 
-            comment = Comment(UUID.randomUUID().toString(), System.currentTimeMillis() - 12 * 60000, false, false, ekoUser2, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus mi nec elementum molestie. Curabitur gravida purus vel. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus mi nec dolor sit amet, consectetur ", 1100, 0, System.currentTimeMillis() - 19 * 60000, null)
+            comment = Comment(
+                UUID.randomUUID().toString(),
+                System.currentTimeMillis() - 12 * 60000,
+                false,
+                false,
+                ekoUser2,
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus mi nec elementum molestie. Curabitur gravida purus vel. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus mi nec dolor sit amet, consectetur ",
+                1100,
+                0,
+                System.currentTimeMillis() - 19 * 60000,
+                null
+            )
             commnets.add(comment)
             return commnets
 
@@ -66,26 +141,37 @@ class EkoChannelRepository : IChannelRepository {
             var ekoUser1 = User(EkoClient.getUserId()!!, EkoClient.getDisplayName()!!, "")
 //            ekoUser1.userId = EkoClient.getUserId()!!
 //            ekoUser1.displayName = EkoClient.getDisplayName()!!
-            val comment = Comment(UUID.randomUUID().toString(), System.currentTimeMillis(), false, false, ekoUser1, comment, 0, 0, System.currentTimeMillis(), null)
+            val comment = Comment(
+                UUID.randomUUID().toString(),
+                System.currentTimeMillis(),
+                false,
+                false,
+                ekoUser1,
+                comment,
+                0,
+                0,
+                System.currentTimeMillis(),
+                null
+            )
             ekoComments.add(comment)
             sortComments()
             liveCommnetData.value = ekoComments
         }
 
-        fun getComments() : MutableLiveData<List<Comment>> {
+        fun getComments(): MutableLiveData<List<Comment>> {
             sortComments()
             liveCommnetData.value = ekoComments
             return liveCommnetData
         }
 
-        fun getTopTwoComments() : List<Comment> {
+        fun getTopTwoComments(): List<Comment> {
 
             val filtedList = ekoComments.filter { ekoComment -> !ekoComment.deleted }
             sortComments()
-            if(filtedList.size > 0) {
-                val start = if(filtedList.size > 1) filtedList.size -2 else 0
-                val end = if(filtedList.size > 1) filtedList.size else 1
-                return  filtedList.subList(start, end)
+            if (filtedList.size > 0) {
+                val start = if (filtedList.size > 1) filtedList.size - 2 else 0
+                val end = if (filtedList.size > 1) filtedList.size else 1
+                return filtedList.subList(start, end)
             }
             return listOf()
 
@@ -94,16 +180,16 @@ class EkoChannelRepository : IChannelRepository {
         fun deleteComment(comment: Comment) {
             comment.deleted = true
             comment.editedAt = System.currentTimeMillis()
-            for(i in 0 until ekoComments.size) {
-                if(ekoComments[i].id == comment.id) {
+            for (i in 0 until ekoComments.size) {
+                if (ekoComments[i].id == comment.id) {
                     ekoComments[i] = comment
                     edited = true
                     liveCommnetData.value = ekoComments
                     return
-                }else if(ekoComments[i].replies != null) {
+                } else if (ekoComments[i].replies != null) {
                     val replies = ekoComments[i].replies!!
-                    for(j in 0 until replies.size) {
-                        if(ekoComments[i].id == comment.id) {
+                    for (j in 0 until replies.size) {
+                        if (ekoComments[i].id == comment.id) {
                             ekoComments[i] = comment
                             edited = true
                             liveCommnetData.value = ekoComments
@@ -115,24 +201,24 @@ class EkoChannelRepository : IChannelRepository {
 
 //            ekoComments.remove(comment)
 //            liveCommnetData.value = ekoComments
-           // liveCommnetData.value = ekoComments.toPagedList(10)
+            // liveCommnetData.value = ekoComments.toPagedList(10)
         }
 
         fun getEmptyFeed(): PagedList<EkoPost>? {
-            val emptyList : List<EkoPost> = ArrayList()
+            val emptyList: List<EkoPost> = ArrayList()
             return emptyList.toPagedList(1)
         }
 
         fun getUser(): User {
-            val profilePic = if(showProfileAvatar) {
+            val profilePic = if (showProfileAvatar) {
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRlKY5lxV41WIS0GSQ4rly2O3-wtOkVaRknJA&usqp=CAU"
             } else ""
-            return User("1","Test 01",profilePic)
+            return User("1", "Test 01", profilePic)
         }
 
-        fun getComment(commentId: String) : Comment? {
-            for(comment in ekoComments) {
-                if(comment.id == commentId)
+        fun getComment(commentId: String): Comment? {
+            for (comment in ekoComments) {
+                if (comment.id == commentId)
                     return comment
             }
             return null
@@ -141,18 +227,19 @@ class EkoChannelRepository : IChannelRepository {
         fun updateComment(comment: Comment) {
             comment.edited = true
             comment.editedAt = System.currentTimeMillis()
-                for(i in 0..ekoComments.size) {
-                    if(ekoComments[i].id == comment.id) {
-                        ekoComments[i] = comment
-                        edited = true
-                        break
-                    }
+            for (i in 0..ekoComments.size) {
+                if (ekoComments[i].id == comment.id) {
+                    ekoComments[i] = comment
+                    edited = true
+                    break
                 }
+            }
             liveCommnetData.value = ekoComments
 
         }
 
     }
+
     override fun getRecommendedChannels(): List<Channel> {
         //TODO change in future
         return listOf(

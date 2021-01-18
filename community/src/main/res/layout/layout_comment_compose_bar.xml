@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
-        <import type="com.ekoapp.ekosdk.uikit.R"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.R" />
     </data>
 
     <merge xmlns:tools="http://schemas.android.com/tools"
@@ -33,9 +35,8 @@
             android:layout_marginEnd="@dimen/eight"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-             app:layout_constraintEnd_toStartOf="@id/btnPost"
-            app:layout_constraintStart_toEndOf="@id/avProfile"
-            >
+            app:layout_constraintEnd_toStartOf="@id/btnPost"
+            app:layout_constraintStart_toEndOf="@id/avProfile">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPostComment"
@@ -54,8 +55,8 @@
                 app:fillColor="@{R.color.upstraColorBase}"
                 style="@style/TextStyleEkoBody"
                 android:layout_centerVertical="true"
-                app:roundedCorner="@{true}"
-                />
+                app:roundedCorner="@{true}" />
+
             <ImageView
                 android:id="@+id/ivExpand"
                 android:padding="5dp"
@@ -82,7 +83,7 @@
             app:buttonDisabledTextColor="@{@color/upstraColorHighlight}"
             app:buttonDisabledTextColorShade="@{ColorShade.SHADE2}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </merge>
 </layout>

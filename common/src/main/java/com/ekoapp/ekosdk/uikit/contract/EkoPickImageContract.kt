@@ -7,7 +7,7 @@ import android.net.Uri
 import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContract
 
-class EkoPickImageContract: ActivityResultContract<String, Uri?>() {
+class EkoPickImageContract : ActivityResultContract<String, Uri?>() {
 
     override fun createIntent(context: Context, input: String?): Intent {
         val getIntent = Intent(Intent.ACTION_GET_CONTENT)

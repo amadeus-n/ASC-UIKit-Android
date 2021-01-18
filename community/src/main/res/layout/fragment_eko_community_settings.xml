@@ -4,8 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="viewModel"
             type="com.ekoapp.ekosdk.uikit.community.setting.EkoCommunitySettingViewModel" />
@@ -22,7 +25,7 @@
             android:layout_height="1dp"
             app:layout_constraintTop_toTopOf="parent"
             ekoBackgroundColor="@{@color/upstraColorBase}"
-            backgroundColorShade="@{ColorShade.SHADE4}"/>
+            backgroundColorShade="@{ColorShade.SHADE4}" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/groupEditProfile"
@@ -32,7 +35,7 @@
             app:layout_constraintTop_toTopOf="@id/ivEdit"
             app:layout_constraintBottom_toBottomOf="@id/ivEdit"
             android:visibility="@{viewModel.isAdmin() ? View.VISIBLE : View.GONE}"
-            app:constraint_referenced_ids="ivEdit,tvEditProfile,ivArrow,divider2"/>
+            app:constraint_referenced_ids="ivEdit,tvEditProfile,ivArrow,divider2" />
 
         <ImageView
             android:id="@+id/ivEdit"
@@ -43,7 +46,7 @@
             android:layout_marginStart="@dimen/sixteen"
             android:layout_marginTop="@dimen/eight"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider1"/>
+            app:layout_constraintTop_toBottomOf="@id/divider1" />
 
         <TextView
             android:id="@+id/tvEditProfile"
@@ -57,7 +60,7 @@
             app:layout_constraintStart_toEndOf="@id/ivEdit"
             app:layout_constraintTop_toTopOf="@id/ivEdit"
             app:layout_constraintBottom_toBottomOf="@id/ivEdit"
-            app:layout_constraintEnd_toStartOf="@id/ivArrow"/>
+            app:layout_constraintEnd_toStartOf="@id/ivArrow" />
 
         <ImageView
             android:id="@+id/ivArrow"
@@ -69,7 +72,7 @@
             android:layout_marginEnd="@dimen/eighteen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivEdit"
-            app:layout_constraintBottom_toBottomOf="@id/ivEdit"/>
+            app:layout_constraintBottom_toBottomOf="@id/ivEdit" />
 
         <View
             android:id="@+id/divider2"
@@ -78,7 +81,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvEditProfile"
             android:layout_marginHorizontal="@dimen/sixteen"
             ekoBackgroundColor="@{@color/upstraColorBase}"
-            backgroundColorShade="@{ColorShade.SHADE4}"/>
+            backgroundColorShade="@{ColorShade.SHADE4}" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/groupMembers"
@@ -87,7 +90,7 @@
             app:layout_constraintStart_toStartOf="@id/ivMembers"
             app:layout_constraintTop_toTopOf="@id/ivMembers"
             app:layout_constraintBottom_toBottomOf="@id/ivMembers"
-            app:constraint_referenced_ids="ivMembers,tvMembers,tvMembersCount,ivArrow1"/>
+            app:constraint_referenced_ids="ivMembers,tvMembers,tvMembersCount,ivArrow1" />
 
         <ImageView
             android:id="@+id/ivMembers"
@@ -99,7 +102,7 @@
             android:layout_marginTop="@dimen/four"
             app:layout_goneMarginTop="@dimen/eight"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider2"/>
+            app:layout_constraintTop_toBottomOf="@id/divider2" />
 
         <TextView
             android:id="@+id/tvMembers"
@@ -113,7 +116,7 @@
             app:layout_constraintStart_toEndOf="@id/ivMembers"
             app:layout_constraintTop_toTopOf="@id/ivMembers"
             app:layout_constraintBottom_toBottomOf="@id/ivMembers"
-            app:layout_constraintEnd_toStartOf="@id/tvMembersCount"/>
+            app:layout_constraintEnd_toStartOf="@id/tvMembersCount" />
 
         <TextView
             android:id="@+id/tvMembersCount"
@@ -128,7 +131,7 @@
             app:layout_constraintTop_toTopOf="@id/ivMembers"
             app:layout_constraintBottom_toBottomOf="@id/ivMembers"
             app:layout_constraintStart_toEndOf="@id/tvMembers"
-            app:layout_constraintEnd_toStartOf="@id/ivArrow1"/>
+            app:layout_constraintEnd_toStartOf="@id/ivArrow1" />
 
         <ImageView
             android:id="@+id/ivArrow1"
@@ -140,7 +143,7 @@
             android:layout_marginEnd="@dimen/eighteen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivMembers"
-            app:layout_constraintBottom_toBottomOf="@id/ivMembers"/>
+            app:layout_constraintBottom_toBottomOf="@id/ivMembers" />
 
         <View
             android:id="@+id/divider3"
@@ -149,7 +152,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvMembers"
             android:layout_marginHorizontal="@dimen/sixteen"
             ekoBackgroundColor="@{@color/upstraColorBase}"
-            backgroundColorShade="@{ColorShade.SHADE4}"/>
+            backgroundColorShade="@{ColorShade.SHADE4}" />
 
         <TextView
             android:id="@+id/tvLeaveCommunity"
@@ -162,7 +165,7 @@
             style="@style/TextStyleEkoBody"
             android:textColor="@color/upstraColorAlert"
             app:layout_constraintTop_toBottomOf="@id/divider3"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <View
             android:layout_width="match_parent"
@@ -170,7 +173,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvLeaveCommunity"
             android:layout_marginHorizontal="@dimen/sixteen"
             ekoBackgroundColor="@{@color/upstraColorBase}"
-            backgroundColorShade="@{ColorShade.SHADE4}"/>
+            backgroundColorShade="@{ColorShade.SHADE4}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

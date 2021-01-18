@@ -29,8 +29,10 @@ class EkoCommunityMembersViewModelTest {
         mockkStatic(EkoClient::class)
         val communityRepository: EkoCommunityRepository = mockk()
         every { EkoClient.newCommunityRepository() } returns communityRepository
-        every { communityRepository.membership(any()).getCollection()
-            .filter(any()).build().query() } returns Flowable.just(mockList)
+        every {
+            communityRepository.membership(any()).getCollection()
+                .filter(any()).build().query()
+        } returns Flowable.just(mockList)
 
         val viewModel = EkoCommunityMembersViewModel()
         val res = viewModel.getCommunityMembers().blockingFirst()
@@ -41,10 +43,11 @@ class EkoCommunityMembersViewModelTest {
     fun when_searchString_change_expect_event_SEARCH_STRING_CHANGED() {
         var searchStringChanged = false
         val viewModel = EkoCommunityMembersViewModel()
-        viewModel.onEventReceived += {event->
-            when(event.type) {
+        viewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.SEARCH_STRING_CHANGED -> searchStringChanged = true
-                else -> {}
+                else -> {
+                }
             }
         }
         viewModel.setPropertyChangeCallback()

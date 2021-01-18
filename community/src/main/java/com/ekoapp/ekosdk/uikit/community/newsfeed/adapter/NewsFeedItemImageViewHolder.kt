@@ -22,7 +22,7 @@ class NewsFeedItemImageViewHolder(
     private val imageRecyclerView = itemView.findViewById<RecyclerView>(R.id.rvImages)
     val space = itemView.context.resources.getDimensionPixelSize(R.dimen.eight)
     val itemDecor = SpacesItemDecoration(0, 0, 0, space)
-    var adapter : PostImageItemAdapter? = null
+    var adapter: PostImageItemAdapter? = null
 
     private var mImages = listOf<EkoImage>()
 
@@ -48,9 +48,9 @@ class NewsFeedItemImageViewHolder(
     }
 
     private fun initAdapter(mImages: List<EkoImage>) {
-        if(adapter == null)
+        if (adapter == null)
             adapter = PostImageItemAdapter(this)
-        if(adapter?.itemCount != mImages.size ) {
+        if (adapter?.itemCount != mImages.size) {
 
             imageRecyclerView.removeItemDecoration(itemDecor)
             imageRecyclerView.addItemDecoration(itemDecor)

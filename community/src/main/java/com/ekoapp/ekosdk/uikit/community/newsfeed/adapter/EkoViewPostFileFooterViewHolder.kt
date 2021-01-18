@@ -17,7 +17,7 @@ class EkoViewPostFileFooterViewHolder(
 
     override fun bind(data: FileAttachment?, position: Int) {
         tvLoadMoreFiles.setOnClickListener {
-            if(loadMoreClickListener != null && newsFeed != null) {
+            if (loadMoreClickListener != null && newsFeed != null) {
                 loadMoreClickListener.loadMoreFiles(newsFeed)
             }
         }

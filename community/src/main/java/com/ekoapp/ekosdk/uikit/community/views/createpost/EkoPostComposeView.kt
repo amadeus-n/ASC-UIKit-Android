@@ -13,7 +13,7 @@ class EkoPostComposeView : AppCompatEditText {
         context,
         attrs,
         defStyle
-    )  {
+    ) {
         parseStyle(attrs)
     }
 

@@ -75,7 +75,9 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
         }
 
         feedPostTime.text = data.getCreatedAt()!!.millis.readableFeedPostTime(context)
+
         mBinding.isModerator = false
+        mBinding.isCommunity = false
         mBinding.avatarUrl = data.getPostedUser()?.getAvatar()?.getUrl(EkoImage.Size.LARGE)
 
         data.getPostedUser()?.getRoles()
@@ -102,6 +104,7 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
                 } else {
                     mBinding.isModerator = false
                 }
+                mBinding.isCommunity = true
                 userName.setCompoundDrawablesWithIntrinsicBounds(
                     null,
                     null,

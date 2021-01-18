@@ -1,8 +1,12 @@
 package com.ekoapp.ekosdk.uikit.logging
 
 import android.content.Context
-import io.mockk.*
-import org.junit.Assert.*
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.mockkObject
+import io.mockk.mockkStatic
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import timber.log.Timber
 

@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
 
         <variable
             name="ekoCommunity"
@@ -51,7 +53,7 @@
             app:layout_constraintStart_toEndOf="@id/ivAvatar"
             app:layout_constraintEnd_toStartOf="@id/ivOfficial"
             app:layout_constraintTop_toTopOf="@id/ivAvatar"
-            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"/>
+            app:layout_constraintBottom_toBottomOf="@id/ivAvatar" />
 
         <ImageView
             android:id="@+id/ivOfficial"
@@ -62,7 +64,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/eight"
             app:layout_constraintStart_toEndOf="@id/tvCommunityName"
-            app:layout_constraintTop_toTopOf="@id/tvCommunityName"/>
+            app:layout_constraintTop_toTopOf="@id/tvCommunityName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

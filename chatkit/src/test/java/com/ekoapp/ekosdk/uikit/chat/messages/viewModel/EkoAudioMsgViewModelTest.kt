@@ -4,10 +4,10 @@ import android.net.Uri
 import android.util.Log
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.EkoFileRepository
-import com.ekoapp.ekosdk.uikit.chat.RxImmediateSchedulerRule
 import com.ekoapp.ekosdk.file.upload.EkoUploadInfo
 import com.ekoapp.ekosdk.message.EkoMessage
 import com.ekoapp.ekosdk.uikit.chat.R
+import com.ekoapp.ekosdk.uikit.chat.RxImmediateSchedulerRule
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import io.mockk.every
 import io.mockk.mockk
@@ -53,10 +53,11 @@ class EkoAudioMsgViewModelTest {
     fun playButtonClickTest() {
         val viewModel = EkoAudioMsgViewModel()
         var playButtonClicked = false
-        viewModel.onEventReceived += {event->
-            when(event.type) {
+        viewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.AUDIO_PLAYER_PLAY_CLICKED -> playButtonClicked = true
-                else -> {}
+                else -> {
+                }
             }
         }
         viewModel.buffering.set(true)

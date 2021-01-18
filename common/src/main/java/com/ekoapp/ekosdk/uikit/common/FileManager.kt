@@ -18,7 +18,12 @@ import com.tonyodev.fetch2core.DownloadBlock
 import com.tonyodev.fetch2core.Downloader
 import com.tonyodev.fetch2core.Func
 import com.tonyodev.fetch2okhttp.OkHttpDownloader
+import java.io.BufferedInputStream
+import java.io.BufferedOutputStream
 import java.io.File
+import java.io.FileInputStream
+import kotlin.concurrent.thread
+
 
 class FileManager {
     companion object {
@@ -101,18 +106,29 @@ class FileManager {
                                 )
                             }
 
-                            //TODO Open directory download when user tap on notification
-//                            val file = File(filePath)
-//                            val uri = if (isAndroidQAndAbove()) {
-//                                FileProvider.getUriForFile(
-//                                    mContext, mContext.applicationContext.packageName.toString(), file)
-//                            } else {
-//                                Uri.parse(filePath)
-//                            }
-//                            val intent = Intent(Intent.ACTION_GET_CONTENT)
-//                            intent.setDataAndType(uri, "*/*")
-//                            mPendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-//                            notificationBuilder.setContentIntent(mPendingIntent)
+                            val file = File(filePath)
+                            val uri = if (isAndroidQAndAbove()) {
+                                FileProvider.getUriForFile(
+                                    context,
+                                    context.packageName + ".UikitCommonProvider",
+                                    file
+                                )
+                            } else {
+                                Uri.fromFile(file)
+                            }
+                            val intent = Intent(Intent.ACTION_GET_CONTENT)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            intent.setDataAndType(uri, mimeType)
+
+                            mPendingIntent = PendingIntent.getActivity(
+                                mContext,
+                                0,
+                                intent,
+                                PendingIntent.FLAG_UPDATE_CURRENT
+                            )
+                            notificationBuilder.setContentIntent(mPendingIntent)
                         }
                     })
                     .build()
@@ -137,25 +153,49 @@ class FileManager {
                     }
 
                     override fun onCompleted(download: Download) {
-                        if (download.status == Status.COMPLETED) {
-                            if (isAndroidQAndAbove()) {
-                                val values = ContentValues().apply {
-                                    put(MediaStore.Files.FileColumns.DISPLAY_NAME, fileName)
-                                    put(MediaStore.Files.FileColumns.MIME_TYPE, mimeType)
-                                    put(MediaStore.Files.FileColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
-                                    put(MediaStore.Files.FileColumns.IS_PENDING, 1)
+                        thread {
+                            try {
+                                if (download.status == Status.COMPLETED) {
+                                    if (isAndroidQAndAbove()) {
+                                        val values = ContentValues()
+                                        values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+                                        values.put(
+                                            MediaStore.MediaColumns.RELATIVE_PATH,
+                                            Environment.DIRECTORY_DOWNLOADS
+                                        )
+                                        val fileUri = mContext.contentResolver.insert(
+                                            MediaStore.Downloads.EXTERNAL_CONTENT_URI, values
+                                        )
+                                        if (fileUri != null) {
+                                            mContext.contentResolver.openOutputStream(fileUri)
+                                                ?.use { outputStream ->
+                                                    val bos = BufferedOutputStream(outputStream)
+                                                    val bytes = download.total.toInt()
+                                                    val buffer = BufferedInputStream(
+                                                        FileInputStream(
+                                                            File(download.file)
+                                                        )
+                                                    )
+                                                    bos.write(buffer.readBytes(), 0, bytes)
+                                                    bos.flush()
+                                                    bos.close()
+                                                }
+                                            values.clear()
+                                            values.put(MediaStore.Files.FileColumns.IS_PENDING, 0)
+                                            mContext.contentResolver.update(
+                                                fileUri,
+                                                values,
+                                                null,
+                                                null
+                                            )
+                                        }
+                                    }
+                                    if (!fetch.isClosed) {
+                                        fetch.close()
+                                    }
                                 }
-                                val resolver = mContext.contentResolver
-                                val collection = MediaStore.Downloads.EXTERNAL_CONTENT_URI
-                                val fileUri = resolver.insert(collection, values)
-                                values.clear()
-                                values.put(MediaStore.Files.FileColumns.IS_PENDING, 0)
-                                fileUri?.let {
-                                    resolver.update(it, values, null, null)
-                                }
-                            }
-                            if (!fetch.isClosed) {
-                                fetch.close()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
                             }
                         }
                     }
@@ -222,7 +262,8 @@ class FileManager {
             return if (isAndroidQAndAbove()) {
                 context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString()
             } else {
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString()
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                    .toString()
             }
         }
 
@@ -240,7 +281,7 @@ class FileManager {
             if (file.exists()) {
                 listener.onDownloadComplete(Uri.fromFile(file))
                 return
-            }else {
+            } else {
                 val client = EkoOkHttp.newBuilder().build()
 
                 val fetchConfiguration = FetchConfiguration.Builder(context)
@@ -266,7 +307,10 @@ class FileManager {
                                 val values = ContentValues().apply {
                                     put(MediaStore.Files.FileColumns.DISPLAY_NAME, file.name)
                                     put(MediaStore.Files.FileColumns.MIME_TYPE, ".mp3")
-                                    put(MediaStore.Files.FileColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+                                    put(
+                                        MediaStore.Files.FileColumns.RELATIVE_PATH,
+                                        Environment.DIRECTORY_DOWNLOADS
+                                    )
                                     put(MediaStore.Files.FileColumns.IS_PENDING, 1)
                                 }
                                 val resolver = context.contentResolver

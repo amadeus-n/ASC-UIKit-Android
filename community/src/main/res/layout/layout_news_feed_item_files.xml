@@ -23,21 +23,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/newsFeedHeader">
 
-    <com.ekoapp.ekosdk.uikit.common.views.text.EkoExpandableTextView
-        android:id="@+id/tvFeed"
-        style="@style/NewsFeedItemTextStyle"
-        android:maxLines="@integer/maxLineFileOnlyFeed"
-        android:textColor="@color/upstraColorBase"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        <com.ekoapp.ekosdk.uikit.common.views.text.EkoExpandableTextView
+            android:id="@+id/tvFeed"
+            style="@style/NewsFeedItemTextStyle"
+            android:maxLines="@integer/maxLineFileOnlyFeed"
+            android:textColor="@color/upstraColorBase"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAttachment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/eight"
-        app:layout_constraintTop_toBottomOf="@id/tvFeed" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAttachment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/eight"
+            app:layout_constraintTop_toBottomOf="@id/tvFeed" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.ekoapp.ekosdk.uikit.community.views.newsfeed.EkoNewsFeedItemFooter

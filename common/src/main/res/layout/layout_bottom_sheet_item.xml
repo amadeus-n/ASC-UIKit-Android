@@ -3,12 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="menuItem"
             type="com.ekoapp.ekosdk.uikit.model.EkoMenuItem" />
+
         <variable
             name="listener"
             type="com.ekoapp.ekosdk.uikit.common.views.bottomsheet.IEkoMenuItemClickListener" />
+
         <variable
             name="alertColor"
             type="Boolean" />
@@ -31,7 +34,7 @@
             android:textColor="@{alertColor ? @color/upstraColorAlert : @color/upstraColorBase}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

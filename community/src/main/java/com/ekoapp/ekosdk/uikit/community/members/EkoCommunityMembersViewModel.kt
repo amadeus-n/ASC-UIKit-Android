@@ -2,6 +2,7 @@ package com.ekoapp.ekosdk.uikit.community.members
 
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.community.EkoCommunity
@@ -26,6 +27,7 @@ class EkoCommunityMembersViewModel : EkoBaseViewModel() {
     val membersSet = HashSet<String>()
     val isJoined = ObservableBoolean(false)
     val isModerator = ObservableBoolean(false)
+    val addRemoveErrorData = MutableLiveData<Throwable>()
 
     fun getCommunityMembers(): Flowable<PagedList<EkoCommunityMembership>> {
         val communityRepository = EkoClient.newCommunityRepository()
@@ -90,6 +92,13 @@ class EkoCommunityMembersViewModel : EkoBaseViewModel() {
                 .removeUsers(list)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete {
+
+                }.doOnError {
+                    if (addRemoveErrorData.value == null) {
+                        addRemoveErrorData.value = it
+                    }
+                }
                 .subscribe()
         )
     }
@@ -101,6 +110,13 @@ class EkoCommunityMembersViewModel : EkoBaseViewModel() {
                 .addUsers(list)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete {
+
+                }.doOnError {
+                    if (addRemoveErrorData.value == null) {
+                        addRemoveErrorData.value = it
+                    }
+                }
                 .subscribe()
         )
     }

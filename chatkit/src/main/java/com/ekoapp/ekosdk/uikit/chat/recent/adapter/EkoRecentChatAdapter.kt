@@ -28,7 +28,7 @@ class EkoRecentChatAdapter : EkoBaseRecyclerViewPagedAdapter<EkoChannel>(diffCal
 
 
             override fun areContentsTheSame(oldItem: EkoChannel, newItem: EkoChannel): Boolean =
-               oldItem == newItem
+                oldItem == newItem
         }
     }
 }

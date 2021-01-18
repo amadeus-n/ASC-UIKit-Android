@@ -10,7 +10,7 @@ import com.ekoapp.ekosdk.uikit.model.EkoMenuItem
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.layout_eko_bottom_sheet.*
 
-class EkoBottomSheetListFragment private constructor(): BottomSheetDialogFragment(){
+class EkoBottomSheetListFragment private constructor() : BottomSheetDialogFragment() {
 
     private lateinit var itemList: ArrayList<EkoMenuItem>
     private var mListener: IEkoMenuItemClickListener? = null

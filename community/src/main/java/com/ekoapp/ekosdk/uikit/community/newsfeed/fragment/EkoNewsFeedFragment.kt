@@ -3,6 +3,7 @@ package com.ekoapp.ekosdk.uikit.community.newsfeed.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -84,7 +85,7 @@ class EkoNewsFeedFragment internal constructor() : EkoBaseFragment(),
                 }
             }
 
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 refreshLayout?.isRefreshing = false
             }, 1000)
         }

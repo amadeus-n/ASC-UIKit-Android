@@ -15,10 +15,8 @@ import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.*
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,8 +26,6 @@ import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.base.SpacesItemDecoration
 import com.ekoapp.ekosdk.uikit.common.FileUtils
-import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
-import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.common.views.dialog.EkoAlertDialogFragment
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.domain.model.FileAttachment
@@ -118,7 +114,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == ID_MENU_ITEM_POST) {
+        if (item.itemId == ID_MENU_ITEM_POST) {
             handlePostMenuItemClick()
             return false
         }
@@ -291,16 +287,16 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
     abstract fun setToolBarText()
 
-    abstract fun getPostMenuText() : String
+    abstract fun getPostMenuText(): String
 
 
     fun isEditMode(): Boolean {
         return mViewModel.postId != null
     }
 
-    open fun isRightButtonActive() : Boolean {
+    open fun isRightButtonActive(): Boolean {
         if (mViewModel.hasPendingImageToUpload() || mViewModel.hasFailedToUploadImages()) {
-           return false
+            return false
         } else if (mViewModel.hasPendingFileToUpload() || mViewModel.hasFailedToUploadFiles()) {
             return false
         } else if (isEmptyPostTest() && isEmptyFileAttachments() && isEmptyImages()) {
@@ -308,6 +304,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
         }
         return true
     }
+
     private fun handleButtonActiveInactiveBehavior() {
         //TODO move to viewmodel with a observable field
         updatePostMenu(isRightButtonActive())
@@ -322,7 +319,8 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
         val spannableString = SpannableString(title)
         spannableString.setSpan(
             ForegroundColorSpan(
-                EkoOptionMenuColorUtil.getColor(menuItemPost?.isEnabled ?: false, requireContext())), 0, spannableString.length, 0
+                EkoOptionMenuColorUtil.getColor(menuItemPost?.isEnabled ?: false, requireContext())
+            ), 0, spannableString.length, 0
         )
         menuItemPost?.title = spannableString
     }
@@ -519,7 +517,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
             .doOnNext {
                 mViewModel.updateImageUploadStatus(image, it)
             }.doOnError {
-                Log.d(TAG, it.message)
+                Log.d(TAG, it.message ?: "")
             }.subscribe()
         compositeDisposable.add(disposable)
     }
@@ -597,7 +595,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
                 .doOnNext {
                     mViewModel.updateFileUploadStatus(fileAttachment, it)
                 }.doOnError {
-                    Log.d(TAG, it.message)
+                    Log.d(TAG, it.message ?: "")
                 }.subscribe()
             compositeDisposable.add(disposable)
         }

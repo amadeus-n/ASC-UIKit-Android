@@ -10,7 +10,8 @@ import io.reactivex.schedulers.Schedulers
 
 private const val EXTRA_COMMUNITY_ID = "EXTRA_COMMUNITY_ID"
 private const val EXTRA_EKO_COMMUNITY = "EXTRA_EKO_COMMUNITY"
-class EkoCommunityProfileEditFragment internal constructor(): EkoCommunityCreateBaseFragment(){
+
+class EkoCommunityProfileEditFragment internal constructor() : EkoCommunityCreateBaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,14 +29,15 @@ class EkoCommunityProfileEditFragment internal constructor(): EkoCommunityCreate
         loadProfile()
     }
 
-        private fun loadProfile() {
+    private fun loadProfile() {
         disposable.add(mViewModel.getCommunityDetail().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext {
                 mViewModel.setCommunityDetails(it)
             }.doOnError {
 
-            }.subscribe())
+            }.subscribe()
+        )
     }
 
     fun onRightIconClick() {

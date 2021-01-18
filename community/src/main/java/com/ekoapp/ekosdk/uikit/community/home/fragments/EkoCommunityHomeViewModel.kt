@@ -15,6 +15,7 @@ class EkoCommunityHomeViewModel : EkoBaseViewModel() {
     var newsFeedFragmentDelegate: INewsFeedFragmentDelegate? = null
     var isSearchMode = ObservableBoolean(false)
     val emptySearch = ObservableBoolean(false)
+    val emptySearchString = ObservableBoolean(true)
 
     fun searchCommunity(searchString: String): Flowable<PagedList<EkoCommunity>> {
         val communityRepository = EkoClient.newCommunityRepository()

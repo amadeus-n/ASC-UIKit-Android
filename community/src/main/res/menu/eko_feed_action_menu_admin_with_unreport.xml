@@ -9,11 +9,11 @@
     <item
         android:id="@+id/actionDeletePost"
         android:title="@string/delete_post"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/actionUnreportPost"
         android:title="@string/unreport_post"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
 </menu>

@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.io.File
-import java.lang.Exception
 
 object AndroidUtil {
 
@@ -42,10 +41,10 @@ object AndroidUtil {
             retriever.setDataSource(context, fileUri)
             val time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
             Integer.parseInt(time)
-        }catch (ex: Exception) {
+        } catch (ex: Exception) {
             Log.e("AndroidUtil", "getMediaLength: $fileUri -- ${ex.localizedMessage}")
             0
-        }finally {
+        } finally {
             retriever.release()
         }
     }

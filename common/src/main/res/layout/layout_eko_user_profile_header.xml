@@ -90,6 +90,7 @@
             android:layout_marginTop="@dimen/twelve"
             android:text="@{description}"
             style="@style/TextStyleEkoBody"
+            android:paddingTop="@dimen/four"
             android:textColor="@color/upstraColorBase"
             android:visibility="@{description.length() > 0 ? View.VISIBLE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="@id/ivAvatar"

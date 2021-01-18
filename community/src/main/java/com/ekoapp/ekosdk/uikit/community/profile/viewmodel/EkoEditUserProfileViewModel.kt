@@ -75,12 +75,12 @@ class EkoEditUserProfileViewModel : EkoBaseViewModel() {
     }
 
     private fun hasDraft(): Boolean {
-        return user != null && (displayName.value != user!!.getDisplayName() || about.value != user!!.getDescription() || profileUri != null && profileUri.toString() != getCurrentProfileUrl() )
+        return user != null && (displayName.value != user!!.getDisplayName() || about.value != user!!.getDescription() || profileUri != null && profileUri.toString() != getCurrentProfileUrl())
     }
 
-    private fun getCurrentProfileUrl() : String {
+    private fun getCurrentProfileUrl(): String {
         return user!!.getAvatar()
-            ?.getUrl(EkoImage.Size.SMALL)?: ""
+            ?.getUrl(EkoImage.Size.SMALL) ?: ""
     }
 
     fun checkProfileUpdate() {

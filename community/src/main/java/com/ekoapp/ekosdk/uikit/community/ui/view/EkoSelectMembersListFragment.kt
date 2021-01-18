@@ -4,12 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,11 +34,11 @@ import com.ekoapp.ekosdk.user.EkoUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_eko_select_members_list.*
 import kotlinx.android.synthetic.main.fragment_eko_select_members_list.*
 
 private const val ARG_MEMBERS_LIST = "ARG_MEMBERS_LIST"
-class EkoSelectMembersListFragment internal constructor(): Fragment(), EkoSelectMemberListener,
+
+class EkoSelectMembersListFragment internal constructor() : Fragment(), EkoSelectMemberListener,
     EkoSelectedMemberListener {
 
     private val mViewModel: EkoSelectMembersViewModel by activityViewModels()
@@ -56,8 +56,10 @@ class EkoSelectMembersListFragment internal constructor(): Fragment(), EkoSelect
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        mBinding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_eko_select_members_list, container, false)
+        mBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_eko_select_members_list, container, false
+        )
         mBinding.viewModel = mViewModel
         return mBinding.root
     }
@@ -71,8 +73,10 @@ class EkoSelectMembersListFragment internal constructor(): Fragment(), EkoSelect
         handleSelectedMembers()
         setUpMembersListRecyclerView()
 
-        etSearch.setShape(null, null, null, null,
-            R.color.upstraColorBase, null, ColorShade.SHADE4)
+        etSearch.setShape(
+            null, null, null, null,
+            R.color.upstraColorBase, null, ColorShade.SHADE4
+        )
 
     }
 
@@ -96,7 +100,8 @@ class EkoSelectMembersListFragment internal constructor(): Fragment(), EkoSelect
 
     private fun setToolBarState() {
         if (mViewModel.selectedMembersList.size != 0) {
-            mViewModel.leftString.value = "${mViewModel.selectedMembersList.size} ${getString(R.string.selected)}"
+            mViewModel.leftString.value =
+                "${mViewModel.selectedMembersList.size} ${getString(R.string.selected)}"
             mViewModel.rightStringActive.value = true
         } else {
             mViewModel.leftString.value = getString(R.string.select_members)
@@ -107,8 +112,8 @@ class EkoSelectMembersListFragment internal constructor(): Fragment(), EkoSelect
     private fun subscribeObservers() {
         mViewModel.setPropertyChangeCallback()
 
-        mViewModel.onEventReceived += {event->
-            when(event.type) {
+        mViewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.SEARCH_STRING_CHANGED -> loadFilteredList()
                 else -> {
 
@@ -119,12 +124,17 @@ class EkoSelectMembersListFragment internal constructor(): Fragment(), EkoSelect
 
     private fun setUpSelectedMemberRecyclerView() {
         mSelectedMembersAdapter = EkoSelectedMemberAdapter(this)
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rvSelectedMembers.layoutManager = layoutManager
         rvSelectedMembers.adapter = mSelectedMembersAdapter
         rvSelectedMembers.addItemDecoration(
-            EkoRecyclerViewItemDecoration(0,
-            resources.getDimensionPixelSize(R.dimen.nineteen), 0, resources.getDimensionPixelSize(R.dimen.four))
+            EkoRecyclerViewItemDecoration(
+                0,
+                resources.getDimensionPixelSize(R.dimen.nineteen),
+                0,
+                resources.getDimensionPixelSize(R.dimen.four)
+            )
         )
     }
 
@@ -134,8 +144,9 @@ class EkoSelectMembersListFragment internal constructor(): Fragment(), EkoSelect
         rvMembersList.adapter = mMemberListAdapter
         rvMembersList.addItemDecoration(
             SelectMembersItemDecoration(
-            resources.getDimensionPixelSize(R.dimen.eighteen),
-            resources.getDimensionPixelSize(R.dimen.sixteen))
+                resources.getDimensionPixelSize(R.dimen.eighteen),
+                resources.getDimensionPixelSize(R.dimen.sixteen)
+            )
         )
         disposable.add(mViewModel.getAllUsers().doOnError {
             Log.e(
@@ -153,20 +164,25 @@ class EkoSelectMembersListFragment internal constructor(): Fragment(), EkoSelect
         mSearchResultAdapter = EkoSearchResultAdapter(this)
         rvSearchResults.layoutManager = LinearLayoutManager(requireContext())
         rvSearchResults.adapter = mSearchResultAdapter
-        rvSearchResults.addItemDecoration(EkoRecyclerViewItemDecoration(
-            resources.getDimensionPixelSize(R.dimen.sixteen)))
+        rvSearchResults.addItemDecoration(
+            EkoRecyclerViewItemDecoration(
+                resources.getDimensionPixelSize(R.dimen.sixteen)
+            )
+        )
         (rvSearchResults.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 
     override fun onMemberClicked(member: EkoUser, position: Int) {
-        val selectMemberItem = SelectMemberItem(member.getUserId(),
+        val selectMemberItem = SelectMemberItem(
+            member.getUserId(),
             member.getAvatar()?.getUrl(EkoImage.Size.MEDIUM) ?: "",
-            member.getDisplayName() ?: getString(R.string.anonymous), member.getDescription(), false)
+            member.getDisplayName() ?: getString(R.string.anonymous), member.getDescription(), false
+        )
         if (mViewModel.selectedMemberSet.contains(member.getUserId())) {
             mViewModel.prepareSelectedMembersList(selectMemberItem, false)
             mViewModel.selectedMemberSet.remove(member.getUserId())
             updateListOnSelection(member.getUserId())
-        }else {
+        } else {
             mViewModel.selectedMemberSet.add(member.getUserId())
             mViewModel.prepareSelectedMembersList(selectMemberItem, true)
             updateListOnSelection(member.getUserId())
@@ -188,7 +204,10 @@ class EkoSelectMembersListFragment internal constructor(): Fragment(), EkoSelect
         }
 
         if (mSearchResultAdapter.itemCount > 0 && mViewModel.searchMemberMap[id] != null) {
-            mSearchResultAdapter.notifyChange(mViewModel.searchMemberMap[id]!!, mViewModel.selectedMemberSet)
+            mSearchResultAdapter.notifyChange(
+                mViewModel.searchMemberMap[id]!!,
+                mViewModel.selectedMemberSet
+            )
         }
         setToolBarState()
     }
@@ -213,7 +232,10 @@ class EkoSelectMembersListFragment internal constructor(): Fragment(), EkoSelect
             finishIntent.putParcelableArrayListExtra(EkoConstants.MEMBERS_LIST, receivedMembersList)
             requireActivity().setResult(Activity.RESULT_OK, finishIntent)
         } else {
-            finishIntent.putParcelableArrayListExtra(EkoConstants.MEMBERS_LIST, mViewModel.selectedMembersList)
+            finishIntent.putParcelableArrayListExtra(
+                EkoConstants.MEMBERS_LIST,
+                mViewModel.selectedMembersList
+            )
             requireActivity().setResult(Activity.RESULT_OK, finishIntent)
         }
         requireActivity().finish()

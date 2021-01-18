@@ -3,13 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="com.ekoapp.ekosdk.uikit.utils.ScreenUtils"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.ekoapp.ekosdk.uikit.utils.ScreenUtils" />
+
         <import type="android.content.Context" />
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="vmTextMessage"
             type="com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoTextMessageViewModel" />
+
         <variable
             name="lonPressListener"
             type="com.ekoapp.ekosdk.uikit.components.ILongPressListener" />
@@ -19,7 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include android:id="@+id/dateHeader"
+        <include
+            android:id="@+id/dateHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/layout_date"
@@ -27,7 +34,7 @@
             app:date="@{vmTextMessage.msgDate}"
             app:dateFillColor="@{vmTextMessage.dateFillColor}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -47,7 +54,7 @@
                 android:visibility="@{vmTextMessage.isSenderVisible() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="@dimen/sixteen"/>
+                android:layout_marginStart="@dimen/sixteen" />
 
             <TextView
                 android:id="@+id/tvName"
@@ -60,7 +67,7 @@
                 android:textColor="@color/upstraColorBase"
                 textColorShade="@{ColorShade.SHADE1}"
                 android:text="@{vmTextMessage.sender}"
-                android:layout_marginStart="@dimen/twelve"/>
+                android:layout_marginStart="@dimen/twelve" />
 
             <com.ekoapp.ekosdk.uikit.components.EkoReadMoreTextView
                 android:id="@+id/tvMessageIncoming"
@@ -79,7 +86,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tvName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constrainedWidth="true"/>
+                app:layout_constrainedWidth="true" />
 
             <TextView
                 android:id="@+id/tvTime"
@@ -92,7 +99,7 @@
                 android:layout_marginTop="@dimen/four"
                 android:layout_marginStart="@dimen/four"
                 app:layout_constraintTop_toBottomOf="@id/tvMessageIncoming"
-                app:layout_constraintStart_toStartOf="@id/tvMessageIncoming"/>
+                app:layout_constraintStart_toStartOf="@id/tvMessageIncoming" />
 
             <TextView
                 android:layout_width="0dp"
@@ -103,18 +110,18 @@
                 app:layout_constraintStart_toStartOf="@id/tvMessageIncoming"
                 app:layout_constraintEnd_toEndOf="@id/tvMessageIncoming"
                 app:layout_constraintTop_toTopOf="@id/tvMessageIncoming"
-                app:layout_constraintBottom_toBottomOf="@id/tvMessageIncoming"
-                />
+                app:layout_constraintBottom_toBottomOf="@id/tvMessageIncoming" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <include layout="@layout/layout_msg_deleted"
+        <include
+            layout="@layout/layout_msg_deleted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/sixty_eight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dateHeader"
-            app:viewModel="@{vmTextMessage}"/>
+            app:viewModel="@{vmTextMessage}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

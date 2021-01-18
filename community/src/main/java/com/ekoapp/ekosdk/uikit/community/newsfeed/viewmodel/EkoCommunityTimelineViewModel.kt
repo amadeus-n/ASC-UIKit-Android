@@ -10,26 +10,26 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 
 class EkoCommunityTimelineViewModel : EkoBaseFeedViewModel() {
-    var communityId : String? = null
-    var community : EkoCommunity? = null
+    var communityId: String? = null
+    var community: EkoCommunity? = null
     var hasAdminAccess: Boolean = false
     var avatarClickListener: IAvatarClickListener? = null
 
     override fun getFeed(): Flowable<PagedList<EkoPost>>? {
-        if(community != null) {
+        if (community != null) {
             val feedRepository: EkoFeedRepository = EkoClient.newFeedRepository()
             return feedRepository.getCommunityFeed(community!!.getCommunityId())
                 .includeDeleted(false)
                 .build()
                 .query()
-        }else {
-           return null
+        } else {
+            return null
         }
     }
 
     fun canCreatePost(): Boolean {
-        if(community != null ) {
-           return community!!.isJoined()
+        if (community != null) {
+            return community!!.isJoined()
         }
         return false
     }

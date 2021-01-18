@@ -5,7 +5,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -18,7 +17,7 @@ import kotlinx.android.synthetic.main.layout_comment_compose_bar.view.*
 
 class EkoCommentComposeBar : ConstraintLayout {
     private lateinit var mBinding: LayoutCommentComposeBarBinding
-    private var commentExpandClickListener : OnClickListener? = null
+    private var commentExpandClickListener: OnClickListener? = null
 
 
     constructor(context: Context) : super(context) {
@@ -77,7 +76,6 @@ class EkoCommentComposeBar : ConstraintLayout {
         ivExpand.setOnClickListener {
             commentExpandClickListener?.onClick(it)
         }
-
 
 
     }

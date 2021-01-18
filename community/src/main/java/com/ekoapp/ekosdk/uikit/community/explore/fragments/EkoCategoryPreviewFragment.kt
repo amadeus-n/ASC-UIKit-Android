@@ -24,7 +24,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_eko_category_preview.*
 
-class EkoCategoryPreviewFragment internal constructor(): EkoBaseFragment(), IEkoCategoryItemClickListener {
+class EkoCategoryPreviewFragment internal constructor() : EkoBaseFragment(),
+    IEkoCategoryItemClickListener {
 
     private val TAG = EkoCategoryPreviewFragment::class.java.canonicalName
     private lateinit var mViewModel: EkoExploreCommunityViewModel
@@ -34,7 +35,8 @@ class EkoCategoryPreviewFragment internal constructor(): EkoBaseFragment(), IEko
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mViewModel = ViewModelProvider(requireActivity()).get(EkoExploreCommunityViewModel::class.java)
+        mViewModel =
+            ViewModelProvider(requireActivity()).get(EkoExploreCommunityViewModel::class.java)
         val binding: FragmentEkoCategoryPreviewBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_eko_category_preview, container, false
         )
@@ -81,10 +83,10 @@ class EkoCategoryPreviewFragment internal constructor(): EkoBaseFragment(), IEko
     }
 
     override fun onCategorySelected(category: EkoCommunityCategory) {
-        if(mViewModel.categoryItemClickListener != null) {
+        if (mViewModel.categoryItemClickListener != null) {
             mViewModel.categoryItemClickListener!!.onCategorySelected(category)
-        }else {
-            val intent = EkoCategoryCommunityListActivity.newIntent( requireContext(), category)
+        } else {
+            val intent = EkoCategoryCommunityListActivity.newIntent(requireContext(), category)
             startActivity(intent)
         }
     }

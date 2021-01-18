@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
     </data>
 
     <FrameLayout
@@ -17,8 +18,7 @@
             android:scaleType="centerCrop"
             android:contentDescription="@string/app_name"
             ekoBackgroundColor="@{@color/upstraColorPrimary}"
-            backgroundColorShade="@{ColorShade.SHADE3}"
-            />
+            backgroundColorShade="@{ColorShade.SHADE3}" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_camera"

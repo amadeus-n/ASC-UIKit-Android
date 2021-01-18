@@ -36,9 +36,9 @@ open class EkoMessageListAdapter(
 
     private val uAmpAudioAttributes: AudioAttributes =
         AudioAttributes.Builder()
-        .setContentType(C.CONTENT_TYPE_MUSIC)
-        .setUsage(C.USAGE_MEDIA)
-        .build()
+            .setContentType(C.CONTENT_TYPE_MUSIC)
+            .setUsage(C.USAGE_MEDIA)
+            .build()
 
     private val exoPlayer by lazy {
         SimpleExoPlayer.Builder(context).build().apply {
@@ -61,7 +61,13 @@ open class EkoMessageListAdapter(
         parent: ViewGroup,
         viewType: Int
     ): EkoChatMessageBaseViewHolder {
-        return messageUtil.getViewHolder(LayoutInflater.from(parent.context), parent, viewType, iViewHolder, this)
+        return messageUtil.getViewHolder(
+            LayoutInflater.from(parent.context),
+            parent,
+            viewType,
+            iViewHolder,
+            this
+        )
     }
 
     override fun onBindViewHolder(holder: EkoChatMessageBaseViewHolder, position: Int) {
@@ -72,7 +78,7 @@ open class EkoMessageListAdapter(
             if (holder is EkoAudioMsgSenderViewHolder) {
                 playingAudioHolder = holder
                 updatePlayingState()
-            }else if (holder is EkoAudioMsgReceiverViewHolder) {
+            } else if (holder is EkoAudioMsgReceiverViewHolder) {
                 playingAudioHolder = holder
                 updatePlayingState()
             }
@@ -138,8 +144,9 @@ open class EkoMessageListAdapter(
             if (exoPlayer.isPlaying) {
                 resetMediaPlayer()
                 updateNotPlayingState()
-            }else {
-                playingMsgId = playingAudioHolder?.audioMsgBaseViewModel?.ekoMessage?.getMessageId() ?: "-1"
+            } else {
+                playingMsgId =
+                    playingAudioHolder?.audioMsgBaseViewModel?.ekoMessage?.getMessageId() ?: "-1"
                 playingAudioHolder?.audioMsgBaseViewModel?.buffering?.set(true)
                 val url: String = playingAudioHolder?.audioMsgBaseViewModel?.audioUrl?.get() ?: ""
                 val mediaItem = MediaItem.fromUri(url.toUri()).buildUpon().build()
@@ -149,7 +156,7 @@ open class EkoMessageListAdapter(
                 exoPlayer.prepare()
                 exoPlayer.playWhenReady = true
             }
-        }catch (ex: Exception) {
+        } catch (ex: Exception) {
             Log.e(TAG, "playAudio: ${ex.localizedMessage}")
         }
     }
@@ -165,7 +172,7 @@ open class EkoMessageListAdapter(
 
     private val exoPlayerListener = object : Player.EventListener {
         override fun onPlaybackStateChanged(state: Int) {
-            when(state) {
+            when (state) {
                 Player.STATE_READY -> {
                     updatePlayingState()
                 }
@@ -186,7 +193,8 @@ open class EkoMessageListAdapter(
             super.onPlayerError(error)
             Log.e(TAG, "onPlayerError: ${error.printStackTrace()}")
             playingAudioHolder?.audioMsgBaseViewModel?.buffering?.set(false)
-            Toast.makeText(context, context.getString(R.string.playback_error), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.playback_error), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -194,7 +202,8 @@ open class EkoMessageListAdapter(
         override fun run() {
             val timeElapsed = exoPlayer.currentPosition
             playingAudioHolder?.audioMsgBaseViewModel?.duration?.set(
-                EkoDateUtils.getFormattedTimeForChat(timeElapsed.toInt()))
+                EkoDateUtils.getFormattedTimeForChat(timeElapsed.toInt())
+            )
             uiUpdateHandler.postDelayed(this, 500L)
         }
     }
@@ -232,7 +241,11 @@ open class EkoMessageListAdapter(
 
     interface ICustomViewHolder {
 
-        fun getViewHolder(inflater: LayoutInflater, parent: ViewGroup, viewType: Int): EkoChatMessageBaseViewHolder?
+        fun getViewHolder(
+            inflater: LayoutInflater,
+            parent: ViewGroup,
+            viewType: Int
+        ): EkoChatMessageBaseViewHolder?
     }
 
     private fun resetMediaPlayer() {

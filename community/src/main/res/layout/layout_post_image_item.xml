@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvImageCount"
@@ -18,6 +18,5 @@
         android:background="@drawable/bg_uikit_image_count"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textAppearance="?textAppearanceHeadline5"
-      />
+        android:textAppearance="?textAppearanceHeadline5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

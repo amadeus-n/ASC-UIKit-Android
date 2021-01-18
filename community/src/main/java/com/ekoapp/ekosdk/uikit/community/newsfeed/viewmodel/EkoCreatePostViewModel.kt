@@ -485,12 +485,16 @@ class EkoCreatePostViewModel : EkoBaseViewModel() {
         liveDataFiles.value = filesMap.values.toMutableList()
     }
 
-    fun updateFileUploadStatus(fileAttachment: FileAttachment, fileUpload: EkoUploadResult<EkoFile>) {
+    fun updateFileUploadStatus(
+        fileAttachment: FileAttachment,
+        fileUpload: EkoUploadResult<EkoFile>
+    ) {
         when (fileUpload) {
             is EkoUploadResult.PROGRESS -> {
                 Log.d(
                     TAG,
-                    "File upload progress " + fileAttachment.name + fileUpload.getUploadInfo().getProgressPercentage()
+                    "File upload progress " + fileAttachment.name + fileUpload.getUploadInfo()
+                        .getProgressPercentage()
                 )
                 val updatedFileAttachment = FileAttachment(
                     fileAttachment.id,

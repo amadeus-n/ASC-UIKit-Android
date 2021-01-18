@@ -76,9 +76,21 @@ fun Long.readableFeedPostTime(context: Context): String {
     val minutes = TimeUnit.MILLISECONDS.toMinutes(diff)
 
     return when {
-        days > 0 -> context.resources.getQuantityString(R.plurals.number_of_days, days.toInt(), days)
-        hours > 0 -> context.resources.getQuantityString(R.plurals.number_of_hours, hours.toInt(), hours)
-        minutes > 0 -> context.resources.getQuantityString(R.plurals.number_of_mins, minutes.toInt(), minutes)
+        days > 0 -> context.resources.getQuantityString(
+            R.plurals.number_of_days,
+            days.toInt(),
+            days
+        )
+        hours > 0 -> context.resources.getQuantityString(
+            R.plurals.number_of_hours,
+            hours.toInt(),
+            hours
+        )
+        minutes > 0 -> context.resources.getQuantityString(
+            R.plurals.number_of_mins,
+            minutes.toInt(),
+            minutes
+        )
         else -> context.getString(R.string.just_now)
     }
 }

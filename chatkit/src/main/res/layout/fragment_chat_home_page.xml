@@ -8,12 +8,12 @@
         android:id="@+id/chatHomeToolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ChatHomeToolBarStyle"/>
+        android:theme="@style/ChatHomeToolBarStyle" />
 
     <com.ekoapp.ekosdk.uikit.components.EkoTabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

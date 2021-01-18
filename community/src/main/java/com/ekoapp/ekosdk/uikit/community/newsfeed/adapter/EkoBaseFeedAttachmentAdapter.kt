@@ -4,15 +4,17 @@ import androidx.recyclerview.widget.DiffUtil
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewAdapter
 import com.ekoapp.ekosdk.uikit.community.domain.model.FileAttachment
 
-abstract class EkoBaseFeedAttachmentAdapter() : EkoBaseRecyclerViewAdapter<FileAttachment>(){
+abstract class EkoBaseFeedAttachmentAdapter() : EkoBaseRecyclerViewAdapter<FileAttachment>() {
 
 
     fun submitList(newList: List<FileAttachment>) {
         setItems(newList, DiffCallback(list, newList))
     }
 
-    class DiffCallback(private val oldList: List<FileAttachment>,
-                       private val newList: List<FileAttachment>) : DiffUtil.Callback() {
+    class DiffCallback(
+        private val oldList: List<FileAttachment>,
+        private val newList: List<FileAttachment>
+    ) : DiffUtil.Callback() {
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldList[oldItemPosition].uri == newList[newItemPosition].uri

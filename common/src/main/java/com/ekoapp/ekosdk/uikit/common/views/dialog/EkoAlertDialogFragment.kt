@@ -19,12 +19,12 @@ class EkoAlertDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       if(arguments != null) {
-           title = requireArguments().getInt(EXTRA_PARAM_TITLE)!!
-           message = requireArguments().getInt(EXTRA_PARAM_MESSAGE)!!
-           positiveButtonTitle = requireArguments().getInt(EXTRA_PARAM_POSITIVE_BUTTON_TITLE, -1)
-           negativeButtonTitle = requireArguments().getInt(EXTRA_PARAM_NEGATIVE_BUTTON_TITLE, -1)
-       }
+        if (arguments != null) {
+            title = requireArguments().getInt(EXTRA_PARAM_TITLE)!!
+            message = requireArguments().getInt(EXTRA_PARAM_MESSAGE)!!
+            positiveButtonTitle = requireArguments().getInt(EXTRA_PARAM_POSITIVE_BUTTON_TITLE, -1)
+            negativeButtonTitle = requireArguments().getInt(EXTRA_PARAM_NEGATIVE_BUTTON_TITLE, -1)
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -43,7 +43,7 @@ class EkoAlertDialogFragment : DialogFragment() {
                 dialog.dismiss()
             }
         }
-        val alertDialog =  dialog.create()
+        val alertDialog = dialog.create()
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
                 .setTextColor(ContextCompat.getColor(requireContext(), R.color.upstraColorPrimary))

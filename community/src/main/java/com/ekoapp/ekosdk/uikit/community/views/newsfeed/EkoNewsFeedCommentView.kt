@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.comment.EkoComment
 import com.ekoapp.ekosdk.file.EkoImage
-import com.ekoapp.ekosdk.uikit.common.loadImage
 import com.ekoapp.ekosdk.uikit.common.readableFeedPostTime
 import com.ekoapp.ekosdk.uikit.common.readableNumber
 import com.ekoapp.ekosdk.uikit.community.R
@@ -79,7 +78,8 @@ class EkoNewsFeedCommentView : ConstraintLayout {
         else
             cbLike.text = context.getString(R.string.like)
 
-        tvUserName.text = comment.getUser()?.getDisplayName() ?: context.getString(R.string.anonymous)
+        tvUserName.text =
+            comment.getUser()?.getDisplayName() ?: context.getString(R.string.anonymous)
         tvCommentTime.text = comment.getCreatedAt()?.millis?.readableFeedPostTime(context)
 
         if (comment.getChildrenNumber() > 0) {
@@ -125,11 +125,12 @@ class EkoNewsFeedCommentView : ConstraintLayout {
             mBinding.readOnly != null && mBinding.readOnly!! && tvViewAllReply.visibility == View.GONE
     }
 
-    fun setReadOnlyMode(readOnly : Boolean) {
+    fun setReadOnlyMode(readOnly: Boolean) {
         mBinding.readOnly = readOnly
-        if(readOnly)
+        if (readOnly)
             handleBottomSpace()
     }
+
     fun enableReadOnlyMode() {
         mBinding.readOnly = true
         handleBottomSpace()

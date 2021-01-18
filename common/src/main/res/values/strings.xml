@@ -48,4 +48,6 @@
     <string name="time">0:%1s</string>
     <string name="ok">OK</string>
     <string name="remove_user">Remove from community</string>
+    <string name="no_permission_title">Unable to perform this action</string>
+    <string name="no_permission_message">You no longer have permission to make any changes in this community</string>
 </resources>

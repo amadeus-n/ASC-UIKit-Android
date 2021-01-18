@@ -8,7 +8,6 @@
     <com.ekoapp.ekosdk.uikit.components.EkoTabLayout
         android:id="@+id/membersTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
