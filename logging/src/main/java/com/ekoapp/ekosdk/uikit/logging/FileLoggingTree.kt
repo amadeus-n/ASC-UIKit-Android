@@ -14,7 +14,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FileLoggingTree(private val context: Context): Timber.Tree() {
+class FileLoggingTree(private val context: Context) : Timber.Tree() {
     private val fileNameTag = FileLoggingTree::class.java.simpleName
 
     init {
@@ -34,7 +34,7 @@ class FileLoggingTree(private val context: Context): Timber.Tree() {
             ).format(Date())
             val priorityString: String = if (t != null) {
                 "EXCEPTION"
-            }else {
+            } else {
                 priorityString(priority)
             }
             writeLogsToFile(logFile, logTimeStamp, tag, priorityString, message)
@@ -77,14 +77,13 @@ class FileLoggingTree(private val context: Context): Timber.Tree() {
     private fun getLogFolder(): File? {
         return if (isStoragePermissionGranted()) {
             context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-        }else {
+        } else {
             context.cacheDir
         }
     }
 
     private fun isStoragePermissionGranted(): Boolean =
         context.checkCallingOrSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-
 
 
     @SuppressLint("LogNotTimber")

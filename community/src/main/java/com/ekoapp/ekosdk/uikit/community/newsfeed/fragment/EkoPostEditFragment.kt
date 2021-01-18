@@ -11,9 +11,9 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.util.NewsFeedEvents
 import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED_ID
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_eko_create_post.etPost
+import kotlinx.android.synthetic.main.activity_eko_create_post.*
 
-class EkoPostEditFragment internal constructor(): EkoBaseCreatePostFragment() {
+class EkoPostEditFragment internal constructor() : EkoBaseCreatePostFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +40,10 @@ class EkoPostEditFragment internal constructor(): EkoBaseCreatePostFragment() {
         return getString(R.string.save_caps)
     }
 
-    override fun isRightButtonActive() : Boolean{
+    override fun isRightButtonActive(): Boolean {
         if (isEditMode() && !mViewModel.hasUpdateOnPost(etPost.text.toString().trim())) {
             return false
-        }else {
+        } else {
             return super.isRightButtonActive()
         }
     }

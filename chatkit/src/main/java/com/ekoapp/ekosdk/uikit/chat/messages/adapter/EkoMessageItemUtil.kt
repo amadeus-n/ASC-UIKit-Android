@@ -153,7 +153,8 @@ class EkoMessageItemUtil {
         inflater: LayoutInflater, parent: ViewGroup,
         itemType: Int,
         iViewHolder: EkoMessageListAdapter.ICustomViewHolder?,
-        listener: IAudioPlayCallback): EkoChatMessageBaseViewHolder {
+        listener: IAudioPlayCallback
+    ): EkoChatMessageBaseViewHolder {
         return if (iViewHolder?.getViewHolder(inflater, parent, itemType) != null) {
             iViewHolder.getViewHolder(inflater, parent, itemType)!!
         } else {
@@ -171,7 +172,8 @@ class EkoMessageItemUtil {
         inflater: LayoutInflater, parent: ViewGroup,
         itemType: Int,
         iViewHolder: EkoMessageListAdapter.ICustomViewHolder?,
-        listener: IAudioPlayCallback): EkoChatMessageBaseViewHolder {
+        listener: IAudioPlayCallback
+    ): EkoChatMessageBaseViewHolder {
         return if (iViewHolder?.getViewHolder(inflater, parent, itemType) != null) {
             iViewHolder.getViewHolder(inflater, parent, itemType)!!
         } else {
@@ -255,7 +257,7 @@ class EkoMessageItemUtil {
             }
             EkoMessage.DataType.AUDIO -> if (isSelf) {
                 MessageType.MESSAGE_ID_AUDIO_SENDER
-            }else {
+            } else {
                 MessageType.MESSAGE_ID_AUDIO_RECEIVER
             }
             EkoMessage.DataType.CUSTOM -> if (isSelf) {

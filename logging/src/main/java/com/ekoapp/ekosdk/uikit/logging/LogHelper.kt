@@ -24,7 +24,7 @@ interface ILogger {
 
 }
 
-object LogHelper: ILogger {
+object LogHelper : ILogger {
 
     override fun setupTimberLogging(context: Context) = Timber.plant(FileLoggingTree(context))
 

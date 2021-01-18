@@ -9,9 +9,9 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.uikit.chat.home.callback.IRecentChatItemClickListener
 import io.reactivex.Flowable
 
-class EkoRecentChatViewModel: EkoBaseViewModel() {
+class EkoRecentChatViewModel : EkoBaseViewModel() {
 
-    var recentChatItemClickListener: IRecentChatItemClickListener? =  null
+    var recentChatItemClickListener: IRecentChatItemClickListener? = null
 
     fun getRecentChat(): Flowable<PagedList<EkoChannel>> {
         val channelRepository: EkoChannelRepository = EkoClient.newChannelRepository()

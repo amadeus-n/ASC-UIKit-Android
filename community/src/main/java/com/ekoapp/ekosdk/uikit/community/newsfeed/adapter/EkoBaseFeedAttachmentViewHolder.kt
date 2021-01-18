@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewAdapter
-import com.ekoapp.ekosdk.uikit.common.FileManager
 import com.ekoapp.ekosdk.uikit.common.FileUtils
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.domain.model.FileAttachment

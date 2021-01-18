@@ -8,7 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
 
-class SpacesItemDecoration(private val left: Int, private val right : Int, private val top : Int, private val bottom: Int) : ItemDecoration(), Parcelable {
+class SpacesItemDecoration(
+    private val left: Int,
+    private val right: Int,
+    private val top: Int,
+    private val bottom: Int
+) : ItemDecoration(), Parcelable {
 
 
     constructor(parcel: Parcel) : this(

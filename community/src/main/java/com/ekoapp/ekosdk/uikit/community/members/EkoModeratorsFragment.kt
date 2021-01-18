@@ -1,10 +1,10 @@
 package com.ekoapp.ekosdk.uikit.community.members
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,17 +49,20 @@ class EkoModeratorsFragment : EkoBaseFragment(), IMemberClickListener {
         subscribeObservers()
         initRecyclerView()
 
-        etSearch.setShape(null, null, null, null,
-            R.color.upstraColorBase, null, ColorShade.SHADE4)
+        etSearch.setShape(
+            null, null, null, null,
+            R.color.upstraColorBase, null, ColorShade.SHADE4
+        )
     }
 
     private fun subscribeObservers() {
         mViewModel.setPropertyChangeCallback()
 
-        mViewModel.onEventReceived += {event->
-            when(event.type) {
+        mViewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.SEARCH_STRING_CHANGED -> searchMembers()
-                else -> {}
+                else -> {
+                }
             }
         }
     }
@@ -70,7 +73,9 @@ class EkoModeratorsFragment : EkoBaseFragment(), IMemberClickListener {
         rvCommunityModerators.adapter = moderatorAdapter
         rvCommunityModerators.addItemDecoration(
             EkoRecyclerViewItemDecoration(
-            requireContext().resources.getDimensionPixelSize(R.dimen.sixteen)))
+                requireContext().resources.getDimensionPixelSize(R.dimen.sixteen)
+            )
+        )
 
         disposable.add(mViewModel.getCommunityModerators()
             .subscribeOn(Schedulers.io())
@@ -83,16 +88,21 @@ class EkoModeratorsFragment : EkoBaseFragment(), IMemberClickListener {
                 }
             }.doOnError {
 
-            }.subscribe())
+            }.subscribe()
+        )
     }
 
     private fun prepareSelectedMembersList(list: PagedList<EkoCommunityMembership>) {
         list.forEach {
             val ekoUser = it.getUser()
             if (ekoUser != null) {
-                val selectMemberItem = SelectMemberItem(ekoUser.getUserId(),
+                val selectMemberItem = SelectMemberItem(
+                    ekoUser.getUserId(),
                     ekoUser.getAvatar()?.getUrl(EkoImage.Size.MEDIUM) ?: "",
-                    ekoUser.getDisplayName() ?: getString(R.string.anonymous), ekoUser.getDescription(), false)
+                    ekoUser.getDisplayName() ?: getString(R.string.anonymous),
+                    ekoUser.getDescription(),
+                    false
+                )
                 if (!mViewModel.membersSet.contains(selectMemberItem.id)) {
                     mViewModel.selectMembersList.add(selectMemberItem)
                     mViewModel.membersSet.add(selectMemberItem.id)

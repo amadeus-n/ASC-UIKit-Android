@@ -7,7 +7,6 @@ import io.mockk.mockk
 import io.reactivex.Completable
 import org.junit.Assert
 import org.junit.Test
-import java.lang.Exception
 
 class EkoChatMessageBaseViewModelTest {
 

@@ -66,9 +66,11 @@ class EkoExploreCommunityViewModelTest {
         mockkStatic(EkoClient::class)
         val communityRepository: EkoCommunityRepository = mockk()
         every { EkoClient.newCommunityRepository() } returns communityRepository
-        every { communityRepository.getAllCategories().sortBy(EkoCommunityCategorySortOption.NAME)
-            .includeDeleted(false)
-            .build().query() } returns Flowable.just(mockList)
+        every {
+            communityRepository.getAllCategories().sortBy(EkoCommunityCategorySortOption.NAME)
+                .includeDeleted(false)
+                .build().query()
+        } returns Flowable.just(mockList)
 
         val viewModel = EkoExploreCommunityViewModel()
         val res = viewModel.getCommunityCategory().blockingFirst()

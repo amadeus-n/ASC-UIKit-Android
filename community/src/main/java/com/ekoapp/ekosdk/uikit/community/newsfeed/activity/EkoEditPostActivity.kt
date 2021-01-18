@@ -16,6 +16,7 @@ class EkoEditPostActivity : EkoBaseToolbarFragmentContainerActivity() {
 
     override fun initToolbar() {
         getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross))
+        getToolBar()?.setLeftString(getString(R.string.edit_post))
     }
 
     override fun getContentFragment(): Fragment {

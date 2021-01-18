@@ -1,7 +1,5 @@
 package com.ekoapp.ekosdk.uikit.model
 
-import com.ekoapp.ekosdk.uikit.model.EventIdentifier
-
 /**
  * Data class for event type
  * @author sumitlakra

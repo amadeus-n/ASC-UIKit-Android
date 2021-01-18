@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="ChatHomeToolBarStyle" parent="BaseToolBarStyle">
         <item name="leftDrawableStyle">@style/ChatToolbarLeftDrawableStyle</item>
         <item name="leftTextViewStyle">@style/ChatToolbarLeftTextStyle</item>

@@ -58,7 +58,8 @@ class NewsFeedItemAttachmentViewHolder(
     private fun mapEkoFilesToFileAttachments(ekoFile: List<EkoFile>): List<FileAttachment> {
         return ekoFile.map {
             val fileSize = it.getFileSize()?.toLong() ?: 0L
-            FileAttachment(it.getFileId(),
+            FileAttachment(
+                it.getFileId(),
                 null,
                 it.getFileName() ?: "",
                 fileSize,
@@ -66,7 +67,8 @@ class NewsFeedItemAttachmentViewHolder(
                 FileUtils.humanReadableByteCount(fileSize, true)!!,
                 it.getMimeType() ?: "",
                 FileUploadState.COMPLETE,
-                100)
+                100
+            )
         }
     }
 }

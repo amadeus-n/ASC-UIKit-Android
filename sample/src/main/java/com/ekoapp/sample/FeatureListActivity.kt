@@ -42,9 +42,9 @@ class FeatureListActivity : AppCompatActivity() {
         }
 
         otherUserProfile.setOnClickListener {
-            if(otherUserId.text.toString().isEmpty()) {
-                Toast.makeText(this, "user id required",  Toast.LENGTH_LONG).show()
-            }else {
+            if (otherUserId.text.toString().isEmpty()) {
+                Toast.makeText(this, "user id required", Toast.LENGTH_LONG).show()
+            } else {
                 EkoCommunityNavigation.navigateToUserProfile(this, otherUserId.text.toString())
             }
         }

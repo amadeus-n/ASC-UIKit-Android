@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="viewModel"
             type="com.ekoapp.ekosdk.uikit.chat.editMessage.EkoEditMessageViewModel" />
@@ -20,7 +22,7 @@
         <include
             android:id="@+id/emToolBar"
             layout="@layout/edit_msg_toolbar"
-            app:viewModel="@{viewModel}"/>
+            app:viewModel="@{viewModel}" />
 
         <View
             android:id="@+id/divider"

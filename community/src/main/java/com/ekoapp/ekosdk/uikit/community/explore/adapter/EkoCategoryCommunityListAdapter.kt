@@ -20,7 +20,7 @@ class EkoCategoryCommunityListAdapter(
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
-            return EkoCategoryCommunityItemViewHolder(view, itemClickListener)
+        return EkoCategoryCommunityItemViewHolder(view, itemClickListener)
     }
 
     class EkoCommunityDiffUtil : DiffUtil.ItemCallback<EkoCommunity>() {

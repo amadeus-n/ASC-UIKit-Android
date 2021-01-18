@@ -1,4 +1,3 @@
-
 package com.ekoapp.ekosdk.uikit.eventBus
 
 import io.reactivex.Observable

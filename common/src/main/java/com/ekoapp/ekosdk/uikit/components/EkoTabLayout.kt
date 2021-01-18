@@ -14,7 +14,6 @@ import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import java.lang.Exception
 
 class EkoTabLayout : ConstraintLayout {
 
@@ -43,7 +42,10 @@ class EkoTabLayout : ConstraintLayout {
         tabLayout = rootView.findViewById(R.id.tab_header)
         viewPager2 = rootView.findViewById(R.id.eko_viewPager)
         val divider = rootView.findViewById<View>(R.id.divider)
-        divider.setBackgroundColor(ContextCompat.getColor(context, R.color.upstraColorBase), ColorShade.SHADE4)
+        divider.setBackgroundColor(
+            ContextCompat.getColor(context, R.color.upstraColorBase),
+            ColorShade.SHADE4
+        )
     }
 
     fun setAdapter(adapter: EkoFragmentStateAdapter) {
@@ -67,7 +69,7 @@ class EkoTabLayout : ConstraintLayout {
     fun switchTab(position: Int) {
         try {
             viewPager2.setCurrentItem(position, true)
-        }catch (ex: Exception) {
+        } catch (ex: Exception) {
 
         }
     }

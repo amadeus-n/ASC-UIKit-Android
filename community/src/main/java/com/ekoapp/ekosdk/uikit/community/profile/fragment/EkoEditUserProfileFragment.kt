@@ -122,7 +122,7 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
                             setupUserData(it)
                         }
                     }, {
-                        Log.d(TAG, it.message)
+                        Log.d(TAG, it.message ?: "")
                     })
             )
         }
@@ -151,7 +151,7 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == ID_MENU_ITEM_SAVE_PROFILE){
+        if (item.itemId == ID_MENU_ITEM_SAVE_PROFILE) {
             if (profileUri == null) {
                 updateUser()
             } else {
@@ -207,7 +207,7 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
                 .doOnNext {
                     mViewModel.updateImageUploadStatus(it)
                 }.doOnError {
-                    Log.d(TAG, it.message)
+                    Log.d(TAG, it.message ?: "")
                     mViewModel.errorOnUpdate()
                 }.subscribe()
         )
@@ -242,7 +242,7 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
                 .subscribe({
                     activity?.onBackPressed()
                 }, {
-                    Log.d(TAG, it.message)
+                    Log.d(TAG, it.message ?: "")
                     mViewModel.errorOnUpdate()
                     context?.also {
                         Toast.makeText(

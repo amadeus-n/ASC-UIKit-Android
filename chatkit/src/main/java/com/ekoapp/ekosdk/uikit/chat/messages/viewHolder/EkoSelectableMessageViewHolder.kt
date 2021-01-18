@@ -20,15 +20,15 @@ abstract class EkoSelectableMessageViewHolder(
     itemView: View,
     private val itemViewModel: EkoSelectableMessageViewModel,
     private val context: Context
-): EkoChatMessageBaseViewHolder(itemView, itemViewModel) {
+) : EkoChatMessageBaseViewHolder(itemView, itemViewModel) {
 
     init {
         addViewModelListener()
     }
 
     private fun addViewModelListener() {
-        itemViewModel.onEventReceived += {event->
-            when(event.type) {
+        itemViewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.MESSAGE_LONG_PRESS -> showPopUp()
                 EventIdentifier.DELETE_MESSAGE -> {
                     showDeleteDialog()
@@ -64,7 +64,7 @@ abstract class EkoSelectableMessageViewHolder(
             DialogInterface.OnClickListener { dialog, which ->
                 if (which == DialogInterface.BUTTON_POSITIVE) {
                     deleteMessage()
-                }else {
+                } else {
                     dialog.cancel()
                 }
             })
@@ -77,7 +77,7 @@ abstract class EkoSelectableMessageViewHolder(
             DialogInterface.OnClickListener { dialog, which ->
                 if (which == DialogInterface.BUTTON_POSITIVE) {
                     deleteMessage()
-                }else {
+                } else {
                     dialog.cancel()
                 }
             })
@@ -88,7 +88,10 @@ abstract class EkoSelectableMessageViewHolder(
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.doOnComplete {
-                itemViewModel.triggerEvent(EventIdentifier.MESSAGE_DELETE_SUCCESS, itemViewModel.ekoMessage?.getMessageId()!!)
+                itemViewModel.triggerEvent(
+                    EventIdentifier.MESSAGE_DELETE_SUCCESS,
+                    itemViewModel.ekoMessage?.getMessageId()!!
+                )
             }?.doOnError {
                 showDeleteFailedDialog()
             }?.subscribe()
@@ -105,19 +108,22 @@ abstract class EkoSelectableMessageViewHolder(
             })
     }
 
-    private fun  reportMessage() {
-        itemViewModel.ekoMessage?.report()?.flag()?.subscribe(object : DisposableCompletableObserver() {
-            override fun onComplete() {
-                CoroutineScope(Dispatchers.Main).launch {
-                    val snackBar = Snackbar.make(itemView,
-                        context.getString(R.string.report_msg), Snackbar.LENGTH_SHORT)
-                    snackBar.show()
+    private fun reportMessage() {
+        itemViewModel.ekoMessage?.report()?.flag()
+            ?.subscribe(object : DisposableCompletableObserver() {
+                override fun onComplete() {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val snackBar = Snackbar.make(
+                            itemView,
+                            context.getString(R.string.report_msg), Snackbar.LENGTH_SHORT
+                        )
+                        snackBar.show()
+                    }
                 }
-            }
 
-            override fun onError(e: Throwable) {
+                override fun onError(e: Throwable) {
 
-            }
-        })
+                }
+            })
     }
 }

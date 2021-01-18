@@ -2,6 +2,7 @@ package com.ekoapp.ekosdk.uikit.community.explore.fragments
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +16,9 @@ import com.ekoapp.ekosdk.uikit.community.explore.listener.ICategoryPreviewFragme
 import com.ekoapp.ekosdk.uikit.community.explore.listener.IRecommendedCommunityFragmentDelegate
 import com.ekoapp.ekosdk.uikit.community.explore.listener.ITrendingCommunityFragmentDelegate
 import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoExploreCommunityViewModel
-import com.ekoapp.ekosdk.uikit.community.mycommunity.fragment.EkoMyCommunityPreviewFragment
-import com.ekoapp.ekosdk.uikit.community.newsfeed.fragment.EkoGlobalFeedFragment
-import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_news_feed.*
 
-class EkoExploreFragment internal constructor(): Fragment() {
+class EkoExploreFragment internal constructor() : Fragment() {
 
     lateinit var mViewModel: EkoExploreCommunityViewModel
 
@@ -28,9 +26,11 @@ class EkoExploreFragment internal constructor(): Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mViewModel = ViewModelProvider(requireActivity()).get(EkoExploreCommunityViewModel::class.java)
+        mViewModel =
+            ViewModelProvider(requireActivity()).get(EkoExploreCommunityViewModel::class.java)
         val binding: FragmentEkoExploreBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_eko_explore, container, false)
+            inflater, R.layout.fragment_eko_explore, container, false
+        )
         binding.viewModel = mViewModel
         return binding.root
     }
@@ -39,7 +39,7 @@ class EkoExploreFragment internal constructor(): Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initListener()
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             val fragmentManager = childFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.add(R.id.recommendedContainer, getRecommendedFragment())
@@ -54,7 +54,7 @@ class EkoExploreFragment internal constructor(): Fragment() {
         refreshLayout.setColorSchemeResources(R.color.upstraColorPrimary)
         refreshLayout.setOnRefreshListener {
             childFragmentManager.fragments.forEach { fragment ->
-                when(fragment) {
+                when (fragment) {
                     is EkoCategoryPreviewFragment -> {
                         fragment.refresh()
                     }
@@ -67,27 +67,27 @@ class EkoExploreFragment internal constructor(): Fragment() {
                 }
             }
 
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 refreshLayout?.isRefreshing = false
             }, 1000)
         }
     }
 
     private fun getCategoryPreviewFragment(): Fragment {
-        if(mViewModel.categoryPreviewFragmentDelegate != null)
+        if (mViewModel.categoryPreviewFragmentDelegate != null)
             return mViewModel.categoryPreviewFragmentDelegate!!.categoryPreviewCommunityFragment()
 
         return EkoCategoryPreviewFragment.Builder().build(activity as AppCompatActivity)
     }
 
     private fun getTrendingFragment(): Fragment {
-        if(mViewModel.trendingFragmentDelegate != null)
+        if (mViewModel.trendingFragmentDelegate != null)
             return mViewModel.trendingFragmentDelegate!!.trendingCommunityFragment()
         return EkoTrendingCommunityFragment()
     }
 
     private fun getRecommendedFragment(): Fragment {
-        if(mViewModel.recommendedFragmentDelegate != null)
+        if (mViewModel.recommendedFragmentDelegate != null)
             return mViewModel.recommendedFragmentDelegate!!.recommendedCommunityFragment()
         return EkoRecommendedCommunityFragment()
     }

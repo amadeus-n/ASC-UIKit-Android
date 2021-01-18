@@ -18,7 +18,7 @@ import com.ekoapp.ekosdk.uikit.chat.util.EkoRecentItemDecoration
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_recent_chat.*
 
-class EkoRecentChatFragment private constructor(): Fragment(), IRecentChatItemClickListener{
+class EkoRecentChatFragment private constructor() : Fragment(), IRecentChatItemClickListener {
     private lateinit var mViewModel: EkoRecentChatViewModel
 
     private lateinit var mAdapter: EkoRecentChatAdapter
@@ -30,7 +30,8 @@ class EkoRecentChatFragment private constructor(): Fragment(), IRecentChatItemCl
         savedInstanceState: Bundle?
     ): View? {
         mViewModel = ViewModelProvider(requireActivity()).get(EkoRecentChatViewModel::class.java)
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_recent_chat, container, false)
+        mBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_recent_chat, container, false)
         return mBinding.root
     }
 
@@ -44,16 +45,21 @@ class EkoRecentChatFragment private constructor(): Fragment(), IRecentChatItemCl
         mAdapter.setCommunityChatItemClickListener(this)
         rvRecentChat.layoutManager = LinearLayoutManager(requireContext())
         rvRecentChat.adapter = mAdapter
-        rvRecentChat.addItemDecoration(EkoRecentItemDecoration(requireContext(), resources.getDimensionPixelSize(R.dimen.twenty)))
+        rvRecentChat.addItemDecoration(
+            EkoRecentItemDecoration(
+                requireContext(),
+                resources.getDimensionPixelSize(R.dimen.twenty)
+            )
+        )
         getRecentChatData()
     }
 
     private fun getRecentChatData() {
-        recentChatDisposable = mViewModel.getRecentChat().subscribe {chatList->
-            if(chatList.isEmpty()) {
+        recentChatDisposable = mViewModel.getRecentChat().subscribe { chatList ->
+            if (chatList.isEmpty()) {
                 emptyView.visibility = View.VISIBLE
                 rvRecentChat.visibility = View.GONE
-            }else {
+            } else {
                 emptyView.visibility = View.GONE
                 rvRecentChat.visibility = View.VISIBLE
                 mAdapter.submitList(chatList)
@@ -63,9 +69,9 @@ class EkoRecentChatFragment private constructor(): Fragment(), IRecentChatItemCl
     }
 
     override fun onRecentChatItemClick(channelId: String) {
-        if(mViewModel.recentChatItemClickListener != null) {
+        if (mViewModel.recentChatItemClickListener != null) {
             mViewModel.recentChatItemClickListener?.onRecentChatItemClick(channelId)
-        }else {
+        } else {
             val chatListIntent = EkoMessageListActivity.newIntent(requireContext(), channelId)
             startActivity(chatListIntent)
         }
@@ -83,7 +89,8 @@ class EkoRecentChatFragment private constructor(): Fragment(), IRecentChatItemCl
 
         fun build(activity: AppCompatActivity): EkoRecentChatFragment {
             val fragment = EkoRecentChatFragment()
-            fragment.mViewModel = ViewModelProvider(activity).get(EkoRecentChatViewModel::class.java)
+            fragment.mViewModel =
+                ViewModelProvider(activity).get(EkoRecentChatViewModel::class.java)
             fragment.mViewModel.recentChatItemClickListener = mListener
             return fragment
         }

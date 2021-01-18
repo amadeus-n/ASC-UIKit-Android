@@ -4,8 +4,10 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class EkoRecyclerViewItemDecoration(private var mTop: Int =  0, private var mLeft: Int = 0,
-                                    private var mBottom: Int = 0, private var mRight: Int = 0):
+class EkoRecyclerViewItemDecoration(
+    private var mTop: Int = 0, private var mLeft: Int = 0,
+    private var mBottom: Int = 0, private var mRight: Int = 0
+) :
     RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(

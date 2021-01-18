@@ -47,7 +47,8 @@ class EkoTrendingCommunityAdapter(private val listener: IMyCommunityItemClickLis
                 R.string.members_count,
                 "${data?.getMemberCount()?.toDouble()?.formatCount()}"
             )
-            binding?.tvCategory?.text = data?.getCategories()?.joinToString(separator = " ") { it.getName() }
+            binding?.tvCategory?.text =
+                data?.getCategories()?.joinToString(separator = " ") { it.getName() }
         }
     }
 

@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="com.ekoapp.ekosdk.uikit.utils.ScreenUtils"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.ekoapp.ekosdk.uikit.utils.ScreenUtils" />
+
         <variable
             name="isSender"
             type="Boolean" />
@@ -36,7 +39,7 @@
             android:text="@string/read_more"
             style="@style/TextStyleEkoBody"
             android:visibility="gone"
-            android:textColor="@{isSender ? @color/upstraMessageBubbleInverse : @color/upstraColorHighlight}"/>
+            android:textColor="@{isSender ? @color/upstraMessageBubbleInverse : @color/upstraColorHighlight}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

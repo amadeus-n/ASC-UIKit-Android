@@ -1,7 +1,7 @@
 package com.ekoapp.ekosdk.uikit.camera
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.ekoapp.ekosdk.uikit.R
 
 class EkoCameraActivity : AppCompatActivity() {

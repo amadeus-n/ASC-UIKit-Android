@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="community"
             type="com.ekoapp.ekosdk.community.EkoCommunity" />
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

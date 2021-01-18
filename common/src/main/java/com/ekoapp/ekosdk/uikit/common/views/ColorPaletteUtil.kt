@@ -6,8 +6,8 @@ import com.ekoapp.ekosdk.uikit.common.views.ColorShade.*
 object ColorPaletteUtil {
     private val colorMap = HashMap<Int, HashMap<ColorShade, Int>>()
 
-    fun getColor( color: Int, shade: ColorShade): Int {
-        if(colorMap[color]?.contains(shade) == true) {
+    fun getColor(color: Int, shade: ColorShade): Int {
+        if (colorMap[color]?.contains(shade) == true) {
             return colorMap[color]!![shade]!!
         }
 
@@ -19,7 +19,7 @@ object ColorPaletteUtil {
 
         val calculatedColor = ColorUtils.HSLToColor(hslColor)
 
-        val colors = colorMap[color]?: hashMapOf()
+        val colors = colorMap[color] ?: hashMapOf()
         colors[shade] = calculatedColor
         colorMap[color] = colors
         return calculatedColor
@@ -28,12 +28,12 @@ object ColorPaletteUtil {
 
     private fun getLumenValue(shade: ColorShade): Float {
         return (
-        when(shade) {
-            SHADE1 -> 0.25F
-            SHADE2 -> 0.40F
-            SHADE3 -> 0.50F
-            SHADE4 -> 0.75F
-            else -> 0.0F
-        })
+                when (shade) {
+                    SHADE1 -> 0.25F
+                    SHADE2 -> 0.40F
+                    SHADE3 -> 0.50F
+                    SHADE4 -> 0.75F
+                    else -> 0.0F
+                })
     }
 }

@@ -28,16 +28,16 @@ abstract class EkoBaseFeedViewModel : EkoBaseViewModel() {
     fun commentShowMoreActionClicked(feed: EkoPost, comment: EkoComment) {
         if (comment.getUserId() == EkoClient.getUserId())
             triggerEvent(EventIdentifier.SHOW_COMMENT_ACTION_BY_COMMENT_OWNER, comment)
-        else{
+        else {
             //TODO uncomment after server side implementation
-          /*  val target = feed.getTarget()
-            if (target is EkoPostTarget.COMMUNITY) {
-                val community = target.getCommunity()
-                if (community != null && community.getUserId() == EkoClient.getUserId()) {
-                    triggerEvent(EventIdentifier.SHOW_COMMENT_ACTION_BY_ADMIN, comment)
-                    return
-                }
-            }*/
+            /*  val target = feed.getTarget()
+              if (target is EkoPostTarget.COMMUNITY) {
+                  val community = target.getCommunity()
+                  if (community != null && community.getUserId() == EkoClient.getUserId()) {
+                      triggerEvent(EventIdentifier.SHOW_COMMENT_ACTION_BY_ADMIN, comment)
+                      return
+                  }
+              }*/
 
             triggerEvent(EventIdentifier.SHOW_COMMENT_ACTION_BY_OTHER_USER, comment)
         }
@@ -45,14 +45,14 @@ abstract class EkoBaseFeedViewModel : EkoBaseViewModel() {
 
     fun feedShowMoreActionClicked(feed: EkoPost) {
         //TODO uncomment after server side implementation
-     /*   val target = feed.getTarget()
-        if (target is EkoPostTarget.COMMUNITY) {
-            val community = target.getCommunity()
-            if (community != null && community.getUserId() == EkoClient.getUserId()) {
-                triggerEvent(EventIdentifier.SHOW_FEED_ACTION_BY_ADMIN, feed)
-                return
-            }
-        }*/
+        /*   val target = feed.getTarget()
+           if (target is EkoPostTarget.COMMUNITY) {
+               val community = target.getCommunity()
+               if (community != null && community.getUserId() == EkoClient.getUserId()) {
+                   triggerEvent(EventIdentifier.SHOW_FEED_ACTION_BY_ADMIN, feed)
+                   return
+               }
+           }*/
         if (feed.getPostedUser()?.getUserId() == EkoClient.getUserId()!!)
             triggerEvent(EventIdentifier.SHOW_FEED_ACTION_BY_FEED_OWNER, feed)
         else

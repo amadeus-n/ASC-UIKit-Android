@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_eko_trending_community.*
 
 class EkoTrendingCommunityFragment : EkoBaseFragment(), IMyCommunityItemClickListener {
 
-    private lateinit var adapter : EkoTrendingCommunityAdapter
+    private lateinit var adapter: EkoTrendingCommunityAdapter
     lateinit var mViewModel: EkoExploreCommunityViewModel
     private val TAG = EkoTrendingCommunityFragment::class.java.canonicalName
 
@@ -30,7 +30,8 @@ class EkoTrendingCommunityFragment : EkoBaseFragment(), IMyCommunityItemClickLis
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mViewModel = ViewModelProvider(requireActivity()).get(EkoExploreCommunityViewModel::class.java)
+        mViewModel =
+            ViewModelProvider(requireActivity()).get(EkoExploreCommunityViewModel::class.java)
         return inflater.inflate(R.layout.fragment_eko_trending_community, container, false)
     }
 
@@ -47,10 +48,13 @@ class EkoTrendingCommunityFragment : EkoBaseFragment(), IMyCommunityItemClickLis
         adapter = EkoTrendingCommunityAdapter(this)
         rvTrendingCommunity.layoutManager = LinearLayoutManager(requireContext())
         rvTrendingCommunity.adapter = adapter
-        rvTrendingCommunity.addItemDecoration(EkoRecyclerViewItemDecoration(
-            requireContext().resources.getDimensionPixelSize(R.dimen.sixteen),
-            requireContext().resources.getDimensionPixelSize(R.dimen.zero),
-            requireContext().resources.getDimensionPixelSize(R.dimen.eight)))
+        rvTrendingCommunity.addItemDecoration(
+            EkoRecyclerViewItemDecoration(
+                requireContext().resources.getDimensionPixelSize(R.dimen.sixteen),
+                requireContext().resources.getDimensionPixelSize(R.dimen.zero),
+                requireContext().resources.getDimensionPixelSize(R.dimen.eight)
+            )
+        )
 
         getTrendingCommunity()
     }
@@ -68,11 +72,14 @@ class EkoTrendingCommunityFragment : EkoBaseFragment(), IMyCommunityItemClickLis
     }
 
     override fun onCommunitySelected(ekoCommunity: EkoCommunity?) {
-        if(mViewModel.trendingCommunityItemClickListener != null)
+        if (mViewModel.trendingCommunityItemClickListener != null)
             mViewModel.trendingCommunityItemClickListener!!.onCommunitySelected(ekoCommunity)
-        else{
+        else {
             if (ekoCommunity != null) {
-                val intent = EkoCommunityPageActivity.newIntent(requireContext(), ekoCommunity.getCommunityId())
+                val intent = EkoCommunityPageActivity.newIntent(
+                    requireContext(),
+                    ekoCommunity.getCommunityId()
+                )
                 startActivity(intent)
             }
         }

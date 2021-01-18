@@ -31,7 +31,8 @@ import kotlinx.android.synthetic.main.fragment_eko_my_community.*
 
 private const val ARG_SHOW_SEARCH = "ARG_SHOW_SEARCH"
 private const val ARG_SHOW_OPTIONS_MENU = "ARG_SHOW_OPTIONS_MENU"
-class EkoMyCommunityFragment internal constructor(): EkoBaseFragment(),
+
+class EkoMyCommunityFragment internal constructor() : EkoBaseFragment(),
     IMyCommunityItemClickListener {
     private val TAG = EkoMyCommunityFragment::class.java.simpleName
     private lateinit var mViewModel: EkoMyCommunityListViewModel
@@ -51,7 +52,8 @@ class EkoMyCommunityFragment internal constructor(): EkoBaseFragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mViewModel = ViewModelProvider(requireActivity()).get(EkoMyCommunityListViewModel::class.java)
+        mViewModel =
+            ViewModelProvider(requireActivity()).get(EkoMyCommunityListViewModel::class.java)
         mBinding =
             DataBindingUtil.inflate(
                 inflater,
@@ -72,7 +74,7 @@ class EkoMyCommunityFragment internal constructor(): EkoBaseFragment(),
         handleEditTextInput()
         if (arguments?.getBoolean(ARG_SHOW_SEARCH) != false) {
             etSearch.visibility = View.VISIBLE
-        }else {
+        } else {
             etSearch.visibility = View.GONE
         }
     }
@@ -82,7 +84,7 @@ class EkoMyCommunityFragment internal constructor(): EkoBaseFragment(),
             null, null, null, null,
             R.color.upstraColorBase, null, ColorShade.SHADE4
         )
-        etSearch.setOnEditorActionListener(object : TextView.OnEditorActionListener{
+        etSearch.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     AndroidUtil.hideKeyboard(etSearch)
@@ -112,12 +114,13 @@ class EkoMyCommunityFragment internal constructor(): EkoBaseFragment(),
         disposable.clear()
         disposable.add(mViewModel.getCommunityList().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext {list->
+            .doOnNext { list ->
                 mViewModel.emptyCommunity.set(list.size == 0)
                 mAdapter.submitList(list)
             }.doOnError {
                 Log.e(TAG, "initRecyclerView: ${it.localizedMessage}")
-            }.subscribe())
+            }.subscribe()
+        )
     }
 
     private fun initRecyclerView() {
@@ -127,19 +130,20 @@ class EkoMyCommunityFragment internal constructor(): EkoBaseFragment(),
         rvMyCommunities.addItemDecoration(
             EkoRecyclerViewItemDecoration(
                 resources.getDimensionPixelSize(R.dimen.eight),
-                0,resources.getDimensionPixelSize(R.dimen.eight), 0
+                0, resources.getDimensionPixelSize(R.dimen.eight), 0
             )
         )
         rvMyCommunities.setHasFixedSize(true)
 
         disposable.add(mViewModel.getCommunityList().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext {list->
+            .doOnNext { list ->
                 mViewModel.emptyCommunity.set(list.size == 0)
                 mAdapter.submitList(list)
             }.doOnError {
                 Log.e(TAG, "initRecyclerView: ${it.localizedMessage}")
-            }.subscribe())
+            }.subscribe()
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -151,24 +155,26 @@ class EkoMyCommunityFragment internal constructor(): EkoBaseFragment(),
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val createCommunityIntent = Intent(requireActivity(), EkoCommunityCreateActivity::class.java)
+        val createCommunityIntent =
+            Intent(requireActivity(), EkoCommunityCreateActivity::class.java)
         startActivity(createCommunityIntent)
         return super.onOptionsItemSelected(item)
     }
 
     override fun onCommunitySelected(ekoCommunity: EkoCommunity?) {
-        if(mViewModel.myCommunityItemClickListener != null) {
+        if (mViewModel.myCommunityItemClickListener != null) {
             mViewModel.myCommunityItemClickListener?.onCommunitySelected(ekoCommunity)
-        }
-        else {
+        } else {
             navigateToCommunityDetails(ekoCommunity)
         }
     }
 
     private fun navigateToCommunityDetails(ekoCommunity: EkoCommunity?) {
         if (ekoCommunity != null) {
-            val detailIntent = EkoCommunityPageActivity.newIntent(requireContext(),
-                ekoCommunity.getCommunityId())
+            val detailIntent = EkoCommunityPageActivity.newIntent(
+                requireContext(),
+                ekoCommunity.getCommunityId()
+            )
             startActivity(detailIntent)
         }
 
@@ -202,7 +208,7 @@ class EkoMyCommunityFragment internal constructor(): EkoBaseFragment(),
             return this
         }
 
-        private fun myCommunityItemClickListener(listener: IMyCommunityItemClickListener) : Builder {
+        private fun myCommunityItemClickListener(listener: IMyCommunityItemClickListener): Builder {
             this.myCommunityItemClickListener = listener
             return this
         }

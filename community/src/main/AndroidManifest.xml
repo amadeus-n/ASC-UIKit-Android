@@ -9,7 +9,7 @@
         <activity
             android:name=".newsfeed.activity.EkoEditPostActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.EkoApp"/>
+            android:theme="@style/Base.Theme.EkoApp" />
         <activity
             android:name=".edit.EkoCommunityProfileActivity"
             android:screenOrientation="portrait"

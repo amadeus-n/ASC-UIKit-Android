@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.ekoapp.ekosdk.uikit.chat.R
 
-class EkoRecentItemDecoration(private val context: Context, private val margin: Int) : ItemDecoration() {
+class EkoRecentItemDecoration(private val context: Context, private val margin: Int) :
+    ItemDecoration() {
 
     private var mDivider: Drawable? = null
 
@@ -23,7 +24,7 @@ class EkoRecentItemDecoration(private val context: Context, private val margin: 
     }
 
     private fun init() {
-        val a:TypedArray = context.obtainStyledAttributes(ATTRS)
+        val a: TypedArray = context.obtainStyledAttributes(ATTRS)
         mDivider = a.getDrawable(0)
         a.recycle()
     }
@@ -51,12 +52,15 @@ class EkoRecentItemDecoration(private val context: Context, private val margin: 
         for (i in 0 until childCount) {
             val child = parent.getChildAt(i)
             val params = child.layoutParams as RecyclerView.LayoutParams
-            val top = child.bottom + params.bottomMargin + context.resources.getDimensionPixelSize(R.dimen.ten)
+            val top =
+                child.bottom + params.bottomMargin + context.resources.getDimensionPixelSize(R.dimen.ten)
             val dividerHeight = mDivider?.intrinsicHeight ?: 0
             val bottom = top + dividerHeight
 
-            mDivider?.setBounds(left + context.resources.getDimensionPixelSize(R.dimen.sixty_eight),
-                top, right - context.resources.getDimensionPixelSize(R.dimen.sixteen), bottom)
+            mDivider?.setBounds(
+                left + context.resources.getDimensionPixelSize(R.dimen.sixty_eight),
+                top, right - context.resources.getDimensionPixelSize(R.dimen.sixteen), bottom
+            )
             mDivider?.draw(c)
         }
     }

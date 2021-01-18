@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,40 +21,39 @@
             app:layout_constraintTop_toTopOf="parent"
             style="@style/CircularAvatarStyle"
             ekoBackgroundColor="@{@color/upstraColorPrimary}"
-            backgroundColorShade="@{ColorShade.SHADE3}"/>
+            backgroundColorShade="@{ColorShade.SHADE3}" />
 
-    <TextView
-        android:id="@+id/tvDisplayName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxWidth="147dp"
-        style="@style/TextStyleEkoTitle"
-        android:layout_marginStart="@dimen/sixteen"
-        app:layout_constraintStart_toEndOf="@id/ivAvatar"
-        app:layout_constraintTop_toTopOf="@id/ivAvatar"
-        app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
-        app:layout_constraintEnd_toStartOf="@id/tvMemberCount"
-        android:drawablePadding="@dimen/four"
-        android:maxLines="1"
-        android:ellipsize="end"
-        tools:text="Community"/>
+        <TextView
+            android:id="@+id/tvDisplayName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="147dp"
+            style="@style/TextStyleEkoTitle"
+            android:layout_marginStart="@dimen/sixteen"
+            app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintTop_toTopOf="@id/ivAvatar"
+            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+            app:layout_constraintEnd_toStartOf="@id/tvMemberCount"
+            android:drawablePadding="@dimen/four"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="Community" />
 
 
-
-    <TextView
-        android:id="@+id/tvMemberCount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tvDisplayName"
-        app:layout_constraintTop_toTopOf="@id/tvDisplayName"
-        app:layout_constraintBottom_toBottomOf="@id/tvDisplayName"
-        app:layout_constraintEnd_toStartOf="@id/tvUnreadCount"
-        android:layout_marginStart="@dimen/four"
-        android:layout_marginEnd="@dimen/sixty_two"
-        android:textColor="@color/upstraColorBase"
-        textColorShade="@{ColorShade.SHADE1}"
-        style="@style/TextStyleEkoCaption"
-        tools:text="(665)"/>
+        <TextView
+            android:id="@+id/tvMemberCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tvDisplayName"
+            app:layout_constraintTop_toTopOf="@id/tvDisplayName"
+            app:layout_constraintBottom_toBottomOf="@id/tvDisplayName"
+            app:layout_constraintEnd_toStartOf="@id/tvUnreadCount"
+            android:layout_marginStart="@dimen/four"
+            android:layout_marginEnd="@dimen/sixty_two"
+            android:textColor="@color/upstraColorBase"
+            textColorShade="@{ColorShade.SHADE1}"
+            style="@style/TextStyleEkoCaption"
+            tools:text="(665)" />
 
         <TextView
             android:id="@+id/tvTime"
@@ -65,7 +65,7 @@
             android:layout_marginEnd="@dimen/sixteen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivAvatar"
-            app:layout_constraintBottom_toTopOf="@id/tvUnreadCount"/>
+            app:layout_constraintBottom_toTopOf="@id/tvUnreadCount" />
 
 
         <TextView
@@ -83,5 +83,5 @@
             android:layout_marginEnd="@dimen/sixteen"
             tools:text="64" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

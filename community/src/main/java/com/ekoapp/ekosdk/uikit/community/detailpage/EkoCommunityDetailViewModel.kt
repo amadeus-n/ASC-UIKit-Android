@@ -59,7 +59,6 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
         if (userId.get() == null) {
             userId.set(ekoCommunity.getUserId())
         }
-        isModerator.set(ekoCommunity.getUserId() == EkoClient.getUserId())
     }
 
     fun joinCommunity(): Completable {

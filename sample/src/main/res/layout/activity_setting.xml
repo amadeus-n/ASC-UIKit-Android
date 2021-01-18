@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:textSize="@dimen/text_size_20"
-        android:text="Select App Theme"/>
+        android:text="Select App Theme" />
 
     <RadioGroup
         android:id="@+id/rgTheme"
@@ -25,20 +25,19 @@
         app:layout_constraintStart_toStartOf="@+id/tvSelectTheme"
         app:layout_constraintTop_toBottomOf="@id/tvSelectTheme"
         app:layout_constraintEnd_toEndOf="@id/tvSelectTheme"
-        android:layout_marginTop="@dimen/sixteen"
-        >
+        android:layout_marginTop="@dimen/sixteen">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/theme1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Theme 1"/>
+            android:text="Theme 1" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/theme2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Theme 2"/>
+            android:text="Theme 2" />
 
     </RadioGroup>
 
@@ -49,8 +48,7 @@
         android:text="confirm"
         app:layout_constraintStart_toStartOf="@id/rgTheme"
         app:layout_constraintTop_toBottomOf="@id/rgTheme"
-        android:layout_marginTop="@dimen/sixteen"
-        />
+        android:layout_marginTop="@dimen/sixteen" />
 
     <Button
         android:id="@+id/btnLogout"
@@ -59,6 +57,6 @@
         app:layout_constraintStart_toStartOf="@id/btnConfirm"
         app:layout_constraintTop_toBottomOf="@id/btnConfirm"
         android:layout_marginTop="@dimen/sixteen"
-        android:text="Logout"/>
+        android:text="Logout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

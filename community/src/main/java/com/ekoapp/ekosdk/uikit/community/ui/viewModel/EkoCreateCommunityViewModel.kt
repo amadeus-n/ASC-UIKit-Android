@@ -116,7 +116,10 @@ class EkoCreateCommunityViewModel : EkoBaseViewModel() {
         avatarUrl.set(ekoCommunity.getAvatar()?.getUrl(EkoImage.Size.LARGE) ?: "")
         description.set(ekoCommunity.getDescription())
         isPublic.set(ekoCommunity.isPublic())
-        category.set(SelectCategoryItem(name = ekoCommunity.getCategories().joinToString(separator = " ") { it.getName() }))
+        category.set(
+            SelectCategoryItem(
+                name = ekoCommunity.getCategories().joinToString(separator = " ") { it.getName() })
+        )
     }
 
     fun createIdList() {

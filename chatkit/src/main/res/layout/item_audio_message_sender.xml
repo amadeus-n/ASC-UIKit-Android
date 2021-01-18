@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="vmAudioMsg"
             type="com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoAudioMsgViewModel" />
@@ -14,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include android:id="@+id/dateHeader"
+        <include
+            android:id="@+id/dateHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/layout_date"
@@ -22,7 +26,7 @@
             app:date="@{vmAudioMsg.msgDate}"
             app:dateFillColor="@{vmAudioMsg.dateFillColor}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutAudio"
@@ -47,7 +51,7 @@
                 android:layout_margin="@dimen/eight"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -59,7 +63,7 @@
                 android:visibility="@{vmAudioMsg.uploading || vmAudioMsg.buffering ? View.GONE : View.VISIBLE}"
                 app:layout_constraintTop_toTopOf="@id/ivPlay"
                 app:layout_constraintBottom_toBottomOf="@id/ivPlay"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:layout_width="@dimen/eighteen"
@@ -104,7 +108,7 @@
             app:layout_constraintStart_toStartOf="@id/layoutAudio"
             app:layout_constraintEnd_toEndOf="@id/layoutAudio"
             app:layout_constraintTop_toTopOf="@id/layoutAudio"
-            app:layout_constraintBottom_toBottomOf="@id/layoutAudio"/>
+            app:layout_constraintBottom_toBottomOf="@id/layoutAudio" />
 
         <include
             android:layout_width="wrap_content"
@@ -115,7 +119,7 @@
             app:layout_constraintEnd_toStartOf="@id/layoutAudio"
             android:layout_marginEnd="@dimen/four"
             app:layout_constraintTop_toTopOf="@id/layoutAudio"
-            app:layout_constraintBottom_toBottomOf="@id/layoutAudio"/>
+            app:layout_constraintBottom_toBottomOf="@id/layoutAudio" />
 
         <TextView
             android:id="@+id/tvTime"
@@ -129,9 +133,10 @@
             android:layout_marginEnd="@dimen/four"
             android:layout_marginTop="@dimen/four"
             app:layout_constraintTop_toBottomOf="@id/layoutAudio"
-            app:layout_constraintEnd_toEndOf="@id/layoutAudio"/>
+            app:layout_constraintEnd_toEndOf="@id/layoutAudio" />
 
-        <include layout="@layout/layout_msg_deleted"
+        <include
+            layout="@layout/layout_msg_deleted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/twelve"

@@ -10,7 +10,7 @@ import com.ekoapp.ekosdk.uikit.common.views.Style
 class EkoButtonStyle : Style {
     var outlineColor: Int = -1
     var backgroundColor: Int = -1
-    var buttonType : Int = EkoButtonType.Solid
+    var buttonType: Int = EkoButtonType.Solid
     var buttonTextColor: Int = -1
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context) {
@@ -45,7 +45,8 @@ class EkoButtonStyle : Style {
         )
 
         buttonType = typedArray.getInt(R.styleable.Button_buttonType, EkoButtonType.Solid)
-        buttonTextColor = typedArray.getInt(R.styleable.Button_buttonTextColor, getColor(R.color.upstraColorBase))
+        buttonTextColor =
+            typedArray.getInt(R.styleable.Button_buttonTextColor, getColor(R.color.upstraColorBase))
 
         typedArray.recycle()
 

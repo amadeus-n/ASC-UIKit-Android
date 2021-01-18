@@ -4,13 +4,13 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class User(val id: String, val userName: String, val profileUrl : String) : Parcelable {
+data class User(val id: String, val userName: String, val profileUrl: String) : Parcelable {
 
-    fun getUserId() : String {
+    fun getUserId(): String {
         return id
     }
 
-    fun getDisplayName() : String {
+    fun getDisplayName(): String {
         return userName
     }
 

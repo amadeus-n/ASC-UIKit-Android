@@ -4,9 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
-        <import type="android.view.View"/>
-        <import type="android.text.TextUtils"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
         <variable
             name="viewModel"
             type="com.ekoapp.ekosdk.uikit.community.ui.viewModel.EkoSelectMembersViewModel" />
@@ -22,8 +26,7 @@
             android:text="@={viewModel.searchString}"
             style="@style/SearchEditTextStyle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSelectedMembers"
@@ -44,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/twelve"
             app:layout_constraintTop_toBottomOf="@id/rvSelectedMembers"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -69,7 +72,7 @@
                 android:paddingHorizontal="@dimen/sixteen"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/search_results"/>
+                android:text="@string/search_results" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSearchResults"
@@ -77,8 +80,7 @@
                 android:layout_height="0dp"
                 android:visibility="@{viewModel.isSearchUser() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintTop_toBottomOf="@id/tv_search_result"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -91,7 +93,7 @@
                 android:layout_marginTop="@dimen/thirty_two"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_search_result"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_search_result" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

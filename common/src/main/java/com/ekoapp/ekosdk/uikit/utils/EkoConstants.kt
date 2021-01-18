@@ -8,9 +8,10 @@ object EkoConstants {
     const val MEMBERS_LIST = "MEMBERS_LIST"
     const val PICK_FILES = 103
     const val PICK_IMAGES = 104
-    const  val CAPTURE_IMAGE = 105
+    const val CAPTURE_IMAGE = 105
     const val FILE_SIZE_GB: Int = 1000000000
     const val FILE_EXTENSION_SEPARATOR = "."
+
     // UI strings
     const val TODAY = "Today"
     const val YESTERDAY = "Yesterday"
@@ -24,4 +25,6 @@ object EkoConstants {
 
     const val MODERATOR_ROLE = "moderator"
     const val MEMBER_ROLE = "member"
+
+    const val NO_PERMISSION_ERROR_CODE = 400301
 }

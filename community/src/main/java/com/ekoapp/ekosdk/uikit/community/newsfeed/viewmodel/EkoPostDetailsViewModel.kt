@@ -25,7 +25,7 @@ class EkoPostDetailsViewModel : EkoBaseViewModel() {
     fun getComments(postId: String): Flowable<PagedList<EkoComment>> {
         return commentRepository.getCommentCollection()
             .post(postId)
-            .includeDeleted(false)
+            .includeDeleted(true)
             .build()
             .query()
     }
@@ -43,8 +43,8 @@ class EkoPostDetailsViewModel : EkoBaseViewModel() {
         return feedRepository.deletePost(feed.getPostId())
     }
 
-    fun addComment(postId: String, message: String): Single<EkoComment> {
-        return commentRepository.createComment()
+    fun addComment(commentId: String, postId: String, message: String): Single<EkoComment> {
+        return commentRepository.createComment(commentId)
             .post(postId)
             .with()
             .text(message)
@@ -54,7 +54,10 @@ class EkoPostDetailsViewModel : EkoBaseViewModel() {
                 EkoClient.newFeedRepository().getPost(postId).ignoreElements().onErrorComplete()
                 it
             }
+    }
 
+    fun deleteComment(commentId: String): Completable {
+        return commentRepository.deleteComment(commentId)
     }
 
     fun replyComment(postId: String, commentId: String, message: String): Single<EkoComment> {
@@ -84,7 +87,7 @@ class EkoPostDetailsViewModel : EkoBaseViewModel() {
     fun commentShowMoreActionClicked(feed: EkoPost, comment: EkoComment) {
         if (comment.getUserId() == EkoClient.getUserId())
             triggerEvent(EventIdentifier.SHOW_COMMENT_ACTION_BY_COMMENT_OWNER, comment)
-        else{
+        else {
             //TODO uncomment after server side implementation
             /*val target = feed.getTarget()
             if (target is EkoPostTarget.COMMUNITY) {
@@ -109,8 +112,7 @@ class EkoPostDetailsViewModel : EkoBaseViewModel() {
     fun feedShowMoreActionClicked(feed: EkoPost) {
         if (feed.getPostedUser()?.getUserId() == EkoClient.getUserId()!!) {
             triggerEvent(EventIdentifier.SHOW_FEED_ACTION_BY_FEED_OWNER, feed)
-        }
-        else {
+        } else {
             //TODO uncomment after server side implementation
             /*val target = feed.getTarget()
             if (target is EkoPostTarget.COMMUNITY) {

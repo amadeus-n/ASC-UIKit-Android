@@ -15,4 +15,4 @@ data class SelectMemberItem(
     var name: String = "",
     var subTitle: String = "",
     var isSelected: Boolean = false
-): Parcelable
+) : Parcelable

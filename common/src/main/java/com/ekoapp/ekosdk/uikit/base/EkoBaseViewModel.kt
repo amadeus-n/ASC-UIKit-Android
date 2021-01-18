@@ -4,9 +4,9 @@ import androidx.databinding.Observable
 import androidx.lifecycle.ViewModel
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.permission.EkoPermission
-import com.ekoapp.ekosdk.uikit.utils.Event
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.ekoapp.ekosdk.uikit.model.EventType
+import com.ekoapp.ekosdk.uikit.utils.Event
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -16,7 +16,7 @@ import io.reactivex.disposables.Disposable
  * @author sumitlakra
  * @date 06/01/2020
  */
-open class EkoBaseViewModel: ViewModel() {
+open class EkoBaseViewModel : ViewModel() {
 
     private val compositeDisposable: CompositeDisposable by lazy {
         CompositeDisposable()
@@ -24,12 +24,18 @@ open class EkoBaseViewModel: ViewModel() {
 
     val onEventReceived: Event<EventType> = Event()
 
-    fun checkModeratorPermissionAtCommunity(permission: EkoPermission, communityId: String): Flowable<Boolean> {
+    fun checkModeratorPermissionAtCommunity(
+        permission: EkoPermission,
+        communityId: String
+    ): Flowable<Boolean> {
         return EkoClient.hasPermission(permission).atCommunity(communityId)
             .check()
     }
 
-    fun checkModeratorPermissionAtChannel(permission: EkoPermission, channelId: String): Flowable<Boolean> {
+    fun checkModeratorPermissionAtChannel(
+        permission: EkoPermission,
+        channelId: String
+    ): Flowable<Boolean> {
         return EkoClient.hasPermission(permission).atChannel(channelId)
             .check()
     }

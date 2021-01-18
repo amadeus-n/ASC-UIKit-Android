@@ -33,14 +33,17 @@ class EkoRecentChatViewHolder(
         if (data != null) {
             if (data.getDisplayName().isNotEmpty()) {
                 name.text = data.getDisplayName()
-            }else {
+            } else {
                 name.text = itemView.context.getString(R.string.anonymous)
             }
             setUpAvatarView(data)
             setupUnreadCount(data)
             binding?.tvTime?.text = EkoDateUtils.getMessageTime(data.getLastActivity()!!.millis)
             memberCount.text =
-                String.format(itemView.context.getString(R.string.member_count), data.getMemberCount())
+                String.format(
+                    itemView.context.getString(R.string.member_count),
+                    data.getMemberCount()
+                )
             itemView.setOnClickListener {
                 listener?.onRecentChatItemClick(data.getChannelId())
             }
@@ -52,7 +55,7 @@ class EkoRecentChatViewHolder(
     }
 
     private fun setUpAvatarView(data: EkoChannel) {
-        val defaultAvatar: Int = when(data.getType()) {
+        val defaultAvatar: Int = when (data.getType()) {
             EkoChannel.Type.STANDARD -> {
                 //setupNameView(data)
                 R.drawable.ic_default_avatar_group_chat
@@ -69,8 +72,12 @@ class EkoRecentChatViewHolder(
             }
         }
 
-        avatar.setBackgroundColor(ColorPaletteUtil.getColor(
-            ContextCompat.getColor(itemView.context, R.color.upstraColorPrimary), ColorShade.SHADE3))
+        avatar.setBackgroundColor(
+            ColorPaletteUtil.getColor(
+                ContextCompat.getColor(itemView.context, R.color.upstraColorPrimary),
+                ColorShade.SHADE3
+            )
+        )
 
         Glide.with(itemView.context)
             .load(data.getAvatar()?.getUrl(EkoImage.Size.MEDIUM))
@@ -91,10 +98,10 @@ class EkoRecentChatViewHolder(
     }
 
     private fun setupUnreadCount(data: EkoChannel) {
-        if(data.getUnreadCount() > 0) {
+        if (data.getUnreadCount() > 0) {
             unreadCount.visibility = View.VISIBLE
             unreadCount.text = data.getUnreadCount().toString()
-        }else {
+        } else {
             unreadCount.visibility = View.GONE
         }
     }

@@ -11,8 +11,8 @@ class EkoAvatarViewStyle : Style {
     var avatarHeight: Int = -1
     var avatarWidth: Int = -1
     var avatarShape: Int = -1
-    var avatarDrawable : Int = -1
-    var avatarUrl : String? = null
+    var avatarDrawable: Int = -1
+    var avatarUrl: String? = null
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context) {
         parseStyle(context, attributeSet)

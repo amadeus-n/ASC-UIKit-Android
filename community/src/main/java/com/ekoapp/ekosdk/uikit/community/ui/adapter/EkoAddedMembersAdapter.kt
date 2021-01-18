@@ -11,7 +11,7 @@ import com.ekoapp.ekosdk.uikit.community.ui.viewHolder.EkoAddedMembersCountViewH
 import com.ekoapp.ekosdk.uikit.community.ui.viewHolder.EkoAddedMembersViewHolder
 import com.ekoapp.ekosdk.uikit.community.utils.SelectMemberItemDiffCallBack
 
-class EkoAddedMembersAdapter( private val listener: EkoAddedMemberClickListener):
+class EkoAddedMembersAdapter(private val listener: EkoAddedMemberClickListener) :
     EkoBaseRecyclerViewAdapter<SelectMemberItem>() {
     override fun getLayoutId(position: Int, obj: SelectMemberItem?): Int {
         return when (obj?.name) {
@@ -27,15 +27,18 @@ class EkoAddedMembersAdapter( private val listener: EkoAddedMemberClickListener)
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType) {
+        return when (viewType) {
             R.layout.added_member_with_count -> EkoAddedMembersCountViewHolder(view, listener)
-            R.layout.added_member_with_add_icon -> EkoAddedMemberWithAddButtonViewHolder(view, listener)
+            R.layout.added_member_with_add_icon -> EkoAddedMemberWithAddButtonViewHolder(
+                view,
+                listener
+            )
             else -> EkoAddedMembersViewHolder(view, listener)
         }
     }
 
     override fun getItemCount(): Int {
-        return if (list.size < 8){
+        return if (list.size < 8) {
             super.getItemCount()
         } else {
             8

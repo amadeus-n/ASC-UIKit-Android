@@ -12,20 +12,22 @@ import com.ekoapp.ekosdk.uikit.community.explore.fragments.EkoCategoryCommunityL
 class EkoCategoryCommunityListActivity : EkoBaseToolbarFragmentContainerActivity() {
 
     override fun initToolbar() {
-        val category : EkoCommunityCategory = intent.getParcelableExtra(INTENT_CATEGORY)
+        val category: EkoCommunityCategory? = intent.getParcelableExtra(INTENT_CATEGORY)
         getToolBar()?.setLeftDrawable(
             ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
         )
-        getToolBar()?.setLeftString(category.getName())
+        getToolBar()?.setLeftString(category?.getName() ?: "")
         showToolbarDivider()
     }
 
     override fun getContentFragment(): Fragment {
-        val category : EkoCommunityCategory = intent.getParcelableExtra(INTENT_CATEGORY)
-        return EkoCategoryCommunityListFragment
-            .Builder()
-            .category(category)
-            .build(this)
+        val category: EkoCommunityCategory? = intent.getParcelableExtra(INTENT_CATEGORY)
+        return category?.let {
+            EkoCategoryCommunityListFragment
+                .Builder()
+                .category(it)
+                .build(this)
+        } ?: Fragment()
     }
 
     companion object {

@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
     </data>
 
     <merge
@@ -23,8 +24,7 @@
             style="@style/TextStyleEkoBody"
             app:checkBoxDefaultColor="@{@color/upstraColorBase}"
             app:checkBoxDefaultShade="@{ColorShade.SHADE2}"
-            app:checkBoxCheckedColor="@{@color/upstraColorPrimary}"
-            />
+            app:checkBoxCheckedColor="@{@color/upstraColorPrimary}" />
 
         <TextView
             android:id="@+id/reply"
@@ -54,7 +54,7 @@
             android:layout_marginStart="@dimen/twelve"
             app:layout_constraintStart_toEndOf="@id/reply"
             app:layout_constraintTop_toTopOf="@id/reply"
-            app:layout_constraintBottom_toBottomOf="@id/reply"  />
+            app:layout_constraintBottom_toBottomOf="@id/reply" />
 
     </merge>
 </layout>

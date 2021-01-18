@@ -11,7 +11,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.io.File
 
-class EkoImageMsgViewModel: EkoSelectableMessageViewModel() {
+class EkoImageMsgViewModel : EkoSelectableMessageViewModel() {
 
     val imageUrl = ObservableField<String>("")
     val uploading = ObservableBoolean(false)
@@ -35,22 +35,23 @@ class EkoImageMsgViewModel: EkoSelectableMessageViewModel() {
             if (file.exists() && imageUrl.get() != localPath) {
                 imageUrl.set(localPath)
             }
-        }else {
+        } else {
             if (ekoMessage.getState() == EkoMessage.State.SYNCED) {
                 if (imageUrl.get() != imageData.getImage()?.getUrl(EkoImage.Size.MEDIUM)) {
                     imageUrl.set(imageData.getImage()?.getUrl(EkoImage.Size.MEDIUM))
                 }
             } else {
-                if(ekoMessage.getState() == EkoMessage.State.UPLOADING) {
+                if (ekoMessage.getState() == EkoMessage.State.UPLOADING) {
                     val fileRepository: EkoFileRepository = EkoClient.newFileRepository()
                     addDisposable(fileRepository.getUploadInfo(ekoMessage.getMessageId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnNext {uploadInfo->
+                        .doOnNext { uploadInfo ->
                             uploadProgress.set(uploadInfo.getProgressPercentage())
                         }.doOnError {
                             Log.e("EkoImageMsgViewModel", "Error ${it.localizedMessage}")
-                        }.subscribe())
+                        }.subscribe()
+                    )
                 }
             }
         }

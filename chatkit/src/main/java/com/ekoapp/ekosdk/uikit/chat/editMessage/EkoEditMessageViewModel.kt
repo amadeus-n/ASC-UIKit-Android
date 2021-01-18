@@ -8,7 +8,7 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-class EkoEditMessageViewModel: EkoBaseViewModel() {
+class EkoEditMessageViewModel : EkoBaseViewModel() {
 
     val message = ObservableField<String>()
     var messageLength = 0
@@ -25,7 +25,7 @@ class EkoEditMessageViewModel: EkoBaseViewModel() {
         message.addOnPropertyChanged {
             if (message.get()?.length == 0) {
                 isSaveEnabled.set(false)
-            }else if (message.get()?.length != messageLength) {
+            } else if (message.get()?.length != messageLength) {
                 isSaveEnabled.set(true)
             }
 

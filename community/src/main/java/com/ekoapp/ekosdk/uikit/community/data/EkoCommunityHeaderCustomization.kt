@@ -25,5 +25,5 @@ data class EkoCommunityHeaderCustomization(
     var buttonFollowText: String = EkoConstants.EMPTY_STRING,
     var buttonFollowingText: String = EkoConstants.EMPTY_STRING,
     var buttonDrawable: Drawable? = null,
-    var followingStatus: ObservableBoolean =  ObservableBoolean(false)
+    var followingStatus: ObservableBoolean = ObservableBoolean(false)
 )

@@ -5,10 +5,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewAdapter
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.newsfeed.model.FeedImage
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.ICreatePostImageActionListener
+import com.ekoapp.ekosdk.uikit.community.newsfeed.model.FeedImage
 
-class EkoCreatePostImageAdapter(private val listener: ICreatePostImageActionListener) : EkoBaseRecyclerViewAdapter<FeedImage>(), IListItemChangeListener {
+class EkoCreatePostImageAdapter(private val listener: ICreatePostImageActionListener) :
+    EkoBaseRecyclerViewAdapter<FeedImage>(), IListItemChangeListener {
 
     override fun getLayoutId(position: Int, obj: FeedImage?): Int {
         return R.layout.layout_create_post_image_item
@@ -28,9 +29,10 @@ class EkoCreatePostImageAdapter(private val listener: ICreatePostImageActionList
     }
 
 
-
-    class DiffCallback(private val oldList: List<FeedImage>,
-                       private val newList: List<FeedImage>) : DiffUtil.Callback() {
+    class DiffCallback(
+        private val oldList: List<FeedImage>,
+        private val newList: List<FeedImage>
+    ) : DiffUtil.Callback() {
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldList[oldItemPosition].url == newList[newItemPosition].url
@@ -54,6 +56,7 @@ class EkoCreatePostImageAdapter(private val listener: ICreatePostImageActionList
 
 
 }
+
 interface IListItemChangeListener {
-    fun itemCount() :Int
+    fun itemCount(): Int
 }

@@ -4,11 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="readOnly"
             type="Boolean" />
+
         <variable
             name="addBottomSpace"
             type="Boolean" />
@@ -81,8 +85,7 @@
             android:textColor="@color/upstraColorBase"
             app:textColorShade="@{ColorShade.SHADE1}"
             app:layout_constraintTop_toTopOf="@id/tvCommentTime"
-            app:layout_constraintStart_toEndOf="@id/tvCommentTime"
-             />
+            app:layout_constraintStart_toEndOf="@id/tvCommentTime" />
 
         <com.ekoapp.ekosdk.uikit.common.views.text.EkoExpandableTextView
             android:id="@+id/tvPostComment"
@@ -111,8 +114,7 @@
             style="@style/TextStyleEkoBodyBold"
             app:checkBoxDefaultColor="@{@color/upstraColorBase}"
             app:checkBoxDefaultShade="@{ColorShade.SHADE2}"
-            app:checkBoxCheckedColor="@{@color/upstraColorPrimary}"
-            />
+            app:checkBoxCheckedColor="@{@color/upstraColorPrimary}" />
 
         <TextView
             android:id="@+id/reply"
@@ -143,7 +145,7 @@
             android:layout_marginStart="@dimen/twelve"
             app:layout_constraintStart_toEndOf="@id/reply"
             app:layout_constraintTop_toTopOf="@id/reply"
-            app:layout_constraintBottom_toBottomOf="@id/reply"  />
+            app:layout_constraintBottom_toBottomOf="@id/reply" />
 
         <!--TODO read only mode-->
         <!--android:visibility="@{readOnly ? View.GONE : View.VISIBLE}"-->
@@ -158,8 +160,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-8dp"
             app:ekoBackgroundColor="@{@color/upstraColorBase}"
-            app:backgroundColorShade="@{ColorShade.SHADE4}"
-            />
+            app:backgroundColorShade="@{ColorShade.SHADE4}" />
 
         <TextView
             android:id="@+id/tvViewAllReply"
@@ -170,6 +171,6 @@
             android:paddingBottom="@dimen/eight"
             android:textColor="@color/upstraColorBase"
             app:textColorShade="@{ColorShade.SHADE2}"
-            android:text="@string/view_replies"/>
+            android:text="@string/view_replies" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

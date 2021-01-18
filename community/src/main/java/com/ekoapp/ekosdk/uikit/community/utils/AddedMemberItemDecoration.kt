@@ -4,7 +4,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class AddedMemberItemDecoration(private val topMargin: Int, private val leftMargin: Int = 0):
+class AddedMemberItemDecoration(private val topMargin: Int, private val leftMargin: Int = 0) :
     RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(

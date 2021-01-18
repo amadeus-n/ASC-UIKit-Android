@@ -3,6 +3,7 @@ package com.ekoapp.ekosdk.uikit.community.newsfeed.fragment
 import android.Manifest
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.comment.EkoComment
 import com.ekoapp.ekosdk.community.EkoCommunity
@@ -55,7 +57,6 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
         super.onCreate(savedInstanceState)
         itemDecorSpace =
             EkoRecyclerViewItemDecoration(resources.getDimensionPixelSize(R.dimen.twenty_four))
-        initNewsFeedAdapter()
     }
 
     override fun onCreateView(
@@ -73,6 +74,7 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initNewsFeedAdapter()
         initNewsFeedRecyclerView()
         initCreateFeed()
         subscribeUiEvent()
@@ -111,34 +113,31 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
     abstract fun getViewModel(): EkoBaseFeedViewModel
 
     internal fun refresh() {
-        NewsFeedEvents.newPostCreated = true
         getFeeds()
     }
 
     private fun getFeeds() {
-        val disposable = getViewModel().getFeed()
+        val mDisposable = getViewModel().getFeed()
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.doOnError {
                 showGetFeedErrorMessage(it.message)
             }
-            ?.subscribe { result ->
-                Log.d(TAG, "submit list")
+            ?.doOnNext { result ->
+                Log.d(TAG, "submit list ${result.size}")
                 adapter.submitList(result)
                 handleEmptyList(result.isEmpty())
                 if (NewsFeedEvents.newPostCreated) {
-                    Log.d(TAG, "scroll to top")
-                    Handler().postDelayed(Runnable {
+                    Handler(Looper.getMainLooper()).postDelayed({
                         rvNewsFeed.smoothScrollToPosition(0)
                         NewsFeedEvents.newPostCreated = false
                     }, 200)
                 }
 
-            }
+            }?.subscribe()
 
-
-        disposable?.let {
-            this.disposable.add(it)
+        if (mDisposable != null) {
+            disposable.add(mDisposable)
         }
     }
 
@@ -182,6 +181,8 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
         rvNewsFeed.adapter = adapter
         rvNewsFeed.addItemDecoration(itemDecorSpace)
         rvNewsFeed.setHasFixedSize(true)
+        val itemAnimator = rvNewsFeed.itemAnimator as SimpleItemAnimator
+        itemAnimator.supportsChangeAnimations = false
         getFeeds()
     }
 
@@ -306,15 +307,15 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
             getViewModel().unreportPost(feed)
         }
         disposable.add(viewModel
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError {
-                    Log.d(TAG, it.message)
-                }
-                .doOnComplete {
-                    showReportSentMessage(isReport)
-                }
-                .subscribe())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                Log.d(TAG, it.message ?: "")
+            }
+            .doOnComplete {
+                showReportSentMessage(isReport)
+            }
+            .subscribe())
     }
 
     private fun showReportSentMessage(isReport: Boolean) {
@@ -341,14 +342,14 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError {
-                    Log.d(TAG, it.message)
+                    Log.d(TAG, it.message ?: "")
                     if (it is EkoSocketException)
                         showConnectivityIssue()
                     else
                         showFailedToDeleteMessage(it.message)
                 }
                 .doOnComplete {
-                    refreshGlobalFeed()
+                    //refreshGlobalFeed()
                 }
                 .subscribe()
         )
@@ -482,15 +483,15 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
             getViewModel().unreportComment(comment)
         }
         disposable.add(viewModel
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError {
-                    Log.d(TAG, it.message)
-                }
-                .doOnComplete {
-                    showReportSentMessage(isReport)
-                }
-                .subscribe())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                Log.d(TAG, it.message ?: "")
+            }
+            .doOnComplete {
+                showReportSentMessage(isReport)
+            }
+            .subscribe())
     }
 
     private fun showDeleteCommentWarning(comment: EkoComment) {
@@ -542,7 +543,7 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(), INewsFeedImageClickListe
 
     override fun onLikeAction(liked: Boolean, ekoPost: EkoPost, position: Int) {
         disposable.add(getViewModel().postReaction(liked, ekoPost).doOnError {
-            Log.d(TAG, it.message)
+            Log.d(TAG, it.message ?: "")
         }.subscribe())
     }
 

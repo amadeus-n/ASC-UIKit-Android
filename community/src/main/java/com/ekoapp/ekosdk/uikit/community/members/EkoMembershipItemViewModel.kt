@@ -1,6 +1,8 @@
 package com.ekoapp.ekosdk.uikit.community.members
 
+import androidx.databinding.ObservableBoolean
 import com.ekoapp.ekosdk.EkoClient
+import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.user.EkoUser
 import io.reactivex.Completable
@@ -9,7 +11,7 @@ import io.reactivex.Flowable
 class EkoMembershipItemViewModel : EkoBaseViewModel() {
 
     var communityId = ""
-    var isModerator = false
+    var isModerator = ObservableBoolean(false)
 
     fun reportUser(ekoUser: EkoUser): Completable {
         return ekoUser.report().flag()
@@ -39,5 +41,9 @@ class EkoMembershipItemViewModel : EkoBaseViewModel() {
         val communityRepository = EkoClient.newCommunityRepository()
         return communityRepository.moderate(communityId)
             .removeRole(role, userIdList)
+    }
+
+    fun getCommunityDetail(): Flowable<EkoCommunity> {
+        return EkoClient.newCommunityRepository().getCommunity(communityId)
     }
 }

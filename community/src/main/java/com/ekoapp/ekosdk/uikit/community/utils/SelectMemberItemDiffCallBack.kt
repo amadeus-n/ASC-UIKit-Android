@@ -3,8 +3,10 @@ package com.ekoapp.ekosdk.uikit.community.utils
 import androidx.recyclerview.widget.DiffUtil
 import com.ekoapp.ekosdk.uikit.community.data.SelectMemberItem
 
-class SelectMemberItemDiffCallBack(private val oldList: List<SelectMemberItem>,
-private val newList: List<SelectMemberItem>): DiffUtil.Callback() {
+class SelectMemberItemDiffCallBack(
+    private val oldList: List<SelectMemberItem>,
+    private val newList: List<SelectMemberItem>
+) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldList.size
 

@@ -10,7 +10,7 @@ object ThemeUtil {
         val currentTheme = sharedPref.getInt("THEME", 1)
         if (currentTheme == 1) {
             context.setTheme(R.style.AppTheme1)
-        }else {
+        } else {
             context.setTheme(R.style.AppTheme2)
         }
     }

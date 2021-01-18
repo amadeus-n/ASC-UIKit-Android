@@ -2,8 +2,8 @@ package com.ekoapp.sample
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.uikit.utils.EkoConstants
 import com.ekoapp.ekosdk.uikit.utils.ThemeUtil
@@ -34,7 +34,7 @@ class SettingActivity : AppCompatActivity() {
         with(sharedPref.edit()) {
             if (selectedId == theme1.id) {
                 putInt("THEME", 1)
-            }else if (selectedId == theme2.id) {
+            } else if (selectedId == theme2.id) {
                 putInt("THEME", 2)
             }
             commit()

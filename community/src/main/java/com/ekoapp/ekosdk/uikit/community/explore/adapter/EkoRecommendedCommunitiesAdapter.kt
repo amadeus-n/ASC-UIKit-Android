@@ -30,9 +30,12 @@ class EkoRecommendedCommunitiesAdapter(private val listener: IMyCommunityItemCli
         override fun bind(data: EkoCommunity?, position: Int) {
             binding?.ekoCommunity = data
             binding?.listener = listener
-            binding?.tvMembersCount?.text = itemView.context.getString( R.string.members_count,
-                "${data?.getMemberCount()?.toDouble()?.formatCount()}")
-            binding?.tvCommName?.text = data?.getCategories()?.joinToString(separator = " ") { it.getName() }
+            binding?.tvMembersCount?.text = itemView.context.getString(
+                R.string.members_count,
+                "${data?.getMemberCount()?.toDouble()?.formatCount()}"
+            )
+            binding?.tvCommName?.text =
+                data?.getCategories()?.joinToString(separator = " ") { it.getName() }
         }
 
     }
@@ -40,7 +43,7 @@ class EkoRecommendedCommunitiesAdapter(private val listener: IMyCommunityItemCli
     override fun getItemCount(): Int {
         return if (super.getItemCount() < 4) {
             super.getItemCount()
-        }else {
+        } else {
             4
         }
     }

@@ -18,8 +18,6 @@ class EkoMyCommunitiesAdapter(private val listener: IMyCommunityItemClickListene
         EkoMyCommunitiesViewHolder(view, listener)
 
 
-
-
     companion object {
         private val diffCallBack = object : DiffUtil.ItemCallback<EkoCommunity>() {
 

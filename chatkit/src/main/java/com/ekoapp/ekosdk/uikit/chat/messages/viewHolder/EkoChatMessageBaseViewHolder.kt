@@ -1,6 +1,5 @@
 package com.ekoapp.ekosdk.uikit.chat.messages.viewHolder
 
-import android.text.format.DateUtils
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.ekoapp.ekosdk.EkoClient
@@ -20,7 +19,11 @@ abstract class EkoChatMessageBaseViewHolder(
         itemBaseViewModel.ekoMessage = item
         itemBaseViewModel.msgTime.set(item?.getCreatedAt()?.toString("hh:mm a"))
         itemBaseViewModel.editedAt.set(item?.getEditedAt()?.toString("hh:mm a"))
-        itemBaseViewModel.msgDate.set(EkoDateUtils.getRelativeDate(item?.getCreatedAt()?.millis ?: 0))
+        itemBaseViewModel.msgDate.set(
+            EkoDateUtils.getRelativeDate(
+                item?.getCreatedAt()?.millis ?: 0
+            )
+        )
         itemBaseViewModel.isDeleted.set(item?.isDeleted() ?: false)
         itemBaseViewModel.isFailed.set(item?.getState() == EkoMessage.State.FAILED)
         if (item != null) {
@@ -28,7 +31,7 @@ abstract class EkoChatMessageBaseViewHolder(
             itemBaseViewModel.isSelf.set(item.getUserId() == EkoClient.getUserId())
 
             val difference = item.getEditedAt().millis - item.getCreatedAt().millis
-            itemBaseViewModel.isEdited.set(difference/1000 > 1)
+            itemBaseViewModel.isEdited.set(difference / 1000 > 1)
             setMessage(item)
         }
     }

@@ -24,6 +24,10 @@
         <variable
             name="isModerator"
             type="Boolean" />
+
+        <variable
+            name="isCommunity"
+            type="Boolean" />
     </data>
 
     <merge
@@ -58,44 +62,41 @@
                 android:id="@+id/userName"
                 style="@style/TextStyleEkoBodyBold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/three"
+                android:layout_height="match_parent"
+                android:drawablePadding="@dimen/four"
                 android:ellipsize="end"
                 android:maxLines="3"
+                app:flow_horizontalAlign="start"
+                android:textAlignment="textStart"
                 android:textColor="@color/upstraColorBase"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/communityName"
                 tools:text="Thailand" />
 
             <com.ekoapp.ekosdk.uikit.common.views.text.EkoTextView
                 android:id="@+id/communityName"
                 style="@style/TextStyleEkoBodyBold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/four"
-                android:drawablePadding="@dimen/four"
+                android:layout_height="match_parent"
                 android:ellipsize="end"
-                android:maxEms="30"
-                android:maxLines="1"
                 android:paddingStart="@dimen/four"
                 android:paddingEnd="@dimen/four"
                 android:textColor="@color/upstraColorBase"
+                android:visibility="@{isCommunity ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toEndOf="@+id/userName"
                 tools:text="Thailand" />
 
             <androidx.constraintlayout.helper.widget.Flow
-                android:id="@+id/flow"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:constraint_referenced_ids="userName,communityName"
                 app:flow_horizontalAlign="start"
                 app:flow_horizontalBias="0"
                 app:flow_horizontalGap="0dp"
                 app:flow_horizontalStyle="packed"
-                app:flow_maxElementsWrap="2"
                 app:flow_wrapMode="chain"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

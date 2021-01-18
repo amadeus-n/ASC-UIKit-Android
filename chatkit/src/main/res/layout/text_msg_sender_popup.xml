@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="viewModel"
             type="com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoSelectableMessageViewModel" />
@@ -51,8 +53,7 @@
             android:onClick="@{() -> viewModel.onDeleteClick()}"
             android:textColor="@color/white"
             android:text="@string/delete"
-            android:layout_marginStart="@dimen/twelve"
-            />
+            android:layout_marginStart="@dimen/twelve" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

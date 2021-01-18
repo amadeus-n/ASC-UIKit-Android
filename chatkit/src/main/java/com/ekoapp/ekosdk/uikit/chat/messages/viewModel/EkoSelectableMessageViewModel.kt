@@ -3,7 +3,7 @@ package com.ekoapp.ekosdk.uikit.chat.messages.viewModel
 import androidx.databinding.ObservableBoolean
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 
-open class EkoSelectableMessageViewModel: EkoChatMessageBaseViewModel() {
+open class EkoSelectableMessageViewModel : EkoChatMessageBaseViewModel() {
 
     val inSelectionMode = ObservableBoolean(false)
 

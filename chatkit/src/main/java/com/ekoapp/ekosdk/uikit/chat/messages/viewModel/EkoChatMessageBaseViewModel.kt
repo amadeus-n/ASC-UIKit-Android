@@ -7,7 +7,7 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.uikit.chat.R
 import io.reactivex.Completable
 
-open class EkoChatMessageBaseViewModel: EkoBaseViewModel() {
+open class EkoChatMessageBaseViewModel : EkoBaseViewModel() {
 
     val isSelf = ObservableBoolean(false)
     val sender = ObservableField("")

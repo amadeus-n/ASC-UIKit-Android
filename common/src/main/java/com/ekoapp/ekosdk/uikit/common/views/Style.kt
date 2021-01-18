@@ -3,7 +3,6 @@ package com.ekoapp.ekosdk.uikit.common.views
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
-import android.util.AttributeSet
 import android.util.TypedValue
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorRes

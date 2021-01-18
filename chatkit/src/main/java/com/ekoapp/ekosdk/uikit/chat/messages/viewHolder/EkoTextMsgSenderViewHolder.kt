@@ -14,12 +14,13 @@ import com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoTextMessageViewModel
 import com.ekoapp.ekosdk.uikit.components.ILongPressListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 
-class EkoTextMsgSenderViewHolder(itemView: View,
-                                 private val itemViewModel: EkoTextMessageViewModel,
-                                 context: Context
-): EkoSelectableMessageViewHolder(itemView, itemViewModel, context), ILongPressListener {
+class EkoTextMsgSenderViewHolder(
+    itemView: View,
+    private val itemViewModel: EkoTextMessageViewModel,
+    context: Context
+) : EkoSelectableMessageViewHolder(itemView, itemViewModel, context), ILongPressListener {
 
-    private val binding: ItemTextMessageSenderBinding? =  DataBindingUtil.bind(itemView)
+    private val binding: ItemTextMessageSenderBinding? = DataBindingUtil.bind(itemView)
     private var popUp: EkoPopUp? = null
 
     init {
@@ -29,14 +30,15 @@ class EkoTextMsgSenderViewHolder(itemView: View,
     }
 
     private fun addViewModelListener() {
-        itemViewModel.onEventReceived += { event->
-            when(event.type) {
+        itemViewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.EDIT_MESSAGE -> {
                     navigateToEditMessage()
                     popUp?.dismiss()
                 }
                 EventIdentifier.DISMISS_POPUP -> popUp?.dismiss()
-                else -> {}
+                else -> {
+                }
             }
         }
     }
@@ -50,8 +52,10 @@ class EkoTextMsgSenderViewHolder(itemView: View,
         popUp = EkoPopUp()
         val anchor: View = itemView.findViewById(R.id.tvMessageOutgoing)
         val inflater: LayoutInflater = LayoutInflater.from(anchor.context)
-        val binding: TextMsgSenderPopupBinding = DataBindingUtil.inflate(inflater,
-            R.layout.text_msg_sender_popup, null, true)
+        val binding: TextMsgSenderPopupBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.text_msg_sender_popup, null, true
+        )
         binding.viewModel = itemViewModel
 
         if (!itemViewModel.isFailed.get()) {
@@ -61,7 +65,10 @@ class EkoTextMsgSenderViewHolder(itemView: View,
     }
 
     private fun navigateToEditMessage() {
-        val intent = EkoEditMessageActivity.newIntent(itemView.context, itemViewModel.ekoMessage?.getMessageId() ?: "")
+        val intent = EkoEditMessageActivity.newIntent(
+            itemView.context,
+            itemViewModel.ekoMessage?.getMessageId() ?: ""
+        )
         itemView.context.startActivity(intent)
     }
 

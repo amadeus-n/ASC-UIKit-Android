@@ -8,7 +8,7 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseToolbarFragmentContainerActivity
 import com.ekoapp.ekosdk.uikit.community.R
 
 class EkoCommunityPageActivity :
-    EkoBaseToolbarFragmentContainerActivity(){
+    EkoBaseToolbarFragmentContainerActivity() {
 
     override fun initToolbar() {
         getToolBar()?.setLeftDrawable(

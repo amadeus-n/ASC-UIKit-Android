@@ -17,7 +17,7 @@ import com.ekoapp.ekosdk.uikit.community.explore.adapter.EkoCategoryListAdapter
 import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCategoryItemClickListener
 import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoCategoryListViewModel
 
-class EkoSelectCategoryListFragment internal constructor(): EkoBaseCategoryListFragment() {
+class EkoSelectCategoryListFragment internal constructor() : EkoBaseCategoryListFragment() {
 
     private val ID_MENU_ITEM_SAVE_PROFILE: Int = 122
     private var menuItemDone: MenuItem? = null
@@ -30,13 +30,18 @@ class EkoSelectCategoryListFragment internal constructor(): EkoBaseCategoryListF
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menuItemDone =
-            menu.add(Menu.NONE, ID_MENU_ITEM_SAVE_PROFILE, Menu.NONE, getString(R.string.done))
+            menu.add(
+                Menu.NONE,
+                ID_MENU_ITEM_SAVE_PROFILE,
+                Menu.NONE,
+                getString(R.string.uikit_done)
+            )
         menuItemDone?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == ID_MENU_ITEM_SAVE_PROFILE) {
+        if (item.itemId == ID_MENU_ITEM_SAVE_PROFILE) {
             var resultIntent = Intent()
             resultIntent.putExtra(EXTRA_DEFAULT_CATEGORY_SELECTION, selectedCategory)
             activity?.setResult(Activity.RESULT_OK, resultIntent)
@@ -82,7 +87,7 @@ class EkoSelectCategoryListFragment internal constructor(): EkoBaseCategoryListF
             return this
         }
 
-        private fun categoryItemClickListener(listener: IEkoCategoryItemClickListener) : Builder {
+        private fun categoryItemClickListener(listener: IEkoCategoryItemClickListener): Builder {
             this.categoryItemClickListener = listener
             return this
         }

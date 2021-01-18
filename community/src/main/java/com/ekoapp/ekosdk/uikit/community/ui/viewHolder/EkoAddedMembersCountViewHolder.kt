@@ -13,7 +13,10 @@ import com.ekoapp.ekosdk.uikit.community.data.SelectMemberItem
 import com.ekoapp.ekosdk.uikit.community.databinding.AddedMemberWithCountBinding
 import com.ekoapp.ekosdk.uikit.community.ui.clickListener.EkoAddedMemberClickListener
 
-class EkoAddedMembersCountViewHolder(itemView: View, private val mClickListener: EkoAddedMemberClickListener):
+class EkoAddedMembersCountViewHolder(
+    itemView: View,
+    private val mClickListener: EkoAddedMemberClickListener
+) :
     EkoAddedMembersViewHolder(itemView, mClickListener) {
 
     private val layoutMember: ConstraintLayout = itemView.findViewById(R.id.layoutAddedMember)
@@ -21,14 +24,20 @@ class EkoAddedMembersCountViewHolder(itemView: View, private val mClickListener:
 
     init {
         val radius = itemView.context.resources.getDimensionPixelSize(R.dimen.twenty_four).toFloat()
-        layoutMember.setShape(radius, radius, radius, radius, R.color.upstraColorBase,
-            R.color.upstraColorBase, ColorShade.SHADE4)
+        layoutMember.setShape(
+            radius, radius, radius, radius, R.color.upstraColorBase,
+            R.color.upstraColorBase, ColorShade.SHADE4
+        )
         binding?.ivAdd?.toCircularShape(
             ColorPaletteUtil.getColor(
-            ContextCompat.getColor(itemView.context, R.color.upstraColorBase), ColorShade.SHADE4))
+                ContextCompat.getColor(itemView.context, R.color.upstraColorBase), ColorShade.SHADE4
+            )
+        )
         binding?.tvCount?.toCircularShape(
             ColorPaletteUtil.getColor(
-                ContextCompat.getColor(itemView.context, R.color.upstraColorBase), ColorShade.SHADE4))
+                ContextCompat.getColor(itemView.context, R.color.upstraColorBase), ColorShade.SHADE4
+            )
+        )
     }
 
     override fun bind(data: SelectMemberItem?, position: Int) {
@@ -39,13 +48,13 @@ class EkoAddedMembersCountViewHolder(itemView: View, private val mClickListener:
             if (data.subTitle == "0") {
                 binding?.tvCount?.visibility = View.GONE
                 binding?.ivAdd?.visibility = View.VISIBLE
-            }else {
+            } else {
                 binding?.tvCount?.visibility = View.VISIBLE
                 binding?.ivAdd?.visibility = View.GONE
             }
             binding?.ivAdd?.setOnClickListener {
-                    mClickListener.onAddButtonClicked()
-                }
+                mClickListener.onAddButtonClicked()
+            }
 
             binding?.tvCount?.setOnClickListener {
                 mClickListener.onMemberCountClicked()

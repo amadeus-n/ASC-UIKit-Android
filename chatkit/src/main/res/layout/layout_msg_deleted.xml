@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="viewModel"
             type="com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoSelectableMessageViewModel" />
@@ -24,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tvDltMsg"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:id="@+id/tvDltMsg"
@@ -38,7 +41,7 @@
             app:layout_constraintStart_toEndOf="@id/ivRemove"
             app:layout_constraintEnd_toStartOf="@id/tvDltTime"
             app:layout_constraintTop_toTopOf="@id/ivRemove"
-            app:layout_constraintBottom_toBottomOf="@id/ivRemove"/>
+            app:layout_constraintBottom_toBottomOf="@id/ivRemove" />
 
         <TextView
             android:id="@+id/tvDltTime"

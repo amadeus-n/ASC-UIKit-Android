@@ -17,7 +17,7 @@ class EkoAudioMsgSenderViewHolder(
     private val itemViewModel: EkoAudioMsgViewModel,
     context: Context,
     audioPlayListener: IAudioPlayCallback
-): AudioMsgBaseViewHolder(itemView, itemViewModel, context, audioPlayListener) {
+) : AudioMsgBaseViewHolder(itemView, itemViewModel, context, audioPlayListener) {
 
     private val binding: ItemAudioMessageSenderBinding? = DataBindingUtil.bind(itemView)
     private var popUp: EkoPopUp? = null

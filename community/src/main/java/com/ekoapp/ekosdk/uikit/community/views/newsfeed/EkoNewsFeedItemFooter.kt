@@ -69,8 +69,13 @@ class EkoNewsFeedItemFooter : ConstraintLayout {
 
     private fun setNumberOfComments(commentCount: Int) {
         tvNumberOfComments.visibility = if (commentCount > 0) View.VISIBLE else View.GONE
-        tvNumberOfComments.text = context.resources.getQuantityString(R.plurals.feed_number_of_comments, commentCount, commentCount)
+        tvNumberOfComments.text = context.resources.getQuantityString(
+            R.plurals.feed_number_of_comments,
+            commentCount,
+            commentCount
+        )
     }
+
     //TODO move to data binding
     fun setFeed(feed: EkoPost) {
         feedId = feed.getPostId()
@@ -93,7 +98,11 @@ class EkoNewsFeedItemFooter : ConstraintLayout {
 
     private fun setNumberOfLikes(reactionCount: Int) {
         tvNumberOfLikes.visibility = if (reactionCount > 0) View.VISIBLE else View.GONE
-        tvNumberOfLikes.text = context.resources.getQuantityString(R.plurals.feed_number_of_likes, reactionCount, reactionCount.readableNumber())
+        tvNumberOfLikes.text = context.resources.getQuantityString(
+            R.plurals.feed_number_of_likes,
+            reactionCount,
+            reactionCount.readableNumber()
+        )
     }
 
     private fun setLikeCheckboxText() {

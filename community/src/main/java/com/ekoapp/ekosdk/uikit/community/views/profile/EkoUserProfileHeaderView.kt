@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.ekoapp.ekosdk.file.EkoImage
-import com.ekoapp.ekosdk.uikit.common.loadImage
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.databinding.LayoutEkoUserProfileHeaderBinding
 import com.ekoapp.ekosdk.user.EkoUser

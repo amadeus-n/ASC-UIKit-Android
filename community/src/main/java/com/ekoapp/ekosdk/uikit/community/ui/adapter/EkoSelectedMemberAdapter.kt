@@ -9,10 +9,11 @@ import com.ekoapp.ekosdk.uikit.community.ui.clickListener.EkoSelectedMemberListe
 import com.ekoapp.ekosdk.uikit.community.ui.viewHolder.EkoSelectedMemberViewHolder
 import com.ekoapp.ekosdk.uikit.community.utils.SelectMemberItemDiffCallBack
 
-class EkoSelectedMemberAdapter(private val listener: EkoSelectedMemberListener):
+class EkoSelectedMemberAdapter(private val listener: EkoSelectedMemberListener) :
     EkoBaseRecyclerViewAdapter<SelectMemberItem>() {
 
-    override fun getLayoutId(position: Int, obj: SelectMemberItem?): Int = R.layout.selected_member_item
+    override fun getLayoutId(position: Int, obj: SelectMemberItem?): Int =
+        R.layout.selected_member_item
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder =
         EkoSelectedMemberViewHolder(view, listener)

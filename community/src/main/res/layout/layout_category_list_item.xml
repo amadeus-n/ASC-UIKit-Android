@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
 
         <variable
             name="avatarUrl"
@@ -33,12 +34,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/eight"
-            android:gravity="center_vertical"
+            android:layout_marginEnd="@dimen/four"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
             android:textColor="@color/upstraColorBase"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/categoryAvatar"
             app:layout_constraintTop_toTopOf="@id/categoryAvatar"
             app:layout_constraintBottom_toBottomOf="@id/categoryAvatar"
-            tools:text="Travel"/>
+            tools:text="Travel" />
 
-   </merge>
+    </merge>
 </layout>

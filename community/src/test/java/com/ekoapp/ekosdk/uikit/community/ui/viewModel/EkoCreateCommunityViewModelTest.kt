@@ -10,7 +10,6 @@ import com.ekoapp.ekosdk.uikit.community.data.SelectCategoryItem
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
-import io.reactivex.Flowable
 import io.reactivex.Single
 import org.junit.Assert.*
 import org.junit.Rule

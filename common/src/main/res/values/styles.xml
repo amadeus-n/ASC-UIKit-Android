@@ -1,4 +1,5 @@
 <resources>
+
     <style name="EkoAlertDialogStyle" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="colorPrimary">@color/upstraColorPrimary</item>
         <item name="materialAlertDialogBodyTextStyle">@style/AlertDialogBodyTextStyl</item>
@@ -7,26 +8,29 @@
     <style name="AlertDialogBodyTextStyl" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
         <item name="android:textColor">@color/upstraColorBase</item>
     </style>
-    <style name="IconButtonStyle"  parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+
+    <style name="IconButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
         <item name="iconPadding">0dp</item>
         <item name="iconGravity">textStart</item>
         <item name="rippleColor">@android:color/transparent</item>
         <item name="android:shadowColor">@android:color/transparent</item>
         <item name="strokeColor">@android:color/transparent</item>
     </style>
-     <style name="EkoAvatarStyle">
+
+    <style name="EkoAvatarStyle">
         <item name="avatarWidth">@dimen/avatar_default_height</item>
         <item name="avatarHeight">@dimen/avatar_default_width</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="ImagePreviewToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="android:background">@color/black</item>
         <item name="titleTextColor">@color/white</item>
     </style>
 
-    <style name="ImagePreviewTheme" parent="Base.Theme.EkoApp">
-    </style>
+    <style name="ImagePreviewTheme" parent="Base.Theme.EkoApp"></style>
+
     <style name="EkoNewsFeedAvatarStyle">
         <item name="avatarWidth">@dimen/forty</item>
         <item name="avatarHeight">@dimen/forty</item>
@@ -63,6 +67,7 @@
         <item name="cornerSize">5dp</item>
         <item name="cornerFamily">rounded</item>
     </style>
+
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>

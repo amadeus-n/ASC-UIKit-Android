@@ -13,7 +13,7 @@ import com.ekoapp.ekosdk.uikit.R
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.ShapeAppearanceModel
 
-class EkoAvatarView: FrameLayout {
+class EkoAvatarView : FrameLayout {
 
     // to track user avatar url
     private var mUrl: String = ""
@@ -40,7 +40,11 @@ class EkoAvatarView: FrameLayout {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init()
     }
 
@@ -53,7 +57,7 @@ class EkoAvatarView: FrameLayout {
         addView(rootView)
     }
 
-    private fun loadView(signatureString: String  = "") {
+    private fun loadView(signatureString: String = "") {
 
         val shapeBuilder = ShapeAppearanceModel.builder()
         if (isCircular) {

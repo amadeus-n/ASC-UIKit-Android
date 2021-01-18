@@ -8,12 +8,15 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class EkoBaseRecyclerViewPagedAdapter<T>(@NonNull diffCallBack: DiffUtil.ItemCallback<T>):
+abstract class EkoBaseRecyclerViewPagedAdapter<T>(@NonNull diffCallBack: DiffUtil.ItemCallback<T>) :
     PagedListAdapter<T, RecyclerView.ViewHolder>(diffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        getViewHolder(LayoutInflater.from(parent.context).inflate(
-            viewType, parent, false), viewType)
+        getViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                viewType, parent, false
+            ), viewType
+        )
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         (holder as Binder<T>).bind(getItem(position), position)
@@ -22,7 +25,7 @@ abstract class EkoBaseRecyclerViewPagedAdapter<T>(@NonNull diffCallBack: DiffUti
 
     protected abstract fun getLayoutId(position: Int, obj: T?): Int
 
-    abstract fun getViewHolder(view: View, viewType: Int):RecyclerView.ViewHolder
+    abstract fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder
 
     interface Binder<T> {
         fun bind(data: T?, position: Int)

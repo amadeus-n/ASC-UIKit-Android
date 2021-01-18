@@ -8,7 +8,8 @@ import com.ekoapp.ekosdk.uikit.chat.R
 import com.ekoapp.ekosdk.uikit.chat.databinding.ActivityEkoChatHomeBinding
 import com.ekoapp.ekosdk.uikit.chat.home.fragment.EkoChatHomePageFragment
 
-class EkoChatHomePageActivity : EkoBaseActivity<ActivityEkoChatHomeBinding, EkoChatHomePageViewModel>() {
+class EkoChatHomePageActivity :
+    EkoBaseActivity<ActivityEkoChatHomeBinding, EkoChatHomePageViewModel>() {
 
     private val mViewModel: EkoChatHomePageViewModel by viewModels()
 

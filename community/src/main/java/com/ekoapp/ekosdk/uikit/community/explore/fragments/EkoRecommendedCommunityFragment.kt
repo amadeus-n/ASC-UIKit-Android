@@ -32,7 +32,8 @@ class EkoRecommendedCommunityFragment : EkoBaseFragment(), IMyCommunityItemClick
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mViewModel = ViewModelProvider(requireActivity()).get(EkoExploreCommunityViewModel::class.java)
+        mViewModel =
+            ViewModelProvider(requireActivity()).get(EkoExploreCommunityViewModel::class.java)
         return inflater.inflate(R.layout.fragment_eko_recommended_community, container, false)
     }
 
@@ -53,13 +54,17 @@ class EkoRecommendedCommunityFragment : EkoBaseFragment(), IMyCommunityItemClick
     private fun initializeRecyclerView() {
         mAdapter = EkoRecommendedCommunitiesAdapter(this)
         rvRecommCommunity.layoutManager = LinearLayoutManager(
-            requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            requireContext(), LinearLayoutManager.HORIZONTAL, false
+        )
         rvRecommCommunity.adapter = mAdapter
-        rvRecommCommunity.addItemDecoration(EkoRCommunityItemDecoration(
-            requireContext().resources.getDimensionPixelSize(R.dimen.ten),
-            requireContext().resources.getDimensionPixelSize(R.dimen.eight),
-            requireContext().resources.getDimensionPixelSize(R.dimen.eighteen),
-            requireContext().resources.getDimensionPixelSize(R.dimen.eight)))
+        rvRecommCommunity.addItemDecoration(
+            EkoRCommunityItemDecoration(
+                requireContext().resources.getDimensionPixelSize(R.dimen.ten),
+                requireContext().resources.getDimensionPixelSize(R.dimen.eight),
+                requireContext().resources.getDimensionPixelSize(R.dimen.eighteen),
+                requireContext().resources.getDimensionPixelSize(R.dimen.eight)
+            )
+        )
         rvRecommCommunity.setHasFixedSize(true)
 
         getRecommendedCommunity()
@@ -88,7 +93,9 @@ class EkoRecommendedCommunityFragment : EkoBaseFragment(), IMyCommunityItemClick
                     false
                 } else {
                     when (action) {
-                        MotionEvent.ACTION_MOVE -> rv.parent.requestDisallowInterceptTouchEvent(false)
+                        MotionEvent.ACTION_MOVE -> rv.parent.requestDisallowInterceptTouchEvent(
+                            false
+                        )
                     }
                     false
                 }
@@ -103,17 +110,17 @@ class EkoRecommendedCommunityFragment : EkoBaseFragment(), IMyCommunityItemClick
     }
 
     override fun onCommunitySelected(ekoCommunity: EkoCommunity?) {
-        if(mViewModel.recommendedCommunityItemClickListener != null) {
+        if (mViewModel.recommendedCommunityItemClickListener != null) {
             mViewModel.recommendedCommunityItemClickListener!!.onCommunitySelected(ekoCommunity)
-        }
-        else {
+        } else {
             navigateToCommunityDetails(ekoCommunity)
         }
     }
 
     private fun navigateToCommunityDetails(ekoCommunity: EkoCommunity?) {
         if (ekoCommunity != null) {
-            val intent = EkoCommunityPageActivity.newIntent(requireContext(), ekoCommunity.getCommunityId())
+            val intent =
+                EkoCommunityPageActivity.newIntent(requireContext(), ekoCommunity.getCommunityId())
             startActivity(intent)
         }
     }

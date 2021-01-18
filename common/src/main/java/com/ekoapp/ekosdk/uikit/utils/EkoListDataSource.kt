@@ -5,7 +5,7 @@ import android.os.Looper
 import androidx.paging.PositionalDataSource
 import java.util.concurrent.Executor
 
-class EkoListDataSource<T: Any>(private val items: List<T>): PositionalDataSource<T>() {
+class EkoListDataSource<T : Any>(private val items: List<T>) : PositionalDataSource<T>() {
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<T>) {
         val start = params.startPosition
         val end = if (params.startPosition + params.loadSize > items.size)
@@ -20,7 +20,7 @@ class EkoListDataSource<T: Any>(private val items: List<T>): PositionalDataSourc
         callback.onResult(items, 0, items.size)
     }
 
-    class EkoUiThreadExecutor: Executor {
+    class EkoUiThreadExecutor : Executor {
         private val handler = Handler(Looper.getMainLooper())
         override fun execute(command: Runnable) {
             handler.post(command)

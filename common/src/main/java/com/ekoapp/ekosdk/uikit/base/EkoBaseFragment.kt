@@ -43,11 +43,11 @@ open class EkoBaseFragment : Fragment() {
         activity?.onBackPressed()
     }
 
-    override fun onDestroyView() {
+    override fun onDestroy() {
         if (!disposable.isDisposed) {
             disposable.dispose()
         }
-        super.onDestroyView()
+        super.onDestroy()
     }
 
     fun hasPermission(permission: String): Boolean {

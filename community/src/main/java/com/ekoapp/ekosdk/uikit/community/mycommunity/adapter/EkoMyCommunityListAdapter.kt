@@ -20,10 +20,15 @@ class EkoMyCommunityListAdapter(
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == R.layout.layout_my_community_item) {
-            EkoMyCommunityListViewHolder(view, previewMode, listener)
+            EkoMyCommunityListViewHolder(view, listener)
         } else {
             EkoMyCommunitiesViewHolder(view, listener)
         }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        super.onBindViewHolder(holder, position)
+        holder.setIsRecyclable(false)
     }
 
     override fun getItemCount(): Int {
@@ -41,9 +46,7 @@ class EkoMyCommunityListAdapter(
                 oldItem.getCommunityId() == newItem.getCommunityId()
 
             override fun areContentsTheSame(oldItem: EkoCommunity, newItem: EkoCommunity): Boolean =
-                oldItem.getAvatar()?.getUrl() == newItem.getAvatar()?.getUrl()
-                        && oldItem.getDisplayName() == newItem.getDisplayName()
-                        && oldItem.isOfficial() == newItem.isOfficial()
+                oldItem == newItem
         }
     }
 }

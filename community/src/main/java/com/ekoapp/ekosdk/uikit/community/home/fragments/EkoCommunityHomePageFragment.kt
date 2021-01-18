@@ -20,8 +20,8 @@ import com.ekoapp.ekosdk.uikit.base.EkoFragmentStateAdapter
 import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
 import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoCommunityHomePageBinding
+import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
 import com.ekoapp.ekosdk.uikit.community.explore.fragments.EkoExploreFragment
 import com.ekoapp.ekosdk.uikit.community.home.listener.IExploreFragmentFragmentDelegate
 import com.ekoapp.ekosdk.uikit.community.home.listener.INewsFeedFragmentDelegate
@@ -39,7 +39,7 @@ import kotlinx.android.synthetic.main.fragment_eko_community_home_page.*
 import java.util.concurrent.TimeUnit
 
 
-class EkoCommunityHomePageFragment internal constructor(): Fragment(),
+class EkoCommunityHomePageFragment internal constructor() : Fragment(),
     IMyCommunityItemClickListener {
 
     private lateinit var fragmentStateAdapter: EkoFragmentStateAdapter
@@ -111,13 +111,13 @@ class EkoCommunityHomePageFragment internal constructor(): Fragment(),
     }
 
     private fun getExploreFragment(): Fragment {
-        if(mViewModel.exploreFragmentDelegate != null)
+        if (mViewModel.exploreFragmentDelegate != null)
             return mViewModel.exploreFragmentDelegate!!.getExploreFragment()
         return EkoExploreFragment.Builder().build(activity as AppCompatActivity)
     }
 
     private fun getNewsFeedFragment(): Fragment {
-        if(mViewModel.newsFeedFragmentDelegate != null)
+        if (mViewModel.newsFeedFragmentDelegate != null)
             return mViewModel.newsFeedFragmentDelegate!!.getNewsFeedFragment()
         return EkoNewsFeedFragment.Builder().build(activity as AppCompatActivity)
     }
@@ -155,21 +155,29 @@ class EkoCommunityHomePageFragment internal constructor(): Fragment(),
     }
 
     private fun searchCommunity(newText: String) {
-        searchResultDisposable?.dispose()
-        searchResultDisposable = mViewModel.searchCommunity(newText)
-            .throttleLatest(1, TimeUnit.SECONDS, true)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext { list ->
-                if (list.isEmpty()) {
-                    mViewModel.emptySearch.set(true)
-                } else {
-                    mViewModel.emptySearch.set(false)
-                }
-                mSearchAdapter.submitList(list)
-            }.doOnError {
-                Log.e("CommunityHomeFragment", "searchCommunity: ${it.localizedMessage}")
-            }.subscribe()
+        if (newText.isEmpty()) {
+            mViewModel.emptySearchString.set(true)
+        } else {
+            mViewModel.emptySearchString.set(false)
+            searchResultDisposable?.dispose()
+            searchResultDisposable = mViewModel.searchCommunity(newText)
+                .throttleLatest(1, TimeUnit.SECONDS, true)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext { list ->
+                    if (list.isEmpty()) {
+                        mViewModel.emptySearch.set(true)
+                    } else {
+                        mViewModel.emptySearch.set(false)
+                    }
+                    if (newText.isNotEmpty()) {
+                        mSearchAdapter.submitList(list)
+                    }
+                }.doOnError {
+                    Log.e("CommunityHomeFragment", "searchCommunity: ${it.localizedMessage}")
+                }.subscribe()
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -254,7 +262,7 @@ class EkoCommunityHomePageFragment internal constructor(): Fragment(),
         private var exploreFragmentDelegate: IExploreFragmentFragmentDelegate? = null
 
         fun build(activity: AppCompatActivity): EkoCommunityHomePageFragment {
-            val fragment =  EkoCommunityHomePageFragment()
+            val fragment = EkoCommunityHomePageFragment()
             fragment.mViewModel =
                 ViewModelProvider(activity).get(EkoCommunityHomeViewModel::class.java)
             fragment.mViewModel.newsFeedFragmentDelegate = newsFeedFragmentDelegate
@@ -267,7 +275,7 @@ class EkoCommunityHomePageFragment internal constructor(): Fragment(),
             return this
         }
 
-        fun exploreFragmentDelegate(delegate: IExploreFragmentFragmentDelegate) : Builder {
+        fun exploreFragmentDelegate(delegate: IExploreFragmentFragmentDelegate): Builder {
             this.exploreFragmentDelegate = delegate
             return this
         }

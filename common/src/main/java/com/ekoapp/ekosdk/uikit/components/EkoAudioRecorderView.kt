@@ -21,7 +21,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EkoAudioRecorderView: ConstraintLayout {
+class EkoAudioRecorderView : ConstraintLayout {
 
     private lateinit var mBinding: EkoAudioRecorderViewBinding
     private var initialRecordBtnPos = 0
@@ -114,7 +114,7 @@ class EkoAudioRecorderView: ConstraintLayout {
         stopRecording(recordedTime)
         if (mBinding.delete == true) {
             audioFile?.delete()
-        }else {
+        } else {
             sendFile(recordedTime)
         }
         mBinding.delete = false
@@ -126,7 +126,7 @@ class EkoAudioRecorderView: ConstraintLayout {
 
 
     private fun startChronometer() {
-        var i=0
+        var i = 0
         mBinding.chronometer.base = SystemClock.elapsedRealtime()
         mBinding.chronometer.setOnChronometerTickListener { chronometer ->
             if (chronometer.text == "0$i:00" && chronometer.text != "00:00") {
@@ -149,7 +149,8 @@ class EkoAudioRecorderView: ConstraintLayout {
 
     private fun resetDeleteButton() {
         mBinding.btnDelete.layoutParams.width = resources.getDimensionPixelSize(R.dimen.forty_eight)
-        mBinding.btnDelete.layoutParams.height = resources.getDimensionPixelSize(R.dimen.forty_eight)
+        mBinding.btnDelete.layoutParams.height =
+            resources.getDimensionPixelSize(R.dimen.forty_eight)
         mBinding.btnDelete.requestLayout()
     }
 
@@ -163,8 +164,10 @@ class EkoAudioRecorderView: ConstraintLayout {
 
     fun circularReveal() {
         val radius = mBinding.layoutRecorder.width.coerceAtLeast(mBinding.layoutRecorder.height)
-        val circularReveal = ViewAnimationUtils.createCircularReveal(mBinding.layoutRecorder,
-            mBinding.layoutRecorder.width/2,mBinding.layoutRecorder.height,0F, radius * 1.1F)
+        val circularReveal = ViewAnimationUtils.createCircularReveal(
+            mBinding.layoutRecorder,
+            mBinding.layoutRecorder.width / 2, mBinding.layoutRecorder.height, 0F, radius * 1.1F
+        )
         circularReveal.duration = 1500
         circularReveal.start()
     }
@@ -174,7 +177,7 @@ class EkoAudioRecorderView: ConstraintLayout {
         mediaRecorder = MediaRecorder()
         audioFile = try {
             createAudioFile()
-        }catch (ex: IOException) {
+        } catch (ex: IOException) {
             Log.e("EkoAudioRecorderView", "createAudioFile Exception ${ex.localizedMessage}")
             null
         }
@@ -211,7 +214,7 @@ class EkoAudioRecorderView: ConstraintLayout {
                     reset()
                     release()
                 }
-            }catch (ex: Exception) {
+            } catch (ex: Exception) {
                 Log.e("EkoAudioRecorderView", "stopRecording: ${ex.printStackTrace()}")
             }
 
@@ -226,7 +229,7 @@ class EkoAudioRecorderView: ConstraintLayout {
         if (recordedTime < 1000) {
             audioFile?.delete()
             mListener?.showMessage()
-        }else {
+        } else {
             if (!fileSent) {
                 mListener?.onFileRecorded(audioFile)
                 fileSent = true
@@ -238,7 +241,8 @@ class EkoAudioRecorderView: ConstraintLayout {
     @Throws(IOException::class)
     private fun createAudioFile(): File {
         // Create an audio file name
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val timeStamp: String =
+            SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
         return File.createTempFile(
             "Audio_${timeStamp}_", /* prefix */

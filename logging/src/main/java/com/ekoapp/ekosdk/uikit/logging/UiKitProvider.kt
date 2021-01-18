@@ -5,7 +5,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
 
-class UiKitProvider: ContentProvider() {
+class UiKitProvider : ContentProvider() {
     override fun onCreate(): Boolean {
         return if (this.context != null) {
             val enabled = this.context?.resources?.getBoolean(R.bool.enableLogging) ?: false
@@ -13,7 +13,7 @@ class UiKitProvider: ContentProvider() {
                 LogHelper.setupTimberLogging(this.context!!)
             }
             true
-        }else {
+        } else {
             false
         }
 

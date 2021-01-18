@@ -6,7 +6,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.setPadding
 import com.ekoapp.ekosdk.uikit.R
 
-class EkoButton : AppCompatButton{
+class EkoButton : AppCompatButton {
 
     lateinit var style: EkoButtonStyle
 
@@ -35,7 +35,7 @@ class EkoButton : AppCompatButton{
     }
 
     private fun applyStyle() {
-        if(style.backgroundColor != null) {
+        if (style.backgroundColor != null) {
             setBackgroundColor(style.backgroundColor)
         }
 

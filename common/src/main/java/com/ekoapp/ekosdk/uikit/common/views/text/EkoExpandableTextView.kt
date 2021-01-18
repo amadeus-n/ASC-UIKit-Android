@@ -49,11 +49,11 @@ class EkoExpandableTextView : AppCompatTextView {
         setText()
     }
 
-    fun isReadMoreClicked() : Boolean {
+    fun isReadMoreClicked(): Boolean {
         return readMoreClicked
     }
 
-    fun setReadMoreClicked(readMoreClicked : Boolean) {
+    fun setReadMoreClicked(readMoreClicked: Boolean) {
         this.readMoreClicked = readMoreClicked
     }
 
@@ -83,44 +83,51 @@ class EkoExpandableTextView : AppCompatTextView {
     private fun getTrimmedText(text: CharSequence?): CharSequence? {
         if (originalText != null && this.lineCount >= maxLines) {
             return try {
-                val newLine = System.getProperty("line.separator")?:"\n"
+                val newLine = System.getProperty("line.separator") ?: "\n"
                 val truncatedSpannableString: SpannableString
                 val lastCharShown = layout.getLineVisibleEnd(maxLines - 1)
 
                 val readMoreString = context.getString(R.string.read_more)
                 val visibleText = text?.substring(0, lastCharShown)
-                var displayText : String? = null
-                if(visibleText!!.contains(newLine)) {
+                var displayText: String? = null
+                if (visibleText!!.contains(newLine)) {
                     val lastLineIndex = visibleText.lastIndexOf(newLine)
-                    var lastLine = visibleText.substring(lastLineIndex+1)
-                    if(lastLine.length > 30)
-                    {
-                        lastLine = lastLine.substring(0, lastLine.length - readMoreString.length) + readMoreString
-                    }else {
+                    var lastLine = visibleText.substring(lastLineIndex + 1)
+                    if (lastLine.length > 30) {
+                        lastLine = lastLine.substring(
+                            0,
+                            lastLine.length - readMoreString.length
+                        ) + readMoreString
+                    } else {
                         lastLine += readMoreString
                     }
-                    displayText = visibleText.substring(0, lastLineIndex+1) + lastLine
-                }else {
-                    displayText = text?.substring(0, lastCharShown - readMoreString.length) + readMoreString
+                    displayText = visibleText.substring(0, lastLineIndex + 1) + lastLine
+                } else {
+                    displayText =
+                        text?.substring(0, lastCharShown - readMoreString.length) + readMoreString
                 }
 
                 val startIndex = displayText.indexOf(readMoreString)
                 truncatedSpannableString = SpannableString(displayText)
-                truncatedSpannableString.setSpan(getReadMoreSpan(),
-                    startIndex, startIndex + readMoreString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                truncatedSpannableString.setSpan(
+                    getReadMoreSpan(),
+                    startIndex,
+                    startIndex + readMoreString.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
 
                 truncatedSpannableString
-            }catch (ex: Exception) {
+            } catch (ex: Exception) {
                 Log.e("EkoExpandableTextView", "exception $text ${ex.localizedMessage}")
                 originalText
             }
-        }else {
+        } else {
             return originalText
         }
     }
 
-    fun getVisibleLineCount() : Int {
-        return if(this.lineCount >= maxLines)
+    fun getVisibleLineCount(): Int {
+        return if (this.lineCount >= maxLines)
             maxLines
         else
             this.lineCount

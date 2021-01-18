@@ -1,6 +1,7 @@
 package com.ekoapp.ekosdk.uikit.community.members
 
 import android.content.Context
+import android.content.DialogInterface
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.data.SelectMemberItem
 import com.ekoapp.ekosdk.uikit.community.databinding.LayoutCommunityMembershipItemBinding
 import com.ekoapp.ekosdk.uikit.model.EkoMenuItem
+import com.ekoapp.ekosdk.uikit.utils.AlertDialogUtil
 import com.ekoapp.ekosdk.uikit.utils.EkoConstants
 import com.ekoapp.ekosdk.user.EkoUser
 import com.google.android.material.snackbar.Snackbar
@@ -35,7 +37,7 @@ class EkoCommunityModeratorAdapter(
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
         val itemViewModel = EkoMembershipItemViewModel()
         itemViewModel.communityId = communityMemberViewModel.communityId
-        itemViewModel.isModerator = communityMemberViewModel.isModerator.get()
+        itemViewModel.isModerator.set(communityMemberViewModel.isModerator.get())
         return EkoModeratorViewHolder(view, context, listener, itemViewModel)
     }
 
@@ -43,7 +45,8 @@ class EkoCommunityModeratorAdapter(
         itemView: View, private val context: Context,
         private val listener: IMemberClickListener,
         private val itemViewModel: EkoMembershipItemViewModel
-    ) : RecyclerView.ViewHolder(itemView), Binder<EkoCommunityMembership> {
+    ) : EkoCommunityMembersBaseViewHolder(itemView, context, itemViewModel, communityMemberViewModel),
+        Binder<EkoCommunityMembership> {
 
         private val binding: LayoutCommunityMembershipItemBinding? = DataBindingUtil.bind(itemView)
 
@@ -80,7 +83,7 @@ class EkoCommunityModeratorAdapter(
 
         private fun showBottomSheet(context: Context, ekoUser: EkoUser) {
             val itemList = arrayListOf<EkoMenuItem>()
-            if (itemViewModel.isModerator) {
+            if (itemViewModel.isModerator.get()) {
                 itemList.add(
                     EkoMenuItem(
                         EkoConstants.ID_REMOVE_MODERATOR,
@@ -103,7 +106,7 @@ class EkoCommunityModeratorAdapter(
                     )
                 )
             }
-            if (itemViewModel.isModerator) {
+            if (itemViewModel.isModerator.get()) {
                 itemList.add(
                     EkoMenuItem(
                         EkoConstants.ID_REMOVE_USER,
@@ -122,73 +125,11 @@ class EkoCommunityModeratorAdapter(
                     when (menuItem.id) {
                         EkoConstants.ID_REPORT_USER -> sendReportUser(ekoUser, true)
                         EkoConstants.ID_UN_REPORT_USER -> sendReportUser(ekoUser, false)
-                        EkoConstants.ID_REMOVE_USER -> removeUser(ekoUser)
+                        EkoConstants.ID_REMOVE_USER -> showRemoveUserDialog(ekoUser)
                         EkoConstants.ID_REMOVE_MODERATOR -> removeModerator(ekoUser)
                     }
                 }
             })
-        }
-
-
-        private fun sendReportUser(ekoUser: EkoUser, isReport: Boolean) {
-            val viewModel = if (isReport) {
-                itemViewModel.reportUser(ekoUser)
-            } else {
-                itemViewModel.unReportUser(ekoUser)
-            }
-            viewModel.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete {
-                    showDialogSentReportMessage(isReport)
-                }.doOnError {
-
-                }.subscribe()
-        }
-
-        private fun showDialogSentReportMessage(isReport: Boolean) {
-            val messageSent = if (isReport) {
-                R.string.report_sent
-            } else {
-                R.string.unreport_sent
-            }
-            Snackbar.make(
-                itemView,
-                context.getString(messageSent),
-                Snackbar.LENGTH_SHORT
-            ).show()
-        }
-
-        private fun removeUser(ekoUser: EkoUser) {
-            val list = listOf(ekoUser.getUserId())
-            itemViewModel.removeUser(list).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete {
-                    communityMemberViewModel.updateSelectedMembersList(
-                        SelectMemberItem(
-                            ekoUser.getUserId(),
-                            ekoUser.getAvatar()?.getUrl(EkoImage.Size.MEDIUM) ?: "",
-                            ekoUser.getDisplayName() ?: context.getString(R.string.anonymous),
-                            ekoUser.getDescription(),
-                            false
-                        )
-                    )
-                }.doOnError {
-
-                }.subscribe()
-
-            removeModerator(ekoUser)
-        }
-
-        private fun removeModerator(ekoUser: EkoUser) {
-            itemViewModel.removeRole(EkoConstants.MODERATOR_ROLE, listOf(ekoUser.getUserId()))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete {
-
-                }.doOnError {
-                    Log.e("ModeratorAdapter", "removeModerator: $it")
-                }.subscribe()
-
         }
     }
 

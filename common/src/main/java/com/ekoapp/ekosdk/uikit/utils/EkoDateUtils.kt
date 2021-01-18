@@ -25,17 +25,20 @@ object EkoDateUtils {
         DateUtils.isToday(timestamp) -> EkoConstants.TODAY
         isYesterday(timestamp) -> EkoConstants.YESTERDAY
         isCurrentYear(timestamp) -> SimpleDateFormat(
-            "$MONTH_WITH_DATE, $YEAR", Locale.getDefault()).format(Date(timestamp))
+            "$MONTH_WITH_DATE, $YEAR", Locale.getDefault()
+        ).format(Date(timestamp))
         else -> SimpleDateFormat(
             DAY_OF_WEEK + " " + EkoConstants.DOT_SEPARATOR +
-                    " " + MONTH_WITH_DATE + ", " + YEAR, Locale.getDefault()).format(Date(timestamp))
+                    " " + MONTH_WITH_DATE + ", " + YEAR, Locale.getDefault()
+        ).format(Date(timestamp))
     }
 
     fun getMessageTime(timestamp: Long): String = if (DateUtils.isToday(timestamp)) {
         getTimeStr(timestamp)
-    }else {
+    } else {
         SimpleDateFormat(
-            "dd/MM/yy", Locale.getDefault()).format(Date(timestamp))
+            "dd/MM/yy", Locale.getDefault()
+        ).format(Date(timestamp))
     }
 
     private fun isYesterday(time: Long): Boolean =

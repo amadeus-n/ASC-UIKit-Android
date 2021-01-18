@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil" />
+
         <variable
             name="viewModel"
             type="com.ekoapp.ekosdk.uikit.chat.editMessage.EkoEditMessageViewModel" />

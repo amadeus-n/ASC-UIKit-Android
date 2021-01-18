@@ -32,7 +32,7 @@ class EkoTextView : androidx.appcompat.widget.AppCompatTextView {
     }
 
     private fun applyStyle() {
-      setTextColor(style.textColor)
+        setTextColor(style.textColor)
         setTypeface(typeface, style.textStyle)
     }
 }

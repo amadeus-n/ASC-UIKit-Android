@@ -12,7 +12,7 @@ import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemCl
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import io.reactivex.Flowable
 
-class EkoMyCommunityListViewModel: EkoBaseViewModel() {
+class EkoMyCommunityListViewModel : EkoBaseViewModel() {
 
     var myCommunityItemClickListener: IMyCommunityItemClickListener? = null
     val searchString = ObservableField("")

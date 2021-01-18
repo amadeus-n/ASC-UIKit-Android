@@ -8,7 +8,7 @@ import com.ekoapp.ekosdk.uikit.community.R
 
 class EkoPostComposeViewStyle : Style {
     var backgroundColor: Int = -1
-    var padding : Int = -1
+    var padding: Int = -1
     var hint: Int = -1
 
     init {

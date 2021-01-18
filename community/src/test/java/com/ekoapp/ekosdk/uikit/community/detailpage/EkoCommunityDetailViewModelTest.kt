@@ -13,7 +13,6 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import org.junit.Assert.*
 import org.junit.Test
-import java.lang.Exception
 
 class EkoCommunityDetailViewModelTest {
 
@@ -115,10 +114,11 @@ class EkoCommunityDetailViewModelTest {
         val viewModel = EkoCommunityDetailViewModel()
         viewModel.isCreator.set(true)
         viewModel.isModerator.set(true)
-        viewModel.onEventReceived += {event->
-            when(event.type) {
+        viewModel.onEventReceived += { event ->
+            when (event.type) {
                 EventIdentifier.EDIT_PROFILE -> editProfile = true
-                else -> {}
+                else -> {
+                }
             }
         }
         viewModel.onPrimaryButtonClick()

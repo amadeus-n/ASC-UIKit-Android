@@ -3,10 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade"/>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
         <variable
             name="disable"
             type="Boolean" />
+
         <variable
             name="delete"
             type="Boolean" />
@@ -22,7 +25,7 @@
             android:clickable="true"
             android:focusable="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <com.ekoapp.ekosdk.uikit.components.EkoRippleBackground
             android:id="@+id/rippleBackGround"
@@ -31,8 +34,7 @@
             app:rbColor="@color/upstraColorBase"
             app:rbRippleAmount="2"
             app:rbDuration="3000"
-            app:rbScale="6"
-            >
+            app:rbScale="6">
 
         </com.ekoapp.ekosdk.uikit.components.EkoRippleBackground>
 
@@ -48,7 +50,7 @@
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/tvRelease"/>
+                app:layout_constraintBottom_toTopOf="@id/tvRelease" />
 
             <TextView
                 android:id="@+id/tvRelease"
@@ -61,7 +63,7 @@
                 android:layout_marginBottom="@dimen/thirty_two"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/btnRecordAudio"/>
+                app:layout_constraintBottom_toTopOf="@id/btnRecordAudio" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/btnRecordAudio"

@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.ekoapp.ekosdk.uikit">
-    <application
-        android:requestLegacyExternalStorage="true"
-        tools:targetApi="q">
+
+    <application>
         <activity
             android:name="com.ekoapp.ekosdk.uikit.imagepreview.EkoImagePreviewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ImagePreviewTheme" />
+
+        <provider
+            android:name=".utils.UiKitProvider"
+            android:authorities="${applicationId}.UikitCommonProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_path" />
+
+        </provider>
+
     </application>
 </manifest>

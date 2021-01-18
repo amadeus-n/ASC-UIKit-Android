@@ -9,10 +9,10 @@
     <item
         android:id="@+id/actionDeleteComment"
         android:title="@string/delete_comment"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
     <item
         android:id="@+id/actionReportComment"
         android:title="@string/report_comment"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
 </menu>

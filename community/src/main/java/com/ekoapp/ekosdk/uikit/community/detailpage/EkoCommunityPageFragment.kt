@@ -2,6 +2,7 @@ package com.ekoapp.ekosdk.uikit.community.detailpage
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.widget.Toast
@@ -12,7 +13,6 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.permission.EkoPermission
 import com.ekoapp.ekosdk.uikit.base.EkoFragmentStateAdapter
@@ -28,7 +28,6 @@ import com.ekoapp.ekosdk.uikit.community.setting.EkoCommunitySettingsActivity
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
 import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
-import com.ekoapp.ekosdk.uikit.utils.EkoConstants
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -112,7 +111,7 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
                     }
                 }
             }
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 refreshLayout?.isRefreshing = false
             }, 1000)
         }
@@ -180,17 +179,18 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
             }.subscribe()
         )
 
-//        disposable.add(mViewModel.checkModeratorPermissionAtCommunity(
-//            EkoPermission.EDIT_COMMUNITY,
-//            mViewModel.communityID)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .doOnNext {
-//                mViewModel.isModerator.set(it)
-//            }.doOnError {
-//                mViewModel.isModerator.set(false)
-//            }.subscribe()
-//        )
+        disposable.add(mViewModel.checkModeratorPermissionAtCommunity(
+            EkoPermission.EDIT_COMMUNITY,
+            mViewModel.communityID
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnNext {
+                mViewModel.isModerator.set(it)
+            }.doOnError {
+                mViewModel.isModerator.set(false)
+            }.subscribe()
+        )
     }
 
     private fun showCommunitySuccessMessage() {

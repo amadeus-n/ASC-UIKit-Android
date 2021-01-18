@@ -21,7 +21,8 @@ import kotlinx.android.synthetic.main.fragment_eko_category_list.*
 
 const val ARG_DEFAULT_SELECTION = "default_selection"
 
-abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragment(), IEkoCategoryItemClickListener{
+abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragment(),
+    IEkoCategoryItemClickListener {
     internal lateinit var mViewModel: EkoCategoryListViewModel
 
     private lateinit var adapter: EkoCategoryListAdapter
@@ -31,7 +32,7 @@ abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragm
         adapter = getCategoryListAdapter()
     }
 
-    abstract fun getCategoryListAdapter() : EkoCategoryListAdapter
+    abstract fun getCategoryListAdapter(): EkoCategoryListAdapter
 
     private fun setupToolBar() {
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.category)

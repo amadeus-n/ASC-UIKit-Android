@@ -10,9 +10,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ekoapp.ekosdk.uikit.R
 import kotlinx.android.synthetic.main.activity_eko_image_preview.*
 
-class EkoImagePreviewActivity : AppCompatActivity(){
-  private lateinit var ekoImages : List<PreviewImage>
-    private var imagePosition : Int = 0
+class EkoImagePreviewActivity : AppCompatActivity() {
+    private lateinit var ekoImages: List<PreviewImage>
+    private var imagePosition: Int = 0
     private var showImageCount = true
     private lateinit var imagePreviewAdapter: EkoImagePreviewPagerAdapter
     private lateinit var pageChangeCallback: ViewPager2.OnPageChangeCallback
@@ -50,6 +50,7 @@ class EkoImagePreviewActivity : AppCompatActivity(){
         super.onResume()
         imageViewPages.registerOnPageChangeCallback(pageChangeCallback)
     }
+
     override fun onPause() {
         super.onPause()
         imageViewPages.unregisterOnPageChangeCallback(pageChangeCallback)
@@ -64,10 +65,9 @@ class EkoImagePreviewActivity : AppCompatActivity(){
     }
 
     private fun setToolbarTitle(position: Int) {
-        if(!showImageCount) {
+        if (!showImageCount) {
             supportActionBar?.setDisplayShowTitleEnabled(false)
-        }
-        else {
+        } else {
             supportActionBar?.title =
                 String.format(getString(R.string.image_preview_title, position + 1, ekoImages.size))
         }
