@@ -55,16 +55,16 @@ fun Boolean.changeValue(default: Boolean, previous: Boolean): Boolean {
 fun ImageView.loadImage(url: String?, id: Int? = null) {
     if (id != null) {
         Glide.with(this)
-            .load(url)
-            .centerCrop()
-            .placeholder(id)
-            .into(ScaleErrorImageViewTarget(this).error())
+                .load(url)
+                .centerCrop()
+                .placeholder(id)
+                .into(ScaleErrorImageViewTarget(this).error())
     } else {
         Glide.with(this)
-            .load(url)
-            .centerCrop()
-            .placeholder(R.drawable.ic_uikit_user)
-            .into(ScaleErrorImageViewTarget(this).error())
+                .load(url)
+                .centerCrop()
+                .placeholder(R.drawable.ic_uikit_user)
+                .into(ScaleErrorImageViewTarget(this).error())
     }
 
 }
@@ -77,19 +77,19 @@ fun Long.readableFeedPostTime(context: Context): String {
 
     return when {
         days > 0 -> context.resources.getQuantityString(
-            R.plurals.number_of_days,
-            days.toInt(),
-            days
+                R.plurals.number_of_days,
+                days.toInt(),
+                days
         )
         hours > 0 -> context.resources.getQuantityString(
-            R.plurals.number_of_hours,
-            hours.toInt(),
-            hours
+                R.plurals.number_of_hours,
+                hours.toInt(),
+                hours
         )
         minutes > 0 -> context.resources.getQuantityString(
-            R.plurals.number_of_mins,
-            minutes.toInt(),
-            minutes
+                R.plurals.number_of_mins,
+                minutes.toInt(),
+                minutes
         )
         else -> context.getString(R.string.just_now)
     }
@@ -109,25 +109,25 @@ fun Int.readableNumber(): String {
 
 fun <T : Any> List<T>.toPagedList(pageSize: Int): PagedList<T> {
     val config = PagedList.Config.Builder()
-        .setEnablePlaceholders(false)
-        .setPageSize(pageSize)
-        .build()
+            .setEnablePlaceholders(false)
+            .setPageSize(pageSize)
+            .build()
 
     return PagedList.Builder(EkoListDataSource(this), config)
-        .setNotifyExecutor(EkoListDataSource.EkoUiThreadExecutor())
-        .setFetchExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
-        .build()
+            .setNotifyExecutor(EkoListDataSource.EkoUiThreadExecutor())
+            .setFetchExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+            .build()
 
 }
 
 fun View.setShape(
-    topLeft: Float?, bottomLeft: Float?,
-    topRight: Float?, bottomRight: Float?, @ColorRes fillColor: Int?,
-    @ColorRes strokeColor: Int?, colorShade: ColorShade?
+        topLeft: Float?, bottomLeft: Float?,
+        topRight: Float?, bottomRight: Float?, @ColorRes fillColor: Int?,
+        @ColorRes strokeColor: Int?, colorShade: ColorShade?
 ) {
 
     val modal = ShapeAppearanceModel()
-        .toBuilder()
+            .toBuilder()
     val cornerRadius = this.context.resources.getDimensionPixelSize(R.dimen.eight).toFloat()
     if (topLeft == null) {
         modal.setTopLeftCorner(CornerFamily.ROUNDED, cornerRadius)
@@ -162,12 +162,12 @@ fun View.setShape(
             shapeDrawable.fillColor = ContextCompat.getColorStateList(this.context, fillColor)
         else {
             shapeDrawable.setTint(
-                ColorPaletteUtil.getColor(
-                    ContextCompat.getColor(
-                        this.context,
-                        fillColor
-                    ), colorShade
-                )
+                    ColorPaletteUtil.getColor(
+                            ContextCompat.getColor(
+                                    this.context,
+                                    fillColor
+                            ), colorShade
+                    )
             )
         }
 
@@ -177,12 +177,12 @@ fun View.setShape(
                 shapeDrawable.setStroke(2F, ContextCompat.getColor(this.context, fillColor))
             } else {
                 shapeDrawable.setStroke(
-                    2F, ColorPaletteUtil.getColor(
+                        2F, ColorPaletteUtil.getColor(
                         ContextCompat.getColor(
-                            this.context,
-                            fillColor
+                                this.context,
+                                fillColor
                         ), colorShade
-                    )
+                )
                 )
             }
 
@@ -191,12 +191,12 @@ fun View.setShape(
                 shapeDrawable.setStroke(2F, ContextCompat.getColor(this.context, strokeColor))
             } else {
                 shapeDrawable.setStroke(
-                    2F, ColorPaletteUtil.getColor(
+                        2F, ColorPaletteUtil.getColor(
                         ContextCompat.getColor(
-                            this.context,
-                            strokeColor
+                                this.context,
+                                strokeColor
                         ), colorShade
-                    )
+                )
                 )
             }
 
@@ -209,11 +209,11 @@ fun View.setShape(
 
 fun View.toCircularShape(fillColor: Int, strokeWidth: Float? = null) {
     val modal = ShapeAppearanceModel()
-        .toBuilder()
-        .setAllCorners(
-            CornerFamily.ROUNDED,
-            this.context.resources.getDimensionPixelSize(R.dimen.thirty_two).toFloat()
-        )
+            .toBuilder()
+            .setAllCorners(
+                    CornerFamily.ROUNDED,
+                    this.context.resources.getDimensionPixelSize(R.dimen.thirty_two).toFloat()
+            )
     val shapeDrawable = MaterialShapeDrawable(modal.build())
     shapeDrawable.setTint(fillColor)
     if (strokeWidth != null) {

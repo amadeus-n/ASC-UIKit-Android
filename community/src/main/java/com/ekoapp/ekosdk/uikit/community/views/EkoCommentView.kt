@@ -25,25 +25,25 @@ class EkoCommentView : ConstraintLayout {
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
+            context,
+            attrs,
+            defStyleAttr
     ) {
         init()
     }
 
     fun setImageUrl(url: String) {
         Glide.with(context)
-            .load(url)
-            .placeholder(R.drawable.ic_uikit_default_profile)
-            .into(avProfile)
+                .load(url)
+                .placeholder(R.drawable.ic_uikit_default_profile)
+                .into(avProfile)
     }
 
 
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.layout_news_feed_item_comment, this, true)
+                DataBindingUtil.inflate(inflater, R.layout.layout_news_feed_item_comment, this, true)
 
         ivExpand.setOnClickListener {
             Toast.makeText(context, "TODO", Toast.LENGTH_LONG).show()

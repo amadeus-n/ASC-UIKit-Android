@@ -66,16 +66,16 @@ class EkoAudioMsgViewModel : EkoSelectableMessageViewModel() {
                     uploading.set(ekoMessage.getState() == EkoMessage.State.UPLOADING)
                     val fileRepository: EkoFileRepository = EkoClient.newFileRepository()
                     addDisposable(fileRepository.getUploadInfo(ekoMessage.getMessageId())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnNext { uploadInfo ->
-                            uploadProgress.set(uploadInfo.getProgressPercentage())
-                        }.doOnError {
-                            Log.e(
-                                "EkoAudioMsgViewModel",
-                                "Audio upload error ${it.localizedMessage}"
-                            )
-                        }.subscribe()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnNext { uploadInfo ->
+                                uploadProgress.set(uploadInfo.getProgressPercentage())
+                            }.doOnError {
+                                Log.e(
+                                        "EkoAudioMsgViewModel",
+                                        "Audio upload error ${it.localizedMessage}"
+                                )
+                            }.subscribe()
                     )
                 }
                 else -> {

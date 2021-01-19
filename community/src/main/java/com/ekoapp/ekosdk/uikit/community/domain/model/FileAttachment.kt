@@ -7,17 +7,17 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class FileAttachment(
-    val id: String?,
-    val uploadId: String?,
-    val name: String,
-    val size: Long,
-    val uri: Uri,
-    val readableSize: String,
-    val mimeType: String,
-    var uploadState: FileUploadState = FileUploadState.PENDING,
-    var progress: Int = 0
+        val id: String?,
+        val uploadId: String?,
+        val name: String,
+        val size: Long,
+        val uri: Uri,
+        val readableSize: String,
+        val mimeType: String,
+        var uploadState: FileUploadState = FileUploadState.PENDING,
+        var progress: Int = 0
 ) :
-    Parcelable {
+        Parcelable {
 
 
     override fun equals(other: Any?): Boolean {

@@ -19,21 +19,21 @@ class EkoCreatePostActivity : EkoBaseToolbarFragmentContainerActivity() {
         val community = intent?.getParcelableExtra<EkoCommunity>(EXTRA_PARAM_COMMUNITY)
         getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross))
         getToolBar()?.setLeftString(
-            if (community != null) community.getDisplayName() else getString(
-                R.string.my_timeline
-            )
+                if (community != null) community.getDisplayName() else getString(
+                        R.string.my_timeline
+                )
         )
     }
 
     override fun getContentFragment(): Fragment {
         val community = intent?.getParcelableExtra<EkoCommunity>(EXTRA_PARAM_COMMUNITY)
         return EkoPostCreateFragment.Builder()
-            .onCommunityFeed(community)
-            .build(this)
+                .onCommunityFeed(community)
+                .build(this)
     }
 
     class EkoCreateCommunityPostActivityContract :
-        ActivityResultContract<EkoCommunity?, String?>() {
+            ActivityResultContract<EkoCommunity?, String?>() {
         override fun createIntent(context: Context, community: EkoCommunity?): Intent {
             return Intent(context, EkoCreatePostActivity::class.java).apply {
                 putExtra(EXTRA_PARAM_COMMUNITY, community)

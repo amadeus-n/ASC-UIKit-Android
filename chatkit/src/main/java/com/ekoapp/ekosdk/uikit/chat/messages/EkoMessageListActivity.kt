@@ -21,7 +21,7 @@ class EkoMessageListActivity : AppCompatActivity() {
 
     private fun initializeFragment() {
         val messageListFragment = EkoMessageListFragment.Builder(channelId)
-            .build()
+                .build()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.messageListContainer, messageListFragment)
         transaction.addToBackStack(null)

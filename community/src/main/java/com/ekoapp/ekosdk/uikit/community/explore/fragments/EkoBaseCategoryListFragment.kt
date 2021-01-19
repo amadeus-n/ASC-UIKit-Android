@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_eko_category_list.*
 const val ARG_DEFAULT_SELECTION = "default_selection"
 
 abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragment(),
-    IEkoCategoryItemClickListener {
+        IEkoCategoryItemClickListener {
     internal lateinit var mViewModel: EkoCategoryListViewModel
 
     private lateinit var adapter: EkoCategoryListAdapter
@@ -39,8 +39,8 @@ abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragm
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         mViewModel = ViewModelProvider(requireActivity()).get(EkoCategoryListViewModel::class.java)
         return inflater.inflate(R.layout.fragment_eko_category_list, container, false)
@@ -55,7 +55,7 @@ abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragm
 
     private fun initView() {
         val itemDecorSpace =
-            EkoRecyclerViewItemDecoration(resources.getDimensionPixelSize(R.dimen.eight))
+                EkoRecyclerViewItemDecoration(resources.getDimensionPixelSize(R.dimen.eight))
         rvCategory.layoutManager = LinearLayoutManager(requireContext())
         rvCategory.adapter = adapter
         rvCategory.addItemDecoration(itemDecorSpace)
@@ -63,19 +63,19 @@ abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragm
 
     private fun getCategories() {
         disposable.add(mViewModel.getCategories()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                run {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError {
+                    run {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    }
 
-            }
-            .subscribe { result ->
-                run {
-                    adapter.submitList(result)
                 }
-            })
+                .subscribe { result ->
+                    run {
+                        adapter.submitList(result)
+                    }
+                })
     }
 
     override fun onCategorySelected(category: EkoCommunityCategory) {

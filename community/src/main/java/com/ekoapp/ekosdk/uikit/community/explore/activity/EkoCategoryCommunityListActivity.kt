@@ -14,7 +14,7 @@ class EkoCategoryCommunityListActivity : EkoBaseToolbarFragmentContainerActivity
     override fun initToolbar() {
         val category: EkoCommunityCategory? = intent.getParcelableExtra(INTENT_CATEGORY)
         getToolBar()?.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+                ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
         )
         getToolBar()?.setLeftString(category?.getName() ?: "")
         showToolbarDivider()
@@ -24,9 +24,9 @@ class EkoCategoryCommunityListActivity : EkoBaseToolbarFragmentContainerActivity
         val category: EkoCommunityCategory? = intent.getParcelableExtra(INTENT_CATEGORY)
         return category?.let {
             EkoCategoryCommunityListFragment
-                .Builder()
-                .category(it)
-                .build(this)
+                    .Builder()
+                    .category(it)
+                    .build(this)
         } ?: Fragment()
     }
 
@@ -34,8 +34,8 @@ class EkoCategoryCommunityListActivity : EkoBaseToolbarFragmentContainerActivity
         private const val INTENT_CATEGORY = "INTENT_CATEGORY_NAME"
 
         fun newIntent(context: Context, category: EkoCommunityCategory): Intent =
-            Intent(context, EkoCategoryCommunityListActivity::class.java).apply {
-                putExtra(INTENT_CATEGORY, category)
-            }
+                Intent(context, EkoCategoryCommunityListActivity::class.java).apply {
+                    putExtra(INTENT_CATEGORY, category)
+                }
     }
 }

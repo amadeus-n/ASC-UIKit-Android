@@ -20,7 +20,7 @@ class EkoImagePreviewPagerAdapter : EkoBaseRecyclerViewAdapter<PreviewImage>() {
 
 
     class ImagePreviewItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        IBinder<PreviewImage> {
+            IBinder<PreviewImage> {
         var image: PhotoView = itemView.findViewById(R.id.ivPreviewImage)
         override fun bind(data: PreviewImage?, position: Int) {
             image.maximumScale = 10F

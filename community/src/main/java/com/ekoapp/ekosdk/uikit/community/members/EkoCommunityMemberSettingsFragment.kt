@@ -40,14 +40,14 @@ class EkoCommunityMemberSettingsFragment internal constructor() : EkoBaseFragmen
         mViewModel.community = arguments?.getParcelable(ARG_IS_COMMUNITY)
 
         fragmentStateAdapter = EkoFragmentStateAdapter(
-            childFragmentManager,
-            requireActivity().lifecycle
+                childFragmentManager,
+                requireActivity().lifecycle
         )
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_eko_community_member_settings, container, false)
@@ -65,20 +65,20 @@ class EkoCommunityMemberSettingsFragment internal constructor() : EkoBaseFragmen
 
     private fun setUpToolbar() {
         (activity as AppCompatActivity).supportActionBar?.title =
-            getString(R.string.members_capital)
+                getString(R.string.members_capital)
         if (mViewModel.isJoined.get()) {
             disposable.add(mViewModel.checkModeratorPermissionAtCommunity(
-                EkoPermission.ADD_COMMUNITY_USER,
-                mViewModel.communityId
+                    EkoPermission.ADD_COMMUNITY_USER,
+                    mViewModel.communityId
             )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext {
-                    setHasOptionsMenu(it)
-                    mViewModel.isModerator.set(it)
-                }.doOnError {
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnNext {
+                        setHasOptionsMenu(it)
+                        mViewModel.isModerator.set(it)
+                    }.doOnError {
 
-                }.subscribe()
+                    }.subscribe()
             )
         }
 
@@ -87,16 +87,16 @@ class EkoCommunityMemberSettingsFragment internal constructor() : EkoBaseFragmen
 
     private fun setUpTabLayout() {
         fragmentStateAdapter.setFragmentList(
-            arrayListOf(
-                EkoFragmentStateAdapter.EkoPagerModel(
-                    getString(R.string.members_capital),
-                    EkoMembersFragment.newInstance()
-                ),
-                EkoFragmentStateAdapter.EkoPagerModel(
-                    getString(R.string.moderators),
-                    EkoModeratorsFragment.newInstance()
+                arrayListOf(
+                        EkoFragmentStateAdapter.EkoPagerModel(
+                                getString(R.string.members_capital),
+                                EkoMembersFragment.newInstance()
+                        ),
+                        EkoFragmentStateAdapter.EkoPagerModel(
+                                getString(R.string.moderators),
+                                EkoModeratorsFragment.newInstance()
+                        )
                 )
-            )
         )
         membersTabLayout.setAdapter(fragmentStateAdapter)
     }
@@ -105,40 +105,42 @@ class EkoCommunityMemberSettingsFragment internal constructor() : EkoBaseFragmen
         if (exception is EkoException) {
             if (exception.code == EkoConstants.NO_PERMISSION_ERROR_CODE) {
                 AlertDialogUtil.showNoPermissionDialog(requireContext(),
-                    DialogInterface.OnClickListener { dialog, _ ->
-                        dialog?.dismiss()
-                        checkUserRole()
-                    })
-            }else {
+                        DialogInterface.OnClickListener { dialog, _ ->
+                            dialog?.dismiss()
+                            checkUserRole()
+                        })
+            } else {
                 Log.e("MemberSettingsFragment", "${exception.message}")
             }
-        }else {
+        } else {
             Log.e("MemberSettingsFragment", "${exception.message}")
         }
     }
 
     private fun checkUserRole() {
         mViewModel.getCommunityDetail().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .firstOrError()
-            .doOnSuccess {
-                if (it.isJoined()) {
-                    requireActivity().finish()
-                }else {
-                    val intent = Intent(requireContext(), EkoCommunityHomePageActivity::class.java).addFlags(
-                        Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    startActivity(intent)
-                }
-            }.doOnError {
-                Log.e("MemberSettingsFragment", "checkUserRole: ${it.localizedMessage}")
-            }.subscribe()
+                .observeOn(AndroidSchedulers.mainThread())
+                .firstOrError()
+                .doOnSuccess {
+                    if (it.isJoined()) {
+                        requireActivity().finish()
+                    } else {
+                        val intent =
+                                Intent(requireContext(), EkoCommunityHomePageActivity::class.java).addFlags(
+                                        Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                )
+                        startActivity(intent)
+                    }
+                }.doOnError {
+                    Log.e("MemberSettingsFragment", "checkUserRole: ${it.localizedMessage}")
+                }.subscribe()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_add)
         menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.add))
-            ?.setIcon(drawable)
-            ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                ?.setIcon(drawable)
+                ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         super.onCreateOptionsMenu(menu, inflater)
     }
 

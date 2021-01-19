@@ -40,9 +40,9 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
+            context,
+            attrs,
+            defStyleAttr
     ) {
         init()
     }
@@ -50,7 +50,7 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.layout_news_feed_item_header, this, true)
+                DataBindingUtil.inflate(inflater, R.layout.layout_news_feed_item_header, this, true)
     }
 
     fun setNewsFeedActionAvatarClickListener(listener: INewsFeedActionAvatarClickListener) {
@@ -106,18 +106,18 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
                 }
                 mBinding.isCommunity = true
                 userName.setCompoundDrawablesWithIntrinsicBounds(
-                    null,
-                    null,
-                    ContextCompat.getDrawable(context, R.drawable.ic_uikit_arrow),
-                    null
+                        null,
+                        null,
+                        ContextCompat.getDrawable(context, R.drawable.ic_uikit_arrow),
+                        null
                 )
                 communityName.text = it.getDisplayName().trim()
                 if (community.isOfficial()) {
                     communityName.setCompoundDrawablesWithIntrinsicBounds(
-                        null,
-                        null,
-                        ContextCompat.getDrawable(context, R.drawable.ic_uikit_verified),
-                        null
+                            null,
+                            null,
+                            ContextCompat.getDrawable(context, R.drawable.ic_uikit_verified),
+                            null
                     )
                 } else {
                     //TODO Handle when community isn't official
@@ -160,20 +160,20 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
     private fun getCommunityModerators(communityId: String, userIdPostCreator: String) {
         val communityRepository = EkoClient.newCommunityRepository()
         communityRepository.membership(communityId).getCollection()
-            .filter(EkoCommunityMembershipFilter.MEMBER)
-            .sortBy(EkoCommunityMembershipSortOption.FIRST_CREATED)
-            .roles(listOf(EkoConstants.MODERATOR_ROLE))
-            .build()
-            .query()
-            .firstOrError()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSuccess { members ->
-                mBinding.isModerator = members.any { it.getUserId() == userIdPostCreator }
-            }
-            .doOnError {
-                mBinding.isModerator = false
-            }.subscribe()
+                .filter(EkoCommunityMembershipFilter.MEMBER)
+                .sortBy(EkoCommunityMembershipSortOption.FIRST_CREATED)
+                .roles(listOf(EkoConstants.MODERATOR_ROLE))
+                .build()
+                .query()
+                .firstOrError()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess { members ->
+                    mBinding.isModerator = members.any { it.getUserId() == userIdPostCreator }
+                }
+                .doOnError {
+                    mBinding.isModerator = false
+                }.subscribe()
     }
 
     private fun handleCommunityClick(data: EkoPost) {
@@ -188,7 +188,7 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
     private fun handleUserClick(feed: EkoPost) {
         feed.getPostedUser()?.let { user ->
             newsFeedActionAvatarClickListener?.onClickUserAvatar(
-                user
+                    user
             )
         }
     }

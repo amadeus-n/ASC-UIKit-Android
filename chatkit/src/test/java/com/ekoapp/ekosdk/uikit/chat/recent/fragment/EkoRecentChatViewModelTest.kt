@@ -23,7 +23,7 @@ class EkoRecentChatViewModelTest {
         every { mockList.size } returns 5
         every {
             channelRepository.getChannelCollection().types(any()).filter(any()).build()
-                .query()
+                    .query()
         } returns Flowable.just(mockList)
 
         val viewModel = EkoRecentChatViewModel()

@@ -17,7 +17,7 @@ open class Style {
     private var resources: Resources
 
     constructor(
-        context: Context
+            context: Context
     ) {
         this.context = context
         resources = context.resources

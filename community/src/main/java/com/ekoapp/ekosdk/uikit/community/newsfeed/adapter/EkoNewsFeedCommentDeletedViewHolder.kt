@@ -10,7 +10,7 @@ import com.ekoapp.ekosdk.uikit.community.R
 
 
 class EkoNewsFeedCommentDeletedViewHolder(
-    itemView: View
+        itemView: View
 ) : RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewAdapter.IBinder<EkoComment> {
 
     private val deletionTime: TextView = itemView.findViewById(R.id.tvDeletionTime)

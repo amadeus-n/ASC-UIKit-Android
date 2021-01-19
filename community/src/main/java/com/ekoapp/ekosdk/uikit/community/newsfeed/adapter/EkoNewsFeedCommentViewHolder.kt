@@ -16,17 +16,17 @@ import kotlinx.android.synthetic.main.layout_news_feed_item_comment.view.*
 
 
 class EkoNewsFeedCommentViewHolder(
-    itemView: View,
-    private val itemCount: Int?,
-    private val itemClickListener: INewsFeedCommentItemClickListener?,
-    private val showAllReplyListener: INewsFeedCommentShowAllReplyListener?,
-    private val showMoreActionListener: INewsFeedCommentShowMoreActionListener?,
-    private val preExpandCommentId: String? = null,
-    val readOnlyMode: Boolean
+        itemView: View,
+        private val itemCount: Int?,
+        private val itemClickListener: INewsFeedCommentItemClickListener?,
+        private val showAllReplyListener: INewsFeedCommentShowAllReplyListener?,
+        private val showMoreActionListener: INewsFeedCommentShowMoreActionListener?,
+        private val preExpandCommentId: String? = null,
+        val readOnlyMode: Boolean
 ) : RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewAdapter.IBinder<EkoComment> {
     private var newsFeedCommentAdapter: EkoNewsFeedCommentAdapter? = null
     private val ekoNewsFeedComment: EkoNewsFeedCommentView =
-        itemView.findViewById(R.id.ekoNewsFeedComment)
+            itemView.findViewById(R.id.ekoNewsFeedComment)
     private val rvReply: RecyclerView = itemView.findViewById(R.id.rvReply)
 
     override fun bind(data: EkoComment?, position: Int) {
@@ -69,7 +69,7 @@ class EkoNewsFeedCommentViewHolder(
 
     private fun addCommentActionListener(comment: EkoComment, position: Int) {
         ekoNewsFeedComment.setCommentActionListener(object :
-            EkoNewsFeedCommentView.ICommentActionListener {
+                EkoNewsFeedCommentView.ICommentActionListener {
             override fun showAllReplies() {
                 if (showAllReplyListener == null) {
                     handleShowAllReply(comment)
@@ -121,12 +121,12 @@ class EkoNewsFeedCommentViewHolder(
 
     private fun initEkoPostCommentRecyclerview(size: Int) {
         newsFeedCommentAdapter = EkoNewsFeedCommentAdapter(
-            size,
-            itemClickListener,
-            showAllReplyListener,
-            showMoreActionListener,
-            null,
-            readOnlyMode
+                size,
+                itemClickListener,
+                showAllReplyListener,
+                showMoreActionListener,
+                null,
+                readOnlyMode
         )
 //        val space8 = itemView.context.resources.getDimensionPixelSize(R.dimen.eight)
 //        val spaceItemDecoration = EkoRecyclerViewItemDecoration(space8, 0, space8, 0)

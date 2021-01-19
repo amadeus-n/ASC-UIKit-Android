@@ -83,7 +83,7 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
     fun assignRole(): Completable {
         val communityRepository = EkoClient.newCommunityRepository()
         return communityRepository.moderate(communityID)
-            .addRole(EkoConstants.MODERATOR_ROLE, listOf(EkoClient.getUserId()))
+                .addRole(EkoConstants.MODERATOR_ROLE, listOf(EkoClient.getUserId()))
     }
 
     fun onSecondaryButtonClick() {

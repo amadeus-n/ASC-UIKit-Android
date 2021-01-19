@@ -46,7 +46,7 @@ class EkoSelectMembersListActivity : EkoBaseActivity<ActivityEkoSelectMembersLis
 
     private fun setUpToolBar() {
         smToolBar.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+                ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
         )
         smToolBar.setRightString(getString(R.string.uikit_done))
         smToolBar.setClickListener(this)

@@ -9,10 +9,10 @@ import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCategoryItemClickL
 import com.ekoapp.ekosdk.uikit.community.views.communitycategory.EkoCommunityCategoryView
 
 open class EkoCategoryItemViewHolder(
-    itemView: View,
-    val itemClickListener: IEkoCategoryItemClickListener?
+        itemView: View,
+        val itemClickListener: IEkoCategoryItemClickListener?
 ) : RecyclerView.ViewHolder(itemView),
-    EkoBaseRecyclerViewPagedAdapter.Binder<EkoCommunityCategory> {
+        EkoBaseRecyclerViewPagedAdapter.Binder<EkoCommunityCategory> {
     private val categoryView: EkoCommunityCategoryView = itemView.findViewById(R.id.categoryView)
 
     override fun bind(data: EkoCommunityCategory?, position: Int) {

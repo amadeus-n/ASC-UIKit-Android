@@ -5,6 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class EkoMenuItem(
-    val id: Int,
-    val title: String
+        val id: Int,
+        val title: String
 ) : Parcelable

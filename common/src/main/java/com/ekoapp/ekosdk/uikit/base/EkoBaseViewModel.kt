@@ -25,19 +25,19 @@ open class EkoBaseViewModel : ViewModel() {
     val onEventReceived: Event<EventType> = Event()
 
     fun checkModeratorPermissionAtCommunity(
-        permission: EkoPermission,
-        communityId: String
+            permission: EkoPermission,
+            communityId: String
     ): Flowable<Boolean> {
         return EkoClient.hasPermission(permission).atCommunity(communityId)
-            .check()
+                .check()
     }
 
     fun checkModeratorPermissionAtChannel(
-        permission: EkoPermission,
-        channelId: String
+            permission: EkoPermission,
+            channelId: String
     ): Flowable<Boolean> {
         return EkoClient.hasPermission(permission).atChannel(channelId)
-            .check()
+                .check()
     }
 
     fun checkPermissionAtGlobal(permission: EkoPermission): Flowable<Boolean> {
@@ -62,11 +62,11 @@ open class EkoBaseViewModel : ViewModel() {
      */
     @Suppress("UNCHECKED_CAST")
     fun <T : Observable> T.addOnPropertyChanged(callback: (T) -> Unit) =
-        object : Observable.OnPropertyChangedCallback() {
-            @Suppress("UNCHECKED_CAST")
-            override fun onPropertyChanged(observable: Observable?, i: Int) =
-                callback(observable as T)
-        }.also { addOnPropertyChangedCallback(it) }
+            object : Observable.OnPropertyChangedCallback() {
+                @Suppress("UNCHECKED_CAST")
+                override fun onPropertyChanged(observable: Observable?, i: Int) =
+                        callback(observable as T)
+            }.also { addOnPropertyChangedCallback(it) }
 
     /**
      * add disposable to [compositeDisposable] to dispose later

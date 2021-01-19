@@ -46,9 +46,9 @@ class EkoNewsFeedItemFooter : ConstraintLayout {
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
+            context,
+            attrs,
+            defStyleAttr
     ) {
         init()
     }
@@ -56,12 +56,12 @@ class EkoNewsFeedItemFooter : ConstraintLayout {
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.layout_news_feed_item_footer, this, true)
+                DataBindingUtil.inflate(inflater, R.layout.layout_news_feed_item_footer, this, true)
 
         cbLike.setOnCheckedChangeListener { buttonView, isChecked ->
             setLikeCheckboxText()
             likeListener?.onLikeAction(
-                isChecked
+                    isChecked
             )
 
         }
@@ -70,9 +70,9 @@ class EkoNewsFeedItemFooter : ConstraintLayout {
     private fun setNumberOfComments(commentCount: Int) {
         tvNumberOfComments.visibility = if (commentCount > 0) View.VISIBLE else View.GONE
         tvNumberOfComments.text = context.resources.getQuantityString(
-            R.plurals.feed_number_of_comments,
-            commentCount,
-            commentCount
+                R.plurals.feed_number_of_comments,
+                commentCount,
+                commentCount
         )
     }
 
@@ -99,9 +99,9 @@ class EkoNewsFeedItemFooter : ConstraintLayout {
     private fun setNumberOfLikes(reactionCount: Int) {
         tvNumberOfLikes.visibility = if (reactionCount > 0) View.VISIBLE else View.GONE
         tvNumberOfLikes.text = context.resources.getQuantityString(
-            R.plurals.feed_number_of_likes,
-            reactionCount,
-            reactionCount.readableNumber()
+                R.plurals.feed_number_of_likes,
+                reactionCount,
+                reactionCount.readableNumber()
         )
     }
 
@@ -130,9 +130,9 @@ class EkoNewsFeedItemFooter : ConstraintLayout {
     }
 
     fun setCommentActionListener(
-        itemClickListener: INewsFeedCommentItemClickListener?,
-        showAllReplyListener: INewsFeedCommentShowAllReplyListener?,
-        showMoreActionListener: INewsFeedCommentShowMoreActionListener?
+            itemClickListener: INewsFeedCommentItemClickListener?,
+            showAllReplyListener: INewsFeedCommentShowAllReplyListener?,
+            showMoreActionListener: INewsFeedCommentShowMoreActionListener?
     ) {
         this.commentItemClickListener = itemClickListener
         this.showMoreActionListener = showMoreActionListener
@@ -141,11 +141,11 @@ class EkoNewsFeedItemFooter : ConstraintLayout {
 
     private fun initEkoPostCommentRecyclerview() {
         newsFeedCommentAdapter = EkoNewsFeedCommentAdapter(
-            commentItemClickListener,
-            showAllReplyListener,
-            showMoreActionListener,
-            commentToExpand,
-            readOnlyView
+                commentItemClickListener,
+                showAllReplyListener,
+                showMoreActionListener,
+                commentToExpand,
+                readOnlyView
         )
         val space8 = resources.getDimensionPixelSize(R.dimen.eight)
         val space16 = resources.getDimensionPixelSize(R.dimen.sixteen)

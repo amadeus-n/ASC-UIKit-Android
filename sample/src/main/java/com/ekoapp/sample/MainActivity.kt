@@ -23,21 +23,21 @@ class MainActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             if (etUserId.text.isNotEmpty() && etUserName.text.isNotEmpty()) {
                 EkoClient.registerDevice(etUserId.text.toString())
-                    .displayName(etUserName.text.toString()).build().submit()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnComplete {
-                        val intent = Intent(this, SettingActivity::class.java)
-                        startActivity(intent)
-                    }
-                    .doOnError {
-                        Toast.makeText(
-                            this,
-                            "Could not register user " + it.message,
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                    .subscribe()
+                        .displayName(etUserName.text.toString()).build().submit()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnComplete {
+                            val intent = Intent(this, SettingActivity::class.java)
+                            startActivity(intent)
+                        }
+                        .doOnError {
+                            Toast.makeText(
+                                    this,
+                                    "Could not register user " + it.message,
+                                    Toast.LENGTH_LONG
+                            ).show()
+                        }
+                        .subscribe()
             } else {
                 Toast.makeText(this, "Enter userId and Display Name", Toast.LENGTH_SHORT).show()
             }

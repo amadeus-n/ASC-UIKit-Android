@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_eko_edit_message.*
 import kotlinx.android.synthetic.main.edit_msg_toolbar.view.*
 
 class EkoEditMessageActivity :
-    EkoBaseActivity<ActivityEkoEditMessageBinding, EkoEditMessageViewModel>() {
+        EkoBaseActivity<ActivityEkoEditMessageBinding, EkoEditMessageViewModel>() {
 
     private val editMessageViewModel: EkoEditMessageViewModel by viewModels()
     private var messageDisposable: Disposable? = null
@@ -97,7 +97,7 @@ class EkoEditMessageActivity :
             etMessage.requestFocusFromTouch()
             etMessage.setSelection(etMessage.text?.length ?: 0)
             val inputManager: InputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputManager.showSoftInput(etMessage, 0)
         }, 300)
 
