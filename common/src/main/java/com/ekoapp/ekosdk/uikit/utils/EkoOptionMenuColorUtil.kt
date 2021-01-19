@@ -11,18 +11,18 @@ class EkoOptionMenuColorUtil {
         fun getColor(enabled: Boolean, context: Context): Int {
             return if (enabled) {
                 ColorPaletteUtil.getColor(
-                    ContextCompat.getColor(
-                        context,
-                        com.ekoapp.ekosdk.uikit.R.color.upstraColorHighlight
-                    ), ColorShade.DEFAULT
+                        ContextCompat.getColor(
+                                context,
+                                com.ekoapp.ekosdk.uikit.R.color.upstraColorHighlight
+                        ), ColorShade.DEFAULT
                 )
             } else {
 
                 ColorPaletteUtil.getColor(
-                    ContextCompat.getColor(
-                        context,
-                        com.ekoapp.ekosdk.uikit.R.color.upstraColorHighlight
-                    ), ColorShade.SHADE2
+                        ContextCompat.getColor(
+                                context,
+                                com.ekoapp.ekosdk.uikit.R.color.upstraColorHighlight
+                        ), ColorShade.SHADE2
                 )
             }
         }

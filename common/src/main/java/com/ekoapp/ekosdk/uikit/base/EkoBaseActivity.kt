@@ -45,10 +45,10 @@ abstract class EkoBaseActivity<T : ViewDataBinding, V : EkoBaseViewModel> : AppC
     fun changeTheme() {
         when (resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)) {
             Configuration.UI_MODE_NIGHT_NO -> AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_YES
+                    AppCompatDelegate.MODE_NIGHT_YES
             )
             Configuration.UI_MODE_NIGHT_YES -> AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_NO
+                    AppCompatDelegate.MODE_NIGHT_NO
             )
             else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
@@ -77,8 +77,8 @@ abstract class EkoBaseActivity<T : ViewDataBinding, V : EkoBaseViewModel> : AppC
     fun hasPermission(permission: String): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val status = ContextCompat.checkSelfPermission(
-                this,
-                permission
+                    this,
+                    permission
             )
             return (status == PackageManager.PERMISSION_GRANTED)
         }
@@ -87,16 +87,16 @@ abstract class EkoBaseActivity<T : ViewDataBinding, V : EkoBaseViewModel> : AppC
 
     fun requestPermission(permission: String, requestCode: Int) {
         ActivityCompat.requestPermissions(
-            this, arrayOf(
+                this, arrayOf(
                 permission
-            ), requestCode
+        ), requestCode
         )
     }
 
     fun requestPermission(permission: Array<String>, requestCode: Int) {
         ActivityCompat.requestPermissions(
-            this,
-            permission, requestCode
+                this,
+                permission, requestCode
         )
     }
 

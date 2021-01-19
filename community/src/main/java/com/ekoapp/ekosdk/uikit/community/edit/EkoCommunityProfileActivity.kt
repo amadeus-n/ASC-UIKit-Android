@@ -35,7 +35,7 @@ class EkoCommunityProfileActivity : AppCompatActivity(), EkoToolBarClickListener
 
     private fun setUpToolbar() {
         editCommunityToolbar.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+                ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
         )
         editCommunityToolbar.setLeftString(getString(R.string.edit_profile))
         editCommunityToolbar.setRightString(getString(R.string.save))
@@ -64,8 +64,8 @@ class EkoCommunityProfileActivity : AppCompatActivity(), EkoToolBarClickListener
     companion object {
         private const val COMMUNITY_ID = "COMMUNITY_ID"
         fun newIntent(context: Context, communityId: String = "") =
-            Intent(context, EkoCommunityProfileActivity::class.java).apply {
-                putExtra(COMMUNITY_ID, communityId)
-            }
+                Intent(context, EkoCommunityProfileActivity::class.java).apply {
+                    putExtra(COMMUNITY_ID, communityId)
+                }
     }
 }

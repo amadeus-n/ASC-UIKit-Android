@@ -18,9 +18,9 @@ class EkoRecentChatViewModel : EkoBaseViewModel() {
         val types = listOf(EkoChannel.Type.CONVERSATION)
 
         return channelRepository.getChannelCollection()
-            .types(types)
-            .filter(EkoChannelFilter.MEMBER)
-            .build()
-            .query()
+                .types(types)
+                .filter(EkoChannelFilter.MEMBER)
+                .build()
+                .query()
     }
 }

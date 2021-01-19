@@ -39,7 +39,7 @@ private const val ARG_COMMUNITY_ID = "ARG_COMMUNITY_ID"
 private const val ARG_IS_CREATE_COMMUNITY = "ARG_IS_CREATE_COMMUNITY"
 
 class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
-    AppBarLayout.OnOffsetChangedListener {
+        AppBarLayout.OnOffsetChangedListener {
     private var isCreateCommunity: Boolean = false
 
     private val TAG = EkoCommunityPageFragment::class.java.canonicalName
@@ -52,7 +52,7 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mViewModel =
-            ViewModelProvider(requireActivity()).get(EkoCommunityDetailViewModel::class.java)
+                ViewModelProvider(requireActivity()).get(EkoCommunityDetailViewModel::class.java)
         arguments?.let {
             mViewModel.communityID = it.getString(ARG_COMMUNITY_ID) ?: ""
             isCreateCommunity = it.getBoolean(ARG_IS_CREATE_COMMUNITY)
@@ -60,13 +60,13 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val mBinding: FragmentEkoCommunityPageBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_eko_community_page, container, false
+                inflater,
+                R.layout.fragment_eko_community_page, container, false
         )
         mBinding.viewModel = mViewModel
         return mBinding.root
@@ -83,8 +83,8 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
         fabCreatePost.setOnClickListener {
             if (mViewModel.ekoCommunity != null)
                 EkoCommunityNavigation.navigateToCreatePost(
-                    requireContext(),
-                    mViewModel.ekoCommunity!!
+                        requireContext(),
+                        mViewModel.ekoCommunity!!
                 )
         }
         tvMembersCount.setOnClickListener {
@@ -120,12 +120,12 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
     private fun navigateToMembersPage() {
         val intent = mViewModel.ekoCommunity?.let { community ->
             EkoCommunityMemberSettingsActivity.newIntent(
-                requireContext(), community
+                    requireContext(), community
             )
         } ?: kotlin.run {
             EkoCommunityMemberSettingsActivity.newIntent(
-                requireContext(),
-                mViewModel.communityID, mViewModel.isMember.get()
+                    requireContext(),
+                    mViewModel.communityID, mViewModel.isMember.get()
             )
         }
         startActivity(intent)
@@ -159,67 +159,67 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
 
     private fun getCommunityDetail() {
         disposable.add(mViewModel.getCommunityDetail()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext {
-                val current = mViewModel.ekoCommunity
-                if (current == null) {
-                    setUpTabLayout(it)
-                } else {
-                    if (current.isJoined() != it.isJoined()) {
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext {
+                    val current = mViewModel.ekoCommunity
+                    if (current == null) {
                         setUpTabLayout(it)
+                    } else {
+                        if (current.isJoined() != it.isJoined()) {
+                            setUpTabLayout(it)
+                        }
                     }
-                }
-                mViewModel.setCommunity(it)
-                menuItem?.isVisible = mViewModel.isMember.get()
-                requireActivity().invalidateOptionsMenu()
-            }.doOnError {
-                Log.e(TAG, "getCommunityDetail: ${it.localizedMessage}")
-                setUpTabLayout(null)
-            }.subscribe()
+                    mViewModel.setCommunity(it)
+                    menuItem?.isVisible = mViewModel.isMember.get()
+                    requireActivity().invalidateOptionsMenu()
+                }.doOnError {
+                    Log.e(TAG, "getCommunityDetail: ${it.localizedMessage}")
+                    setUpTabLayout(null)
+                }.subscribe()
         )
 
         disposable.add(mViewModel.checkModeratorPermissionAtCommunity(
-            EkoPermission.EDIT_COMMUNITY,
-            mViewModel.communityID
+                EkoPermission.EDIT_COMMUNITY,
+                mViewModel.communityID
         )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext {
-                mViewModel.isModerator.set(it)
-            }.doOnError {
-                mViewModel.isModerator.set(false)
-            }.subscribe()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext {
+                    mViewModel.isModerator.set(it)
+                }.doOnError {
+                    mViewModel.isModerator.set(false)
+                }.subscribe()
         )
     }
 
     private fun showCommunitySuccessMessage() {
         val snackBar =
-            Snackbar.make(fabCreatePost, R.string.community_success, Snackbar.LENGTH_LONG)
+                Snackbar.make(fabCreatePost, R.string.community_success, Snackbar.LENGTH_LONG)
         snackBar.anchorView = fabCreatePost
         snackBar.show()
     }
 
     private fun assignModeratorRole() {
         disposable.add(mViewModel.assignRole()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnComplete {
-                mViewModel.isModerator.set(true)
-            }.doOnError {
-                Log.e(TAG, "Error while assigning user role")
-            }.subscribe()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete {
+                    mViewModel.isModerator.set(true)
+                }.doOnError {
+                    Log.e(TAG, "Error while assigning user role")
+                }.subscribe()
         )
     }
 
     private fun setUpTabLayout(community: EkoCommunity?) {
         fragmentStateAdapter.setFragmentList(
-            arrayListOf(
-                EkoFragmentStateAdapter.EkoPagerModel(
-                    getString(R.string.timeline),
-                    getFeedFragment(community)
+                arrayListOf(
+                        EkoFragmentStateAdapter.EkoPagerModel(
+                                getString(R.string.timeline),
+                                getFeedFragment(community)
+                        )
                 )
-            )
         )
 
         ccDetailTab.setAdapter(fragmentStateAdapter)
@@ -230,16 +230,16 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
             return mViewModel.feedFragmentDelegate!!.getFeedFragment()
         }
         return EkoCommunityFeedFragment.Builder().community(community)
-            .build(activity as AppCompatActivity)
+                .build(activity as AppCompatActivity)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         if (mViewModel.isMember.get()) {
             val drawable =
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_more_horiz)
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_more_horiz)
             drawable?.mutate()
             drawable?.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-                R.color.black, BlendModeCompat.SRC_ATOP
+                    R.color.black, BlendModeCompat.SRC_ATOP
             )
             menuItem = menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.cancel))
             menuItem?.setIcon(drawable)?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
@@ -249,8 +249,8 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val intent = EkoCommunitySettingsActivity.newIntent(
-            requireContext(),
-            mViewModel.ekoCommunity
+                requireContext(),
+                mViewModel.ekoCommunity
         )
         startActivity(intent)
         return super.onOptionsItemSelected(item)
@@ -262,21 +262,21 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
                 EventIdentifier.EDIT_PROFILE -> {
                     if (mViewModel.editCommunityProfileClickListener != null) {
                         mViewModel.editCommunityProfileClickListener?.onClickEditCommunityProfile(
-                            mViewModel.ekoCommunity
+                                mViewModel.ekoCommunity
                         )
                     } else {
                         startActivity(
-                            EkoCommunityProfileActivity.newIntent(
-                                requireContext(),
-                                mViewModel.communityID
-                            )
+                                EkoCommunityProfileActivity.newIntent(
+                                        requireContext(),
+                                        mViewModel.communityID
+                                )
                         )
                     }
                 }
                 EventIdentifier.MODERATOR_MESSAGE -> Toast.makeText(
-                    requireContext(),
-                    getString(R.string.moderator_msg),
-                    Toast.LENGTH_LONG
+                        requireContext(),
+                        getString(R.string.moderator_msg),
+                        Toast.LENGTH_LONG
                 ).show()
                 EventIdentifier.SEND_MESSAGE -> {
                     if (mViewModel.messageClickListener != null) {
@@ -297,13 +297,13 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
 
     private fun joinCommunity() {
         disposable.add(mViewModel.joinCommunity()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnComplete {
-                mViewModel.getCommunityDetail().subscribe()
-            }.doOnError {
-                Log.e(TAG, "getCommunityDetail: ${it.localizedMessage}")
-            }.subscribe()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete {
+                    mViewModel.getCommunityDetail().subscribe()
+                }.doOnError {
+                    Log.e(TAG, "getCommunityDetail: ${it.localizedMessage}")
+                }.subscribe()
         )
 
     }
@@ -336,11 +336,11 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
                 }
             }
             fragment.mViewModel =
-                ViewModelProvider(activity).get(EkoCommunityDetailViewModel::class.java)
+                    ViewModelProvider(activity).get(EkoCommunityDetailViewModel::class.java)
             fragment.mViewModel.feedFragmentDelegate = feedFragmentDelegate
             fragment.mViewModel.messageClickListener = messageClickListener
             fragment.mViewModel.editCommunityProfileClickListener =
-                editCommunityProfileClickListener
+                    editCommunityProfileClickListener
             return fragment
         }
 

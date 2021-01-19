@@ -32,9 +32,9 @@ class EkoNewsFeedCommentView : ConstraintLayout {
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
+            context,
+            attrs,
+            defStyleAttr
     ) {
         init()
     }
@@ -42,7 +42,7 @@ class EkoNewsFeedCommentView : ConstraintLayout {
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.layout_news_feed_item_comment, this, true)
+                DataBindingUtil.inflate(inflater, R.layout.layout_news_feed_item_comment, this, true)
     }
 
     fun setVerticalDividerVisibility(visibility: Int) {
@@ -79,12 +79,12 @@ class EkoNewsFeedCommentView : ConstraintLayout {
             cbLike.text = context.getString(R.string.like)
 
         tvUserName.text =
-            comment.getUser()?.getDisplayName() ?: context.getString(R.string.anonymous)
+                comment.getUser()?.getDisplayName() ?: context.getString(R.string.anonymous)
         tvCommentTime.text = comment.getCreatedAt()?.millis?.readableFeedPostTime(context)
 
         if (comment.getChildrenNumber() > 0) {
             tvViewAllReply.text =
-                String.format(context.getString(R.string.view_replies), comment.getChildrenNumber())
+                    String.format(context.getString(R.string.view_replies), comment.getChildrenNumber())
             tvViewAllReply.visibility = View.GONE
         } else {
             tvViewAllReply.visibility = View.GONE
@@ -104,14 +104,14 @@ class EkoNewsFeedCommentView : ConstraintLayout {
         cbLike.setOnClickListener {
             if ((it as? MaterialCheckBox)?.isChecked == true) {
                 comment
-                    .react()
-                    .addReaction("like")
-                    .subscribe()
+                        .react()
+                        .addReaction("like")
+                        .subscribe()
             } else {
                 comment
-                    .react()
-                    .removeReaction("like")
-                    .subscribe()
+                        .react()
+                        .removeReaction("like")
+                        .subscribe()
             }
         }
     }
@@ -122,7 +122,7 @@ class EkoNewsFeedCommentView : ConstraintLayout {
 
     fun handleBottomSpace() {
         mBinding.addBottomSpace =
-            mBinding.readOnly != null && mBinding.readOnly!! && tvViewAllReply.visibility == View.GONE
+                mBinding.readOnly != null && mBinding.readOnly!! && tvViewAllReply.visibility == View.GONE
     }
 
     fun setReadOnlyMode(readOnly: Boolean) {

@@ -12,17 +12,17 @@ import com.ekoapp.ekosdk.uikit.community.databinding.LayoutRecommCommItemBinding
 import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener
 
 class EkoRecommendedCommunitiesAdapter(private val listener: IMyCommunityItemClickListener) :
-    EkoBaseRecyclerViewPagedAdapter<EkoCommunity>(diffCallBack) {
+        EkoBaseRecyclerViewPagedAdapter<EkoCommunity>(diffCallBack) {
 
     override fun getLayoutId(position: Int, obj: EkoCommunity?): Int =
-        R.layout.layout_recomm_comm_item
+            R.layout.layout_recomm_comm_item
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder =
-        EkoRecommendedCommunityViewHolder(view, listener)
+            EkoRecommendedCommunityViewHolder(view, listener)
 
     inner class EkoRecommendedCommunityViewHolder(
-        itemView: View,
-        private val listener: IMyCommunityItemClickListener
+            itemView: View,
+            private val listener: IMyCommunityItemClickListener
     ) : RecyclerView.ViewHolder(itemView), Binder<EkoCommunity> {
 
         private val binding: LayoutRecommCommItemBinding? = DataBindingUtil.bind(itemView)
@@ -31,11 +31,11 @@ class EkoRecommendedCommunitiesAdapter(private val listener: IMyCommunityItemCli
             binding?.ekoCommunity = data
             binding?.listener = listener
             binding?.tvMembersCount?.text = itemView.context.getString(
-                R.string.members_count,
-                "${data?.getMemberCount()?.toDouble()?.formatCount()}"
+                    R.string.members_count,
+                    "${data?.getMemberCount()?.toDouble()?.formatCount()}"
             )
             binding?.tvCommName?.text =
-                data?.getCategories()?.joinToString(separator = " ") { it.getName() }
+                    data?.getCategories()?.joinToString(separator = " ") { it.getName() }
         }
 
     }
@@ -52,12 +52,12 @@ class EkoRecommendedCommunitiesAdapter(private val listener: IMyCommunityItemCli
         private val diffCallBack = object : DiffUtil.ItemCallback<EkoCommunity>() {
 
             override fun areItemsTheSame(oldItem: EkoCommunity, newItem: EkoCommunity): Boolean =
-                oldItem.getCommunityId() == newItem.getCommunityId()
+                    oldItem.getCommunityId() == newItem.getCommunityId()
 
             override fun areContentsTheSame(oldItem: EkoCommunity, newItem: EkoCommunity): Boolean =
-                oldItem.getAvatar()?.getUrl() == newItem.getAvatar()?.getUrl()
-                        && oldItem.getDisplayName() == newItem.getDisplayName()
-                        && oldItem.isOfficial() == newItem.isOfficial()
+                    oldItem.getAvatar()?.getUrl() == newItem.getAvatar()?.getUrl()
+                            && oldItem.getDisplayName() == newItem.getDisplayName()
+                            && oldItem.isOfficial() == newItem.isOfficial()
         }
     }
 }

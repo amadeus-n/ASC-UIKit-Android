@@ -26,12 +26,12 @@ class EkoRecentChatFragment private constructor() : Fragment(), IRecentChatItemC
     private lateinit var mBinding: FragmentRecentChatBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         mViewModel = ViewModelProvider(requireActivity()).get(EkoRecentChatViewModel::class.java)
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_recent_chat, container, false)
+                DataBindingUtil.inflate(inflater, R.layout.fragment_recent_chat, container, false)
         return mBinding.root
     }
 
@@ -46,10 +46,10 @@ class EkoRecentChatFragment private constructor() : Fragment(), IRecentChatItemC
         rvRecentChat.layoutManager = LinearLayoutManager(requireContext())
         rvRecentChat.adapter = mAdapter
         rvRecentChat.addItemDecoration(
-            EkoRecentItemDecoration(
-                requireContext(),
-                resources.getDimensionPixelSize(R.dimen.twenty)
-            )
+                EkoRecentItemDecoration(
+                        requireContext(),
+                        resources.getDimensionPixelSize(R.dimen.twenty)
+                )
         )
         getRecentChatData()
     }
@@ -90,7 +90,7 @@ class EkoRecentChatFragment private constructor() : Fragment(), IRecentChatItemC
         fun build(activity: AppCompatActivity): EkoRecentChatFragment {
             val fragment = EkoRecentChatFragment()
             fragment.mViewModel =
-                ViewModelProvider(activity).get(EkoRecentChatViewModel::class.java)
+                    ViewModelProvider(activity).get(EkoRecentChatViewModel::class.java)
             fragment.mViewModel.recentChatItemClickListener = mListener
             return fragment
         }

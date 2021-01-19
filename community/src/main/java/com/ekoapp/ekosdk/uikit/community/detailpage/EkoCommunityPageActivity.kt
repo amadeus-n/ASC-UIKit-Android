@@ -8,22 +8,22 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseToolbarFragmentContainerActivity
 import com.ekoapp.ekosdk.uikit.community.R
 
 class EkoCommunityPageActivity :
-    EkoBaseToolbarFragmentContainerActivity() {
+        EkoBaseToolbarFragmentContainerActivity() {
 
     override fun initToolbar() {
         getToolBar()?.setLeftDrawable(
-            ContextCompat.getDrawable(
-                this,
-                R.drawable.ic_uikit_arrow_back
-            )
+                ContextCompat.getDrawable(
+                        this,
+                        R.drawable.ic_uikit_arrow_back
+                )
         )
     }
 
     override fun getContentFragment(): Fragment {
         return EkoCommunityPageFragment.Builder()
-            .setCommunityId(intent?.extras?.getString(COMMUNITY_ID) ?: "")
-            .createCommunitySuccess(intent?.extras?.getBoolean(IS_CREATE_COMMUNITY) ?: false)
-            .build(this)
+                .setCommunityId(intent?.extras?.getString(COMMUNITY_ID) ?: "")
+                .createCommunitySuccess(intent?.extras?.getBoolean(IS_CREATE_COMMUNITY) ?: false)
+                .build(this)
     }
 
     companion object {

@@ -25,14 +25,14 @@ class EkoChatHomePageFragment internal constructor() : Fragment() {
         super.onCreate(savedInstanceState)
         mViewModel = ViewModelProvider(requireActivity()).get(EkoChatHomePageViewModel::class.java)
         fragmentStateAdapter = EkoFragmentStateAdapter(
-            childFragmentManager,
-            requireActivity().lifecycle
+                childFragmentManager,
+                requireActivity().lifecycle
         )
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_chat_home_page, container, false)
     }
@@ -46,20 +46,20 @@ class EkoChatHomePageFragment internal constructor() : Fragment() {
     private fun initToolbar() {
         chatHomeToolBar.setLeftString(getString(R.string.chat))
         (activity as AppCompatActivity).supportActionBar?.displayOptions =
-            ActionBar.DISPLAY_SHOW_CUSTOM
+                ActionBar.DISPLAY_SHOW_CUSTOM
         (activity as AppCompatActivity).setSupportActionBar(chatHomeToolBar as Toolbar)
         setHasOptionsMenu(true)
     }
 
     private fun initTabLayout() {
         fragmentStateAdapter.setFragmentList(
-            arrayListOf(
-                EkoFragmentStateAdapter.EkoPagerModel(
-                    getString(R.string.title_recent_chat),
-                    getRecentChatFragment()
+                arrayListOf(
+                        EkoFragmentStateAdapter.EkoPagerModel(
+                                getString(R.string.title_recent_chat),
+                                getRecentChatFragment()
+                        )
+                        //EkoFragmentStateAdapter.EkoPagerModel(getString(R.string.title_directory), directoryFragment)
                 )
-                //EkoFragmentStateAdapter.EkoPagerModel(getString(R.string.title_directory), directoryFragment)
-            )
         )
         tabLayout.setAdapter(fragmentStateAdapter)
     }
@@ -112,7 +112,7 @@ class EkoChatHomePageFragment internal constructor() : Fragment() {
         fun build(activity: AppCompatActivity): EkoChatHomePageFragment {
             val fragment = EkoChatHomePageFragment()
             fragment.mViewModel =
-                ViewModelProvider(activity).get(EkoChatHomePageViewModel::class.java)
+                    ViewModelProvider(activity).get(EkoChatHomePageViewModel::class.java)
             fragment.mViewModel.recentChatItemClickListener = mListener
             fragment.mViewModel.recentChatFragmentDelegate = this.recentChatFragmentDelegate
             fragment.mViewModel.directoryFragmentDelegate = this.directoryFragmentDelegate

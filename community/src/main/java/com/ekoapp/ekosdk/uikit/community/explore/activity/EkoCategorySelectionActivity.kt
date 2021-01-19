@@ -16,7 +16,7 @@ import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCategoryItemClickL
 const val EXTRA_DEFAULT_CATEGORY_SELECTION = "default_category_selection"
 
 class EkoCategorySelectionActivity :
-    EkoBaseToolbarFragmentContainerActivity(), IEkoCategoryItemClickListener {
+        EkoBaseToolbarFragmentContainerActivity(), IEkoCategoryItemClickListener {
 
     private lateinit var defaultSelection: SelectCategoryItem
 
@@ -24,17 +24,17 @@ class EkoCategorySelectionActivity :
     override fun initToolbar() {
         showToolbarDivider()
         getToolBar()?.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross)
+                ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross)
         )
         getToolBar()?.setLeftString(getString(R.string.select_category))
     }
 
     override fun getContentFragment(): Fragment {
         defaultSelection =
-            intent.getParcelableExtra(EXTRA_DEFAULT_CATEGORY_SELECTION) ?: SelectCategoryItem()
+                intent.getParcelableExtra(EXTRA_DEFAULT_CATEGORY_SELECTION) ?: SelectCategoryItem()
         val fragment = EkoSelectCategoryListFragment.Builder()
-            .defaultSelection(defaultSelection.name)
-            .build(this)
+                .defaultSelection(defaultSelection.name)
+                .build(this)
         fragment.setCategoryItemClickListener(this)
         return fragment
     }
@@ -44,7 +44,7 @@ class EkoCategorySelectionActivity :
     }
 
     class EkoCategorySelectionActivityContract :
-        ActivityResultContract<SelectCategoryItem, SelectCategoryItem?>() {
+            ActivityResultContract<SelectCategoryItem, SelectCategoryItem?>() {
         override fun createIntent(context: Context, defaultSelection: SelectCategoryItem?): Intent {
             return Intent(context, EkoCategorySelectionActivity::class.java).apply {
                 putExtra(EXTRA_DEFAULT_CATEGORY_SELECTION, defaultSelection)
@@ -53,7 +53,7 @@ class EkoCategorySelectionActivity :
 
         override fun parseResult(resultCode: Int, intent: Intent?): SelectCategoryItem? {
             val data =
-                intent?.getParcelableExtra<SelectCategoryItem>(EXTRA_DEFAULT_CATEGORY_SELECTION)
+                    intent?.getParcelableExtra<SelectCategoryItem>(EXTRA_DEFAULT_CATEGORY_SELECTION)
             return if (resultCode == Activity.RESULT_OK && data != null) data
             else null
         }

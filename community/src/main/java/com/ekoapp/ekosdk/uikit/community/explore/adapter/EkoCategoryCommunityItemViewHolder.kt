@@ -10,10 +10,10 @@ import com.ekoapp.ekosdk.uikit.community.databinding.LayoutCategoryCommunityList
 import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCommunityItemClickListener
 
 open class EkoCategoryCommunityItemViewHolder(
-    itemView: View,
-    private val itemClickListener: IEkoCommunityItemClickListener?
+        itemView: View,
+        private val itemClickListener: IEkoCommunityItemClickListener?
 ) : RecyclerView.ViewHolder(itemView),
-    EkoBaseRecyclerViewPagedAdapter.Binder<EkoCommunity> {
+        EkoBaseRecyclerViewPagedAdapter.Binder<EkoCommunity> {
     private val binding: LayoutCategoryCommunityListItemBinding? = DataBindingUtil.bind(itemView)
 
     override fun bind(data: EkoCommunity?, position: Int) {
@@ -35,9 +35,9 @@ open class EkoCategoryCommunityItemViewHolder(
     private fun loadAvatar(data: EkoCommunity) {
         data.getAvatar()?.getUrl()?.let {
             Glide.with(itemView)
-                .load(it)
-                .centerCrop()
-                .into(binding?.communityAvatar!!)
+                    .load(it)
+                    .centerCrop()
+                    .into(binding?.communityAvatar!!)
         }
     }
 }

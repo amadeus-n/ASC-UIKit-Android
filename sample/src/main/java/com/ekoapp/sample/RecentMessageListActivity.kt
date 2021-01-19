@@ -12,8 +12,8 @@ class RecentMessageListActivity : AppCompatActivity(), IRecentChatItemClickListe
         setContentView(R.layout.activity_recent_message_list)
 
         val chatHomeFragment = EkoChatHomePageFragment.Builder()
-            .recentChatItemClickListener(this)
-            .build(this)
+                .recentChatItemClickListener(this)
+                .build(this)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, chatHomeFragment)
         transaction.addToBackStack(null)

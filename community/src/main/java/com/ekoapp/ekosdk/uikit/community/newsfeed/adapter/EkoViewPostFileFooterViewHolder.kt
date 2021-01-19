@@ -9,9 +9,9 @@ import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.domain.model.FileAttachment
 
 class EkoViewPostFileFooterViewHolder(
-    itemView: View,
-    private val loadMoreClickListener: EkoPostViewFileAdapter.ILoadMoreFilesClickListener?,
-    private val newsFeed: EkoPost?
+        itemView: View,
+        private val loadMoreClickListener: EkoPostViewFileAdapter.ILoadMoreFilesClickListener?,
+        private val newsFeed: EkoPost?
 ) : RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewAdapter.IBinder<FileAttachment> {
     private val tvLoadMoreFiles = itemView.findViewById<TextView>(R.id.tvLoadMoreFiles)
 

@@ -11,9 +11,9 @@ class EkoImageView : AppCompatImageView {
     lateinit var style: EkoImageViewStyle
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
-        context,
-        attrs,
-        defStyle
+            context,
+            attrs,
+            defStyle
     ) {
         parseStyle(attrs)
     }
@@ -36,8 +36,8 @@ class EkoImageView : AppCompatImageView {
     private fun applyStyle() {
         if (style.tintColor != -1) {
             setColorFilter(
-                ContextCompat.getColor(context, R.color.upstraColorAlert),
-                android.graphics.PorterDuff.Mode.MULTIPLY
+                    ContextCompat.getColor(context, R.color.upstraColorAlert),
+                    android.graphics.PorterDuff.Mode.MULTIPLY
             );
         }
 

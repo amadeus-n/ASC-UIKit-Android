@@ -12,10 +12,10 @@ import com.ekoapp.ekosdk.uikit.utils.EkoDateUtils
 import com.ekoapp.ekosdk.uikit.utils.FileDownloadStatus
 
 abstract class AudioMsgBaseViewHolder(
-    itemView: View,
-    val audioMsgBaseViewModel: EkoAudioMsgViewModel,
-    private val context: Context,
-    private val audioPlayListener: IAudioPlayCallback
+        itemView: View,
+        val audioMsgBaseViewModel: EkoAudioMsgViewModel,
+        private val context: Context,
+        private val audioPlayListener: IAudioPlayCallback
 ) : EkoSelectableMessageViewHolder(itemView, audioMsgBaseViewModel, context) {
 
     init {
@@ -28,7 +28,7 @@ abstract class AudioMsgBaseViewHolder(
         audioMsgBaseViewModel.onEventReceived += { event ->
             when (event.type) {
                 EventIdentifier.AUDIO_PLAYER_PLAY_CLICKED -> audioPlayListener.playAudio(
-                    getAudioViewHolder()
+                        getAudioViewHolder()
                 )
                 EventIdentifier.MESSAGE_DELETE_SUCCESS -> audioPlayListener.messageDeleted(event.dataObj as String)
                 //EventIdentifier.SET_AUDIO_FILE_PROPERTIES -> setAudioFileProperties()

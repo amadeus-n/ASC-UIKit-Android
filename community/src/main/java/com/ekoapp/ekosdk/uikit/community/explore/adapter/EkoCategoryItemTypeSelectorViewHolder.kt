@@ -7,13 +7,13 @@ import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCategoryItemClickL
 import com.google.android.material.radiobutton.MaterialRadioButton
 
 class EkoCategoryItemTypeSelectorViewHolder(
-    itemView: View,
-    itemClickListener: IEkoCategoryItemClickListener?,
-    val selectionListener: ICategorySelectionListener
+        itemView: View,
+        itemClickListener: IEkoCategoryItemClickListener?,
+        val selectionListener: ICategorySelectionListener
 ) :
-    EkoCategoryItemViewHolder(itemView, itemClickListener) {
+        EkoCategoryItemViewHolder(itemView, itemClickListener) {
     private val rbCategorySelection: MaterialRadioButton =
-        itemView.findViewById(R.id.cbCategorySelecion)
+            itemView.findViewById(R.id.cbCategorySelecion)
 
     override fun bind(data: EkoCommunityCategory?, position: Int) {
         super.bind(data, position)

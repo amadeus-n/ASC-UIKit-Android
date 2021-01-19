@@ -22,7 +22,7 @@ class EkoImageViewStyle : Style {
 
     private fun parseStyle(context: Context, attrs: AttributeSet) {
         val typedArray =
-            context.obtainStyledAttributes(attrs, R.styleable.Image)
+                context.obtainStyledAttributes(attrs, R.styleable.Image)
         parse(typedArray)
     }
 
@@ -33,8 +33,8 @@ class EkoImageViewStyle : Style {
 
     private fun parse(typedArray: TypedArray) {
         tintColor = typedArray.getColor(
-            R.styleable.Image_tintColor,
-            -1
+                R.styleable.Image_tintColor,
+                -1
         )
 
         typedArray.recycle()

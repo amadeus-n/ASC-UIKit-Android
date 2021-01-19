@@ -24,10 +24,10 @@ class EkoPostDetailsViewModel : EkoBaseViewModel() {
 
     fun getComments(postId: String): Flowable<PagedList<EkoComment>> {
         return commentRepository.getCommentCollection()
-            .post(postId)
-            .includeDeleted(true)
-            .build()
-            .query()
+                .post(postId)
+                .includeDeleted(true)
+                .build()
+                .query()
     }
 
     fun getPostDetails(id: String): Flowable<EkoPost> {
@@ -45,15 +45,15 @@ class EkoPostDetailsViewModel : EkoBaseViewModel() {
 
     fun addComment(commentId: String, postId: String, message: String): Single<EkoComment> {
         return commentRepository.createComment(commentId)
-            .post(postId)
-            .with()
-            .text(message)
-            .build()
-            .send()
-            .map {
-                EkoClient.newFeedRepository().getPost(postId).ignoreElements().onErrorComplete()
-                it
-            }
+                .post(postId)
+                .with()
+                .text(message)
+                .build()
+                .send()
+                .map {
+                    EkoClient.newFeedRepository().getPost(postId).ignoreElements().onErrorComplete()
+                    it
+                }
     }
 
     fun deleteComment(commentId: String): Completable {
@@ -62,12 +62,12 @@ class EkoPostDetailsViewModel : EkoBaseViewModel() {
 
     fun replyComment(postId: String, commentId: String, message: String): Single<EkoComment> {
         return commentRepository.createComment()
-            .post(postId)
-            .parentId(commentId)
-            .with()
-            .text(message)
-            .build()
-            .send()
+                .post(postId)
+                .parentId(commentId)
+                .with()
+                .text(message)
+                .build()
+                .send()
     }
 
     //TODO remove after sdk (core) fix bug for fetch post data

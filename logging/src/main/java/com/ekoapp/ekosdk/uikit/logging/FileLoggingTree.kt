@@ -29,8 +29,8 @@ class FileLoggingTree(private val context: Context) : Timber.Tree() {
             logFile = createLogFile()
 
             val logTimeStamp = SimpleDateFormat(
-                "E MMM dd yyyy 'at' hh:mm:ss:SSS aaa",
-                Locale.getDefault()
+                    "E MMM dd yyyy 'at' hh:mm:ss:SSS aaa",
+                    Locale.getDefault()
             ).format(Date())
             val priorityString: String = if (t != null) {
                 "EXCEPTION"
@@ -63,8 +63,8 @@ class FileLoggingTree(private val context: Context) : Timber.Tree() {
         }
 
         val fileNameTimeStamp = SimpleDateFormat(
-            "dd-MM-yyyy",
-            Locale.getDefault()
+                "dd-MM-yyyy",
+                Locale.getDefault()
         ).format(Date())
 
         val fileName = "$fileNameTimeStamp.txt"
@@ -83,7 +83,7 @@ class FileLoggingTree(private val context: Context) : Timber.Tree() {
     }
 
     private fun isStoragePermissionGranted(): Boolean =
-        context.checkCallingOrSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+            context.checkCallingOrSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
 
     @SuppressLint("LogNotTimber")
@@ -102,11 +102,11 @@ class FileLoggingTree(private val context: Context) : Timber.Tree() {
     }
 
     private fun writeLogsToFile(
-        file: File?,
-        logTimeStamp: String,
-        tag: String?,
-        priorityString: String,
-        message: String
+            file: File?,
+            logTimeStamp: String,
+            tag: String?,
+            priorityString: String,
+            message: String
     ) {
         if (file?.exists() == true) {
 

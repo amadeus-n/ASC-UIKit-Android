@@ -14,9 +14,9 @@ import com.ekoapp.ekosdk.uikit.components.ILongPressListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 
 class EkoTextMsgReceiverViewHolder(
-    itemView: View,
-    private val itemViewModel: EkoTextMessageViewModel,
-    context: Context
+        itemView: View,
+        private val itemViewModel: EkoTextMessageViewModel,
+        context: Context
 ) : EkoSelectableMessageViewHolder(itemView, itemViewModel, context), ILongPressListener {
 
     private val binding: ItemTextMessageReceiverBinding? = DataBindingUtil.bind(itemView)
@@ -49,8 +49,8 @@ class EkoTextMsgReceiverViewHolder(
         val anchor: View = itemView.findViewById(R.id.tvMessageIncoming)
         val inflater: LayoutInflater = LayoutInflater.from(anchor.context)
         val binding: MsgReportPopupBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.msg_report_popup, null, true
+                inflater,
+                R.layout.msg_report_popup, null, true
         )
         binding.viewModel = itemViewModel
         popUp?.showPopUp(binding.root, anchor, itemViewModel, EkoPopUp.PopUpGravity.START)

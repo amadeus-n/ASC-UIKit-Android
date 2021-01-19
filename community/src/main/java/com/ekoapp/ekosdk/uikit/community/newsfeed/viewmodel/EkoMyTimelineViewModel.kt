@@ -14,10 +14,10 @@ class EkoMyTimelineViewModel : EkoBaseFeedViewModel() {
     override fun getFeed(): Flowable<PagedList<EkoPost>> {
         val feedRepository: EkoFeedRepository = EkoClient.newFeedRepository()
         return feedRepository
-            .getMyFeed()
-            .includeDeleted(false)
-            .build()
-            .query()
+                .getMyFeed()
+                .includeDeleted(false)
+                .build()
+                .query()
     }
 
     fun otherUser(user: EkoUser): Boolean {

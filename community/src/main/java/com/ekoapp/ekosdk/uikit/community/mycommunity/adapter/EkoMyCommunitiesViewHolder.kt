@@ -10,8 +10,8 @@ import com.ekoapp.ekosdk.uikit.community.databinding.LayoutCommunityItemBinding
 import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener
 
 class EkoMyCommunitiesViewHolder(
-    itemView: View,
-    private val listener: IMyCommunityItemClickListener
+        itemView: View,
+        private val listener: IMyCommunityItemClickListener
 ) : RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewPagedAdapter.Binder<EkoCommunity> {
     private val binding: LayoutCommunityItemBinding? = DataBindingUtil.bind(itemView)
 

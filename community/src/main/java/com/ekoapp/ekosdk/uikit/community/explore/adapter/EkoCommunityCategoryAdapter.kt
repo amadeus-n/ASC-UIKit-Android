@@ -12,18 +12,18 @@ import com.ekoapp.ekosdk.uikit.community.databinding.LayoutCommunityCategoryItem
 import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCategoryItemClickListener
 
 class EkoCommunityCategoryAdapter(private val listener: IEkoCategoryItemClickListener) :
-    EkoBaseRecyclerViewPagedAdapter<EkoCommunityCategory>(diffCallBack) {
+        EkoBaseRecyclerViewPagedAdapter<EkoCommunityCategory>(diffCallBack) {
 
     override fun getLayoutId(position: Int, obj: EkoCommunityCategory?): Int =
-        R.layout.layout_community_category_item
+            R.layout.layout_community_category_item
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder =
-        EkoCommunityCategoryViewHolder(view, listener)
+            EkoCommunityCategoryViewHolder(view, listener)
 
 
     inner class EkoCommunityCategoryViewHolder(
-        itemView: View,
-        private val listener: IEkoCategoryItemClickListener
+            itemView: View,
+            private val listener: IEkoCategoryItemClickListener
     ) : RecyclerView.ViewHolder(itemView), Binder<EkoCommunityCategory> {
 
         private val binding: LayoutCommunityCategoryItemBinding? = DataBindingUtil.bind(itemView)
@@ -48,17 +48,17 @@ class EkoCommunityCategoryAdapter(private val listener: IEkoCategoryItemClickLis
         private val diffCallBack = object : DiffUtil.ItemCallback<EkoCommunityCategory>() {
 
             override fun areItemsTheSame(
-                oldItem: EkoCommunityCategory,
-                newItem: EkoCommunityCategory
+                    oldItem: EkoCommunityCategory,
+                    newItem: EkoCommunityCategory
             ): Boolean =
-                oldItem.getCategoryId() == newItem.getCategoryId()
+                    oldItem.getCategoryId() == newItem.getCategoryId()
 
             override fun areContentsTheSame(
-                oldItem: EkoCommunityCategory,
-                newItem: EkoCommunityCategory
+                    oldItem: EkoCommunityCategory,
+                    newItem: EkoCommunityCategory
             ): Boolean =
-                oldItem.getAvatar()?.getUrl() == newItem.getAvatar()?.getUrl()
-                        && oldItem.getName() == newItem.getName()
+                    oldItem.getAvatar()?.getUrl() == newItem.getAvatar()?.getUrl()
+                            && oldItem.getName() == newItem.getName()
         }
     }
 }

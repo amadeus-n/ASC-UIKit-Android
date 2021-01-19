@@ -34,14 +34,14 @@ class EkoUserFeedFragment internal constructor() : EkoBaseFeedFragment() {
 
     override fun getEmptyView(): View {
         val inflater =
-            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val mBinding: LayoutOtherUserTimelineEmptyViewBinding =
-            DataBindingUtil.inflate(
-                inflater,
-                R.layout.layout_other_user_timeline_empty_view,
-                getRootView(),
-                false
-            )
+                DataBindingUtil.inflate(
+                        inflater,
+                        R.layout.layout_other_user_timeline_empty_view,
+                        getRootView(),
+                        false
+                )
         return mBinding.root
     }
 
@@ -65,7 +65,7 @@ class EkoUserFeedFragment internal constructor() : EkoBaseFeedFragment() {
 
             val fragment = EkoUserFeedFragment()
             fragment.mViewModel =
-                ViewModelProvider(activity).get(EkoUserTimelineViewModel::class.java)
+                    ViewModelProvider(activity).get(EkoUserTimelineViewModel::class.java)
             fragment.mViewModel.avatarClickListener = avatarClickListener
             fragment.arguments = Bundle().apply {
                 putString(ARG_USER_ID, this@Builder.userId)

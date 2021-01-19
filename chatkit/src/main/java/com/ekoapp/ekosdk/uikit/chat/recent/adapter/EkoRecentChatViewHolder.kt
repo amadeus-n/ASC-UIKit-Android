@@ -18,8 +18,8 @@ import com.ekoapp.ekosdk.uikit.utils.EkoDateUtils
 import com.google.android.material.imageview.ShapeableImageView
 
 class EkoRecentChatViewHolder(
-    itemView: View,
-    private val listener: IRecentChatItemClickListener?
+        itemView: View,
+        private val listener: IRecentChatItemClickListener?
 ) : RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewPagedAdapter.Binder<EkoChannel> {
 
     private val binding: LayoutRecentMessageItemBinding? = DataBindingUtil.bind(itemView)
@@ -40,10 +40,10 @@ class EkoRecentChatViewHolder(
             setupUnreadCount(data)
             binding?.tvTime?.text = EkoDateUtils.getMessageTime(data.getLastActivity()!!.millis)
             memberCount.text =
-                String.format(
-                    itemView.context.getString(R.string.member_count),
-                    data.getMemberCount()
-                )
+                    String.format(
+                            itemView.context.getString(R.string.member_count),
+                            data.getMemberCount()
+                    )
             itemView.setOnClickListener {
                 listener?.onRecentChatItemClick(data.getChannelId())
             }
@@ -73,17 +73,17 @@ class EkoRecentChatViewHolder(
         }
 
         avatar.setBackgroundColor(
-            ColorPaletteUtil.getColor(
-                ContextCompat.getColor(itemView.context, R.color.upstraColorPrimary),
-                ColorShade.SHADE3
-            )
+                ColorPaletteUtil.getColor(
+                        ContextCompat.getColor(itemView.context, R.color.upstraColorPrimary),
+                        ColorShade.SHADE3
+                )
         )
 
         Glide.with(itemView.context)
-            .load(data.getAvatar()?.getUrl(EkoImage.Size.MEDIUM))
-            .placeholder(defaultAvatar)
-            .centerCrop()
-            .into(avatar)
+                .load(data.getAvatar()?.getUrl(EkoImage.Size.MEDIUM))
+                .placeholder(defaultAvatar)
+                .centerCrop()
+                .into(avatar)
     }
 
     private fun setupNameView(data: EkoChannel) {

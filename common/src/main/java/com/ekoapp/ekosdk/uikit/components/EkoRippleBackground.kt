@@ -26,9 +26,9 @@ class EkoRippleBackground : RelativeLayout {
     }
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
+            context,
+            attrs,
+            defStyleAttr
     ) {
         init(context, attrs)
     }
@@ -38,25 +38,25 @@ class EkoRippleBackground : RelativeLayout {
         requireNotNull(attrs) { "Attributes should be provided to this view," }
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.EkoRippleBackground)
         val rippleColor = typedArray.getColor(
-            R.styleable.EkoRippleBackground_rbColor,
-            resources.getColor(R.color.upstraColorBase)
+                R.styleable.EkoRippleBackground_rbColor,
+                resources.getColor(R.color.upstraColorBase)
         )
         rippleStrokeWidth = typedArray.getDimension(
-            R.styleable.EkoRippleBackground_rbStrokeWidth,
-            resources.getDimension(R.dimen.two)
+                R.styleable.EkoRippleBackground_rbStrokeWidth,
+                resources.getDimension(R.dimen.two)
         )
         val rippleRadius = typedArray.getDimension(
-            R.styleable.EkoRippleBackground_rbRadius,
-            resources.getDimension(R.dimen.sixty_four)
+                R.styleable.EkoRippleBackground_rbRadius,
+                resources.getDimension(R.dimen.sixty_four)
         )
         val rippleDurationTime =
-            typedArray.getInt(R.styleable.EkoRippleBackground_rbDuration, DEFAULT_DURATION_TIME)
+                typedArray.getInt(R.styleable.EkoRippleBackground_rbDuration, DEFAULT_DURATION_TIME)
         val rippleAmount =
-            typedArray.getInt(R.styleable.EkoRippleBackground_rbRippleAmount, DEFAULT_RIPPLE_COUNT)
+                typedArray.getInt(R.styleable.EkoRippleBackground_rbRippleAmount, DEFAULT_RIPPLE_COUNT)
         val rippleScale =
-            typedArray.getFloat(R.styleable.EkoRippleBackground_rbScale, DEFAULT_SCALE)
+                typedArray.getFloat(R.styleable.EkoRippleBackground_rbScale, DEFAULT_SCALE)
         val rippleType =
-            typedArray.getInt(R.styleable.EkoRippleBackground_rbType, DEFAULT_FILL_TYPE)
+                typedArray.getInt(R.styleable.EkoRippleBackground_rbType, DEFAULT_FILL_TYPE)
         typedArray.recycle()
         val rippleDelay = rippleDurationTime / rippleAmount
 
@@ -69,8 +69,8 @@ class EkoRippleBackground : RelativeLayout {
         paint.color = rippleColor
 
         val rippleParams = LayoutParams(
-            (2 * (rippleRadius + rippleStrokeWidth)).toInt(),
-            (2 * (rippleRadius + rippleStrokeWidth)).toInt()
+                (2 * (rippleRadius + rippleStrokeWidth)).toInt(),
+                (2 * (rippleRadius + rippleStrokeWidth)).toInt()
         )
 
         rippleParams.addRule(ALIGN_PARENT_BOTTOM)
@@ -109,10 +109,10 @@ class EkoRippleBackground : RelativeLayout {
         override fun onDraw(canvas: Canvas) {
             val radius = width.coerceAtMost(height) / 2
             canvas.drawCircle(
-                radius.toFloat(),
-                radius.toFloat(),
-                100F,
-                paint
+                    radius.toFloat(),
+                    radius.toFloat(),
+                    100F,
+                    paint
             )
         }
 

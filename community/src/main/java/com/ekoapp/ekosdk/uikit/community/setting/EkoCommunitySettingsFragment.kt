@@ -44,13 +44,13 @@ class EkoCommunitySettingsFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val mBinding: FragmentEkoCommunitySettingsBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_eko_community_settings, container, false
+                inflater,
+                R.layout.fragment_eko_community_settings, container, false
         )
         mBinding.viewModel = mViewModel
         return mBinding.root
@@ -66,12 +66,12 @@ class EkoCommunitySettingsFragment : Fragment() {
     private fun getCommunityDetails() {
         if (mViewModel.communityId.get() != null && mViewModel.ekoCommunity == null) {
             compositeDisposable.add(mViewModel.getCommunityDetail().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext {
-                    mViewModel.setCommunity(it)
-                }.doOnError {
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnNext {
+                        mViewModel.setCommunity(it)
+                    }.doOnError {
 
-                }.subscribe()
+                    }.subscribe()
             )
         }
     }
@@ -79,8 +79,8 @@ class EkoCommunitySettingsFragment : Fragment() {
     private fun handleClickEvents() {
         groupEditProfile.setOnClickListener {
             val intent = EkoCommunityProfileActivity.newIntent(
-                requireContext(),
-                mViewModel.communityId.get() ?: ""
+                    requireContext(),
+                    mViewModel.communityId.get() ?: ""
             )
             startActivity(intent)
         }
@@ -91,8 +91,8 @@ class EkoCommunitySettingsFragment : Fragment() {
                 startActivity(intent)
             } ?: kotlin.run {
                 val intent = EkoCommunityMemberSettingsActivity.newIntent(
-                    requireContext(),
-                    mViewModel.communityId.get() ?: "", mViewModel.isPublic.get()
+                        requireContext(),
+                        mViewModel.communityId.get() ?: "", mViewModel.isPublic.get()
                 )
                 startActivity(intent)
             }
@@ -109,44 +109,44 @@ class EkoCommunitySettingsFragment : Fragment() {
 
     private fun leaveCommunity() {
         AlertDialogUtil.showDialog(requireContext(),
-            getString(R.string.leave_community) + "?",
-            getString(R.string.leave_community_msg),
-            getString(R.string.leave).toUpperCase(Locale.getDefault()),
-            getString(R.string.cancel).toUpperCase(Locale.getDefault()),
-            DialogInterface.OnClickListener { dialog, which ->
-                if (which == DialogInterface.BUTTON_POSITIVE) {
-                    mViewModel.leaveCommunity().subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnComplete {
-                            requireActivity().finish()
-                        }.doOnError {
+                getString(R.string.leave_community) + "?",
+                getString(R.string.leave_community_msg),
+                getString(R.string.leave).toUpperCase(Locale.getDefault()),
+                getString(R.string.cancel).toUpperCase(Locale.getDefault()),
+                DialogInterface.OnClickListener { dialog, which ->
+                    if (which == DialogInterface.BUTTON_POSITIVE) {
+                        mViewModel.leaveCommunity().subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnComplete {
+                                    requireActivity().finish()
+                                }.doOnError {
 
-                        }.subscribe()
-                } else {
-                    dialog.cancel()
-                }
-            })
+                                }.subscribe()
+                    } else {
+                        dialog.cancel()
+                    }
+                })
     }
 
     private fun closeCommunity() {
         AlertDialogUtil.showDialog(requireContext(),
-            getString(R.string.close_community) + "?",
-            getString(R.string.close_community_msg),
-            getString(R.string.close).toUpperCase(Locale.getDefault()),
-            getString(R.string.cancel).toUpperCase(Locale.getDefault()),
-            DialogInterface.OnClickListener { dialog, which ->
-                if (which == DialogInterface.BUTTON_POSITIVE) {
-                    mViewModel.closeCommunity().subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnComplete {
-                            navigateToCommunityHome()
-                        }.doOnError {
+                getString(R.string.close_community) + "?",
+                getString(R.string.close_community_msg),
+                getString(R.string.close).toUpperCase(Locale.getDefault()),
+                getString(R.string.cancel).toUpperCase(Locale.getDefault()),
+                DialogInterface.OnClickListener { dialog, which ->
+                    if (which == DialogInterface.BUTTON_POSITIVE) {
+                        mViewModel.closeCommunity().subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnComplete {
+                                    navigateToCommunityHome()
+                                }.doOnError {
 
-                        }.subscribe()
-                } else {
-                    dialog.cancel()
-                }
-            })
+                                }.subscribe()
+                    } else {
+                        dialog.cancel()
+                    }
+                })
     }
 
     private fun navigateToCommunityHome() {

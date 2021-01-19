@@ -19,9 +19,9 @@ import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.google.android.material.shape.CornerFamily
 
 class EkoImageMsgReceiverViewHolder(
-    itemView: View,
-    private val itemViewModel: EkoImageMsgViewModel,
-    private val context: Context
+        itemView: View,
+        private val itemViewModel: EkoImageMsgViewModel,
+        private val context: Context
 ) : EkoSelectableMessageViewHolder(itemView, itemViewModel, context) {
 
     private val binding: ItemImageMsgReceiverBinding? = DataBindingUtil.bind(itemView)
@@ -45,21 +45,21 @@ class EkoImageMsgReceiverViewHolder(
     override fun setMessageData(item: EkoMessage) {
         itemViewModel.getImageUploadProgress(item)
         if (itemViewModel.imageUrl.get() != null && itemViewModel.imageUrl.get()!!
-                .isNotEmptyOrBlank()
+                        .isNotEmptyOrBlank()
         ) {
             val radius = context.resources.getDimension(com.ekoapp.ekosdk.uikit.R.dimen.six)
             binding?.ivImageIncoming?.shapeAppearanceModel =
-                binding?.ivImageIncoming?.shapeAppearanceModel
-                    ?.toBuilder()
-                    ?.setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                    ?.setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-                    ?.setBottomRightCorner(CornerFamily.ROUNDED, radius)
-                    ?.build()!!
+                    binding?.ivImageIncoming?.shapeAppearanceModel
+                            ?.toBuilder()
+                            ?.setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                            ?.setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                            ?.setBottomRightCorner(CornerFamily.ROUNDED, radius)
+                            ?.build()!!
         } else {
             binding?.ivImageIncoming?.setShape(
-                null, null,
-                itemView.context.resources.getDimension(R.dimen.zero),
-                null, R.color.upstraColorBase, null, ColorShade.SHADE4
+                    null, null,
+                    itemView.context.resources.getDimension(R.dimen.zero),
+                    null, R.color.upstraColorBase, null, ColorShade.SHADE4
             )
         }
 
@@ -82,8 +82,8 @@ class EkoImageMsgReceiverViewHolder(
         val anchor: View = itemView.findViewById(R.id.ivImageIncoming)
         val inflater: LayoutInflater = LayoutInflater.from(anchor.context)
         val binding: MsgReportPopupBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.msg_report_popup, null, true
+                inflater,
+                R.layout.msg_report_popup, null, true
         )
         binding.viewModel = itemViewModel
         popUp?.showPopUp(binding.root, anchor, itemViewModel, EkoPopUp.PopUpGravity.START)

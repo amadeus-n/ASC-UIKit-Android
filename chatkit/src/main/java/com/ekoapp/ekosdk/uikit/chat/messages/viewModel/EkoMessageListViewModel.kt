@@ -66,24 +66,24 @@ class EkoMessageListViewModel : EkoChatMessageBaseViewModel() {
     fun getAllMessages(): Flowable<PagedList<EkoMessage>> {
         val messageRepository: EkoMessageRepository = EkoClient.newMessageRepository()
         return messageRepository.getMessageCollection(channelID).parentId(null)
-            .build().query()
+                .build().query()
     }
 
     fun sendMessage() {
         if (!isVoiceMsgUi.get()) {
             val messageRepository: EkoMessageRepository = EkoClient.newMessageRepository()
             addDisposable(
-                messageRepository.createMessage(channelID).with()
-                    .text(text.get())
-                    .build().send().subscribeWith(object : DisposableCompletableObserver() {
-                        override fun onComplete() {
-                            triggerEvent(EventIdentifier.MSG_SEND_SUCCESS)
-                        }
+                    messageRepository.createMessage(channelID).with()
+                            .text(text.get())
+                            .build().send().subscribeWith(object : DisposableCompletableObserver() {
+                                override fun onComplete() {
+                                    triggerEvent(EventIdentifier.MSG_SEND_SUCCESS)
+                                }
 
-                        override fun onError(e: Throwable) {
-                            triggerEvent(EventIdentifier.MSG_SEND_ERROR)
-                        }
-                    })
+                                override fun onError(e: Throwable) {
+                                    triggerEvent(EventIdentifier.MSG_SEND_ERROR)
+                                }
+                            })
             )
             text.set("")
         }
@@ -94,13 +94,13 @@ class EkoMessageListViewModel : EkoChatMessageBaseViewModel() {
     fun sendImageMessage(imageUri: Uri): Completable {
         val messageRepository: EkoMessageRepository = EkoClient.newMessageRepository()
         return messageRepository.createMessage(channelID).with()
-            .image(imageUri).build().send()
+                .image(imageUri).build().send()
     }
 
     fun sendAudioMessage(audioFileUri: Uri): Completable {
         val messageRepository: EkoMessageRepository = EkoClient.newMessageRepository()
         return messageRepository.createMessage(channelID).with()
-            .audio(audioFileUri).build().send()
+                .audio(audioFileUri).build().send()
     }
 
     fun toggleComposeBar() {
