@@ -7,9 +7,6 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.ekoapp.ekosdk.EkoClient
-import com.ekoapp.ekosdk.community.membership.query.EkoCommunityMembershipFilter
-import com.ekoapp.ekosdk.community.membership.query.EkoCommunityMembershipSortOption
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.feed.EkoPostTarget
 import com.ekoapp.ekosdk.file.EkoImage
@@ -20,8 +17,6 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedActionAvatar
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedActionCommunityClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.util.EkoTimelineType
 import com.ekoapp.ekosdk.uikit.utils.EkoConstants
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.layout_news_feed_item_header.view.*
 
 class EkoNewsFeedItemHeader : ConstraintLayout {
@@ -99,12 +94,9 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
         if (timelineType != EkoTimelineType.COMMUNITY && target is EkoPostTarget.COMMUNITY) {
             val community = target.getCommunity()
             community?.also {
-                if (!data.getPostedUserId().isNullOrEmpty()) {
-                    getCommunityModerators(it.getCommunityId(), data.getPostedUserId()!!)
-                } else {
-                    mBinding.isModerator = false
-                }
                 mBinding.isCommunity = true
+                mBinding.isModerator = isModerator(data)
+
                 userName.setCompoundDrawablesWithIntrinsicBounds(
                         null,
                         null,
@@ -127,12 +119,7 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
                 mBinding.readOnly = !community.isJoined()
             }
         } else if (target is EkoPostTarget.COMMUNITY) {
-            val communityId = target.getCommunity()?.getCommunityId()
-            if (!data.getPostedUserId().isNullOrEmpty() && !communityId.isNullOrEmpty()) {
-                getCommunityModerators(communityId, data.getPostedUserId()!!)
-            } else {
-                mBinding.isModerator = false
-            }
+            mBinding.isModerator = isModerator(data)
 
             val community = target.getCommunity()
             showFeedAction = community!!.isJoined()
@@ -157,23 +144,9 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
 
     }
 
-    private fun getCommunityModerators(communityId: String, userIdPostCreator: String) {
-        val communityRepository = EkoClient.newCommunityRepository()
-        communityRepository.membership(communityId).getCollection()
-                .filter(EkoCommunityMembershipFilter.MEMBER)
-                .sortBy(EkoCommunityMembershipSortOption.FIRST_CREATED)
-                .roles(listOf(EkoConstants.MODERATOR_ROLE))
-                .build()
-                .query()
-                .firstOrError()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess { members ->
-                    mBinding.isModerator = members.any { it.getUserId() == userIdPostCreator }
-                }
-                .doOnError {
-                    mBinding.isModerator = false
-                }.subscribe()
+    private fun isModerator(data: EkoPost): Boolean {
+        return data.getPostedUser()?.getRoles()?.any { role -> role.toLowerCase() == EkoConstants.MODERATOR_ROLE }
+                ?: false
     }
 
     private fun handleCommunityClick(data: EkoPost) {
