@@ -26,36 +26,36 @@
                 android:id="@+id/icCross"
                 android:layout_width="@dimen/fourteen"
                 android:layout_height="@dimen/fourteen"
+                android:layout_marginStart="@dimen/sixteen"
                 android:src="@drawable/ic_uikit_cross"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="@dimen/sixteen" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                style="@style/TextStyleEkoTitleBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/icCross"
-                app:layout_constraintTop_toTopOf="@id/icCross"
-                app:layout_constraintBottom_toBottomOf="@id/icCross"
                 android:layout_marginStart="@dimen/sixteen"
                 android:text="@string/edit_msg"
-                style="@style/TextStyleEkoTitle" />
+                app:layout_constraintBottom_toBottomOf="@id/icCross"
+                app:layout_constraintStart_toEndOf="@id/icCross"
+                app:layout_constraintTop_toTopOf="@id/icCross" />
 
             <TextView
                 android:id="@+id/tvSave"
+                style="@style/TextStyleEkoBody"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/icCross"
-                app:layout_constraintBottom_toBottomOf="@id/icCross"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="@dimen/sixteen"
-                android:textColor="@{viewModel.isSaveEnabled() ? viewModel.saveColor : ColorPaletteUtil.INSTANCE.getColor(viewModel.saveColor, ColorShade.SHADE2)}"
                 android:enabled="@{viewModel.isSaveEnabled()}"
                 android:onClick="@{() -> viewModel.saveMessage()}"
-                android:textAllCaps="true"
                 android:text="@string/save"
-                style="@style/TextStyleEkoBody" />
+                android:textAllCaps="true"
+                android:textColor="@{viewModel.isSaveEnabled() ? viewModel.saveColor : ColorPaletteUtil.INSTANCE.getColor(viewModel.saveColor, ColorShade.SHADE2)}"
+                app:layout_constraintBottom_toBottomOf="@id/icCross"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/icCross" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.MaterialToolbar>

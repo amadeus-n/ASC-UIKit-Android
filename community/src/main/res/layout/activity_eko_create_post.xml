@@ -25,8 +25,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar"
-            android:layout_above="@id/bottomBar">
+            android:layout_above="@id/bottomBar"
+            android:layout_below="@id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clContent"
@@ -40,9 +40,9 @@
                     android:id="@+id/etPost"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_margin="@dimen/sixteen"
                     android:textColor="@color/upstraColorBase"
-                    android:layout_margin="@dimen/sixteen" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvAttachment"
@@ -76,20 +76,20 @@
 
 
                 <TextView
+                    style="@style/TextStyleEkoTitleBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/sixteen"
                     android:layout_marginEnd="@dimen/sixteen"
-                    style="@style/TextStyleEkoTitle"
                     android:text="@string/post_as_community" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchPostAsCommunity"
+                    style="@style/TextStyleEkoCaption"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/sixteen"
                     android:layout_marginEnd="@dimen/sixteen"
-                    style="@style/TextStyleEkoCaption"
                     android:text="@string/post_as_community_message" />
             </LinearLayout>
 

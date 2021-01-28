@@ -19,13 +19,13 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/categoryAvatar"
-            android:layout_width="@dimen/forty"
-            android:layout_height="@dimen/forty"
-            imageUrl="@{avatarUrl}"
-            placeHolder="@{@drawable/ic_default_category_avatar_40}"
             style="@style/CircularAvatarStyle"
             ekoFillColor="@{@color/upstraColorPrimary}"
             ekoFillShade="@{ColorShade.SHADE3}"
+            imageUrl="@{avatarUrl}"
+            placeHolder="@{@drawable/ic_default_category_avatar_40}"
+            android:layout_width="@dimen/forty"
+            android:layout_height="@dimen/forty"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,10 +39,10 @@
             android:gravity="start|center_vertical"
             android:maxLines="1"
             android:textColor="@color/upstraColorBase"
+            app:layout_constraintBottom_toBottomOf="@id/categoryAvatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/categoryAvatar"
             app:layout_constraintTop_toTopOf="@id/categoryAvatar"
-            app:layout_constraintBottom_toBottomOf="@id/categoryAvatar"
             tools:text="Travel" />
 
     </merge>

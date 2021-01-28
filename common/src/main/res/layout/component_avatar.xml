@@ -16,11 +16,11 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_avatar"
+            style="@style/CircularAvatarStyle"
+            backgroundColorShade="@{ColorShade.SHADE3}"
+            ekoBackgroundColor="@{@color/upstraColorPrimary}"
             android:layout_width="@dimen/forty"
             android:layout_height="@dimen/forty"
-            style="@style/CircularAvatarStyle"
-            ekoBackgroundColor="@{@color/upstraColorPrimary}"
-            backgroundColorShade="@{ColorShade.SHADE3}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

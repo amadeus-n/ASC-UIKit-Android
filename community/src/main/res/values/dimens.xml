@@ -5,6 +5,7 @@
     <dimen name="forty">40dp</dimen>
     <dimen name="forty_eight">48dp</dimen>
     <dimen name="twelve">12dp</dimen>
+    <dimen name="ten">10dp</dimen>
     <dimen name="twenty_six">26dp</dimen>
     <dimen name="peek_width">96dp</dimen>
     <dimen name="item_spacing">12dp</dimen>

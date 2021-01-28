@@ -26,29 +26,29 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivAvatar"
-            android:layout_width="@dimen/forty"
-            android:layout_height="@dimen/forty"
+            style="@style/CircularAvatarStyle"
+            backgroundColorShade="@{ColorShade.SHADE3}"
+            ekoBackgroundColor="@{@color/upstraColorPrimary}"
             imageUrl="@{avatarUrl}"
             placeHolder="@{@drawable/ic_default_category_avatar_40}"
-            style="@style/CircularAvatarStyle"
-            ekoBackgroundColor="@{@color/upstraColorPrimary}"
-            backgroundColorShade="@{ColorShade.SHADE3}"
+            android:layout_width="@dimen/forty"
+            android:layout_height="@dimen/forty"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            style="@style/TextStyleEkoBodyBold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/eight"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
             android:text="@{communityCategory.name}"
-            style="@style/TextStyleEkoBodyBold"
             android:textColor="@color/upstraColorBase"
-            app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ivAvatar"
-            app:layout_constraintBottom_toBottomOf="@id/ivAvatar" />
+            app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintTop_toTopOf="@id/ivAvatar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

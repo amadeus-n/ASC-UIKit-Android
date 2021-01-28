@@ -9,8 +9,8 @@ import com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoChatMessageBaseViewMod
 import com.ekoapp.ekosdk.uikit.utils.EkoDateUtils
 
 abstract class EkoChatMessageBaseViewHolder(
-        itemView: View,
-        val itemBaseViewModel: EkoChatMessageBaseViewModel
+    itemView: View,
+    val itemBaseViewModel: EkoChatMessageBaseViewModel
 ) : RecyclerView.ViewHolder(itemView) {
 
     abstract fun setMessage(message: EkoMessage)
@@ -20,9 +20,9 @@ abstract class EkoChatMessageBaseViewHolder(
         itemBaseViewModel.msgTime.set(item?.getCreatedAt()?.toString("hh:mm a"))
         itemBaseViewModel.editedAt.set(item?.getEditedAt()?.toString("hh:mm a"))
         itemBaseViewModel.msgDate.set(
-                EkoDateUtils.getRelativeDate(
-                        item?.getCreatedAt()?.millis ?: 0
-                )
+            EkoDateUtils.getRelativeDate(
+                item?.getCreatedAt()?.millis ?: 0
+            )
         )
         itemBaseViewModel.isDeleted.set(item?.isDeleted() ?: false)
         itemBaseViewModel.isFailed.set(item?.getState() == EkoMessage.State.FAILED)

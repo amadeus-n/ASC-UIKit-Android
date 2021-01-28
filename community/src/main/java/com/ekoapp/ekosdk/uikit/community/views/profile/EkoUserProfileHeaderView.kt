@@ -24,9 +24,9 @@ class EkoUserProfileHeaderView : ConstraintLayout {
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-            context,
-            attrs,
-            defStyleAttr
+        context,
+        attrs,
+        defStyleAttr
     ) {
         init()
     }
@@ -45,7 +45,7 @@ class EkoUserProfileHeaderView : ConstraintLayout {
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mBinding =
-                DataBindingUtil.inflate(inflater, R.layout.layout_eko_user_profile_header, this, true)
+            DataBindingUtil.inflate(inflater, R.layout.layout_eko_user_profile_header, this, true)
         btnUserProfileAction = mBinding.btnProfileDefaultAction
     }
 }

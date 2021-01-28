@@ -12,7 +12,7 @@ class EkoGlobalFeedViewModel : EkoBaseFeedViewModel() {
     override fun getFeed(): Flowable<PagedList<EkoPost>> {
         val feedRepository = EkoClient.newFeedRepository()
         return feedRepository.getGlobalFeed()
-                .build()
-                .query()
+            .build()
+            .query()
     }
 }

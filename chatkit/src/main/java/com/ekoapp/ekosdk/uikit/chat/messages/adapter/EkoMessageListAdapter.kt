@@ -22,11 +22,11 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import okhttp3.OkHttpClient
 
 open class EkoMessageListAdapter(
-        private val vmChat: EkoMessageListViewModel,
-        private val iViewHolder: ICustomViewHolder?,
-        private val context: Context
+    private val vmChat: EkoMessageListViewModel,
+    private val iViewHolder: ICustomViewHolder?,
+    private val context: Context
 ) : PagedListAdapter<EkoMessage, EkoChatMessageBaseViewHolder>(
-        MESSAGE_DIFF_CALLBACK
+    MESSAGE_DIFF_CALLBACK
 ), IAudioPlayCallback {
 
     private val TAG = "EkoMessageListAdapter"
@@ -35,10 +35,10 @@ open class EkoMessageListAdapter(
     var playingMsgId = "-1"
 
     private val uAmpAudioAttributes: AudioAttributes =
-            AudioAttributes.Builder()
-                    .setContentType(C.CONTENT_TYPE_MUSIC)
-                    .setUsage(C.USAGE_MEDIA)
-                    .build()
+        AudioAttributes.Builder()
+            .setContentType(C.CONTENT_TYPE_MUSIC)
+            .setUsage(C.USAGE_MEDIA)
+            .build()
 
     private val exoPlayer by lazy {
         SimpleExoPlayer.Builder(context).build().apply {
@@ -58,15 +58,15 @@ open class EkoMessageListAdapter(
 
 
     override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
+        parent: ViewGroup,
+        viewType: Int
     ): EkoChatMessageBaseViewHolder {
         return messageUtil.getViewHolder(
-                LayoutInflater.from(parent.context),
-                parent,
-                viewType,
-                iViewHolder,
-                this
+            LayoutInflater.from(parent.context),
+            parent,
+            viewType,
+            iViewHolder,
+            this
         )
     }
 
@@ -146,13 +146,13 @@ open class EkoMessageListAdapter(
                 updateNotPlayingState()
             } else {
                 playingMsgId =
-                        playingAudioHolder?.audioMsgBaseViewModel?.ekoMessage?.getMessageId()
-                                ?: "-1"
+                    playingAudioHolder?.audioMsgBaseViewModel?.ekoMessage?.getMessageId()
+                        ?: "-1"
                 playingAudioHolder?.audioMsgBaseViewModel?.buffering?.set(true)
                 val url: String = playingAudioHolder?.audioMsgBaseViewModel?.audioUrl?.get() ?: ""
                 val mediaItem = MediaItem.fromUri(url.toUri()).buildUpon().build()
                 val mediaSource = ProgressiveMediaSource.Factory(okHttpDataSourceFactory)
-                        .createMediaSource(mediaItem)
+                    .createMediaSource(mediaItem)
                 exoPlayer.setMediaSource(mediaSource)
                 exoPlayer.prepare()
                 exoPlayer.playWhenReady = true
@@ -195,7 +195,7 @@ open class EkoMessageListAdapter(
             Log.e(TAG, "onPlayerError: ${error.printStackTrace()}")
             playingAudioHolder?.audioMsgBaseViewModel?.buffering?.set(false)
             Toast.makeText(context, context.getString(R.string.playback_error), Toast.LENGTH_SHORT)
-                    .show()
+                .show()
         }
     }
 
@@ -203,7 +203,7 @@ open class EkoMessageListAdapter(
         override fun run() {
             val timeElapsed = exoPlayer.currentPosition
             playingAudioHolder?.audioMsgBaseViewModel?.duration?.set(
-                    EkoDateUtils.getFormattedTimeForChat(timeElapsed.toInt())
+                EkoDateUtils.getFormattedTimeForChat(timeElapsed.toInt())
             )
             uiUpdateHandler.postDelayed(this, 500L)
         }
@@ -211,7 +211,7 @@ open class EkoMessageListAdapter(
 
     private fun updatePlayingState() {
         playingAudioHolder?.audioMsgBaseViewModel?.duration?.set(
-                EkoDateUtils.getFormattedTimeForChat(exoPlayer.duration.toInt())
+            EkoDateUtils.getFormattedTimeForChat(exoPlayer.duration.toInt())
         )
         playingAudioHolder?.audioMsgBaseViewModel?.buffering?.set(false)
         playingAudioHolder?.audioMsgBaseViewModel?.isPlaying?.set(true)
@@ -229,7 +229,7 @@ open class EkoMessageListAdapter(
         private val MESSAGE_DIFF_CALLBACK = object : DiffUtil.ItemCallback<EkoMessage>() {
 
             override fun areItemsTheSame(oldItem: EkoMessage, newItem: EkoMessage): Boolean =
-                    oldItem.getMessageId() == newItem.getMessageId()
+                oldItem.getMessageId() == newItem.getMessageId()
 
             override fun areContentsTheSame(oldItem: EkoMessage, newItem: EkoMessage): Boolean {
                 return oldItem.isDeleted() == newItem.isDeleted()
@@ -243,9 +243,9 @@ open class EkoMessageListAdapter(
     interface ICustomViewHolder {
 
         fun getViewHolder(
-                inflater: LayoutInflater,
-                parent: ViewGroup,
-                viewType: Int
+            inflater: LayoutInflater,
+            parent: ViewGroup,
+            viewType: Int
         ): EkoChatMessageBaseViewHolder?
     }
 

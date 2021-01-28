@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit
 
 
 class EkoCommunityHomePageFragment internal constructor() : Fragment(),
-        IMyCommunityItemClickListener {
+    IMyCommunityItemClickListener {
 
     private lateinit var fragmentStateAdapter: EkoFragmentStateAdapter
     private lateinit var searchMenuItem: MenuItem
@@ -54,21 +54,21 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fragmentStateAdapter = EkoFragmentStateAdapter(
-                childFragmentManager,
-                requireActivity().lifecycle
+            childFragmentManager,
+            requireActivity().lifecycle
         )
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         mViewModel = ViewModelProvider(requireActivity()).get(EkoCommunityHomeViewModel::class.java)
         mBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_eko_community_home_page,
-                container,
-                false
+            inflater,
+            R.layout.fragment_eko_community_home_page,
+            container,
+            false
         )
         mBinding.viewModel = mViewModel
         mBinding.tabLayout.disableSwipe()
@@ -96,16 +96,16 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
 
     private fun initTabLayout() {
         fragmentStateAdapter.setFragmentList(
-                arrayListOf(
-                        EkoFragmentStateAdapter.EkoPagerModel(
-                                getString(R.string.title_news_feed),
-                                getNewsFeedFragment()
-                        ),
-                        EkoFragmentStateAdapter.EkoPagerModel(
-                                getString(R.string.title_explore),
-                                getExploreFragment()
-                        )
+            arrayListOf(
+                EkoFragmentStateAdapter.EkoPagerModel(
+                    getString(R.string.title_news_feed),
+                    getNewsFeedFragment()
+                ),
+                EkoFragmentStateAdapter.EkoPagerModel(
+                    getString(R.string.title_explore),
+                    getExploreFragment()
                 )
+            )
         )
         tabLayout.setAdapter(fragmentStateAdapter)
     }
@@ -141,17 +141,17 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
         rvCommunitySearch.layoutManager = LinearLayoutManager(requireContext())
         rvCommunitySearch.adapter = mSearchAdapter
         rvCommunitySearch.addItemDecoration(
-                EkoRecyclerViewItemDecoration(
-                        resources.getDimensionPixelSize(R.dimen.sixteen)
-                )
+            EkoRecyclerViewItemDecoration(
+                resources.getDimensionPixelSize(R.dimen.sixteen)
+            )
         )
         rvCommunitySearch.setHasFixedSize(true)
     }
 
     private fun subscribeTextChangeEvents() {
         textChangeDisposable = textChangeSubject.debounce(500, TimeUnit.MILLISECONDS)
-                .map { searchCommunity(it) }
-                .subscribe()
+            .map { searchCommunity(it) }
+            .subscribe()
     }
 
     private fun searchCommunity(newText: String) {
@@ -161,21 +161,21 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
             mViewModel.emptySearchString.set(false)
             searchResultDisposable?.dispose()
             searchResultDisposable = mViewModel.searchCommunity(newText)
-                    .throttleLatest(1, TimeUnit.SECONDS, true)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnNext { list ->
-                        if (list.isEmpty()) {
-                            mViewModel.emptySearch.set(true)
-                        } else {
-                            mViewModel.emptySearch.set(false)
-                        }
-                        if (newText.isNotEmpty()) {
-                            mSearchAdapter.submitList(list)
-                        }
-                    }.doOnError {
-                        Log.e("CommunityHomeFragment", "searchCommunity: ${it.localizedMessage}")
-                    }.subscribe()
+                .throttleLatest(1, TimeUnit.SECONDS, true)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext { list ->
+                    if (list.isEmpty()) {
+                        mViewModel.emptySearch.set(true)
+                    } else {
+                        mViewModel.emptySearch.set(false)
+                    }
+                    if (newText.isNotEmpty()) {
+                        mSearchAdapter.submitList(list)
+                    }
+                }.doOnError {
+                    Log.e("CommunityHomeFragment", "searchCommunity: ${it.localizedMessage}")
+                }.subscribe()
         }
 
     }
@@ -183,24 +183,24 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         val searchManager =
-                requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+            requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView =
-                SearchView((activity as AppCompatActivity).supportActionBar!!.themedContext)
+            SearchView((activity as AppCompatActivity).supportActionBar!!.themedContext)
         searchView.queryHint = getString(R.string.search)
         searchView.maxWidth = Int.MAX_VALUE
 
         val searchEditText =
-                searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+            searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
         searchEditText.setTextColor(
-                ContextCompat.getColor(
-                        requireContext(),
-                        R.color.upstraColorBase
-                )
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.upstraColorBase
+            )
         )
         searchEditText.setHintTextColor(
-                ColorPaletteUtil.getColor(
-                        ContextCompat.getColor(requireContext(), R.color.upstraColorBase), ColorShade.SHADE2
-                )
+            ColorPaletteUtil.getColor(
+                ContextCompat.getColor(requireContext(), R.color.upstraColorBase), ColorShade.SHADE2
+            )
         )
         searchEditText.imeOptions = EditorInfo.IME_ACTION_NEXT
         searchEditText.setOnEditorActionListener(object : TextView.OnEditorActionListener {
@@ -214,7 +214,7 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
         })
 
         searchMenuItem = menu.add("SearchMenu").setVisible(true).setActionView(searchView)
-                .setIcon(R.drawable.ic_uikit_search)
+            .setIcon(R.drawable.ic_uikit_search)
         searchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM or MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW)
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
@@ -250,8 +250,8 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
     override fun onCommunitySelected(ekoCommunity: EkoCommunity?) {
         if (ekoCommunity != null) {
             val detailIntent = EkoCommunityPageActivity.newIntent(
-                    requireContext(),
-                    ekoCommunity.getCommunityId()
+                requireContext(),
+                ekoCommunity.getCommunityId()
             )
             startActivity(detailIntent)
         }
@@ -264,7 +264,7 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
         fun build(activity: AppCompatActivity): EkoCommunityHomePageFragment {
             val fragment = EkoCommunityHomePageFragment()
             fragment.mViewModel =
-                    ViewModelProvider(activity).get(EkoCommunityHomeViewModel::class.java)
+                ViewModelProvider(activity).get(EkoCommunityHomeViewModel::class.java)
             fragment.mViewModel.newsFeedFragmentDelegate = newsFeedFragmentDelegate
             fragment.mViewModel.exploreFragmentDelegate = exploreFragmentDelegate
             return fragment

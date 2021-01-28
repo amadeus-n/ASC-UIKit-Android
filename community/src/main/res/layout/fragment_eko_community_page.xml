@@ -60,24 +60,30 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:shapeAppearanceOverlay="@style/CircleImage" />
 
-                        <TextView
-                            android:id="@+id/tvName"
-                            style="@style/TextStyleEkoHeadline"
-                            safeText="@{viewModel.name}"
+                        <FrameLayout
+                            android:id="@+id/communityNameContainer"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/twelve"
                             android:layout_marginTop="@dimen/ten"
                             android:layout_marginEnd="@dimen/sixteen"
-                            android:drawableStart="@{viewModel.isPublic() ? null : @drawable/ic_uikit_lock_24px}"
-                            android:drawableEnd="@{viewModel.isOfficial() ? @drawable/ic_uikit_verified : null}"
-                            android:drawablePadding="@dimen/four"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:textColor="@color/upstraColorBase"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/ivAvatar"
-                            app:layout_constraintTop_toTopOf="@id/ivAvatar" />
+                            app:layout_constraintTop_toTopOf="@id/ivAvatar">
+
+                            <TextView
+                                android:id="@+id/tvName"
+                                style="@style/TextStyleEkoHeadline"
+                                safeText="@{viewModel.name}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@{viewModel.isPublic() ? null : @drawable/ic_uikit_lock_24px}"
+                                android:drawableEnd="@{viewModel.isOfficial() ? @drawable/ic_uikit_verified : null}"
+                                android:drawablePadding="@dimen/four"
+                                android:ellipsize="end"
+                                android:maxLines="3"
+                                android:textColor="@color/upstraColorBase" />
+                        </FrameLayout>
 
                         <TextView
                             android:id="@+id/tvCategory"
@@ -88,11 +94,12 @@
                             android:layout_marginEnd="@dimen/sixteen"
                             android:ellipsize="end"
                             android:maxLines="1"
+                            android:minLines="2"
                             android:text="@{viewModel.category}"
                             android:textColor="@color/upstraColorBase"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/tvName"
-                            app:layout_constraintTop_toBottomOf="@id/tvName" />
+                            app:layout_constraintStart_toStartOf="@id/communityNameContainer"
+                            app:layout_constraintTop_toBottomOf="@id/communityNameContainer" />
 
                         <TextView
                             android:id="@+id/tvPostCount"
@@ -104,7 +111,7 @@
                             android:textColor="@color/upstraColorBase"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="@id/ivAvatar"
-                            app:layout_constraintTop_toBottomOf="@id/ivAvatar" />
+                            app:layout_constraintTop_toBottomOf="@id/tvCategory" />
 
                         <TextView
                             android:id="@+id/tvPost"
@@ -160,7 +167,7 @@
                             android:layout_marginTop="@dimen/twelve"
                             android:onClick="@{() -> viewModel.onPrimaryButtonClick()}"
                             android:text="@{viewModel.isModerator() ? @string/edit_profile : @string/message}"
-                            android:visibility="@{viewModel.isModerator() || viewModel.isMember() ?  View.VISIBLE : View.GONE}"
+                            android:visibility="@{viewModel.isModerator() || (viewModel.isMessageVisible &amp;&amp; viewModel.isMember()) ?  View.VISIBLE : View.GONE}"
                             app:ekoButtonStrokeShade="@{ColorShade.SHADE3}"
                             app:icon="@{viewModel.isModerator() ? @drawable/ic_uikit_create : @drawable/ic_uikit_conversation}"
                             app:iconGravity="textStart"
@@ -177,7 +184,7 @@
                             android:layout_marginStart="@dimen/twelve"
                             android:onClick="@{() -> viewModel.onSecondaryButtonClick()}"
                             android:paddingHorizontal="@dimen/eight"
-                            android:visibility="@{viewModel.isModerator() ?  View.VISIBLE : View.GONE}"
+                            android:visibility="@{(viewModel.isMessageVisible &amp;&amp; viewModel.isModerator()) ?  View.VISIBLE : View.GONE}"
                             app:icon="@drawable/ic_uikit_conversation"
                             app:iconGravity="textStart"
                             app:iconTint="@color/upstraColorBase"

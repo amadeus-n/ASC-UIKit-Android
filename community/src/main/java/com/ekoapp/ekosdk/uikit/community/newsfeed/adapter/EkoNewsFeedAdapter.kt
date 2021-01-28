@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ekoapp.ekosdk.comment.EkoComment
 import com.ekoapp.ekosdk.feed.EkoPost
+import com.ekoapp.ekosdk.feed.EkoPostTarget
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewPagedAdapter
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedImageClickListener
@@ -13,13 +14,13 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostFileItemClickLis
 import com.ekoapp.ekosdk.uikit.community.newsfeed.util.EkoTimelineType
 
 class EkoNewsFeedAdapter(
-        private val timelineType: EkoTimelineType,
-        private val itemActionListener: INewsFeedItemActionListener,
-        private val imageClickListener: INewsFeedImageClickListener?,
-        private val loadMoreFilesClickListener: EkoPostViewFileAdapter.ILoadMoreFilesClickListener?,
-        private val fileItemClickListener: IPostFileItemClickListener?
+    private val timelineType: EkoTimelineType,
+    private val itemActionListener: INewsFeedItemActionListener,
+    private val imageClickListener: INewsFeedImageClickListener?,
+    private val loadMoreFilesClickListener: EkoPostViewFileAdapter.ILoadMoreFilesClickListener?,
+    private val fileItemClickListener: IPostFileItemClickListener?
 ) :
-        EkoBaseRecyclerViewPagedAdapter<EkoPost>(diffCallBack) {
+    EkoBaseRecyclerViewPagedAdapter<EkoPost>(diffCallBack) {
 
     override fun getLayoutId(position: Int, obj: EkoPost?): Int {
         return obj?.let { ekoPost ->
@@ -46,16 +47,16 @@ class EkoNewsFeedAdapter(
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             R.layout.layout_news_feed_item_image -> NewsFeedItemImageViewHolder(
-                    view,
-                    itemActionListener,
-                    imageClickListener,
-                    timelineType
+                view,
+                itemActionListener,
+                imageClickListener,
+                timelineType
             )
             R.layout.layout_news_feed_item_files -> NewsFeedItemAttachmentViewHolder(
-                    view,
-                    itemActionListener,
-                    loadMoreFilesClickListener,
-                    fileItemClickListener, timelineType
+                view,
+                itemActionListener,
+                loadMoreFilesClickListener,
+                fileItemClickListener, timelineType
             )
             else -> NewsFeedItemTextViewHolder(view, itemActionListener, timelineType)
         }
@@ -72,13 +73,18 @@ class EkoNewsFeedAdapter(
             }
 
             override fun areContentsTheSame(oldItem: EkoPost, newItem: EkoPost): Boolean {
+                val oldItemIsJoined =
+                    (oldItem.getTarget() as? EkoPostTarget.COMMUNITY)?.getCommunity()?.isJoined()
+                val newItemIsJoined =
+                    (newItem.getTarget() as? EkoPostTarget.COMMUNITY)?.getCommunity()?.isJoined()
                 return oldItem.getPostId() == newItem.getPostId()
                         && oldItem.getPostedUser()?.getDisplayName() == newItem.getPostedUser()
-                        ?.getDisplayName()
+                    ?.getDisplayName()
                         && oldItem.getPostedUser()?.getRoles() == newItem.getPostedUser()
-                        ?.getRoles()
+                    ?.getRoles()
                         && oldItem.getPostedUser()?.getAvatar()?.getUrl() == newItem.getPostedUser()
-                        ?.getAvatar()?.getUrl()
+                    ?.getAvatar()?.getUrl()
+                        && oldItemIsJoined == newItemIsJoined
                         && oldItem.getCommentCount() == newItem.getCommentCount()
                         && oldItem.getReactionCount() == newItem.getReactionCount()
                         && oldItem.getEditedAt() == newItem.getEditedAt()
@@ -91,12 +97,12 @@ class EkoNewsFeedAdapter(
         }
 
         private fun areContentSame(
-                oldComments: List<EkoComment>, newComments: List<EkoComment>
+            oldComments: List<EkoComment>, newComments: List<EkoComment>
         ): Boolean {
             for ((index, _) in oldComments.withIndex()) {
                 if (oldComments[index].getData() != newComments[index].getData()
-                        || oldComments[index].getReactionCount() != newComments[index].getReactionCount()
-                        || oldComments[index].getEditedAt() != newComments[index].getEditedAt()
+                    || oldComments[index].getReactionCount() != newComments[index].getReactionCount()
+                    || oldComments[index].getEditedAt() != newComments[index].getEditedAt()
                 ) {
                     return false
                 }

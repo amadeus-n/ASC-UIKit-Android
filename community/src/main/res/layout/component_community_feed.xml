@@ -14,9 +14,9 @@
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Jo March"
         app:layout_constraintLeft_toRightOf="@id/avatarView"
-        app:layout_constraintTop_toTopOf="@id/avatarView"
-        android:text="Jo March" />
+        app:layout_constraintTop_toTopOf="@id/avatarView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

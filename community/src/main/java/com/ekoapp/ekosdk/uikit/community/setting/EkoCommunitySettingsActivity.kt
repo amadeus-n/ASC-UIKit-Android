@@ -15,8 +15,8 @@ import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
 import kotlinx.android.synthetic.main.activity_eko_community_setting.*
 
 class EkoCommunitySettingsActivity :
-        EkoBaseActivity<ActivityEkoCommunitySettingBinding, EkoCommunitySettingViewModel>(),
-        EkoToolBarClickListener {
+    EkoBaseActivity<ActivityEkoCommunitySettingBinding, EkoCommunitySettingViewModel>(),
+    EkoToolBarClickListener {
 
     private val mViewModel: EkoCommunitySettingViewModel by viewModels()
 
@@ -29,7 +29,7 @@ class EkoCommunitySettingsActivity :
 
     private fun setUpToolbar() {
         communitySettingsToolbar.setLeftDrawable(
-                ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
         )
         communitySettingsToolbar.setClickListener(this)
         communitySettingsToolbar.setLeftString(getString(R.string.community_setting))
@@ -41,9 +41,9 @@ class EkoCommunitySettingsActivity :
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val fragment = EkoCommunitySettingsFragment.Builder()
-                .community(intent?.extras?.getParcelable(COMMUNITY))
-                .communityId(intent?.extras?.getString(COMMUNITY_ID) ?: "")
-                .build(this)
+            .community(intent?.extras?.getParcelable(COMMUNITY))
+            .communityId(intent?.extras?.getString(COMMUNITY_ID) ?: "")
+            .build(this)
         fragmentTransaction.replace(R.id.fragmentContainer, fragment)
         fragmentTransaction.commit()
     }
@@ -53,10 +53,10 @@ class EkoCommunitySettingsActivity :
         private const val COMMUNITY_ID = "COMMUNITY_ID"
 
         fun newIntent(context: Context, community: EkoCommunity?, id: String? = null): Intent =
-                Intent(context, EkoCommunitySettingsActivity::class.java).apply {
-                    putExtra(COMMUNITY, community)
-                    putExtra(COMMUNITY_ID, id)
-                }
+            Intent(context, EkoCommunitySettingsActivity::class.java).apply {
+                putExtra(COMMUNITY, community)
+                putExtra(COMMUNITY_ID, id)
+            }
     }
 
     override fun getLayoutId(): Int = R.layout.activity_eko_community_setting

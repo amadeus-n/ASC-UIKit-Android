@@ -11,23 +11,23 @@
         android:id="@+id/etUserId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter user id"
+        android:layout_marginHorizontal="@dimen/thirty_two"
         android:layout_marginTop="64dp"
-        android:layout_marginHorizontal="@dimen/thirty_two" />
+        android:hint="Enter user id" />
 
     <EditText
         android:id="@+id/etUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Display Name"
-        android:layout_marginHorizontal="@dimen/thirty_two" />
+        android:layout_marginHorizontal="@dimen/thirty_two"
+        android:hint="Enter Display Name" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="Choose user role"
-        android:layout_marginTop="@dimen/sixteen" />
+        android:layout_marginTop="@dimen/sixteen"
+        android:text="Choose user role" />
 
     <CheckBox
         android:id="@+id/cbModerator"
@@ -41,8 +41,8 @@
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/sixteen"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/sixteen"
         android:text="Login" />
 
 

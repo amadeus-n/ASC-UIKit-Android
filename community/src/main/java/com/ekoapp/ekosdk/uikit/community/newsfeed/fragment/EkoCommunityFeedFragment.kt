@@ -32,7 +32,7 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mViewModel =
-                ViewModelProvider(requireActivity()).get(EkoCommunityTimelineViewModel::class.java)
+            ViewModelProvider(requireActivity()).get(EkoCommunityTimelineViewModel::class.java)
         arguments.let {
             mViewModel.communityId = it?.getString(ARG_COMMUNITY_ID)
             mViewModel.community = it?.getParcelable(ARG_COMMUNITY)
@@ -46,17 +46,17 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
 
     private fun getCommunityDetails() {
         val communityDisposable = mViewModel
-                .getCommunity(mViewModel.communityId!!)
-                ?.subscribeOn(Schedulers.io())
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.doOnSuccess {
-                    mViewModel.community = it
-                    mViewModel.updateAdminAccess()
-                }
-                ?.doOnError {
-                    Log.d(TAG, it.message ?: "")
-                }
-                ?.subscribe()
+            .getCommunity(mViewModel.communityId!!)
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.doOnSuccess {
+                mViewModel.community = it
+                mViewModel.updateAdminAccess()
+            }
+            ?.doOnError {
+                Log.d(TAG, it.message ?: "")
+            }
+            ?.subscribe()
 
         communityDisposable?.let { disposable.add(it) }
     }
@@ -77,27 +77,27 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
 
     private fun getOtherUserEmptyFeed(): View {
         val inflater =
-                requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val mBinding: LayoutOtherUserTimelineEmptyViewBinding =
-                DataBindingUtil.inflate(
-                        inflater,
-                        R.layout.layout_other_user_timeline_empty_view,
-                        getRootView(),
-                        false
-                )
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.layout_other_user_timeline_empty_view,
+                getRootView(),
+                false
+            )
         return mBinding.root
     }
 
     private fun getAdminUserEmptyFeed(): View {
         val inflater =
-                context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val mBinding: LayoutMyTimelineFeedEmptyViewBinding =
-                DataBindingUtil.inflate(
-                        inflater,
-                        R.layout.layout_my_timeline_feed_empty_view,
-                        getRootView(),
-                        false
-                )
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.layout_my_timeline_feed_empty_view,
+                getRootView(),
+                false
+            )
         return mBinding.root
     }
 
@@ -121,7 +121,7 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
 
             val fragment = EkoCommunityFeedFragment()
             fragment.mViewModel =
-                    ViewModelProvider(activity).get(EkoCommunityTimelineViewModel::class.java)
+                ViewModelProvider(activity).get(EkoCommunityTimelineViewModel::class.java)
             fragment.mViewModel.avatarClickListener = avatarClickListener
             fragment.arguments = Bundle().apply {
                 putParcelable(ARG_COMMUNITY, this@Builder.community)

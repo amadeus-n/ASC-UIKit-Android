@@ -24,7 +24,7 @@ class EkoTextStyle : Style {
 
     private fun parseStyle(context: Context, attrs: AttributeSet) {
         val typedArray =
-                context.obtainStyledAttributes(attrs, R.styleable.Text)
+            context.obtainStyledAttributes(attrs, R.styleable.Text)
         parse(typedArray)
     }
 
@@ -35,12 +35,12 @@ class EkoTextStyle : Style {
 
     private fun parse(typedArray: TypedArray) {
         textColor = typedArray.getColor(
-                R.styleable.Text_textColor,
-                getColor(R.color.upstraColorBase)
+            R.styleable.Text_textColor,
+            getColor(R.color.upstraColorBase)
         )
         textStyle = typedArray.getInt(
-                R.styleable.Text_textStyle,
-                Typeface.NORMAL
+            R.styleable.Text_textStyle,
+            Typeface.NORMAL
         )
 
         typedArray.recycle()

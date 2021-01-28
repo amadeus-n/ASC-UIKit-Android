@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -22,14 +22,14 @@
             android:id="@+id/etPostComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/upstraColorBase"
+            android:layout_margin="@dimen/sixteen"
             android:background="@android:color/transparent"
-            android:text="@={vm.commentText}"
             android:hint="@string/post_comment_hint"
+            android:text="@={vm.commentText}"
+            android:textColor="@color/upstraColorBase"
             android:textColorHint="@color/upstraColorBase"
-            app:textColorHintShade="@{ColorShade.SHADE2}"
-            android:layout_margin="@dimen/sixteen" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:textColorHintShade="@{ColorShade.SHADE2}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

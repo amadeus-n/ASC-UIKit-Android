@@ -24,26 +24,26 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivAvatar"
+            style="@style/CircularAvatarStyle"
+            backgroundColorShade="@{ColorShade.SHADE3}"
+            ekoBackgroundColor="@{@color/upstraColorPrimary}"
             android:layout_width="@dimen/forty"
             android:layout_height="@dimen/forty"
-            style="@style/CircularAvatarStyle"
-            ekoBackgroundColor="@{@color/upstraColorPrimary}"
-            backgroundColorShade="@{ColorShade.SHADE3}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvName"
+            style="@style/TextStyleEkoCaption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/four"
-            android:maxLines="1"
             android:ellipsize="end"
             android:gravity="center"
+            android:maxLines="1"
             android:text="@{ekoCommunity.displayName}"
-            style="@style/TextStyleEkoCaption"
-            app:layout_constraintStart_toStartOf="@id/ivAvatar"
             app:layout_constraintEnd_toStartOf="@id/ivOfficial"
+            app:layout_constraintStart_toStartOf="@id/ivAvatar"
             app:layout_constraintTop_toBottomOf="@id/ivAvatar" />
 
         <ImageView
@@ -52,8 +52,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_uikit_verified"
             android:visibility="@{ekoCommunity.official ? View.VISIBLE : View.GONE}"
-            app:layout_constraintStart_toEndOf="@id/tvName"
             app:layout_constraintEnd_toEndOf="@id/ivAvatar"
+            app:layout_constraintStart_toEndOf="@id/tvName"
             app:layout_constraintTop_toTopOf="@id/tvName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

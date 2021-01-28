@@ -60,8 +60,8 @@ const val IMAGE_COUNT_SINGLE = 1
 const val IMAGE_COUNT_DOUBLE = 2
 
 abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
-        ICreatePostImageActionListener, ICreatePostFileActionListener,
-        EkoAlertDialogFragment.IAlertDialogActionListener {
+    ICreatePostImageActionListener, ICreatePostFileActionListener,
+    EkoAlertDialogFragment.IAlertDialogActionListener {
 
     private val ID_MENU_ITEM_POST: Int = 133
     private var menuItemPost: MenuItem? = null
@@ -85,8 +85,8 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_eko_post_create, container, false)
@@ -106,9 +106,9 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menuItemPost =
-                menu.add(Menu.NONE, ID_MENU_ITEM_POST, Menu.NONE, getString(R.string.save))
+            menu.add(Menu.NONE, ID_MENU_ITEM_POST, Menu.NONE, getString(R.string.save))
         menuItemPost?.setTitle(getPostMenuText())
-                ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         updatePostMenu(isRightButtonActive())
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -178,8 +178,8 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
             openFilePicker()
         } else {
             requestPermission(
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    REQUEST_STORAGE_PERMISSION_IMAGE_UPLOAD
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                REQUEST_STORAGE_PERMISSION_IMAGE_UPLOAD
             )
         }
     }
@@ -198,8 +198,8 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
             openImagePicker()
         } else {
             requestPermission(
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    REQUEST_STORAGE_PERMISSION_IMAGE_UPLOAD
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                REQUEST_STORAGE_PERMISSION_IMAGE_UPLOAD
             )
         }
     }
@@ -266,18 +266,18 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
             override fun afterTextChanged(s: Editable?) {}
 
             override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
             ) {
             }
 
             override fun onTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    before: Int,
-                    count: Int
+                s: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
             ) {
                 handleButtonActiveInactiveBehavior()
             }
@@ -318,10 +318,12 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
         val title = menuItemPost?.title
         val spannableString = SpannableString(title)
         spannableString.setSpan(
-                ForegroundColorSpan(
-                        EkoOptionMenuColorUtil.getColor(menuItemPost?.isEnabled
-                                ?: false, requireContext())
-                ), 0, spannableString.length, 0
+            ForegroundColorSpan(
+                EkoOptionMenuColorUtil.getColor(
+                    menuItemPost?.isEnabled
+                        ?: false, requireContext()
+                )
+            ), 0, spannableString.length, 0
         )
         menuItemPost?.title = spannableString
     }
@@ -352,10 +354,10 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
     private fun showExitConfirmationDialog() {
         val exitConfirmationDialogFragment = EkoAlertDialogFragment
-                .newInstance(
-                        R.string.discard_post_title, R.string.discard_post_message,
-                        R.string.discard, R.string.cancel
-                )
+            .newInstance(
+                R.string.discard_post_title, R.string.discard_post_message,
+                R.string.discard, R.string.cancel
+            )
         exitConfirmationDialogFragment.show(childFragmentManager, EkoAlertDialogFragment.TAG);
         exitConfirmationDialogFragment.listener = this
     }
@@ -373,27 +375,27 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
         val selectedImageCount = mViewModel.getImages().value?.size ?: 0
         if (selectedImageCount == MAX_IMAGE_SELECTABLE) {
             Toast.makeText(
-                    context,
-                    getString(R.string.create_post_max_image_selected_warning),
-                    Toast.LENGTH_LONG
+                context,
+                getString(R.string.create_post_max_image_selected_warning),
+                Toast.LENGTH_LONG
             ).show()
         } else {
             Matisse.from(this)
-                    .choose(MimeType.of(MimeType.JPEG, MimeType.PNG, MimeType.GIF))
-                    .countable(true)
-                    .maxSelectable(MAX_IMAGE_SELECTABLE - selectedImageCount)
-                    .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                    .imageEngine(GlideEngine())
-                    .theme(R.style.ImagePickerTheme)
-                    .forResult(EkoConstants.PICK_IMAGES)
+                .choose(MimeType.of(MimeType.JPEG, MimeType.PNG, MimeType.GIF))
+                .countable(true)
+                .maxSelectable(MAX_IMAGE_SELECTABLE - selectedImageCount)
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                .imageEngine(GlideEngine())
+                .theme(R.style.ImagePickerTheme)
+                .forResult(EkoConstants.PICK_IMAGES)
         }
     }
 
 
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
@@ -459,13 +461,13 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
     private fun showImageUploadFailedDialog() {
         val dialogFragment = EkoAlertDialogFragment
-                .newInstance(
-                        R.string.upload_incomplete, R.string.image_upload_failed_message,
-                        null, R.string.ok
-                )
+            .newInstance(
+                R.string.upload_incomplete, R.string.image_upload_failed_message,
+                null, R.string.ok
+            )
         dialogFragment.show(childFragmentManager, EkoAlertDialogFragment.TAG);
         dialogFragment.setAlertDialogActionListener(object :
-                EkoAlertDialogFragment.IAlertDialogActionListener {
+            EkoAlertDialogFragment.IAlertDialogActionListener {
             override fun onClickPositiveButton() {
                 dialogFragment.dismiss()
             }
@@ -479,13 +481,13 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
     private fun showAttachmentUploadFailedDialog() {
         val dialogFragment = EkoAlertDialogFragment
-                .newInstance(
-                        R.string.upload_incomplete, R.string.attachment_upload_failed_message,
-                        null, R.string.ok
-                )
+            .newInstance(
+                R.string.upload_incomplete, R.string.attachment_upload_failed_message,
+                null, R.string.ok
+            )
         dialogFragment.show(childFragmentManager, EkoAlertDialogFragment.TAG);
         dialogFragment.setAlertDialogActionListener(object :
-                EkoAlertDialogFragment.IAlertDialogActionListener {
+            EkoAlertDialogFragment.IAlertDialogActionListener {
             override fun onClickPositiveButton() {
                 dialogFragment.dismiss()
             }
@@ -513,13 +515,13 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
     private fun uploadImage(image: FeedImage) {
         val disposable = mViewModel.uploadImage(image)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext {
-                    mViewModel.updateImageUploadStatus(image, it)
-                }.doOnError {
-                    Log.d(TAG, it.message ?: "")
-                }.subscribe()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnNext {
+                mViewModel.updateImageUploadStatus(image, it)
+            }.doOnError {
+                Log.d(TAG, it.message ?: "")
+            }.subscribe()
         compositeDisposable.add(disposable)
     }
 
@@ -562,12 +564,12 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
     private fun showMaxLimitExceedError(addedFiles: MutableList<FileAttachment>) {
         val dialogFragment = EkoAlertDialogFragment
-                .newInstance(
-                        R.string.file_max_limit_exceed_title, R.string.file_max_limit_exceed_message,
-                        null, R.string.ok
-                )
+            .newInstance(
+                R.string.file_max_limit_exceed_title, R.string.file_max_limit_exceed_message,
+                null, R.string.ok
+            )
         dialogFragment.setAlertDialogActionListener(object :
-                EkoAlertDialogFragment.IAlertDialogActionListener {
+            EkoAlertDialogFragment.IAlertDialogActionListener {
             override fun onClickPositiveButton() {
                 dialogFragment.dismiss()
                 uploadFileAttachments(addedFiles)
@@ -580,7 +582,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
         })
         val fragmentTransaction = childFragmentManager.beginTransaction();
         fragmentTransaction.add(dialogFragment, EkoAlertDialogFragment.TAG)
-                .commitAllowingStateLoss()
+            .commitAllowingStateLoss()
 
     }
 
@@ -591,13 +593,13 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
         }
         files.forEach { fileAttachment ->
             val disposable = mViewModel.uploadFile(fileAttachment)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnNext {
-                        mViewModel.updateFileUploadStatus(fileAttachment, it)
-                    }.doOnError {
-                        Log.d(TAG, it.message ?: "")
-                    }.subscribe()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext {
+                    mViewModel.updateFileUploadStatus(fileAttachment, it)
+                }.doOnError {
+                    Log.d(TAG, it.message ?: "")
+                }.subscribe()
             compositeDisposable.add(disposable)
         }
 
@@ -618,21 +620,21 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
     private fun takePicture() {
         val cameraPermission =
-                registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-                    var permissionGranted = false
-                    permissions.entries.forEach {
-                        permissionGranted = it.value
-                    }
-                    if (permissionGranted) {
-                        dispatchTakePictureIntent()
-                    }
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                var permissionGranted = false
+                permissions.entries.forEach {
+                    permissionGranted = it.value
                 }
+                if (permissionGranted) {
+                    dispatchTakePictureIntent()
+                }
+            }
 
         cameraPermission.launch(
-                arrayOf(
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
+            arrayOf(
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
         )
     }
 
@@ -641,12 +643,12 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
             photoFile = EkoCameraUtil.createImageFile(requireActivity().applicationContext)
             photoFile?.also {
                 val photoUri =
-                        EkoCameraUtil.createPhotoUri(requireActivity().applicationContext, it)
+                    EkoCameraUtil.createPhotoUri(requireActivity().applicationContext, it)
                 Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
                     // Ensure that there's a camera activity to handle the intent
                     takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
                         takePictureIntent.putExtra(
-                                MediaStore.EXTRA_OUTPUT, photoUri
+                            MediaStore.EXTRA_OUTPUT, photoUri
 
                         )
                         startActivityForResult(takePictureIntent, EkoConstants.CAPTURE_IMAGE)
@@ -663,14 +665,14 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
         val fileSize: Long = FileUtils.getSize(requireActivity().contentResolver, uri).toLong()
         val mimeType = FileUtils.getMimeType(requireActivity().contentResolver, uri)
         return FileAttachment(
-                null,
-                UUID.randomUUID().toString(),
-                fileName,
-                fileSize,
-                uri,
-                FileUtils.humanReadableByteCount(fileSize, true)!!,
-                mimeType!!,
-                FileUploadState.PENDING, 0
+            null,
+            UUID.randomUUID().toString(),
+            fileName,
+            fileSize,
+            uri,
+            FileUtils.humanReadableByteCount(fileSize, true)!!,
+            mimeType!!,
+            FileUploadState.PENDING, 0
         )
     }
 
@@ -694,15 +696,15 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
     internal fun refresh() {
         EkoClient.newFeedRepository()
-                .getGlobalFeed()
-                .build()
-                .query()
-                .ignoreElements()
-                .subscribeOn(Schedulers.io())
-                .doOnError {
-                    // ignore error
-                }
-                .subscribe()
+            .getGlobalFeed()
+            .build()
+            .query()
+            .ignoreElements()
+            .subscribeOn(Schedulers.io())
+            .doOnError {
+                // ignore error
+            }
+            .subscribe()
     }
 
 

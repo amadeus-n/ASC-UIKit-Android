@@ -17,9 +17,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 abstract class EkoSelectableMessageViewHolder(
-        itemView: View,
-        private val itemViewModel: EkoSelectableMessageViewModel,
-        private val context: Context
+    itemView: View,
+    private val itemViewModel: EkoSelectableMessageViewModel,
+    private val context: Context
 ) : EkoChatMessageBaseViewHolder(itemView, itemViewModel) {
 
     init {
@@ -59,71 +59,71 @@ abstract class EkoSelectableMessageViewHolder(
 
     private fun showDeleteDialog() {
         AlertDialogUtil.showDialog(context, context.getString(R.string.delete_msg),
-                context.getString(R.string.dlt_dlg_body), context.getString(R.string.delete),
-                context.getString(R.string.cancel),
-                DialogInterface.OnClickListener { dialog, which ->
-                    if (which == DialogInterface.BUTTON_POSITIVE) {
-                        deleteMessage()
-                    } else {
-                        dialog.cancel()
-                    }
-                })
+            context.getString(R.string.dlt_dlg_body), context.getString(R.string.delete),
+            context.getString(R.string.cancel),
+            DialogInterface.OnClickListener { dialog, which ->
+                if (which == DialogInterface.BUTTON_POSITIVE) {
+                    deleteMessage()
+                } else {
+                    dialog.cancel()
+                }
+            })
     }
 
     private fun showFailedMessageDialog() {
         AlertDialogUtil.showDialog(context, context.getString(R.string.delete_msg),
-                context.getString(R.string.failed_dlg_body), context.getString(R.string.delete),
-                context.getString(R.string.cancel),
-                DialogInterface.OnClickListener { dialog, which ->
-                    if (which == DialogInterface.BUTTON_POSITIVE) {
-                        deleteMessage()
-                    } else {
-                        dialog.cancel()
-                    }
-                })
+            context.getString(R.string.failed_dlg_body), context.getString(R.string.delete),
+            context.getString(R.string.cancel),
+            DialogInterface.OnClickListener { dialog, which ->
+                if (which == DialogInterface.BUTTON_POSITIVE) {
+                    deleteMessage()
+                } else {
+                    dialog.cancel()
+                }
+            })
     }
 
     private fun deleteMessage() {
         itemViewModel.deleteMessage()
-                ?.subscribeOn(Schedulers.io())
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.doOnComplete {
-                    itemViewModel.triggerEvent(
-                            EventIdentifier.MESSAGE_DELETE_SUCCESS,
-                            itemViewModel.ekoMessage?.getMessageId()!!
-                    )
-                }?.doOnError {
-                    showDeleteFailedDialog()
-                }?.subscribe()
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.doOnComplete {
+                itemViewModel.triggerEvent(
+                    EventIdentifier.MESSAGE_DELETE_SUCCESS,
+                    itemViewModel.ekoMessage?.getMessageId()!!
+                )
+            }?.doOnError {
+                showDeleteFailedDialog()
+            }?.subscribe()
     }
 
     private fun showDeleteFailedDialog() {
         AlertDialogUtil.showDialog(context, context.getString(R.string.unable_to_delete),
-                context.getString(R.string.try_again), context.getString(R.string.ok),
-                null,
-                DialogInterface.OnClickListener { dialog, which ->
-                    if (which == DialogInterface.BUTTON_POSITIVE) {
-                        dialog.cancel()
-                    }
-                })
+            context.getString(R.string.try_again), context.getString(R.string.ok),
+            null,
+            DialogInterface.OnClickListener { dialog, which ->
+                if (which == DialogInterface.BUTTON_POSITIVE) {
+                    dialog.cancel()
+                }
+            })
     }
 
     private fun reportMessage() {
         itemViewModel.ekoMessage?.report()?.flag()
-                ?.subscribe(object : DisposableCompletableObserver() {
-                    override fun onComplete() {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            val snackBar = Snackbar.make(
-                                    itemView,
-                                    context.getString(R.string.report_msg), Snackbar.LENGTH_SHORT
-                            )
-                            snackBar.show()
-                        }
+            ?.subscribe(object : DisposableCompletableObserver() {
+                override fun onComplete() {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val snackBar = Snackbar.make(
+                            itemView,
+                            context.getString(R.string.report_msg), Snackbar.LENGTH_SHORT
+                        )
+                        snackBar.show()
                     }
+                }
 
-                    override fun onError(e: Throwable) {
+                override fun onError(e: Throwable) {
 
-                    }
-                })
+                }
+            })
     }
 }

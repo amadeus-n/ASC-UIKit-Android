@@ -13,7 +13,7 @@ import com.ekoapp.ekosdk.uikit.utils.EkoConstants.FILE_EXTENSION_SEPARATOR
 
 
 open class EkoBaseFeedAttachmentViewHolder(
-        itemView: View
+    itemView: View
 ) : RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewAdapter.IBinder<FileAttachment> {
 
     private var fileName: TextView = itemView.findViewById(R.id.tvFileName)
@@ -32,7 +32,7 @@ open class EkoBaseFeedAttachmentViewHolder(
             setFileName(fileNameTruncated)
             setFileIcon(data)
             fileSize.text =
-                    FileUtils.humanReadableByteCount(data.size, true)
+                FileUtils.humanReadableByteCount(data.size, true)
         }
 
         itemView.setOnClickListener {
@@ -58,8 +58,8 @@ open class EkoBaseFeedAttachmentViewHolder(
             val fileExtension: String = originalName.substringAfterLast(FILE_EXTENSION_SEPARATOR)
             val lastCharShown: Int = getMaxCharacterLimit() - fileExtension.length - 5
             fileNameTruncated =
-                    originalName.substringBeforeLast(FILE_EXTENSION_SEPARATOR)
-                            .substring(0, lastCharShown) + "... ." + fileExtension
+                originalName.substringBeforeLast(FILE_EXTENSION_SEPARATOR)
+                    .substring(0, lastCharShown) + "... ." + fileExtension
 
         }
         fileName.text = fileNameTruncated

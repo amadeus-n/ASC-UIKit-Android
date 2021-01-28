@@ -15,9 +15,9 @@ import com.ekoapp.ekosdk.uikit.components.ILongPressListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 
 class EkoTextMsgSenderViewHolder(
-        itemView: View,
-        private val itemViewModel: EkoTextMessageViewModel,
-        context: Context
+    itemView: View,
+    private val itemViewModel: EkoTextMessageViewModel,
+    context: Context
 ) : EkoSelectableMessageViewHolder(itemView, itemViewModel, context), ILongPressListener {
 
     private val binding: ItemTextMessageSenderBinding? = DataBindingUtil.bind(itemView)
@@ -53,8 +53,8 @@ class EkoTextMsgSenderViewHolder(
         val anchor: View = itemView.findViewById(R.id.tvMessageOutgoing)
         val inflater: LayoutInflater = LayoutInflater.from(anchor.context)
         val binding: TextMsgSenderPopupBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.text_msg_sender_popup, null, true
+            inflater,
+            R.layout.text_msg_sender_popup, null, true
         )
         binding.viewModel = itemViewModel
 
@@ -66,8 +66,8 @@ class EkoTextMsgSenderViewHolder(
 
     private fun navigateToEditMessage() {
         val intent = EkoEditMessageActivity.newIntent(
-                itemView.context,
-                itemViewModel.ekoMessage?.getMessageId() ?: ""
+            itemView.context,
+            itemViewModel.ekoMessage?.getMessageId() ?: ""
         )
         itemView.context.startActivity(intent)
     }

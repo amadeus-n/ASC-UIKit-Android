@@ -14,11 +14,11 @@
 
     <com.ekoapp.ekosdk.uikit.common.views.text.EkoExpandableTextView
         android:id="@+id/tvFeed"
+        style="@style/NewsFeedItemTextStyle"
         android:layout_marginStart="@dimen/sixteen"
         android:layout_marginTop="@dimen/sixteen"
         android:layout_marginEnd="@dimen/sixteen"
         android:maxLines="@integer/maxLineTextOnlyFeed"
-        style="@style/NewsFeedItemTextStyle"
         android:textColor="@color/upstraColorBase"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

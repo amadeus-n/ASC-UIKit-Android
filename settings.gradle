@@ -1,6 +1,6 @@
 include ':logging'
 include ':upstra-uikit'
-rootProject.name='UpstraUIKitAndroid'
+rootProject.name = 'UpstraUIKitAndroid'
 include ':app'
 include ':chatkit'
 include ':sample'

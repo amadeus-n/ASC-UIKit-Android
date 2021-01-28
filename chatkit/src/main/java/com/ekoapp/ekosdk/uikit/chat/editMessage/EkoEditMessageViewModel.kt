@@ -34,9 +34,9 @@ class EkoEditMessageViewModel : EkoBaseViewModel() {
 
     fun saveMessage(): Completable {
         return textData.get()!!.edit()
-                .text(message.get()!!)
-                .build()
-                .apply()
+            .text(message.get()!!)
+            .build()
+            .apply()
     }
 
 }

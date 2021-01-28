@@ -22,21 +22,21 @@
 
         <TextView
             android:id="@+id/tvEmptyGlobalFeed"
+            style="@style/TextStyleEkoHeadline"
             textColorShade="@{ColorShade.SHADE2}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/eleven"
             android:text="@string/empty_feed"
-            style="@style/TextStyleEkoHeadline"
             android:textColor="@color/upstraColorBase" />
 
         <TextView
             android:id="@+id/tvFindCommunity"
+            style="@style/TextStyleEkoBody"
             textColorShade="@{ColorShade.SHADE2}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/find_community"
-            style="@style/TextStyleEkoBody"
             android:textColor="@color/upstraColorBase" />
 
         <com.google.android.material.button.MaterialButton
@@ -52,11 +52,11 @@
 
         <TextView
             android:id="@+id/tvCreateCommunity"
+            style="@style/TextStyleEkoBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/sixteen"
             android:text="@string/create_community"
-            style="@style/TextStyleEkoBody"
             android:textColor="@color/upstraColorPrimary" />
 
     </LinearLayout>

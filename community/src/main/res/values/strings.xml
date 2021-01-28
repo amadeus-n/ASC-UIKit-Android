@@ -126,6 +126,7 @@
     <string name="community_success">Successfully created community</string>
     <string name="connectivity_issue">Unable to reach server</string>
     <string name="add_comment">Add comment</string>
+    <string name="general">General</string>
     <string name="add_comment_error_message">Unable to add comment</string>
     <string name="update_comment_error_message">Unable to update comment</string>
     <plurals name="feed_number_of_likes">

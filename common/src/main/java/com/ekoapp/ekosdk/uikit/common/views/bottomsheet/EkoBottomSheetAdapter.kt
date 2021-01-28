@@ -9,15 +9,15 @@ import com.ekoapp.ekosdk.uikit.databinding.LayoutBottomSheetItemBinding
 import com.ekoapp.ekosdk.uikit.model.EkoMenuItem
 
 class EkoBottomSheetAdapter(
-        private val list: List<EkoMenuItem>,
-        private val listener: IEkoMenuItemClickListener?
+    private val list: List<EkoMenuItem>,
+    private val listener: IEkoMenuItemClickListener?
 ) :
-        RecyclerView.Adapter<EkoBottomSheetAdapter.BottomSheetViewHolder>() {
+    RecyclerView.Adapter<EkoBottomSheetAdapter.BottomSheetViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BottomSheetViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: LayoutBottomSheetItemBinding =
-                DataBindingUtil.inflate(inflater, R.layout.layout_bottom_sheet_item, parent, false)
+            DataBindingUtil.inflate(inflater, R.layout.layout_bottom_sheet_item, parent, false)
         return BottomSheetViewHolder(binding, listener)
     }
 
@@ -28,10 +28,10 @@ class EkoBottomSheetAdapter(
     override fun getItemCount(): Int = list.size
 
     inner class BottomSheetViewHolder(
-            private val binding: LayoutBottomSheetItemBinding,
-            private val listener: IEkoMenuItemClickListener?
+        private val binding: LayoutBottomSheetItemBinding,
+        private val listener: IEkoMenuItemClickListener?
     ) :
-            RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: EkoMenuItem?) {
             if (item != null) {

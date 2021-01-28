@@ -14,9 +14,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lMessage"
-        android:focusable="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="false"
         tools:context=".editMessage.EkoEditMessageActivity">
 
         <include
@@ -26,22 +26,22 @@
 
         <View
             android:id="@+id/divider"
+            backgroundColorShade="@{ColorShade.SHADE4}"
+            ekoBackgroundColor="@{@color/upstraColorBase}"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            ekoBackgroundColor="@{@color/upstraColorBase}"
-            backgroundColorShade="@{ColorShade.SHADE4}"
+            android:layout_marginTop="@dimen/fourteen"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/emToolBar"
-            android:layout_marginTop="@dimen/fourteen" />
+            app:layout_constraintTop_toBottomOf="@id/emToolBar" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etMessage"
+            style="@style/TextStyleEkoBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/sixteen"
-            android:text="@={viewModel.message}"
             android:background="@null"
-            style="@style/TextStyleEkoBody"
+            android:text="@={viewModel.message}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider" />
 

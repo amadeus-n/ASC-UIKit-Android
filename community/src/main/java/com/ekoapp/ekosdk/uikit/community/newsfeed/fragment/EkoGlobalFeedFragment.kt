@@ -29,9 +29,9 @@ class EkoGlobalFeedFragment internal constructor() : EkoBaseFeedFragment() {
     private var emptyViewBinding: LayoutMyTimelineFeedEmptyViewBinding? = null
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         mViewModel = ViewModelProvider(requireActivity()).get(EkoGlobalFeedViewModel::class.java)
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -45,21 +45,21 @@ class EkoGlobalFeedFragment internal constructor() : EkoBaseFeedFragment() {
 
     override fun getEmptyView(): View {
         val inflater =
-                requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         emptyViewBinding =
-                DataBindingUtil.inflate(
-                        inflater,
-                        R.layout.layout_my_timeline_feed_empty_view,
-                        getRootView(),
-                        false
-                )
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.layout_my_timeline_feed_empty_view,
+                getRootView(),
+                false
+            )
         return emptyViewBinding!!.root
     }
 
     override fun handleEmptyList(isListEmpty: Boolean) {
         super.handleEmptyList(isListEmpty)
         val isDataObjEmpty =
-                isListEmpty && parentFragment != null && parentFragment is EkoNewsFeedFragment
+            isListEmpty && parentFragment != null && parentFragment is EkoNewsFeedFragment
         newsFeedViewModel.triggerEvent(EventIdentifier.EMPTY_GLOBAL_FEED, isDataObjEmpty)
     }
 
@@ -79,7 +79,7 @@ class EkoGlobalFeedFragment internal constructor() : EkoBaseFeedFragment() {
         fun build(activity: AppCompatActivity): EkoGlobalFeedFragment {
             val fragment = EkoGlobalFeedFragment()
             fragment.mViewModel =
-                    ViewModelProvider(activity).get(EkoGlobalFeedViewModel::class.java)
+                ViewModelProvider(activity).get(EkoGlobalFeedViewModel::class.java)
             fragment.mViewModel.postItemClickListener = postItemClickListener
             fragment.mViewModel.postOptionClickListener = postOptionClickListener
             fragment.mViewModel.avatarClickListener = avatarClickListener

@@ -16,14 +16,14 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            ekoTintColor="@{@color/upstraColorBase}"
+            ekoTintShade="@{ColorShade.SHADE2}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_uikit_error"
             android:onClick="@{() -> viewModel.onFailedMsgClick()}"
-            ekoTintColor="@{@color/upstraColorBase}"
-            ekoTintShade="@{ColorShade.SHADE2}" />
+            android:src="@drawable/ic_uikit_error"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

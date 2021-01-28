@@ -12,22 +12,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:roundedCorner="@{true}"
         android:backgroundTint="@color/upstraColorBase"
-        app:bottomLeftRadius="@{@dimen/zero}"
         android:paddingVertical="@dimen/eight"
         android:paddingStart="@dimen/twelve"
-        android:paddingEnd="@dimen/eleven">
+        android:paddingEnd="@dimen/eleven"
+        app:bottomLeftRadius="@{@dimen/zero}"
+        app:roundedCorner="@{true}">
 
         <TextView
+            style="@style/TextStyleEkoBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/report"
-            style="@style/TextStyleEkoBody"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:onClick="@{() -> viewModel.onReportClick()}"
-            android:textColor="@color/white" />
+            android:text="@string/report"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

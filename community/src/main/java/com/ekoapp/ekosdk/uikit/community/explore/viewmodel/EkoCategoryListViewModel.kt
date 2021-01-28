@@ -17,18 +17,18 @@ class EkoCategoryListViewModel : EkoBaseViewModel() {
 
     fun getCategories(): Flowable<PagedList<EkoCommunityCategory>> {
         return communityRepository.getAllCategories()
-                .sortBy(EkoCommunityCategorySortOption.NAME) // FIXME : change to EkoCommunityCategorySortOption.FIRST_CREATED in version > 4.0.1
-                .includeDeleted(false)
-                .build()
-                .query()
+            .sortBy(EkoCommunityCategorySortOption.NAME) // FIXME : change to EkoCommunityCategorySortOption.FIRST_CREATED in version > 4.0.1
+            .includeDeleted(false)
+            .build()
+            .query()
     }
 
     fun getCommunityByCategory(parentCategoryId: String): Flowable<PagedList<EkoCommunity>> {
         return communityRepository
-                .getCommunityCollection()
-                .categoryId(parentCategoryId)
-                .includeDeleted(false)
-                .build()
-                .query()
+            .getCommunityCollection()
+            .categoryId(parentCategoryId)
+            .includeDeleted(false)
+            .build()
+            .query()
     }
 }

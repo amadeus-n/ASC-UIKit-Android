@@ -14,7 +14,7 @@ class EkoCategoryListFragment : EkoBaseCategoryListFragment() {
         fun build(activity: AppCompatActivity): EkoCategoryListFragment {
             val fragment = EkoCategoryListFragment()
             fragment.mViewModel =
-                    ViewModelProvider(activity).get(EkoCategoryListViewModel::class.java)
+                ViewModelProvider(activity).get(EkoCategoryListViewModel::class.java)
             fragment.mViewModel.categoryItemClickListener = categoryItemClickListener
             return fragment
         }
@@ -27,10 +27,10 @@ class EkoCategoryListFragment : EkoBaseCategoryListFragment() {
 
     override fun getCategoryListAdapter(): EkoCategoryListAdapter {
         return EkoCategoryListAdapter(
-                EkoCategoryListAdapter.EkoCategoryListDiffUtil(),
-                this,
-                false,
-                null
+            EkoCategoryListAdapter.EkoCategoryListDiffUtil(),
+            this,
+            false,
+            null
         )
     }
 

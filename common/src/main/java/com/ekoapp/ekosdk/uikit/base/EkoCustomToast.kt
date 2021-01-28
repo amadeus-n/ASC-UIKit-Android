@@ -15,16 +15,16 @@ class EkoCustomToast {
     companion object {
         private lateinit var mBinding: LayoutEkoCustomToastBinding
         fun showMessage(
-                parent: View,
-                applicationContext: Context,
-                inflater: LayoutInflater,
-                message: String,
-                messageDuration: Int = Toast.LENGTH_LONG
+            parent: View,
+            applicationContext: Context,
+            inflater: LayoutInflater,
+            message: String,
+            messageDuration: Int = Toast.LENGTH_LONG
         ) {
             mBinding = LayoutEkoCustomToastBinding.inflate(inflater)
             val layout = inflater.inflate(
-                    R.layout.layout_eko_custom_toast,
-                    null
+                R.layout.layout_eko_custom_toast,
+                null
             ) as ViewGroup
 
             val text: TextView = layout.findViewById(R.id.tvMessage)

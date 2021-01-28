@@ -29,18 +29,18 @@ class EkoCommentComposeBar : ConstraintLayout {
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-            context,
-            attrs,
-            defStyleAttr
+        context,
+        attrs,
+        defStyleAttr
     ) {
         init()
     }
 
     fun setImageUrl(url: String) {
         Glide.with(context)
-                .load(url)
-                .placeholder(R.drawable.ic_uikit_default_profile)
-                .into(avProfile)
+            .load(url)
+            .placeholder(R.drawable.ic_uikit_default_profile)
+            .into(avProfile)
     }
 
     fun setCommentExpandClickListener(onClickListener: OnClickListener) {
@@ -51,11 +51,11 @@ class EkoCommentComposeBar : ConstraintLayout {
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mBinding =
-                DataBindingUtil.inflate(inflater, R.layout.layout_comment_compose_bar, this, true)
+            DataBindingUtil.inflate(inflater, R.layout.layout_comment_compose_bar, this, true)
         avProfile.setBackgroundColor(
-                ColorPaletteUtil.getColor(
-                        ContextCompat.getColor(context, R.color.upstraColorPrimary), ColorShade.SHADE3
-                )
+            ColorPaletteUtil.getColor(
+                ContextCompat.getColor(context, R.color.upstraColorPrimary), ColorShade.SHADE3
+            )
         )
         btnPost.isEnabled = false
 

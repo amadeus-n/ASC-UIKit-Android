@@ -22,8 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:visibility="@{viewModel.isSearchMode() ? View.GONE : View.VISIBLE}"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -32,8 +32,8 @@
             android:layout_height="0dp"
             android:layout_marginHorizontal="@dimen/sixteen"
             android:visibility="@{viewModel.isSearchMode() ? View.VISIBLE : View.GONE}"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
@@ -41,23 +41,23 @@
             android:layout_height="wrap_content"
             android:background="#fff"
             android:visibility="@{viewModel.emptySearchString &amp; viewModel.isSearchMode() ? View.VISIBLE : View.GONE}"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            style="@style/TextStyleEkoBodyBold"
+            textColorShade="@{ColorShade.SHADE3}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/thirty"
             android:text="@string/no_community"
             android:textColor="@color/upstraColorBase"
-            textColorShade="@{ColorShade.SHADE3}"
-            style="@style/TextStyleEkoBodyBold"
-            app:layout_goneMarginTop="@dimen/thirty"
             android:visibility="@{viewModel.emptySearch &amp;&amp; viewModel.isSearchMode() ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_goneMarginTop="@dimen/thirty" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

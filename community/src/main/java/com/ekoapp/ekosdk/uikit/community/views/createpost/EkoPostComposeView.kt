@@ -10,9 +10,9 @@ class EkoPostComposeView : AppCompatEditText {
     lateinit var style: EkoPostComposeViewStyle
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
-            context,
-            attrs,
-            defStyle
+        context,
+        attrs,
+        defStyle
     ) {
         parseStyle(attrs)
     }
