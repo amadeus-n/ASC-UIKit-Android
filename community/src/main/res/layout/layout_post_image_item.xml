@@ -17,6 +17,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_uikit_image_count"
         android:gravity="center"
-        android:textColor="@color/white"
-        android:textAppearance="?textAppearanceHeadline5" />
+        android:textAppearance="?textAppearanceHeadline5"
+        android:textColor="@color/white" />
 </androidx.constraintlayout.widget.ConstraintLayout>

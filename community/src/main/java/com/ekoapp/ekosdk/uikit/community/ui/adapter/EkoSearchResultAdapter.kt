@@ -11,14 +11,14 @@ import com.ekoapp.ekosdk.uikit.community.ui.viewHolder.EkoMemberListItemViewHold
 import com.ekoapp.ekosdk.user.EkoUser
 
 class EkoSearchResultAdapter(private val listener: EkoSelectMemberListener) :
-        EkoBaseRecyclerViewPagedAdapter<EkoUser>(diffCallback) {
+    EkoBaseRecyclerViewPagedAdapter<EkoUser>(diffCallback) {
 
     private val selectedMemberSet = HashSet<String>()
 
     override fun getLayoutId(position: Int, obj: EkoUser?): Int = R.layout.select_member_item
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder =
-            EkoMemberListItemViewHolder(view, listener, selectedMemberSet)
+        EkoMemberListItemViewHolder(view, listener, selectedMemberSet)
 
     fun submitPagedList(pagedList: PagedList<EkoUser>?, memberSet: HashSet<String>) {
         selectedMemberSet.clear()
@@ -36,7 +36,7 @@ class EkoSearchResultAdapter(private val listener: EkoSelectMemberListener) :
 
         private val diffCallback = object : DiffUtil.ItemCallback<EkoUser>() {
             override fun areItemsTheSame(oldItem: EkoUser, newItem: EkoUser): Boolean =
-                    oldItem.getUserId() == newItem.getUserId()
+                oldItem.getUserId() == newItem.getUserId()
 
             override fun areContentsTheSame(oldItem: EkoUser, newItem: EkoUser): Boolean {
                 return oldItem.getUserId() == newItem.getUserId()

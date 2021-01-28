@@ -24,7 +24,7 @@ class EkoButtonStyle : Style {
 
     private fun parseStyle(context: Context, attrs: AttributeSet) {
         val typedArray =
-                context.obtainStyledAttributes(attrs, R.styleable.Button)
+            context.obtainStyledAttributes(attrs, R.styleable.Button)
         parse(typedArray)
     }
 
@@ -35,18 +35,18 @@ class EkoButtonStyle : Style {
 
     private fun parse(typedArray: TypedArray) {
         outlineColor = typedArray.getColor(
-                R.styleable.Button_outlineColor,
-                getColor(R.color.upstraColorBase)
+            R.styleable.Button_outlineColor,
+            getColor(R.color.upstraColorBase)
         )
 
         backgroundColor = typedArray.getColor(
-                R.styleable.Button_backgroundColor,
-                getColor(R.color.black)
+            R.styleable.Button_backgroundColor,
+            getColor(R.color.black)
         )
 
         buttonType = typedArray.getInt(R.styleable.Button_buttonType, EkoButtonType.Solid)
         buttonTextColor =
-                typedArray.getInt(R.styleable.Button_buttonTextColor, getColor(R.color.upstraColorBase))
+            typedArray.getInt(R.styleable.Button_buttonTextColor, getColor(R.color.upstraColorBase))
 
         typedArray.recycle()
 

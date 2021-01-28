@@ -17,12 +17,12 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/avProfile"
             style="@style/CircularAvatarStyle"
-            ekoBackgroundColor="@{@color/upstraColorPrimary}"
             backgroundColorShade="@{ColorShade.SHADE3}"
+            ekoBackgroundColor="@{@color/upstraColorPrimary}"
             android:layout_width="@dimen/twenty_eight"
             android:layout_height="@dimen/twenty_eight"
-            android:src="@drawable/ic_uikit_default_profile"
             android:layout_marginBottom="@dimen/four"
+            android:src="@drawable/ic_uikit_default_profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -34,43 +34,44 @@
             android:layout_marginStart="@dimen/eight"
             android:layout_marginEnd="@dimen/eight"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnPost"
-            app:layout_constraintStart_toEndOf="@id/avProfile">
+            app:layout_constraintStart_toEndOf="@id/avProfile"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPostComment"
+                style="@style/TextStyleEkoBody"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:hint="@string/post_comment_hint"
                 android:inputType="textMultiLine"
-                android:minHeight="@dimen/forty"
                 android:maxLines="8"
+                android:minHeight="@dimen/forty"
                 android:paddingStart="@dimen/eight"
                 android:paddingEnd="@dimen/thirty"
                 android:textColor="@color/upstraColorBase"
-                android:hint="@string/post_comment_hint"
                 android:textColorHint="@color/upstraColorBase"
-                app:textColorHintShade="@{ColorShade.SHADE2}"
                 app:colorShade="@{ColorShade.SHADE4}"
                 app:fillColor="@{R.color.upstraColorBase}"
-                style="@style/TextStyleEkoBody"
-                android:layout_centerVertical="true"
-                app:roundedCorner="@{true}" />
+                app:roundedCorner="@{true}"
+                app:textColorHintShade="@{ColorShade.SHADE2}" />
 
             <ImageView
                 android:id="@+id/ivExpand"
-                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/four"
-                android:layout_alignBottom="@+id/etPostComment"
                 android:layout_alignEnd="@+id/etPostComment"
+                android:layout_alignBottom="@+id/etPostComment"
+                android:layout_marginBottom="@dimen/four"
+                android:padding="5dp"
                 android:src="@drawable/ic_uikit_expand_comment_box" />
 
         </RelativeLayout>
 
         <Button
             android:id="@+id/btnPost"
+            style="@style/TextStyleEkoBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -78,10 +79,9 @@
             android:minHeight="0dp"
             android:padding="0dp"
             android:text="@string/post_caps"
-            style="@style/TextStyleEkoBody"
-            app:buttonEnabledTextColor="@{@color/upstraColorHighlight}"
             app:buttonDisabledTextColor="@{@color/upstraColorHighlight}"
             app:buttonDisabledTextColorShade="@{ColorShade.SHADE2}"
+            app:buttonEnabledTextColor="@{@color/upstraColorHighlight}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

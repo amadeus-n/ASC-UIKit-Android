@@ -6,20 +6,20 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 class LayoutMarginDecoration(
-        val left: Int,
-        val right: Int,
-        val top: Int,
-        val bottom: Int
+    val left: Int,
+    val right: Int,
+    val top: Int,
+    val bottom: Int
 ) : RecyclerView.ItemDecoration() {
 
     constructor(margin: Int) : this(margin, margin, margin, margin)
 
 
     override fun getItemOffsets(
-            outRect: Rect,
-            view: View,
-            parent: RecyclerView,
-            state: RecyclerView.State
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
     ) {
         if (parent.adapter != null) {
             outRect.left = left

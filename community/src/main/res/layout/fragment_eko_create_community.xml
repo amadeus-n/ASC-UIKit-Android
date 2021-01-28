@@ -75,7 +75,7 @@
 
             <TextView
                 android:id="@+id/tvCommName"
-                style="@style/TextStyleEkoTitle"
+                style="@style/TextStyleEkoTitleBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/sixteen"
@@ -94,7 +94,7 @@
                 android:background="@android:color/transparent"
                 android:drawableEnd="@drawable/ic_uikit_filled_cross"
                 android:hint="@string/cc_hint"
-                android:maxLength="100"
+                android:maxLength="30"
                 android:text="@={viewModel.communityName}"
                 android:textColor="@color/upstraColorBase"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +106,7 @@
                 textColorShade="@{ColorShade.SHADE1}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text='@{viewModel.communityName.trim().length() +"/100"}'
+                android:text='@{viewModel.communityName.trim().length() +"/30"}'
                 android:textColor="@color/upstraColorBase"
                 app:layout_constraintEnd_toEndOf="@id/ccName"
                 app:layout_constraintTop_toTopOf="@id/tvCommName" />
@@ -135,7 +135,7 @@
 
             <TextView
                 android:id="@+id/tv_about"
-                style="@style/TextStyleEkoTitle"
+                style="@style/TextStyleEkoTitleBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/thirty_eight"
@@ -160,6 +160,7 @@
                 style="@style/EnterCommunityStyle"
                 android:layout_marginTop="@dimen/eight"
                 android:background="@android:color/transparent"
+                android:drawableEnd="@drawable/ic_uikit_filled_cross"
                 android:hint="@string/enter_description"
                 android:maxLength="180"
                 android:text="@={viewModel.description}"
@@ -181,7 +182,7 @@
 
             <TextView
                 android:id="@+id/tvCategory"
-                style="@style/TextStyleEkoTitle"
+                style="@style/TextStyleEkoTitleBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/sixteen"
@@ -235,7 +236,7 @@
 
             <TextView
                 android:id="@+id/tvAdmin"
-                style="@style/TextStyleEkoTitle"
+                style="@style/TextStyleEkoTitleBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/sixteen"
@@ -288,7 +289,7 @@
 
             <TextView
                 android:id="@+id/tv_public"
-                style="@style/TextStyleEkoTitle"
+                style="@style/TextStyleEkoTitleBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/sixteen"
@@ -340,7 +341,7 @@
 
             <TextView
                 android:id="@+id/tv_private"
-                style="@style/TextStyleEkoTitle"
+                style="@style/TextStyleEkoTitleBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/sixteen"
@@ -396,7 +397,7 @@
 
             <TextView
                 android:id="@+id/tv_add_members"
-                style="@style/TextStyleEkoTitle"
+                style="@style/TextStyleEkoTitleBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/sixteen"

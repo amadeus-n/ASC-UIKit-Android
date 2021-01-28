@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -21,10 +21,10 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSearch"
-                android:text="@={viewModel.searchString}"
                 style="@style/SearchEditTextStyle"
-                android:visibility="gone"
                 android:layout_marginTop="@dimen/fourteen"
+                android:text="@={viewModel.searchString}"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,10 +32,10 @@
                 android:id="@+id/rvCommunityMembers"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/etSearch"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etSearch" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

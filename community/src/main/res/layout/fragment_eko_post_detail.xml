@@ -44,15 +44,15 @@
 
                     <TextView
                         android:id="@+id/tvFeed"
+                        style="@style/TextStyleEkoBody"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/sixteen"
-                        android:layout_marginEnd="@dimen/sixteen"
                         android:layout_marginTop="@dimen/sixteen"
+                        android:layout_marginEnd="@dimen/sixteen"
                         android:autoLink="web"
-                        style="@style/TextStyleEkoBody"
-                        android:textColorLink="@color/upstraColorHighlight"
                         android:textColor="@color/upstraColorBase"
+                        android:textColorLink="@color/upstraColorHighlight"
                         app:layout_constraintTop_toBottomOf="@id/newsFeedHeader" />
 
                     <androidx.recyclerview.widget.RecyclerView

@@ -22,19 +22,19 @@
         android:paddingBottom="@dimen/twenty">
 
         <TextView
+            style="@style/TextStyleEkoCaption"
+            colorShade="@{ColorShade.SHADE4}"
+            fillColor="@{dateFillColor}"
+            roundedCorner="@{true}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAllCaps="true"
-            android:text="@{date}"
-            fillColor="@{dateFillColor}"
-            colorShade="@{ColorShade.SHADE4}"
-            roundedCorner="@{true}"
-            style="@style/TextStyleEkoCaption"
-            android:textColor="@color/upstraColorBase"
-            android:paddingVertical="@dimen/two"
             android:paddingHorizontal="@dimen/twelve"
-            app:layout_constraintStart_toStartOf="parent"
+            android:paddingVertical="@dimen/two"
+            android:text="@{date}"
+            android:textAllCaps="true"
+            android:textColor="@color/upstraColorBase"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,9 +23,9 @@ class EkoBottomSheetDialogFragment private constructor() : BottomSheetDialogFrag
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.layout_bottom_sheet_dialog, container, false)
     }

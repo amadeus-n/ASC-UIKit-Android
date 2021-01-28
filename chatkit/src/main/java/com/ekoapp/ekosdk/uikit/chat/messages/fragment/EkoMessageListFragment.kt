@@ -67,8 +67,8 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
     var recordPermissionGranted = false
 
     private val requiredPermissions = arrayOf(
-            Manifest.permission.RECORD_AUDIO,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        Manifest.permission.RECORD_AUDIO,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,8 +77,8 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_eko_chat, container, false)
         mBinding.viewModel = messageListViewModel
@@ -93,21 +93,21 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
         observeViewModelEvents()
         setRecorderTouchListener()
         etMessage.setShape(
-                null, null, null, null,
-                R.color.upstraColorBase, R.color.upstraColorBase, ColorShade.SHADE4
+            null, null, null, null,
+            R.color.upstraColorBase, R.color.upstraColorBase, ColorShade.SHADE4
         )
         recordBackground.setShape(
-                null, null, null, null,
-                R.color.upstraColorBase, R.color.upstraColorBase, ColorShade.SHADE4
+            null, null, null, null,
+            R.color.upstraColorBase, R.color.upstraColorBase, ColorShade.SHADE4
         )
         val percentage = 30F / 100
         val background = ColorUtils.setAlphaComponent(
-                ColorPaletteUtil.getColor(
-                        ContextCompat.getColor(
-                                requireContext(),
-                                R.color.upstraColorBase
-                        ), ColorShade.SHADE4
-                ), (percentage * 255).toInt()
+            ColorPaletteUtil.getColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.upstraColorBase
+                ), ColorShade.SHADE4
+            ), (percentage * 255).toInt()
         )
         rvChatList.setBackgroundColor(background)
 
@@ -144,34 +144,34 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
         disposable.add(messageListViewModel.getChannelType().take(1).subscribe { ekoChannel ->
             if (ekoChannel.getType() == EkoChannel.Type.STANDARD) {
                 mBinding.chatToolBar.ivAvatar.setImageDrawable(
-                        ContextCompat.getDrawable(
-                                requireContext(),
-                                R.drawable.ic_uikit_group
-                        )
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_uikit_group
+                    )
                 )
             } else {
                 mBinding.chatToolBar.ivAvatar.setImageDrawable(
-                        ContextCompat.getDrawable(
-                                requireContext(),
-                                R.drawable.ic_uikit_user
-                        )
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_uikit_user
+                    )
                 )
             }
             if (ekoChannel.getType() == EkoChannel.Type.CONVERSATION) {
                 disposable.add(messageListViewModel.getDisplayName()
-                        .filter {
-                            it.size > 1
-                        }.subscribe { list ->
-                            for (user in list) {
-                                if (user.getUserId() != EkoClient.getUserId()) {
-                                    CoroutineScope(Dispatchers.Main).launch {
-                                        messageListViewModel.title.set(
-                                                user.getUser()?.getDisplayName()
-                                        )
-                                    }
+                    .filter {
+                        it.size > 1
+                    }.subscribe { list ->
+                        for (user in list) {
+                            if (user.getUserId() != EkoClient.getUserId()) {
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    messageListViewModel.title.set(
+                                        user.getUser()?.getDisplayName()
+                                    )
                                 }
                             }
-                        })
+                        }
+                    })
 
             } else {
                 messageListViewModel.title.set(ekoChannel.getDisplayName())
@@ -181,7 +181,7 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
 
     private fun initToolBar() {
         (activity as AppCompatActivity).supportActionBar?.displayOptions =
-                ActionBar.DISPLAY_SHOW_CUSTOM
+            ActionBar.DISPLAY_SHOW_CUSTOM
         (activity as AppCompatActivity).setSupportActionBar(chatToolBar as Toolbar)
         //setHasOptionsMenu(true)
 
@@ -192,18 +192,18 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
 
     private fun initRecyclerView() {
         mAdapter =
-                EkoMessageListAdapter(messageListViewModel, iCustomViewHolder, activity?.baseContext!!)
+            EkoMessageListAdapter(messageListViewModel, iCustomViewHolder, activity?.baseContext!!)
         //mAdapter.setHasStableIds(true)
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.stackFromEnd = true
         rvChatList.layoutManager = layoutManager
         rvChatList.adapter = mAdapter
         rvChatList.addItemDecoration(
-                EkoRecyclerViewItemDecoration(
-                        0,
-                        0,
-                        resources.getDimensionPixelSize(R.dimen.eight)
-                )
+            EkoRecyclerViewItemDecoration(
+                0,
+                0,
+                resources.getDimensionPixelSize(R.dimen.eight)
+            )
         )
         rvChatList.itemAnimator?.changeDuration = 0
         //(rvChatList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
@@ -250,15 +250,15 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
 
     private fun requestRecorderPermission() {
         val recordPermission =
-                registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-                    var isGranted = true
-                    permissions.entries.forEach {
-                        if (!it.value) {
-                            isGranted = false
-                        }
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                var isGranted = true
+                permissions.entries.forEach {
+                    if (!it.value) {
+                        isGranted = false
                     }
-                    recordPermissionGranted = isGranted
                 }
+                recordPermissionGranted = isGranted
+            }
         recordPermission.launch(requiredPermissions)
     }
 
@@ -276,7 +276,7 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
 
     private fun scrollToEnd(position: Int) {
         if (msgSent || scrollRequired && !messageListViewModel.isRVScrolling &&
-                !rvChatList.canScrollVertically(1)
+            !rvChatList.canScrollVertically(1)
         ) {
             Timer().schedule(SCROLL_DELAY) {
                 CoroutineScope(Dispatchers.Main).launch {
@@ -297,7 +297,7 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
                 EventIdentifier.MSG_SEND_ERROR -> {
                     CoroutineScope(Dispatchers.Main).launch {
                         val snackBar =
-                                Snackbar.make(rvChatList, R.string.failed_msg, Snackbar.LENGTH_SHORT)
+                            Snackbar.make(rvChatList, R.string.failed_msg, Snackbar.LENGTH_SHORT)
                         snackBar.show()
                     }
                 }
@@ -357,13 +357,13 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
         if (file != null) {
             val photoUri = Uri.fromFile(file)
             disposable.add(messageListViewModel.sendImageMessage(photoUri)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnComplete {
-                        msgSent = true
-                    }.doOnError {
-                        msgSent = false
-                    }.subscribe()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete {
+                    msgSent = true
+                }.doOnError {
+                    msgSent = false
+                }.subscribe()
             )
             if (messageListViewModel.showComposeBar.get()) {
                 messageListViewModel.showComposeBar.set(false)
@@ -376,21 +376,21 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
         if (audioFile != null) {
             val audioFileUri = Uri.fromFile(audioFile)
             disposable.add(messageListViewModel.sendAudioMessage(audioFileUri)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnComplete {
-                        msgSent = true
-                    }.doOnError {
-                        msgSent = false
-                    }.subscribe()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete {
+                    msgSent = true
+                }.doOnError {
+                    msgSent = false
+                }.subscribe()
             )
         }
     }
 
     override fun showMessage() {
         val layout: View = layoutInflater.inflate(
-                R.layout.layout_audio_msg_error,
-                activity?.findViewById(R.id.errorMessageContainer)
+            R.layout.layout_audio_msg_error,
+            activity?.findViewById(R.id.errorMessageContainer)
         )
         val textView = layout.findViewById<TextView>(R.id.tvMessage)
         textView.setShape(null, null, null, null, R.color.upstraColorBase, null, null)
@@ -403,7 +403,7 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
     }
 
     fun addCustomView(
-            listener: EkoMessageListAdapter.ICustomViewHolder
+        listener: EkoMessageListAdapter.ICustomViewHolder
     ) {
         iCustomViewHolder = listener
     }
@@ -415,15 +415,15 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
                     val imageUriList = Matisse.obtainResult(it)
                     for (uri in imageUriList) {
                         val normalizedUri =
-                                Uri.fromFile(File(RealPathUtil.getRealPath(context, uri)))
+                            Uri.fromFile(File(RealPathUtil.getRealPath(context, uri)))
                         disposable.add(messageListViewModel.sendImageMessage(normalizedUri)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .doOnComplete {
-                                    msgSent = true
-                                }.doOnError {
-                                    msgSent = false
-                                }.subscribe()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnComplete {
+                                msgSent = true
+                            }.doOnError {
+                                msgSent = false
+                            }.subscribe()
                         )
                     }
                 }

@@ -43,36 +43,36 @@
 
             <ImageView
                 android:id="@+id/ivLeft"
-                android:src="@{leftDrawable}"
                 style="?leftDrawableStyle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:onClick="@{() ->  clickListener.leftIconClick()}"
+                android:src="@{leftDrawable}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:onClick="@{() ->  clickListener.leftIconClick()}" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_left"
                 style="?attr/leftTextViewStyle"
-                app:layout_constraintStart_toEndOf="@id/ivLeft"
-                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center_vertical"
+                android:text="@{leftString}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tv_right"
-                android:gravity="center_vertical"
-                android:text="@{leftString}" />
+                app:layout_constraintStart_toEndOf="@id/ivLeft"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_right"
                 style="?attr/rightTextViewStyle"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="@dimen/sixteen"
+                android:drawableStart="@{rightDrawable}"
+                android:enabled="@{rightStringActive}"
+                android:gravity="end"
+                android:onClick="@{() -> clickListener.rightIconClick()}"
+                android:text="@{rightString}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_left"
-                android:gravity="end"
-                android:enabled="@{rightStringActive}"
-                android:text="@{rightString}"
-                android:drawableStart="@{rightDrawable}"
-                android:layout_marginEnd="@dimen/sixteen"
-                android:onClick="@{() -> clickListener.rightIconClick()}" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

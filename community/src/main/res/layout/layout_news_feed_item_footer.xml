@@ -22,7 +22,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/reactionStatusLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="@{readOnly ? View.GONE : View.VISIBLE}">
 
             <TextView
                 android:id="@+id/tvNumberOfLikes"
@@ -104,16 +105,15 @@
             android:id="@+id/tvJoinCommunityMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="@{readOnly ? View.VISIBLE : View.GONE}"
-            app:layout_constraintTop_toBottomOf="@id/postActionLayout"
-            android:orientation="vertical"
             android:layout_marginStart="@dimen/sixteen"
             android:layout_marginTop="@dimen/eight"
             android:layout_marginEnd="@dimen/sixteen"
-            android:paddingBottom="@dimen/eight">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/eight"
+            android:visibility="@{readOnly ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/postActionLayout">
 
             <TextView
-
                 style="@style/TextStyleEkoBodyBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,10 +133,10 @@
             app:layout_constraintTop_toBottomOf="@id/tvJoinCommunityMessage" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:nestedScrollingEnabled="false"
             android:id="@+id/rvCommentFooter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
             app:layout_constraintTop_toBottomOf="@id/separator2" />
 
     </merge>

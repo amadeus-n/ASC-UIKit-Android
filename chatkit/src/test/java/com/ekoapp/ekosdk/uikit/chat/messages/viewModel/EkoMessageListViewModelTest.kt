@@ -56,7 +56,7 @@ class EkoMessageListViewModelTest {
         val channelRepository: EkoChannelRepository = mockk()
         every { EkoClient.newChannelRepository() } returns channelRepository
         every { channelRepository.joinChannel(any()).ignoreElement() } returns Completable.error(
-                Exception("error_message")
+            Exception("error_message")
         )
 
         val viewModel = EkoMessageListViewModel()
@@ -240,8 +240,8 @@ class EkoMessageListViewModelTest {
     }
 
     private fun initialScrollStateTest(
-            recyclerView: RecyclerView,
-            viewModel: EkoMessageListViewModel
+        recyclerView: RecyclerView,
+        viewModel: EkoMessageListViewModel
     ) {
         viewModel.onRVScrollStateChanged(recyclerView, RecyclerView.SCROLL_STATE_IDLE)
         Assert.assertFalse(viewModel.isRVScrolling)
@@ -262,8 +262,8 @@ class EkoMessageListViewModelTest {
     }
 
     private fun testWhenNotScrollable(
-            recyclerView: RecyclerView,
-            viewModel: EkoMessageListViewModel
+        recyclerView: RecyclerView,
+        viewModel: EkoMessageListViewModel
     ) {
         viewModel.isRVScrolling = true
         viewModel.onRVScrollStateChanged(recyclerView, RecyclerView.SCROLL_STATE_IDLE)
@@ -340,7 +340,7 @@ class EkoMessageListViewModelTest {
         every { EkoClient.newMessageRepository() } returns messageRepository
         every {
             messageRepository.createMessage(any()).with()
-                    .audio(any()).build().send()
+                .audio(any()).build().send()
         } returns Completable.complete()
 
         val viewModel = EkoMessageListViewModel()
@@ -356,7 +356,7 @@ class EkoMessageListViewModelTest {
         every { EkoClient.newMessageRepository() } returns messageRepository
         every {
             messageRepository.createMessage(any()).with()
-                    .audio(any()).build().send()
+                .audio(any()).build().send()
         } returns Completable.error(Exception("test"))
 
         val viewModel = EkoMessageListViewModel()

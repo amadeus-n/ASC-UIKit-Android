@@ -18,39 +18,39 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/smAvatar"
-            android:layout_width="@dimen/forty"
-            android:layout_height="@dimen/forty"
-            app:shapeAppearanceOverlay="@style/CircleImage"
+            backgroundColorShade="@{ColorShade.SHADE3}"
+            ekoBackgroundColor="@{@color/upstraColorPrimary}"
             imageUrl="@{avatarUrl}"
             placeHolder="@{@drawable/ic_uikit_default_profile_large}"
-            ekoBackgroundColor="@{@color/upstraColorPrimary}"
-            backgroundColorShade="@{ColorShade.SHADE3}"
+            android:layout_width="@dimen/forty"
+            android:layout_height="@dimen/forty"
+            android:layout_marginStart="@dimen/sixteen"
             android:scaleType="centerInside"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="@dimen/sixteen" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/CircleImage" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:id="@+id/smTitle"
             style="@style/TextStyleEkoBodyBold"
-            android:maxLines="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/eight"
+            android:layout_marginEnd="@dimen/eight"
             android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/upstraColorBase"
-            app:layout_constraintStart_toEndOf="@id/smAvatar"
-            app:layout_constraintTop_toTopOf="@id/smAvatar"
             app:layout_constraintBottom_toBottomOf="@id/smAvatar"
             app:layout_constraintEnd_toStartOf="@id/ivStatus"
-            android:layout_marginStart="@dimen/eight"
-            android:layout_marginEnd="@dimen/eight" />
+            app:layout_constraintStart_toEndOf="@id/smAvatar"
+            app:layout_constraintTop_toTopOf="@id/smAvatar" />
 
         <TextView
             android:id="@+id/smSubTitle"
-            android:visibility="gone"
-            android:textColor="@color/upstraColorBase"
-            textColorShade="@{ColorShade.SHADE1}"
             style="@style/SelectMembersSubTitleTextStyle"
+            textColorShade="@{ColorShade.SHADE1}"
+            android:textColor="@color/upstraColorBase"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@id/smTitle"
             app:layout_constraintTop_toBottomOf="@id/smTitle" />
 
@@ -59,10 +59,10 @@
             style="@style/EkoCheckBoxStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/smAvatar"
             app:layout_constraintBottom_toBottomOf="@id/smAvatar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/smTitle" />
+            app:layout_constraintStart_toEndOf="@id/smTitle"
+            app:layout_constraintTop_toTopOf="@id/smAvatar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

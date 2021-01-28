@@ -7,8 +7,8 @@ import com.ekoapp.ekosdk.uikit.chat.messages.viewHolder.EkoChatMessageBaseViewHo
 import com.ekoapp.sample.databinding.ItemTextSenderBinding
 
 class TextSenderViewHolder(
-        itemView: View,
-        private val itemViewModel: MyTextMsgViewModel
+    itemView: View,
+    private val itemViewModel: MyTextMsgViewModel
 ) : EkoChatMessageBaseViewHolder(itemView, itemViewModel) {
 
     private val binding: ItemTextSenderBinding? = DataBindingUtil.bind(itemView)

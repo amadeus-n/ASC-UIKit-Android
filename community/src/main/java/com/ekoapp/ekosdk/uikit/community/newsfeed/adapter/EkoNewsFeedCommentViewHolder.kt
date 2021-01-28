@@ -16,17 +16,17 @@ import kotlinx.android.synthetic.main.layout_news_feed_item_comment.view.*
 
 
 class EkoNewsFeedCommentViewHolder(
-        itemView: View,
-        private val itemCount: Int?,
-        private val itemClickListener: INewsFeedCommentItemClickListener?,
-        private val showAllReplyListener: INewsFeedCommentShowAllReplyListener?,
-        private val showMoreActionListener: INewsFeedCommentShowMoreActionListener?,
-        private val preExpandCommentId: String? = null,
-        val readOnlyMode: Boolean
+    itemView: View,
+    private val itemCount: Int?,
+    private val itemClickListener: INewsFeedCommentItemClickListener?,
+    private val showAllReplyListener: INewsFeedCommentShowAllReplyListener?,
+    private val showMoreActionListener: INewsFeedCommentShowMoreActionListener?,
+    private val preExpandCommentId: String? = null,
+    var readOnlyMode: Boolean
 ) : RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewAdapter.IBinder<EkoComment> {
     private var newsFeedCommentAdapter: EkoNewsFeedCommentAdapter? = null
     private val ekoNewsFeedComment: EkoNewsFeedCommentView =
-            itemView.findViewById(R.id.ekoNewsFeedComment)
+        itemView.findViewById(R.id.ekoNewsFeedComment)
     private val rvReply: RecyclerView = itemView.findViewById(R.id.rvReply)
 
     override fun bind(data: EkoComment?, position: Int) {
@@ -39,9 +39,6 @@ class EkoNewsFeedCommentViewHolder(
                 handleShowAllReply(ekoComment)
             }
             ekoNewsFeedComment.setReadOnlyMode(readOnlyMode)
-            /* if(readOnlyMode)
-                 ekoNewsFeedComment.enableReadOnlyMode()*/
-            setVerticalDivider(ekoComment, position)
             addCommentActionListener(ekoComment, position)
             addItemClickListener(ekoComment, position)
         }
@@ -69,7 +66,7 @@ class EkoNewsFeedCommentViewHolder(
 
     private fun addCommentActionListener(comment: EkoComment, position: Int) {
         ekoNewsFeedComment.setCommentActionListener(object :
-                EkoNewsFeedCommentView.ICommentActionListener {
+            EkoNewsFeedCommentView.ICommentActionListener {
             override fun showAllReplies() {
                 if (showAllReplyListener == null) {
                     handleShowAllReply(comment)
@@ -86,7 +83,6 @@ class EkoNewsFeedCommentViewHolder(
     }
 
     private fun handleShowAllReply(comment: EkoComment) {
-        ekoNewsFeedComment.setViewAllReplyVisibility(View.GONE)
         //TODO Pass post id for get comment
 //        val disposable = EkoClient.newCommentRepository()
 //            .getCommentCollection()
@@ -103,17 +99,6 @@ class EkoNewsFeedCommentViewHolder(
 //            })
     }
 
-    private fun setVerticalDivider(data: EkoComment, position: Int) {
-        var visibility = View.GONE
-        if (data.getChildrenNumber() > 0) {
-            visibility = View.VISIBLE
-        } else if (itemCount != null && position < itemCount - 1) {
-            visibility = View.VISIBLE
-        }
-        ekoNewsFeedComment.setVerticalDividerVisibility(visibility)
-
-    }
-
     private fun showReplies(data: List<EkoComment>) {
         initEkoPostCommentRecyclerview(data.size)
         setReplies(data.toPagedList(data.size))
@@ -121,16 +106,13 @@ class EkoNewsFeedCommentViewHolder(
 
     private fun initEkoPostCommentRecyclerview(size: Int) {
         newsFeedCommentAdapter = EkoNewsFeedCommentAdapter(
-                size,
-                itemClickListener,
-                showAllReplyListener,
-                showMoreActionListener,
-                null,
-                readOnlyMode
+            size,
+            itemClickListener,
+            showAllReplyListener,
+            showMoreActionListener,
+            null,
+            readOnlyMode
         )
-//        val space8 = itemView.context.resources.getDimensionPixelSize(R.dimen.eight)
-//        val spaceItemDecoration = EkoRecyclerViewItemDecoration(space8, 0, space8, 0)
-//        rvReply.addItemDecoration(spaceItemDecoration)
         rvReply.layoutManager = LinearLayoutManager(itemView.context)
         rvReply.adapter = newsFeedCommentAdapter
     }

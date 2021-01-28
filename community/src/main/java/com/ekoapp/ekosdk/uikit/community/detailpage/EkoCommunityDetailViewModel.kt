@@ -18,6 +18,7 @@ import io.reactivex.Flowable
 class EkoCommunityDetailViewModel : EkoBaseViewModel() {
 
     var communityID = ""
+    var isMessageVisible = false
     var ekoCommunity: EkoCommunity? = null
     val avatarUrl = ObservableField("")
     val name = ObservableField("")
@@ -83,7 +84,7 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
     fun assignRole(): Completable {
         val communityRepository = EkoClient.newCommunityRepository()
         return communityRepository.moderate(communityID)
-                .addRole(EkoConstants.MODERATOR_ROLE, listOf(EkoClient.getUserId()))
+            .addRole(EkoConstants.MODERATOR_ROLE, listOf(EkoClient.getUserId()))
     }
 
     fun onSecondaryButtonClick() {

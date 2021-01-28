@@ -24,35 +24,35 @@
                 android:id="@+id/ivBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_uikit_arrow_back"
                 android:layout_marginStart="@dimen/nineteen"
+                android:src="@drawable/ic_uikit_arrow_back"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivAvatar"
                 style="@style/CircularAvatarStyle"
+                backgroundColorShade="@{ColorShade.SHADE3}"
+                ekoBackgroundColor="@{@color/upstraColorPrimary}"
                 android:layout_width="@dimen/thirty_two"
                 android:layout_height="@dimen/thirty_two"
-                android:id="@+id/ivAvatar"
-                ekoBackgroundColor="@{@color/upstraColorPrimary}"
-                backgroundColorShade="@{ColorShade.SHADE3}"
                 android:layout_marginStart="@dimen/twelve"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ivBack"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvName"
+                style="@style/TextStyleEkoTitleBold"
+                safeText="@{title}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/eight"
                 android:textColor="@color/upstraColorBase"
-                safeText="@{title}"
-                style="@style/TextStyleEkoTitle"
+                app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
                 app:layout_constraintStart_toEndOf="@id/ivAvatar"
-                app:layout_constraintTop_toTopOf="@id/ivAvatar"
-                app:layout_constraintBottom_toBottomOf="@id/ivAvatar" />
+                app:layout_constraintTop_toTopOf="@id/ivAvatar" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

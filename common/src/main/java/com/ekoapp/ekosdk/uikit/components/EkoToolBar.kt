@@ -29,9 +29,9 @@ class EkoToolBar : MaterialToolbar {
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-            context,
-            attrs,
-            defStyleAttr
+        context,
+        attrs,
+        defStyleAttr
     ) {
         init()
     }
@@ -62,7 +62,7 @@ class EkoToolBar : MaterialToolbar {
         mBinding.leftDrawable = value
         if (color != null && mBinding.leftDrawable != null) {
             mBinding.leftDrawable!!.colorFilter =
-                    PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+                PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
         }
 
     }
@@ -79,16 +79,16 @@ class EkoToolBar : MaterialToolbar {
     private fun toggleRightTextColor(value: Boolean) {
         if (value) {
             tv_right.setTextColor(
-                    ColorPaletteUtil.getColor(
-                            ContextCompat.getColor(context, R.color.upstraColorHighlight),
-                            ColorShade.DEFAULT
-                    )
+                ColorPaletteUtil.getColor(
+                    ContextCompat.getColor(context, R.color.upstraColorHighlight),
+                    ColorShade.DEFAULT
+                )
             )
         } else {
             tv_right.setTextColor(
-                    ColorPaletteUtil.getColor(
-                            ContextCompat.getColor(context, R.color.upstraColorHighlight), ColorShade.SHADE2
-                    )
+                ColorPaletteUtil.getColor(
+                    ContextCompat.getColor(context, R.color.upstraColorHighlight), ColorShade.SHADE2
+                )
             )
         }
     }
@@ -97,7 +97,7 @@ class EkoToolBar : MaterialToolbar {
         mBinding.rightDrawable = value
         if (color != null && mBinding.rightDrawable != null) {
             mBinding.rightDrawable!!.colorFilter =
-                    PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+                PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
         }
     }
 

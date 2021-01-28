@@ -21,7 +21,7 @@ class EkoCommunityCreateActivity : AppCompatActivity(), EkoToolBarClickListener 
 
     private fun setUpToolBar() {
         communityToolbar.setLeftDrawable(
-                ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross)
+            ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross)
         )
         communityToolbar.setLeftString(getString(R.string.create_community))
 

@@ -13,46 +13,46 @@
 
         <include
             android:id="@+id/layoutAddedMember"
+            layout="@layout/added_member_item"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            layout="@layout/added_member_item"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/layout_icon"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_icon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="@id/layoutAddedMember"
+            app:layout_constraintBottom_toBottomOf="@id/layoutAddedMember"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/layoutAddedMember"
-            app:layout_constraintBottom_toBottomOf="@id/layoutAddedMember">
+            app:layout_constraintStart_toEndOf="@id/layoutAddedMember"
+            app:layout_constraintTop_toTopOf="@id/layoutAddedMember">
 
             <TextView
                 android:id="@+id/tvCount"
+                style="@style/TextStyleEkoBody"
                 android:layout_width="42dp"
                 android:layout_height="@dimen/thirty_six"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginStart="@dimen/eight"
                 android:gravity="center"
                 android:textColor="@color/upstraColorBase"
-                style="@style/TextStyleEkoBody" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/ivAdd"
-                android:layout_width="@dimen/forty"
-                android:layout_height="@dimen/forty"
-                android:padding="@dimen/twelve"
-                android:scaleType="centerInside"
                 ekoFillColor="@{@color/upstraColorBase}"
                 ekoFillShade="@{ColorShade.SHADE4}"
+                android:layout_width="@dimen/forty"
+                android:layout_height="@dimen/forty"
+                android:layout_marginStart="@dimen/eight"
+                android:padding="@dimen/twelve"
+                android:scaleType="centerInside"
                 android:src="@drawable/ic_uikit_add"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="@dimen/eight" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

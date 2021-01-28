@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.ekoapp.ekosdk.uikit.chat.R
 
 class EkoRecentItemDecoration(private val context: Context, private val margin: Int) :
-        ItemDecoration() {
+    ItemDecoration() {
 
     private var mDivider: Drawable? = null
 
     private val ATTRS = intArrayOf(
-            android.R.attr.listDivider
+        android.R.attr.listDivider
     )
 
     init {
@@ -34,10 +34,10 @@ class EkoRecentItemDecoration(private val context: Context, private val margin: 
     }
 
     override fun getItemOffsets(
-            outRect: Rect,
-            view: View,
-            parent: RecyclerView,
-            state: RecyclerView.State
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
     ) {
         with(outRect) {
             top = margin
@@ -53,13 +53,13 @@ class EkoRecentItemDecoration(private val context: Context, private val margin: 
             val child = parent.getChildAt(i)
             val params = child.layoutParams as RecyclerView.LayoutParams
             val top =
-                    child.bottom + params.bottomMargin + context.resources.getDimensionPixelSize(R.dimen.ten)
+                child.bottom + params.bottomMargin + context.resources.getDimensionPixelSize(R.dimen.ten)
             val dividerHeight = mDivider?.intrinsicHeight ?: 0
             val bottom = top + dividerHeight
 
             mDivider?.setBounds(
-                    left + context.resources.getDimensionPixelSize(R.dimen.sixty_eight),
-                    top, right - context.resources.getDimensionPixelSize(R.dimen.sixteen), bottom
+                left + context.resources.getDimensionPixelSize(R.dimen.sixty_eight),
+                top, right - context.resources.getDimensionPixelSize(R.dimen.sixteen), bottom
             )
             mDivider?.draw(c)
         }

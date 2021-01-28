@@ -21,19 +21,19 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutRecorder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="#B3000000"
             android:clickable="true"
-            android:focusable="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:focusable="true" />
 
         <com.ekoapp.ekosdk.uikit.components.EkoRippleBackground
             android:id="@+id/rippleBackGround"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:rbColor="@color/upstraColorBase"
-            app:rbRippleAmount="2"
             app:rbDuration="3000"
+            app:rbRippleAmount="2"
             app:rbScale="6">
 
         </com.ekoapp.ekosdk.uikit.components.EkoRippleBackground>
@@ -48,53 +48,53 @@
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tvRelease"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/tvRelease" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/tvRelease"
+                style="@style/TextStyleEkoCaption"
+                textColorShade="@{ColorShade.SHADE3}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/thirty_two"
                 android:text="@string/release_to_send"
                 android:textColor="@color/upstraColorBase"
-                textColorShade="@{ColorShade.SHADE3}"
-                style="@style/TextStyleEkoCaption"
-                android:layout_marginBottom="@dimen/thirty_two"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/btnRecordAudio"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/btnRecordAudio" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/btnRecordAudio"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                ekoTintShade="@{disable ? ColorShade.SHADE3 : ColorShade.DEFAULT}"
-                ekoTintColor="@{disable ? @color/upstraColorBase : @color/white}"
+                style="@style/CircularAvatarStyle"
                 backgroundColorShade="@{ColorShade.SHADE1}"
                 ekoBackgroundColor="@{disable ? @color/upstraColorBase : @color/upstraColorPrimary}"
-                style="@style/CircularAvatarStyle"
+                ekoTintColor="@{disable ? @color/upstraColorBase : @color/white}"
+                ekoTintShade="@{disable ? ColorShade.SHADE3 : ColorShade.DEFAULT}"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:layout_marginBottom="@dimen/sixteen"
                 android:src="@drawable/ic_uikit_voice_message"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/btnDelete"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:rotation="@{delete ? -15 : 0}"
-                ekoTintShade="@{delete ? ColorShade.DEFAULT : ColorShade.SHADE3}"
-                ekoTintColor="@{delete ? @color/white : @color/upstraColorBase}"
+                style="@style/CircularAvatarStyle"
                 backgroundColorShade="@{ColorShade.DEFAULT}"
                 ekoBackgroundColor="@{delete ? @color/upstraColorAlert : @color/upstraColorBase}"
-                style="@style/CircularAvatarStyle"
-                android:src="@drawable/ic_uikit_delete"
+                ekoTintColor="@{delete ? @color/white : @color/upstraColorBase}"
+                ekoTintShade="@{delete ? ColorShade.DEFAULT : ColorShade.SHADE3}"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="@dimen/twenty_seven"
+                android:rotation="@{delete ? -15 : 0}"
+                android:src="@drawable/ic_uikit_delete"
+                app:layout_constraintBottom_toBottomOf="@id/btnRecordAudio"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btnRecordAudio"
-                app:layout_constraintBottom_toBottomOf="@id/btnRecordAudio" />
+                app:layout_constraintTop_toTopOf="@id/btnRecordAudio" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

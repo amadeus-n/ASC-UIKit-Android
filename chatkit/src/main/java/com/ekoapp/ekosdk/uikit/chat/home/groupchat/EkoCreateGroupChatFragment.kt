@@ -11,8 +11,8 @@ import com.ekoapp.ekosdk.uikit.chat.R
 class EkoCreateGroupChatFragment : Fragment() {
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_eko_create_group_chat, container, false)
     }

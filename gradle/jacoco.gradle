@@ -72,8 +72,8 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
     )
 }
 
-tasks.whenTaskAdded {task ->
-    if(task.name.contains("test") || task.name.contains("Test")) {
+tasks.whenTaskAdded { task ->
+    if (task.name.contains("test") || task.name.contains("Test")) {
         task.enabled = true
     }
 }

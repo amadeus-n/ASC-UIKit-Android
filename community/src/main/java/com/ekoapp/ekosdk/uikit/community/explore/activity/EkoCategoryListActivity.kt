@@ -18,28 +18,28 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.activity.EkoEditCommentActivit
 const val EXTRA_PARAM_COMMUNITY = "community"
 
 class EkoCategoryListActivity :
-        EkoBaseToolbarFragmentContainerActivity(), IEkoCategoryItemClickListener {
+    EkoBaseToolbarFragmentContainerActivity(), IEkoCategoryItemClickListener {
 
     override fun initToolbar() {
         showToolbarDivider()
         getToolBar()?.setLeftDrawable(
-                ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
         )
         getToolBar()?.setLeftString(getString(R.string.category))
     }
 
     override fun getContentFragment(): Fragment {
         val fragment = EkoCategoryListFragment
-                .Builder()
-                .build(this)
+            .Builder()
+            .build(this)
         fragment.setCategoryItemClickListener(this)
         return fragment
     }
 
     private fun addCategoryListFragment() {
         val fragment = EkoCategoryListFragment
-                .Builder()
-                .build(this)
+            .Builder()
+            .build(this)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, fragment)
         transaction.commit()

@@ -30,12 +30,12 @@ class EkoSelectCategoryListFragment internal constructor() : EkoBaseCategoryList
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menuItemDone =
-                menu.add(
-                        Menu.NONE,
-                        ID_MENU_ITEM_SAVE_PROFILE,
-                        Menu.NONE,
-                        getString(R.string.uikit_done)
-                )
+            menu.add(
+                Menu.NONE,
+                ID_MENU_ITEM_SAVE_PROFILE,
+                Menu.NONE,
+                getString(R.string.uikit_done)
+            )
         menuItemDone?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -59,10 +59,10 @@ class EkoSelectCategoryListFragment internal constructor() : EkoBaseCategoryList
     override fun getCategoryListAdapter(): EkoCategoryListAdapter {
         val preSelectedCategory = arguments?.getString(ARG_DEFAULT_SELECTION)
         return EkoCategoryListAdapter(
-                EkoCategoryListAdapter.EkoCategoryListDiffUtil(),
-                this,
-                true,
-                preSelectedCategory
+            EkoCategoryListAdapter.EkoCategoryListDiffUtil(),
+            this,
+            true,
+            preSelectedCategory
         )
     }
 
@@ -77,7 +77,7 @@ class EkoSelectCategoryListFragment internal constructor() : EkoBaseCategoryList
                 }
             }
             fragment.mViewModel =
-                    ViewModelProvider(activity).get(EkoCategoryListViewModel::class.java)
+                ViewModelProvider(activity).get(EkoCategoryListViewModel::class.java)
             fragment.mViewModel.categoryItemClickListener = categoryItemClickListener
             return fragment
         }

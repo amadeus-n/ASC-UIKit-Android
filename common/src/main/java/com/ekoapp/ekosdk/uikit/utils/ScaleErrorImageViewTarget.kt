@@ -7,7 +7,7 @@ import com.bumptech.glide.request.target.ImageViewTarget
 
 
 class ScaleErrorImageViewTarget(private val imageView: ImageView) :
-        ImageViewTarget<Drawable>(imageView) {
+    ImageViewTarget<Drawable>(imageView) {
 
     private var scaleType = ScaleType.CENTER_INSIDE
 

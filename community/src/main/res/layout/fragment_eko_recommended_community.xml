@@ -8,12 +8,12 @@
 
     <TextView
         android:id="@+id/tvRecommended"
+        style="@style/TextStyleEkoTitleBold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/recommended_for_you"
-        style="@style/TextStyleEkoTitle"
         android:layout_marginStart="@dimen/sixteen"
         android:layout_marginTop="@dimen/sixteen"
+        android:text="@string/recommended_for_you"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView

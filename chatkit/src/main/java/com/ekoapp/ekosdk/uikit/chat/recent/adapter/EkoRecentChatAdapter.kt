@@ -12,10 +12,10 @@ class EkoRecentChatAdapter : EkoBaseRecyclerViewPagedAdapter<EkoChannel>(diffCal
     private var recentChatItemClickListener: IRecentChatItemClickListener? = null
 
     override fun getLayoutId(position: Int, obj: EkoChannel?): Int =
-            R.layout.layout_recent_message_item
+        R.layout.layout_recent_message_item
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder =
-            EkoRecentChatViewHolder(view, recentChatItemClickListener)
+        EkoRecentChatViewHolder(view, recentChatItemClickListener)
 
     fun setCommunityChatItemClickListener(listener: IRecentChatItemClickListener?) {
         this.recentChatItemClickListener = listener
@@ -24,11 +24,11 @@ class EkoRecentChatAdapter : EkoBaseRecyclerViewPagedAdapter<EkoChannel>(diffCal
     companion object {
         private val diffCallBack = object : DiffUtil.ItemCallback<EkoChannel>() {
             override fun areItemsTheSame(oldItem: EkoChannel, newItem: EkoChannel): Boolean =
-                    oldItem.getChannelId() == newItem.getChannelId()
+                oldItem.getChannelId() == newItem.getChannelId()
 
 
             override fun areContentsTheSame(oldItem: EkoChannel, newItem: EkoChannel): Boolean =
-                    oldItem == newItem
+                oldItem == newItem
         }
     }
 }

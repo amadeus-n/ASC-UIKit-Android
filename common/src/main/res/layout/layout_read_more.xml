@@ -22,24 +22,24 @@
 
         <TextView
             android:id="@+id/tvMessage"
+            style="@style/TextStyleEkoBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="12"
-            style="@style/TextStyleEkoBody"
             android:textColor="@{isSender ? @color/upstraMessageBubbleInverse : @color/upstraColorBase}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvReadMore"
+            style="@style/TextStyleEkoBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/tvMessage"
-            app:layout_constraintTop_toBottomOf="@id/tvMessage"
             android:text="@string/read_more"
-            style="@style/TextStyleEkoBody"
+            android:textColor="@{isSender ? @color/upstraMessageBubbleInverse : @color/upstraColorHighlight}"
             android:visibility="gone"
-            android:textColor="@{isSender ? @color/upstraMessageBubbleInverse : @color/upstraColorHighlight}" />
+            app:layout_constraintStart_toStartOf="@id/tvMessage"
+            app:layout_constraintTop_toBottomOf="@id/tvMessage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

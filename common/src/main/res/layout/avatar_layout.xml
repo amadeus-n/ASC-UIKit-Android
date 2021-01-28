@@ -13,25 +13,25 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_avatar"
+            backgroundColorShade="@{ColorShade.SHADE3}"
+            ekoBackgroundColor="@{@color/upstraColorPrimary}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
             android:contentDescription="@string/app_name"
-            ekoBackgroundColor="@{@color/upstraColorPrimary}"
-            backgroundColorShade="@{ColorShade.SHADE3}" />
+            android:scaleType="centerCrop" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_camera"
+            backgroundColorShade="@{ColorShade.SHADE4}"
+            ekoBackgroundColor="@{@color/upstraColorBase}"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            ekoBackgroundColor="@{@color/upstraColorBase}"
-            backgroundColorShade="@{ColorShade.SHADE4}"
-            android:visibility="gone"
             android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_uikit_camera"
             android:scaleType="centerInside"
+            android:src="@drawable/ic_uikit_camera"
+            android:visibility="gone"
+            app:shapeAppearanceOverlay="@style/CircleImage"
             app:strokeColor="@color/white"
-            app:strokeWidth="2dp"
-            app:shapeAppearanceOverlay="@style/CircleImage" />
+            app:strokeWidth="2dp" />
     </FrameLayout>
 </layout>

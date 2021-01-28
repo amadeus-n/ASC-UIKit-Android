@@ -10,9 +10,9 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class SelectMemberItem(
-        var id: String = "",
-        var avatarUrl: String = "",
-        var name: String = "",
-        var subTitle: String = "",
-        var isSelected: Boolean = false
+    var id: String = "",
+    var avatarUrl: String = "",
+    var name: String = "",
+    var subTitle: String = "",
+    var isSelected: Boolean = false
 ) : Parcelable

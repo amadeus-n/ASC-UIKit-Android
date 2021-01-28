@@ -21,10 +21,10 @@ class EkoPostViewFileAdapter() : EkoBaseFeedAttachmentAdapter() {
     }
 
     constructor(
-            loadMoreFilesClickListener: ILoadMoreFilesClickListener?,
-            fileItemClickListener: IPostFileItemClickListener?,
-            newsFeed: EkoPost,
-            collapsible: Boolean
+        loadMoreFilesClickListener: ILoadMoreFilesClickListener?,
+        fileItemClickListener: IPostFileItemClickListener?,
+        newsFeed: EkoPost,
+        collapsible: Boolean
     ) : this() {
         this.collapsible = collapsible
         this.loadMoreFilesClickListener = loadMoreFilesClickListener

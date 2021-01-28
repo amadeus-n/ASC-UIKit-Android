@@ -13,24 +13,24 @@
 
         <TextView
             android:id="@+id/tvEmptyFeed"
+            style="@style/TextStyleEkoBodyBold"
+            textColorShade="@{ColorShade.SHADE3}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/upstraColorBase"
-            textColorShade="@{ColorShade.SHADE3}"
             android:text="@string/empty_feed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/upstraColorBase"
             app:layout_constraintBottom_toBottomOf="parent"
-            style="@style/TextStyleEkoBodyBold" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvStartPost"
+            style="@style/TextStyleEkoTitleBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/start_post"
             android:textColor="@color/upstraColorBase"
-            style="@style/TextStyleEkoTitle"
             app:layout_constraintStart_toStartOf="@id/tvEmptyFeed"
             app:layout_constraintTop_toBottomOf="@id/tvEmptyFeed" />
 

@@ -16,7 +16,7 @@ class MessageListWithCustomUi : AppCompatActivity(), EkoMessageListAdapter.ICust
         setContentView(R.layout.activity_message_list_with_custom_ui)
 
         val messageListFragment = EkoMessageListFragment.Builder(channelId)
-                .build()
+            .build()
         messageListFragment.addCustomView(this)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, messageListFragment)
@@ -26,16 +26,16 @@ class MessageListWithCustomUi : AppCompatActivity(), EkoMessageListAdapter.ICust
     }
 
     override fun getViewHolder(
-            inflater: LayoutInflater,
-            parent: ViewGroup,
-            viewType: Int
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
     ): EkoChatMessageBaseViewHolder? {
         return when (viewType) {
             MessageType.MESSAGE_ID_TEXT_RECEIVER -> TextReceiverViewHolder(
-                    inflater.inflate(R.layout.item_text_receiver, parent, false), MyTextMsgViewModel()
+                inflater.inflate(R.layout.item_text_receiver, parent, false), MyTextMsgViewModel()
             )
             MessageType.MESSAGE_ID_TEXT_SENDER -> TextSenderViewHolder(
-                    inflater.inflate(R.layout.item_text_sender, parent, false), MyTextMsgViewModel()
+                inflater.inflate(R.layout.item_text_sender, parent, false), MyTextMsgViewModel()
             )
             else -> null
         }

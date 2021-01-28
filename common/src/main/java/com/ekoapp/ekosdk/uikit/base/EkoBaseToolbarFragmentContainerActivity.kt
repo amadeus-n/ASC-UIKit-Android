@@ -14,13 +14,13 @@ import kotlinx.android.synthetic.main.activity_eko_base_toolbar_fragment_contain
 
 
 abstract class EkoBaseToolbarFragmentContainerActivity : AppCompatActivity(),
-        EkoToolBarClickListener {
+    EkoToolBarClickListener {
     lateinit var binding: ActivityEkoBaseToolbarFragmentContainerBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(
-                this,
-                R.layout.activity_eko_base_toolbar_fragment_container
+            this,
+            R.layout.activity_eko_base_toolbar_fragment_container
         )
         if (savedInstanceState == null) {
             val fragmentManager = supportFragmentManager

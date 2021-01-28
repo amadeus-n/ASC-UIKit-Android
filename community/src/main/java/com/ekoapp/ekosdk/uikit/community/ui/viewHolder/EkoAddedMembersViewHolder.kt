@@ -17,11 +17,11 @@ import com.ekoapp.ekosdk.uikit.community.ui.clickListener.EkoAddedMemberClickLis
 import com.google.android.material.imageview.ShapeableImageView
 
 open class EkoAddedMembersViewHolder(
-        itemView: View,
-        private val mClickListener: EkoAddedMemberClickListener
+    itemView: View,
+    private val mClickListener: EkoAddedMemberClickListener
 ) :
-        RecyclerView.ViewHolder(itemView),
-        EkoBaseRecyclerViewAdapter.IBinder<SelectMemberItem> {
+    RecyclerView.ViewHolder(itemView),
+    EkoBaseRecyclerViewAdapter.IBinder<SelectMemberItem> {
 
     private val binding: ViewDataBinding? = DataBindingUtil.bind(itemView)
     private val name: TextView = itemView.findViewById(R.id.amName)
@@ -32,8 +32,8 @@ open class EkoAddedMembersViewHolder(
     init {
         val radius = itemView.context.resources.getDimensionPixelSize(R.dimen.twenty_four).toFloat()
         layout?.setShape(
-                radius, radius, radius, radius, R.color.upstraColorBase,
-                R.color.upstraColorBase, ColorShade.SHADE4
+            radius, radius, radius, radius, R.color.upstraColorBase,
+            R.color.upstraColorBase, ColorShade.SHADE4
         )
 
     }

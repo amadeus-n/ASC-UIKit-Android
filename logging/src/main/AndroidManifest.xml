@@ -4,8 +4,8 @@
 
     <application>
         <provider
-            android:authorities="${applicationId}.UikitLoggingProvider"
             android:name=".UiKitProvider"
+            android:authorities="${applicationId}.UikitLoggingProvider"
             android:exported="false" />
     </application>
 

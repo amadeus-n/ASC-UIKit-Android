@@ -62,11 +62,11 @@ abstract class EkoBaseFeedViewModel : EkoBaseViewModel() {
 
     fun deleteComment(comment: EkoComment): Completable {
         return comment.delete()
-                .concatWith(Completable.defer {
-                    val postId = (comment.getReference() as EkoCommentReference.Post).getPostId()
-                    EkoClient.newFeedRepository().getPost(postId)
-                            .ignoreElements().onErrorComplete()
-                })
+            .concatWith(Completable.defer {
+                val postId = (comment.getReference() as EkoCommentReference.Post).getPostId()
+                EkoClient.newFeedRepository().getPost(postId)
+                    .ignoreElements().onErrorComplete()
+            })
     }
 
     fun postReaction(liked: Boolean, ekoPost: EkoPost): Completable {

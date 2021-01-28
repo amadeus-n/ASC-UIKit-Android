@@ -21,9 +21,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSearch"
-            android:text="@={viewModel.searchString}"
-            android:singleLine="true"
             style="@style/SearchEditTextStyle"
+            android:singleLine="true"
+            android:text="@={viewModel.searchString}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,24 +31,24 @@
             android:id="@+id/rvMyCommunities"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/ten"
             android:layout_marginHorizontal="@dimen/sixteen"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/ten"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etSearch"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etSearch" />
 
         <TextView
+            style="@style/TextStyleEkoBodyBold"
+            textColorShade="@{ColorShade.SHADE3}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/upstraColorBase"
-            textColorShade="@{ColorShade.SHADE3}"
-            style="@style/TextStyleEkoBodyBold"
-            android:visibility="@{viewModel.emptyCommunity ? View.VISIBLE : View.GONE}"
-            android:text="@string/no_community"
             android:layout_marginTop="@dimen/thirty"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/no_community"
+            android:textColor="@color/upstraColorBase"
+            android:visibility="@{viewModel.emptyCommunity ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etSearch" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

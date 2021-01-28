@@ -11,37 +11,43 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedCommentShowA
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedCommentShowMoreActionListener
 
 class EkoNewsFeedCommentAdapter(
-        val itemClickListener: INewsFeedCommentItemClickListener?,
-        private val showAllReplyListener: INewsFeedCommentShowAllReplyListener?,
-        private val showMoreActionListener: INewsFeedCommentShowMoreActionListener?,
-        private val preExpandCommentId: String? = null,
-        private val readOnlyMode: Boolean = false
+    val itemClickListener: INewsFeedCommentItemClickListener?,
+    private val showAllReplyListener: INewsFeedCommentShowAllReplyListener?,
+    private val showMoreActionListener: INewsFeedCommentShowMoreActionListener?,
+    private val preExpandCommentId: String? = null,
+    var readOnlyMode: Boolean = false
 ) : EkoBaseRecyclerViewAdapter<EkoComment>() {
     var subItemCount: Int? = null
 
 
     constructor(
-            itemCount: Int,
-            itemClickListener: INewsFeedCommentItemClickListener?,
-            showAllReplyListener: INewsFeedCommentShowAllReplyListener?,
-            showMoreActionListener: INewsFeedCommentShowMoreActionListener?,
-            preExpandCommentId: String? = null,
-            readOnlyMode: Boolean = false
+        itemCount: Int,
+        itemClickListener: INewsFeedCommentItemClickListener?,
+        showAllReplyListener: INewsFeedCommentShowAllReplyListener?,
+        showMoreActionListener: INewsFeedCommentShowMoreActionListener?,
+        preExpandCommentId: String? = null,
+        readOnlyMode: Boolean = false
     ) : this(
-            itemClickListener,
-            showAllReplyListener,
-            showMoreActionListener,
-            preExpandCommentId,
-            readOnlyMode
+        itemClickListener,
+        showAllReplyListener,
+        showMoreActionListener,
+        preExpandCommentId,
+        readOnlyMode
     ) {
         this.subItemCount = itemCount
     }
 
     override fun getLayoutId(position: Int, obj: EkoComment?): Int {
-        if (obj?.isDeleted() == true)
-            return R.layout.layout_news_feed_comment_item_deleted
+        return if (obj?.isDeleted() == true) {
+            R.layout.layout_news_feed_comment_item_deleted
+        } else {
+            R.layout.layout_news_feed_comment_item
+        }
+    }
 
-        return R.layout.layout_news_feed_comment_item
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as? EkoNewsFeedCommentViewHolder)?.readOnlyMode = readOnlyMode
+        super.onBindViewHolder(holder, position)
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
@@ -49,11 +55,11 @@ class EkoNewsFeedCommentAdapter(
             EkoNewsFeedCommentDeletedViewHolder(view)
         else {
             EkoNewsFeedCommentViewHolder(
-                    view,
-                    subItemCount,
-                    itemClickListener,
-                    showAllReplyListener,
-                    showMoreActionListener, preExpandCommentId, readOnlyMode
+                view,
+                subItemCount,
+                itemClickListener,
+                showAllReplyListener,
+                showMoreActionListener, preExpandCommentId, readOnlyMode
             )
         }
     }
@@ -63,8 +69,8 @@ class EkoNewsFeedCommentAdapter(
     }
 
     class EkoNewsFeedCommentDiffUtil(
-            private val oldList: List<EkoComment>,
-            private val newList: List<EkoComment>
+        private val oldList: List<EkoComment>,
+        private val newList: List<EkoComment>
     ) : DiffUtil.Callback() {
 
         override fun getOldListSize(): Int = oldList.size
@@ -76,19 +82,18 @@ class EkoNewsFeedCommentAdapter(
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].getData() == newList[newItemPosition].getData()
+            return oldList[oldItemPosition].getCommentId() == newList[newItemPosition].getCommentId()
+                    && oldList[oldItemPosition].getData() == newList[newItemPosition].getData()
+                    && oldList[oldItemPosition].isDeleted() == newList[newItemPosition].isDeleted()
+                    && oldList[oldItemPosition].isEdited() == newList[newItemPosition].isEdited()
+                    && oldList[oldItemPosition].getChildrenNumber() == newList[newItemPosition].getChildrenNumber()
+                    && oldList[oldItemPosition].getDataType() == newList[newItemPosition].getDataType()
+                    && oldList[oldItemPosition].getUser() == newList[newItemPosition].getUser()
+                    && oldList[oldItemPosition].getParentId() == newList[newItemPosition].getParentId()
+                    && oldList[oldItemPosition].getReference() == newList[newItemPosition].getReference()
+                    && oldList[oldItemPosition].getState() == newList[newItemPosition].getState()
+                    && oldList[oldItemPosition].getUpdatedAt() == newList[newItemPosition].getUpdatedAt()
         }
 
     }
-
-    /*class EkoNewsFeedCommentDiffUtil : DiffUtil.ItemCallback<EkoComment>() {
-        override fun areItemsTheSame(oldItem: EkoComment, newItem: EkoComment): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: EkoComment, newItem: EkoComment): Boolean {
-            return oldItem == newItem
-        }
-
-    }*/
 }

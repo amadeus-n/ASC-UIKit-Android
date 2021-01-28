@@ -47,13 +47,13 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
     private lateinit var mBinding: FragmentEkoCreateCommunityBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_eko_create_community, container, false
+            inflater,
+            R.layout.fragment_eko_create_community, container, false
         )
         mBinding.viewModel = mViewModel
         return mBinding.root
@@ -90,22 +90,22 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
 
     private fun pickImage() {
         val pickImagePermission =
-                registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-                    if (it) {
-                        val pickImage = registerForActivityResult(EkoPickImageContract()) { data ->
-                            imageUri = data
-                            mViewModel.initialStateChanged.value = true
-                            Glide.with(this)
-                                    .load(data)
-                                    .circleCrop()
-                                    .dontAnimate()
-                                    .into(ccAvatar)
-                        }
-                        pickImage.launch(getString(com.ekoapp.ekosdk.uikit.R.string.choose_image))
-                    } else {
-                        Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+                if (it) {
+                    val pickImage = registerForActivityResult(EkoPickImageContract()) { data ->
+                        imageUri = data
+                        mViewModel.initialStateChanged.value = true
+                        Glide.with(this)
+                            .load(data)
+                            .circleCrop()
+                            .dontAnimate()
+                            .into(ccAvatar)
                     }
+                    pickImage.launch(getString(com.ekoapp.ekosdk.uikit.R.string.choose_image))
+                } else {
+                    Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
                 }
+            }
         pickImagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
@@ -116,9 +116,9 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
     private fun setAvatar() {
 
         mBinding.icCamera.toCircularShape(
-                ColorPaletteUtil.getColor(
-                        ContextCompat.getColor(requireContext(), R.color.upstraColorBase), ColorShade.SHADE4
-                ), 2F
+            ColorPaletteUtil.getColor(
+                ContextCompat.getColor(requireContext(), R.color.upstraColorBase), ColorShade.SHADE4
+            ), 2F
         )
 
         mBinding.lAvatar.setOnClickListener {
@@ -135,7 +135,22 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
                 if (event?.action == MotionEvent.ACTION_UP) {
                     if (event.rawX >= (ccName.right - ccName.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
                         mViewModel.communityName.set("")
-                        return true
+                    }
+                }
+                return false
+            }
+        })
+
+        etDescription.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                val DRAWABLE_LEFT = 0
+                val DRAWABLE_TOP = 1
+                val DRAWABLE_RIGHT = 2
+                val DRAWABLE_BOTTOM = 3
+
+                if (event?.action == MotionEvent.ACTION_UP) {
+                    if (event.rawX >= (ccName.right - ccName.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
+                        mViewModel.description.set("")
                     }
                 }
                 return false
@@ -145,16 +160,16 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
 
     private fun createCommunity() {
         disposable.add(mViewModel.createCommunity().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess {
-                    val detailIntent = EkoCommunityPageActivity
-                            .newIntent(requireContext(), it.getCommunityId(), true)
-                    startActivity(detailIntent)
-                    requireActivity().finish()
-                }
-                .doOnError {
-                    Log.e(TAG, "createCommunity: ${it.localizedMessage}")
-                }.subscribe()
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess {
+                val detailIntent = EkoCommunityPageActivity
+                    .newIntent(requireContext(), it.getCommunityId(), true)
+                startActivity(detailIntent)
+                requireActivity().finish()
+            }
+            .doOnError {
+                Log.e(TAG, "createCommunity: ${it.localizedMessage}")
+            }.subscribe()
         )
     }
 
@@ -168,31 +183,31 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
 
     private fun setUpBackPress() {
         activity?.onBackPressedDispatcher?.addCallback(
-                requireActivity(),
-                object : OnBackPressedCallback(true) {
-                    override fun handleOnBackPressed() {
-                        if (mViewModel.initialStateChanged.value == true) {
-                            showDialog()
-                        } else {
-                            requireActivity().finish()
-                        }
+            requireActivity(),
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (mViewModel.initialStateChanged.value == true) {
+                        showDialog()
+                    } else {
+                        requireActivity().finish()
                     }
-                })
+                }
+            })
     }
 
     private fun showDialog() {
         AlertDialogUtil.showDialog(requireContext(),
-                getString(R.string.cc_leave),
-                getString(R.string.cc_dialog_msg),
-                getString(R.string.leave),
-                getString(R.string.cancel),
-                DialogInterface.OnClickListener { dialog, which ->
-                    if (which == DialogInterface.BUTTON_POSITIVE) {
-                        requireActivity().finish()
-                    } else {
-                        dialog.cancel()
-                    }
-                })
+            getString(R.string.cc_leave),
+            getString(R.string.cc_dialog_msg),
+            getString(R.string.leave),
+            getString(R.string.cancel),
+            DialogInterface.OnClickListener { dialog, which ->
+                if (which == DialogInterface.BUTTON_POSITIVE) {
+                    requireActivity().finish()
+                } else {
+                    dialog.cancel()
+                }
+            })
     }
 
     fun uploadImage(isEditCommunity: Boolean) {
@@ -204,36 +219,36 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
 
         if (imageUri != null) {
             disposable.add(mViewModel.uploadProfilePicture(imageUri!!)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnNext { uploadStatus ->
-                        when (uploadStatus) {
-                            is EkoUploadResult.COMPLETE -> {
-                                mViewModel.ekoImage = uploadStatus.getFile()
-                                if (isEditCommunity) {
-                                    editCommunity()
-                                } else {
-                                    createCommunity()
-                                }
-                            }
-                            is EkoUploadResult.ERROR, EkoUploadResult.CANCELLED -> {
-                                btnCreateCommunity.isEnabled = true
-                                mViewModel.initialStateChanged.value = true
-                                Toast.makeText(
-                                        requireContext(),
-                                        "Image upload Error",
-                                        Toast.LENGTH_SHORT
-                                )
-                                        .show()
-                            }
-                            else -> {
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext { uploadStatus ->
+                    when (uploadStatus) {
+                        is EkoUploadResult.COMPLETE -> {
+                            mViewModel.ekoImage = uploadStatus.getFile()
+                            if (isEditCommunity) {
+                                editCommunity()
+                            } else {
+                                createCommunity()
                             }
                         }
-                    }.doOnError {
-                        Log.e(TAG, "uploadImageAndCreateCommunity: ${it.localizedMessage}")
-                        mBinding.btnCreateCommunity.isEnabled = true
-                        mViewModel.initialStateChanged.value = true
-                    }.subscribe()
+                        is EkoUploadResult.ERROR, EkoUploadResult.CANCELLED -> {
+                            btnCreateCommunity.isEnabled = true
+                            mViewModel.initialStateChanged.value = true
+                            Toast.makeText(
+                                requireContext(),
+                                "Image upload Error",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
+                        else -> {
+                        }
+                    }
+                }.doOnError {
+                    Log.e(TAG, "uploadImageAndCreateCommunity: ${it.localizedMessage}")
+                    mBinding.btnCreateCommunity.isEnabled = true
+                    mViewModel.initialStateChanged.value = true
+                }.subscribe()
             )
         } else {
             if (isEditCommunity) {
@@ -246,38 +261,38 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
 
     private fun editCommunity() {
         mViewModel.editCommunity().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess {
-                    requireActivity().finish()
-                }.doOnError { exception ->
-                    if (exception is EkoException) {
-                        if (exception.code == EkoConstants.NO_PERMISSION_ERROR_CODE) {
-                            AlertDialogUtil.showNoPermissionDialog(requireContext(),
-                                    DialogInterface.OnClickListener { dialog, _ ->
-                                        dialog?.dismiss()
-                                        checkUserRole()
-                                    })
-                        }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess {
+                requireActivity().finish()
+            }.doOnError { exception ->
+                if (exception is EkoException) {
+                    if (exception.code == EkoConstants.NO_PERMISSION_ERROR_CODE) {
+                        AlertDialogUtil.showNoPermissionDialog(requireContext(),
+                            DialogInterface.OnClickListener { dialog, _ ->
+                                dialog?.dismiss()
+                                checkUserRole()
+                            })
                     }
+                }
 
-                }.subscribe()
+            }.subscribe()
     }
 
     private fun checkUserRole() {
         disposable.add(mViewModel.getCommunityDetail().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .firstOrError()
-                .doOnSuccess {
-                    if (it.isJoined()) {
-                        requireActivity().finish()
-                    } else {
-                        val intent = Intent(requireContext(), EkoCommunityHomePageActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        startActivity(intent)
-                    }
-                }.doOnError {
-                    Log.e(TAG, "checkUserRole: ${it.localizedMessage}")
-                }.subscribe()
+            .observeOn(AndroidSchedulers.mainThread())
+            .firstOrError()
+            .doOnSuccess {
+                if (it.isJoined()) {
+                    requireActivity().finish()
+                } else {
+                    val intent = Intent(requireContext(), EkoCommunityHomePageActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                }
+            }.doOnError {
+                Log.e(TAG, "checkUserRole: ${it.localizedMessage}")
+            }.subscribe()
         )
     }
 
@@ -287,7 +302,7 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
     }
 
     private var selectCategoryContract = registerForActivityResult(
-            EkoCategorySelectionActivity.EkoCategorySelectionActivityContract()
+        EkoCategorySelectionActivity.EkoCategorySelectionActivityContract()
     ) {
         it?.let {
             mViewModel.setCategory(it)

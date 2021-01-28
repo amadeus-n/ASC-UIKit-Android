@@ -19,11 +19,11 @@ class EkoCreatePostRoleSelectionViewModel : EkoBaseViewModel() {
     fun getCommunityList(): Flowable<PagedList<EkoCommunity>> {
         val communityRepository = EkoClient.newCommunityRepository()
         return communityRepository.getCommunityCollection()
-                .filter(EkoCommunityFilter.MEMBER)
-                .sortBy(EkoCommunitySortOption.DISPLAY_NAME)
-                .includeDeleted(false)
-                .build()
-                .query()
+            .filter(EkoCommunityFilter.MEMBER)
+            .sortBy(EkoCommunitySortOption.DISPLAY_NAME)
+            .includeDeleted(false)
+            .build()
+            .query()
     }
 
 }

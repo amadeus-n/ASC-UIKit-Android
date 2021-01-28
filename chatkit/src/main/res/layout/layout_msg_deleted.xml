@@ -24,38 +24,38 @@
             android:layout_width="20dp"
             android:layout_height="16dp"
             android:src="@drawable/ic_uikit_remove"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tvDltMsg"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvDltMsg"
+            style="@style/TextStyleEkoCaption"
+            textColorShade="@{ColorShade.SHADE2}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/msg_dltd"
-            style="@style/TextStyleEkoCaption"
-            android:textColor="@color/upstraColorBase"
-            textColorShade="@{ColorShade.SHADE2}"
             android:layout_marginStart="@dimen/two"
-            app:layout_constraintStart_toEndOf="@id/ivRemove"
+            android:text="@string/msg_dltd"
+            android:textColor="@color/upstraColorBase"
+            app:layout_constraintBottom_toBottomOf="@id/ivRemove"
             app:layout_constraintEnd_toStartOf="@id/tvDltTime"
-            app:layout_constraintTop_toTopOf="@id/ivRemove"
-            app:layout_constraintBottom_toBottomOf="@id/ivRemove" />
+            app:layout_constraintStart_toEndOf="@id/ivRemove"
+            app:layout_constraintTop_toTopOf="@id/ivRemove" />
 
         <TextView
             android:id="@+id/tvDltTime"
+            style="@style/TextStyleEkoCaption"
+            textColorShade="@{ColorShade.SHADE2}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.editedAt}"
-            app:layout_constraintTop_toTopOf="@id/ivRemove"
-            app:layout_constraintBottom_toBottomOf="@id/ivRemove"
-            app:layout_constraintStart_toEndOf="@id/tvDltMsg"
             android:layout_marginStart="@dimen/four"
             android:layout_marginEnd="@dimen/sixteen"
-            style="@style/TextStyleEkoCaption"
+            android:text="@{viewModel.editedAt}"
             android:textColor="@color/upstraColorBase"
-            textColorShade="@{ColorShade.SHADE2}" />
+            app:layout_constraintBottom_toBottomOf="@id/ivRemove"
+            app:layout_constraintStart_toEndOf="@id/tvDltMsg"
+            app:layout_constraintTop_toTopOf="@id/ivRemove" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,7 +7,7 @@ import com.ekoapp.ekosdk.uikit.community.domain.model.FileAttachment
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.ICreatePostFileActionListener
 
 class EkoCreatePostFileAdapter(val listener: ICreatePostFileActionListener?) :
-        EkoBaseFeedAttachmentAdapter() {
+    EkoBaseFeedAttachmentAdapter() {
 
     override fun getLayoutId(position: Int, obj: FileAttachment?): Int {
         return R.layout.layout_create_post_file_item

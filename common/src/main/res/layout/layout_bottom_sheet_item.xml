@@ -25,16 +25,16 @@
 
         <TextView
             android:id="@+id/tvTitle"
+            style="@style/TextStyleEkoBodyBold"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@{menuItem.title}"
-            android:gravity="center_vertical"
-            style="@style/TextStyleEkoBodyBold"
             android:layout_marginHorizontal="@dimen/sixteen"
+            android:gravity="center_vertical"
+            android:text="@{menuItem.title}"
             android:textColor="@{alertColor ? @color/upstraColorAlert : @color/upstraColorBase}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

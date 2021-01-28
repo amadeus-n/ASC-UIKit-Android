@@ -46,9 +46,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/eight"
             android:textColor="@color/upstraColorBase"
-            app:textColorShade="@{ColorShade.SHADE1}"
             app:layout_constraintStart_toEndOf="@id/ivFileIcon"
             app:layout_constraintTop_toBottomOf="@id/tvFileName"
+            app:textColorShade="@{ColorShade.SHADE1}"
             tools:text="1.2 MB" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,9 +5,9 @@
 
     <TextView
         android:id="@+id/tvLoadMoreFiles"
+        style="@style/TextStyleEkoBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/view_all_files"
-        style="@style/TextStyleEkoBody"
         android:textColor="@color/upstraColorPrimary" />
 </LinearLayout>

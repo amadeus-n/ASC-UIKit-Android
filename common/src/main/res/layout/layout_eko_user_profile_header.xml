@@ -37,10 +37,10 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivAvatar"
-            imageUrl="@{avatarUrl}"
-            placeHolder="@{@drawable/ic_uikit_default_profile_64}"
             backgroundColorShade="@{ColorShade.SHADE3}"
             ekoBackgroundColor="@{@color/upstraColorPrimary}"
+            imageUrl="@{avatarUrl}"
+            placeHolder="@{@drawable/ic_uikit_default_profile_64}"
             android:layout_width="@dimen/sixty_four"
             android:layout_height="@dimen/sixty_four"
             android:layout_marginStart="@dimen/sixteen"
@@ -55,6 +55,7 @@
 
         <TextView
             android:id="@+id/tvName"
+            style="@style/TextStyleEkoHeadline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/twelve"
@@ -64,7 +65,6 @@
             android:ellipsize="end"
             android:maxLines="3"
             android:text="@{name}"
-            style="@style/TextStyleEkoHeadline"
             android:textColor="@color/upstraColorBase"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivAvatar"
@@ -73,11 +73,11 @@
 
         <TextView
             android:id="@+id/tvPostCount"
+            style="@style/TextStyleEkoCaption"
             textColorShade="@{ColorShade.SHADE1}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{postCount}"
-            style="@style/TextStyleEkoCaption"
             android:textColor="@color/upstraColorBase"
             app:layout_constraintStart_toStartOf="@id/tvName"
             app:layout_constraintTop_toBottomOf="@id/tvName"
@@ -85,17 +85,17 @@
 
         <TextView
             android:id="@+id/tvDescription"
+            style="@style/TextStyleEkoBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sixteen"
             android:layout_marginTop="@dimen/twelve"
-            android:text="@{description}"
-            style="@style/TextStyleEkoBody"
             android:paddingTop="@dimen/four"
+            android:text="@{description}"
             android:textColor="@color/upstraColorBase"
             android:visibility="@{description.length() > 0 ? View.VISIBLE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="@id/ivAvatar"
             app:layout_constraintTop_toBottomOf="@id/ivAvatar"
-            android:layout_marginStart="@dimen/sixteen"
             tools:text="Duis congue eros vitae lectus varius pharetra. Cla ss aptent taciti sociosqu ad litora torquent " />
 
         <com.google.android.material.button.MaterialButton
@@ -108,11 +108,11 @@
             android:layout_marginEnd="@dimen/sixteen"
             android:text="@{isLoggedInUser ? @string/edit_profile : @string/message}"
             android:visibility="@{isLoggedInUser ? View.VISIBLE : View.GONE}"
-            app:iconTint="@color/upstraColorBase"
-            app:ekoButtonStrokeShade="@{ColorShade.SHADE3}"
             app:cornerRadius="@dimen/four"
+            app:ekoButtonStrokeShade="@{ColorShade.SHADE3}"
             app:icon="@{isLoggedInUser ? @drawable/ic_uikit_edit_profile : @drawable/ic_uikit_chat}"
             app:iconGravity="textStart"
+            app:iconTint="@color/upstraColorBase"
             app:layout_constraintTop_toBottomOf="@id/tvDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

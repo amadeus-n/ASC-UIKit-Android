@@ -97,7 +97,7 @@
 
     <style name="EkoAlertDialogTheme.App.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:textColor">@color/upstraColorBase</item>
-        <item name="android:textAppearance">@style/TextStyleEkoTitle</item>
+        <item name="android:textAppearance">@style/TextStyleEkoTitleBold</item>
     </style>
 
     <style name="EkoSnackBarStyle" parent="Widget.MaterialComponents.Snackbar">

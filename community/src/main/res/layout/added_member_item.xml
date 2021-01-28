@@ -18,44 +18,44 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/amAvatar"
+            backgroundColorShade="@{ColorShade.SHADE3}"
+            ekoBackgroundColor="@{@color/upstraColorPrimary}"
             android:layout_width="@dimen/twenty_eight"
             android:layout_height="@dimen/twenty_eight"
-            app:shapeAppearanceOverlay="@style/CircleImage"
-            ekoBackgroundColor="@{@color/upstraColorPrimary}"
-            backgroundColorShade="@{ColorShade.SHADE3}"
-            android:scaleType="centerInside"
             android:layout_marginStart="@dimen/eight"
-            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/CircleImage" />
 
         <TextView
             android:id="@+id/amName"
+            style="@style/TextStyleEkoBody"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/TextStyleEkoBody"
-            android:textColor="@color/upstraColorBase"
             android:layout_marginStart="@dimen/six"
-            app:layout_constraintTop_toTopOf="@id/amAvatar"
-            app:layout_constraintBottom_toBottomOf="@id/amAvatar"
-            app:layout_constraintStart_toEndOf="@id/amAvatar"
-            app:layout_constraintEnd_toStartOf="@id/amCross"
+            android:ellipsize="end"
             android:maxLines="1"
-            android:ellipsize="end" />
+            android:textColor="@color/upstraColorBase"
+            app:layout_constraintBottom_toBottomOf="@id/amAvatar"
+            app:layout_constraintEnd_toStartOf="@id/amCross"
+            app:layout_constraintStart_toEndOf="@id/amAvatar"
+            app:layout_constraintTop_toTopOf="@id/amAvatar" />
 
         <ImageView
             android:id="@+id/amCross"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/amAvatar"
-            app:layout_constraintBottom_toBottomOf="@id/amAvatar"
-            app:layout_constraintStart_toEndOf="@id/amName"
-            android:src="@drawable/ic_uikit_filled_cross"
             ekoFillColor="@{@color/upstraColorBase}"
             ekoFillShade="@{ColorShade.SHADE4}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/eight"
             android:layout_marginEnd="@dimen/nine"
-            android:layout_marginStart="@dimen/eight" />
+            android:src="@drawable/ic_uikit_filled_cross"
+            app:layout_constraintBottom_toBottomOf="@id/amAvatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/amName"
+            app:layout_constraintTop_toTopOf="@id/amAvatar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

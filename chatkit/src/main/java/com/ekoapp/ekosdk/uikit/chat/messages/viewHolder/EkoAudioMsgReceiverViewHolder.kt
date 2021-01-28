@@ -13,10 +13,10 @@ import com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoAudioMsgViewModel
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 
 class EkoAudioMsgReceiverViewHolder(
-        itemView: View,
-        val itemViewModel: EkoAudioMsgViewModel,
-        context: Context,
-        audioPlayListener: IAudioPlayCallback
+    itemView: View,
+    val itemViewModel: EkoAudioMsgViewModel,
+    context: Context,
+    audioPlayListener: IAudioPlayCallback
 ) : AudioMsgBaseViewHolder(itemView, itemViewModel, context, audioPlayListener) {
 
     private val binding: ItemAudioMessageReceiverBinding? = DataBindingUtil.bind(itemView)
@@ -49,8 +49,8 @@ class EkoAudioMsgReceiverViewHolder(
             val anchor: View = itemView.findViewById(R.id.layoutAudio)
             val inflater: LayoutInflater = LayoutInflater.from(anchor.context)
             val binding: MsgReportPopupBinding = DataBindingUtil.inflate(
-                    inflater,
-                    R.layout.msg_report_popup, null, true
+                inflater,
+                R.layout.msg_report_popup, null, true
             )
             binding.viewModel = itemViewModel
             popUp?.showPopUp(binding.root, anchor, itemViewModel, EkoPopUp.PopUpGravity.START)

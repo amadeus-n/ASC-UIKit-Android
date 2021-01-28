@@ -31,12 +31,12 @@ class EkoCommunityProfileEditFragment internal constructor() : EkoCommunityCreat
 
     private fun loadProfile() {
         disposable.add(mViewModel.getCommunityDetail().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext {
-                    mViewModel.setCommunityDetails(it)
-                }.doOnError {
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnNext {
+                mViewModel.setCommunityDetails(it)
+            }.doOnError {
 
-                }.subscribe()
+            }.subscribe()
         )
     }
 

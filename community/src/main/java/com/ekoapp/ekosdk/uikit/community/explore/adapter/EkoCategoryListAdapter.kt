@@ -9,16 +9,16 @@ import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCategoryItemClickListener
 
 class EkoCategoryListAdapter(
-        diffUtil: EkoCategoryListDiffUtil,
-        private val itemClickListener: IEkoCategoryItemClickListener?
+    diffUtil: EkoCategoryListDiffUtil,
+    private val itemClickListener: IEkoCategoryItemClickListener?
 ) :
-        EkoBaseRecyclerViewPagedAdapter<EkoCommunityCategory>(diffUtil), ICategorySelectionListener {
+    EkoBaseRecyclerViewPagedAdapter<EkoCommunityCategory>(diffUtil), ICategorySelectionListener {
 
     constructor(
-            diffUtil: EkoCategoryListDiffUtil,
-            itemClickListener: IEkoCategoryItemClickListener?,
-            modeSelection: Boolean,
-            preSelectedCategory: String?
+        diffUtil: EkoCategoryListDiffUtil,
+        itemClickListener: IEkoCategoryItemClickListener?,
+        modeSelection: Boolean,
+        preSelectedCategory: String?
     ) : this(diffUtil, itemClickListener) {
         selectedCategory = preSelectedCategory
         this.modeSelection = modeSelection
@@ -51,15 +51,15 @@ class EkoCategoryListAdapter(
 
     class EkoCategoryListDiffUtil : DiffUtil.ItemCallback<EkoCommunityCategory>() {
         override fun areItemsTheSame(
-                oldItem: EkoCommunityCategory,
-                newItem: EkoCommunityCategory
+            oldItem: EkoCommunityCategory,
+            newItem: EkoCommunityCategory
         ): Boolean {
             return oldItem.getCategoryId() == newItem.getCategoryId()
         }
 
         override fun areContentsTheSame(
-                oldItem: EkoCommunityCategory,
-                newItem: EkoCommunityCategory
+            oldItem: EkoCommunityCategory,
+            newItem: EkoCommunityCategory
         ): Boolean {
             return oldItem.getCategoryId() == newItem.getCategoryId() && oldItem.getName() == newItem.getName()
         }

@@ -19,9 +19,9 @@
 
         <include
             android:id="@+id/dateHeader"
+            layout="@layout/layout_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            layout="@layout/layout_date"
             android:visibility="@{vmImageMessage.isDateVisible() ? View.VISIBLE : View.GONE}"
             app:date="@{vmImageMessage.msgDate}"
             app:dateFillColor="@{vmImageMessage.dateFillColor}"
@@ -31,47 +31,47 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/dateHeader"
+            android:visibility="@{vmImageMessage.isDeleted() ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
-            android:visibility="@{vmImageMessage.isDeleted() ? View.GONE : View.VISIBLE}">
+            app:layout_constraintTop_toBottomOf="@id/dateHeader">
 
             <TextView
                 android:id="@+id/tvTimeOutgoing"
+                style="@style/TextStyleEkoCaption"
+                textColorShade="@{ColorShade.SHADE2}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{vmImageMessage.msgTime}"
-                style="@style/TextStyleEkoCaption"
-                android:textColor="@color/upstraColorBase"
-                textColorShade="@{ColorShade.SHADE2}"
-                android:layout_marginEnd="@dimen/four"
                 android:layout_marginTop="@dimen/four"
-                app:layout_constraintTop_toBottomOf="@id/ivMsgOutgoing"
-                app:layout_constraintEnd_toEndOf="@id/ivMsgOutgoing" />
+                android:layout_marginEnd="@dimen/four"
+                android:text="@{vmImageMessage.msgTime}"
+                android:textColor="@color/upstraColorBase"
+                app:layout_constraintEnd_toEndOf="@id/ivMsgOutgoing"
+                app:layout_constraintTop_toBottomOf="@id/ivMsgOutgoing" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivMsgOutgoing"
                 android:layout_width="230dp"
                 android:layout_height="228dp"
+                android:layout_marginEnd="@dimen/sixteen"
+                android:onLongClick="@{() -> vmImageMessage.onLongPress()}"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{vmImageMessage.imageUrl}"
-                app:placeHolder="@{@drawable/ic_uikit_image_failed}"
-                android:onLongClick="@{() -> vmImageMessage.onLongPress()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="@dimen/sixteen" />
+                app:placeHolder="@{@drawable/ic_uikit_image_failed}" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:roundedCorner="@{true}"
-                app:topRightRadius="@{@dimen/zero}"
+                android:alpha="0.5"
                 android:backgroundTint="@color/upstraColorBase"
                 android:visibility="@{vmImageMessage.inSelectionMode || vmImageMessage.uploading ? View.VISIBLE : View.GONE}"
-                android:alpha="0.5"
-                app:layout_constraintStart_toStartOf="@id/ivMsgOutgoing"
+                app:layout_constraintBottom_toBottomOf="@id/ivMsgOutgoing"
                 app:layout_constraintEnd_toEndOf="@id/ivMsgOutgoing"
+                app:layout_constraintStart_toStartOf="@id/ivMsgOutgoing"
                 app:layout_constraintTop_toTopOf="@id/ivMsgOutgoing"
-                app:layout_constraintBottom_toBottomOf="@id/ivMsgOutgoing" />
+                app:roundedCorner="@{true}"
+                app:topRightRadius="@{@dimen/zero}" />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/progressBar"
@@ -88,15 +88,15 @@
                 app:trackThickness="@dimen/two" />
 
             <include
+                layout="@layout/layout_msg_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                layout="@layout/layout_msg_error"
-                app:viewModel="@{vmImageMessage}"
-                android:visibility="@{vmImageMessage.isFailed() ? View.VISIBLE : View.GONE}"
-                app:layout_constraintEnd_toStartOf="@id/ivMsgOutgoing"
                 android:layout_marginEnd="@dimen/four"
+                android:visibility="@{vmImageMessage.isFailed() ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/ivMsgOutgoing"
+                app:layout_constraintEnd_toStartOf="@id/ivMsgOutgoing"
                 app:layout_constraintTop_toTopOf="@id/ivMsgOutgoing"
-                app:layout_constraintBottom_toBottomOf="@id/ivMsgOutgoing" />
+                app:viewModel="@{vmImageMessage}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include

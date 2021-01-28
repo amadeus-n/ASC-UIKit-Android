@@ -8,11 +8,11 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.fragment.EkoPostDetailFragment
 import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED_ID
 
 class EkoPostDetailsActivity :
-        EkoBaseToolbarFragmentContainerActivity() {
+    EkoBaseToolbarFragmentContainerActivity() {
 
     override fun initToolbar() {
         getToolBar()?.setLeftDrawable(
-                ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
         )
     }
 
