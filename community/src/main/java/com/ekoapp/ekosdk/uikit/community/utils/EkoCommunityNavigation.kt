@@ -2,6 +2,7 @@ package com.ekoapp.ekosdk.uikit.community.utils
 
 import android.content.Context
 import android.content.Intent
+import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.comment.EkoComment
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.feed.EkoPost
@@ -23,6 +24,11 @@ const val EXTRA_PARAM_TIMELINE_TYPE = "timeline_type"
 
 class EkoCommunityNavigation {
     companion object {
+
+        fun navigateToMyTimeline(context: Context) {
+            //TODO call navigate to my timeline page
+            navigateToUserProfile(context, EkoClient.getUserId())
+        }
 
         fun navigateToCreatePost(context: Context) {
             val intent = Intent(context, EkoCreatePostActivity::class.java)

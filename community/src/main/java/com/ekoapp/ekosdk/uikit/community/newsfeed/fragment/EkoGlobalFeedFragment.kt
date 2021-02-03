@@ -21,9 +21,11 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoGlobalFeedViewMod
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoNewsFeedViewModel
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
+import com.ekoapp.ekosdk.uikit.settings.feed.IPostShareClickListener
 import com.ekoapp.ekosdk.user.EkoUser
 
 class EkoGlobalFeedFragment internal constructor() : EkoBaseFeedFragment() {
+
     lateinit var mViewModel: EkoGlobalFeedViewModel
     private val newsFeedViewModel: EkoNewsFeedViewModel by activityViewModels()
     private var emptyViewBinding: LayoutMyTimelineFeedEmptyViewBinding? = null
@@ -46,13 +48,12 @@ class EkoGlobalFeedFragment internal constructor() : EkoBaseFeedFragment() {
     override fun getEmptyView(): View {
         val inflater =
             requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        emptyViewBinding =
-            DataBindingUtil.inflate(
-                inflater,
-                R.layout.layout_my_timeline_feed_empty_view,
-                getRootView(),
-                false
-            )
+        emptyViewBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.layout_my_timeline_feed_empty_view,
+            getRootView(),
+            false
+        )
         return emptyViewBinding!!.root
     }
 
@@ -75,6 +76,7 @@ class EkoGlobalFeedFragment internal constructor() : EkoBaseFeedFragment() {
         private var postItemClickListener: IPostItemClickListener? = null
         private var postOptionClickListener: IPostOptionClickListener? = null
         private var avatarClickListener: IAvatarClickListener? = null
+        private var postShareClickListener: IPostShareClickListener? = null
 
         fun build(activity: AppCompatActivity): EkoGlobalFeedFragment {
             val fragment = EkoGlobalFeedFragment()
@@ -83,6 +85,11 @@ class EkoGlobalFeedFragment internal constructor() : EkoBaseFeedFragment() {
             fragment.mViewModel.postItemClickListener = postItemClickListener
             fragment.mViewModel.postOptionClickListener = postOptionClickListener
             fragment.mViewModel.avatarClickListener = avatarClickListener
+
+            if (postShareClickListener != null) {
+                fragment.mViewModel.postShareClickListener = postShareClickListener
+            }
+
             return EkoGlobalFeedFragment()
         }
 
@@ -94,8 +101,12 @@ class EkoGlobalFeedFragment internal constructor() : EkoBaseFeedFragment() {
             return apply { this.postOptionClickListener = onPostOptionClickListener }
         }
 
-        fun onClickUserAvatar(onAvatarClickListener: IAvatarClickListener): Builder {
+        fun onClickUserAvatar(onAvatarClickListener: IAvatarClickListener?): Builder {
             return apply { this.avatarClickListener = onAvatarClickListener }
+        }
+
+        fun postShareClickListener(onPostShareClickListener: IPostShareClickListener): Builder {
+            return apply { this.postShareClickListener = onPostShareClickListener }
         }
     }
 }

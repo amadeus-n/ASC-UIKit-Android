@@ -38,6 +38,7 @@
     <string name="discard">Discard</string>
     <string name="discard_post_title">Discard post?</string>
     <string name="discard_post_message">Do you want to discard your post?</string>
+    <string name="share">Share</string>
     <string name="comment">Comment</string>
     <string name="like">Like</string>
     <string name="liked">Liked</string>
@@ -137,6 +138,9 @@
         <item quantity="one">%d Comment</item>
         <item quantity="other">%d Comments</item>
     </plurals>
+    <string name="share_to_my_timeline">Share to My Timeline</string>
+    <string name="share_to_group">Share to Group</string>
+    <string name="more_options">More options…</string>
     <string name="promote_moderator">Promote to moderator</string>
     <string name="remove_moderator">Dismiss moderator</string>
     <string name="remove">Remove</string>

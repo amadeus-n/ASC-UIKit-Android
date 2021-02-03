@@ -16,6 +16,7 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoBaseFeedViewModel
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoUserTimelineViewModel
 import com.ekoapp.ekosdk.uikit.community.profile.fragment.ARG_USER_ID
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
+import com.ekoapp.ekosdk.uikit.settings.feed.IPostShareClickListener
 import com.ekoapp.ekosdk.user.EkoUser
 
 class EkoUserFeedFragment internal constructor() : EkoBaseFeedFragment() {
@@ -25,9 +26,7 @@ class EkoUserFeedFragment internal constructor() : EkoBaseFeedFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mViewModel = ViewModelProvider(requireActivity()).get(EkoUserTimelineViewModel::class.java)
-        arguments.let {
-            mViewModel.userId = it?.getString(ARG_USER_ID) ?: ""
-        }
+        arguments.let { mViewModel.userId = it?.getString(ARG_USER_ID) ?: "" }
     }
 
     override fun getFeedType(): EkoTimelineType = EkoTimelineType.OTHER_USER
@@ -35,28 +34,27 @@ class EkoUserFeedFragment internal constructor() : EkoBaseFeedFragment() {
     override fun getEmptyView(): View {
         val inflater =
             requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val mBinding: LayoutOtherUserTimelineEmptyViewBinding =
-            DataBindingUtil.inflate(
-                inflater,
-                R.layout.layout_other_user_timeline_empty_view,
-                getRootView(),
-                false
-            )
+        val mBinding: LayoutOtherUserTimelineEmptyViewBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.layout_other_user_timeline_empty_view,
+            getRootView(),
+            false
+        )
         return mBinding.root
     }
 
     override fun onClickUserAvatar(feed: EkoPost, user: EkoUser, position: Int) {
-        if (mViewModel.otherUser(user)) {
-            EkoCommunityNavigation.navigateToUserProfile(requireContext(), user.getUserId())
-        }
         if (mViewModel.avatarClickListener != null) {
             mViewModel.avatarClickListener?.onClickUserAvatar(user)
+        } else if (mViewModel.otherUser(user)) {
+            EkoCommunityNavigation.navigateToUserProfile(requireContext(), user.getUserId())
         }
     }
 
     class Builder() {
         private var userId: String? = null
         private var avatarClickListener: IAvatarClickListener? = null
+        private var postShareClickListener: IPostShareClickListener? = null
 
         fun build(activity: AppCompatActivity): EkoUserFeedFragment {
             if (userId == null) {
@@ -67,6 +65,11 @@ class EkoUserFeedFragment internal constructor() : EkoBaseFeedFragment() {
             fragment.mViewModel =
                 ViewModelProvider(activity).get(EkoUserTimelineViewModel::class.java)
             fragment.mViewModel.avatarClickListener = avatarClickListener
+
+            if (postShareClickListener != null) {
+                fragment.mViewModel.postShareClickListener = postShareClickListener
+            }
+
             fragment.arguments = Bundle().apply {
                 putString(ARG_USER_ID, this@Builder.userId)
             }
@@ -83,8 +86,12 @@ class EkoUserFeedFragment internal constructor() : EkoBaseFeedFragment() {
             return this
         }
 
-        fun onClickUserAvatar(onAvatarClickListener: IAvatarClickListener): Builder {
+        fun onClickUserAvatar(onAvatarClickListener: IAvatarClickListener?): Builder {
             return apply { this.avatarClickListener = onAvatarClickListener }
+        }
+
+        fun postShareClickListener(onPostShareClickListener: IPostShareClickListener): Builder {
+            return apply { this.postShareClickListener = onPostShareClickListener }
         }
     }
 }

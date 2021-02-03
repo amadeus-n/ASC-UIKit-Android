@@ -7,16 +7,26 @@ import com.ekoapp.ekosdk.comment.EkoComment
 import com.ekoapp.ekosdk.comment.EkoCommentReference
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
+import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedShareListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostItemClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostOptionClickListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
+import com.ekoapp.ekosdk.uikit.settings.EkoUIKitClient
+import com.ekoapp.ekosdk.uikit.settings.feed.IPostShareClickListener
+import com.ekoapp.ekosdk.uikit.utils.SingleLiveData
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-abstract class EkoBaseFeedViewModel : EkoBaseViewModel() {
+abstract class EkoBaseFeedViewModel : EkoBaseViewModel(), INewsFeedShareListener {
 
     var postOptionClickListener: IPostOptionClickListener? = null
     var postItemClickListener: IPostItemClickListener? = null
+    var postShareClickListener: IPostShareClickListener? =
+        EkoUIKitClient.feedUISettings.postShareClickListener
+
+    override val shareToMyTimelineActionRelay = SingleLiveData<Unit>()
+    override val shareToGroupActionRelay = SingleLiveData<Unit>()
+    override val shareToExternalAppActionRelay = SingleLiveData<Unit>()
 
     abstract fun getFeed(): Flowable<PagedList<EkoPost>>?
 
@@ -26,9 +36,9 @@ abstract class EkoBaseFeedViewModel : EkoBaseViewModel() {
     }
 
     fun commentShowMoreActionClicked(feed: EkoPost, comment: EkoComment) {
-        if (comment.getUserId() == EkoClient.getUserId())
+        if (comment.getUserId() == EkoClient.getUserId()) {
             triggerEvent(EventIdentifier.SHOW_COMMENT_ACTION_BY_COMMENT_OWNER, comment)
-        else {
+        } else {
             //TODO uncomment after server side implementation
             /*  val target = feed.getTarget()
               if (target is EkoPostTarget.COMMUNITY) {
@@ -43,6 +53,10 @@ abstract class EkoBaseFeedViewModel : EkoBaseViewModel() {
         }
     }
 
+    fun feedShowShareOptionsActionClicked(post: EkoPost) {
+        triggerEvent(EventIdentifier.SHOW_SHARE_OPTIONS, post)
+    }
+
     fun feedShowMoreActionClicked(feed: EkoPost) {
         //TODO uncomment after server side implementation
         /*   val target = feed.getTarget()
@@ -53,10 +67,11 @@ abstract class EkoBaseFeedViewModel : EkoBaseViewModel() {
                    return
                }
            }*/
-        if (feed.getPostedUser()?.getUserId() == EkoClient.getUserId()!!)
+        if (feed.getPostedUser()?.getUserId() == EkoClient.getUserId()!!) {
             triggerEvent(EventIdentifier.SHOW_FEED_ACTION_BY_FEED_OWNER, feed)
-        else
+        } else {
             triggerEvent(EventIdentifier.SHOW_FEED_ACTION_BY_OTHER_USER, feed)
+        }
 
     }
 
@@ -64,16 +79,18 @@ abstract class EkoBaseFeedViewModel : EkoBaseViewModel() {
         return comment.delete()
             .concatWith(Completable.defer {
                 val postId = (comment.getReference() as EkoCommentReference.Post).getPostId()
-                EkoClient.newFeedRepository().getPost(postId)
-                    .ignoreElements().onErrorComplete()
+                EkoClient.newFeedRepository()
+                    .getPost(postId)
+                    .ignoreElements()
+                    .onErrorComplete()
             })
     }
 
     fun postReaction(liked: Boolean, ekoPost: EkoPost): Completable {
-        if (liked) {
-            return ekoPost.react().addReaction("like")
+        return if (liked) {
+            ekoPost.react().addReaction("like")
         } else {
-            return ekoPost.react().removeReaction("like")
+            ekoPost.react().removeReaction("like")
         }
     }
 

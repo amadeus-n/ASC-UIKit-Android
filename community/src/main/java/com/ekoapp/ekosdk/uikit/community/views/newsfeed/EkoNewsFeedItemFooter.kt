@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
+import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.comment.EkoComment
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.feed.EkoPost
@@ -16,11 +17,9 @@ import com.ekoapp.ekosdk.uikit.common.readableNumber
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.LayoutNewsFeedItemFooterBinding
 import com.ekoapp.ekosdk.uikit.community.newsfeed.adapter.EkoNewsFeedCommentAdapter
-import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedActionLikeListener
-import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedCommentItemClickListener
-import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedCommentShowAllReplyListener
-import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedCommentShowMoreActionListener
+import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.*
 import com.ekoapp.ekosdk.uikit.components.EkoDividerItemDecor
+import com.ekoapp.ekosdk.uikit.settings.feed.EkoFeedUISettings
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
 import kotlinx.android.synthetic.main.layout_news_feed_item_footer.view.*
 
@@ -29,7 +28,9 @@ class EkoNewsFeedItemFooter : ConstraintLayout {
 
     private lateinit var mBinding: LayoutNewsFeedItemFooterBinding
     private var newsFeedCommentAdapter: EkoNewsFeedCommentAdapter? = null
+
     private var commentItemClickListener: INewsFeedCommentItemClickListener? = null
+    private var shareListener: INewsFeedActionShareListener? = null
     private var showMoreActionListener: INewsFeedCommentShowMoreActionListener? = null
     private var showAllReplyListener: INewsFeedCommentShowAllReplyListener? = null
     private var commentToExpand: String? = null
@@ -64,6 +65,10 @@ class EkoNewsFeedItemFooter : ConstraintLayout {
                 isChecked
             )
         }
+
+        cbShare.setOnClickListener {
+            shareListener?.onShareAction()
+        }
     }
 
     private fun setNumberOfComments(commentCount: Int) {
@@ -95,6 +100,32 @@ class EkoNewsFeedItemFooter : ConstraintLayout {
             readOnlyView = false
             mBinding.readOnly = false
         }
+
+        mBinding.isShowShareButton = isShowShareButton(feed)
+    }
+
+    private fun isShowShareButton(post: EkoPost): Boolean {
+        val targetPost = post.getTarget()
+        if (targetPost is EkoPostTarget.USER && targetPost.getUser()
+                ?.getUserId() == EkoClient.getUserId()
+        ) {
+            return EkoFeedUISettings.postSharingSettings.myFeedPostSharingTarget.isNotEmpty()
+        } else if (targetPost is EkoPostTarget.USER && targetPost.getUser()
+                ?.getUserId() != EkoClient.getUserId()
+        ) {
+            return EkoFeedUISettings.postSharingSettings.userFeedPostSharingTarget.isNotEmpty()
+        } else {
+            if (targetPost is EkoPostTarget.COMMUNITY) {
+                targetPost.getCommunity()?.let {
+                    return if (it.isPublic()) {
+                        EkoFeedUISettings.postSharingSettings.publicCommunityPostSharingTarget.isNotEmpty()
+                    } else {
+                        EkoFeedUISettings.postSharingSettings.privateCommunityPostSharingTarget.isNotEmpty()
+                    }
+                }
+            }
+        }
+        return false
     }
 
     private fun setNumberOfLikes(reactionCount: Int) {
@@ -128,6 +159,10 @@ class EkoNewsFeedItemFooter : ConstraintLayout {
 
     fun setFeedLikeActionListener(likeListener: INewsFeedActionLikeListener) {
         this.likeListener = likeListener
+    }
+
+    fun setFeedShareActionListener(shareListener: INewsFeedActionShareListener?) {
+        this.shareListener = shareListener
     }
 
     fun setCommentActionListener(
