@@ -10,17 +10,27 @@ import com.ekoapp.ekosdk.feed.EkoPostTarget
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.uikit.community.domain.repository.EkoChannelRepository
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IAvatarClickListener
+import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedShareListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
+import com.ekoapp.ekosdk.uikit.settings.EkoUIKitClient
+import com.ekoapp.ekosdk.uikit.settings.feed.IPostShareClickListener
+import com.ekoapp.ekosdk.uikit.utils.SingleLiveData
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
-class EkoPostDetailsViewModel : EkoBaseViewModel() {
+class EkoPostDetailsViewModel : EkoBaseViewModel(), INewsFeedShareListener {
     var newsFeed: EkoPost? = null
     var avatarClickListener: IAvatarClickListener? = null
+    var postShareClickListener: IPostShareClickListener? =
+        EkoUIKitClient.feedUISettings.postShareClickListener
 
     private val feedRepository: EkoFeedRepository = EkoClient.newFeedRepository()
     private val commentRepository: EkoCommentRepository = EkoClient.newCommentRepository()
+
+    override val shareToMyTimelineActionRelay = SingleLiveData<Unit>()
+    override val shareToGroupActionRelay = SingleLiveData<Unit>()
+    override val shareToExternalAppActionRelay = SingleLiveData<Unit>()
 
     fun getComments(postId: String): Flowable<PagedList<EkoComment>> {
         return commentRepository.getCommentCollection()
@@ -85,9 +95,9 @@ class EkoPostDetailsViewModel : EkoBaseViewModel() {
     }
 
     fun commentShowMoreActionClicked(feed: EkoPost, comment: EkoComment) {
-        if (comment.getUserId() == EkoClient.getUserId())
+        if (comment.getUserId() == EkoClient.getUserId()) {
             triggerEvent(EventIdentifier.SHOW_COMMENT_ACTION_BY_COMMENT_OWNER, comment)
-        else {
+        } else {
             //TODO uncomment after server side implementation
             /*val target = feed.getTarget()
             if (target is EkoPostTarget.COMMUNITY) {
@@ -103,10 +113,11 @@ class EkoPostDetailsViewModel : EkoBaseViewModel() {
     }
 
     fun postReaction(liked: Boolean, ekoPost: EkoPost): Completable {
-        return if (liked)
+        return if (liked) {
             ekoPost.react().addReaction("like")
-        else
+        } else {
             ekoPost.react().removeReaction("like")
+        }
     }
 
     fun feedShowMoreActionClicked(feed: EkoPost) {

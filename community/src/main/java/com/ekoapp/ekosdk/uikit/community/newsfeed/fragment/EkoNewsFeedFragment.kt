@@ -158,7 +158,7 @@ class EkoNewsFeedFragment internal constructor() : EkoBaseFragment(),
             return this
         }
 
-        private fun globalFeedFragmentDelegate(delegate: IGlobalFeedFragmentDelegate): Builder {
+        fun globalFeedFragmentDelegate(delegate: IGlobalFeedFragmentDelegate): Builder {
             this.globalFeedFragmentDelegate = delegate
             return this
         }

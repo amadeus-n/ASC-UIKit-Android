@@ -56,6 +56,12 @@ open class NewsFeedViewHolder(
 
             })
 
+            this.footerLayout.setFeedShareActionListener(object : INewsFeedActionShareListener {
+                override fun onShareAction() {
+                    itemActionLister.onShareAction(data, position)
+                }
+            })
+
             this.footerLayout.setItemClickListener(object : INewsFeedCommentItemClickListener {
                 override fun onClickItem(comment: EkoComment, position: Int) {
                     val postId =
@@ -67,6 +73,7 @@ open class NewsFeedViewHolder(
                     itemActionLister.onClickUserAvatar(data, user, position)
                 }
             })
+
             this.footerLayout.setShowAllReplyListener(object :
                 INewsFeedCommentShowAllReplyListener {
                 override fun onClickShowAllReplies(comment: EkoComment, position: Int) {

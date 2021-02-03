@@ -18,6 +18,7 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.util.EkoTimelineType
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoBaseFeedViewModel
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoCommunityTimelineViewModel
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
+import com.ekoapp.ekosdk.uikit.settings.feed.IPostShareClickListener
 import com.ekoapp.ekosdk.user.EkoUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -26,6 +27,7 @@ const val ARG_COMMUNITY = "community"
 const val ARG_COMMUNITY_ID = "community_id"
 
 class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
+
     private val TAG = EkoCommunityFeedFragment::class.java.simpleName
     private lateinit var mViewModel: EkoCommunityTimelineViewModel
 
@@ -45,8 +47,7 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
     }
 
     private fun getCommunityDetails() {
-        val communityDisposable = mViewModel
-            .getCommunity(mViewModel.communityId!!)
+        val communityDisposable = mViewModel.getCommunity(mViewModel.communityId!!)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.doOnSuccess {
@@ -58,7 +59,7 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
             }
             ?.subscribe()
 
-        communityDisposable?.let { disposable.add(it) }
+        communityDisposable?.let(disposable::add)
     }
 
     override fun getFeedType(): EkoTimelineType = EkoTimelineType.COMMUNITY
@@ -78,26 +79,23 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
     private fun getOtherUserEmptyFeed(): View {
         val inflater =
             requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val mBinding: LayoutOtherUserTimelineEmptyViewBinding =
-            DataBindingUtil.inflate(
-                inflater,
-                R.layout.layout_other_user_timeline_empty_view,
-                getRootView(),
-                false
-            )
+        val mBinding: LayoutOtherUserTimelineEmptyViewBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.layout_other_user_timeline_empty_view,
+            getRootView(),
+            false
+        )
         return mBinding.root
     }
 
     private fun getAdminUserEmptyFeed(): View {
-        val inflater =
-            context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val mBinding: LayoutMyTimelineFeedEmptyViewBinding =
-            DataBindingUtil.inflate(
-                inflater,
-                R.layout.layout_my_timeline_feed_empty_view,
-                getRootView(),
-                false
-            )
+        val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val mBinding: LayoutMyTimelineFeedEmptyViewBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.layout_my_timeline_feed_empty_view,
+            getRootView(),
+            false
+        )
         return mBinding.root
     }
 
@@ -113,6 +111,7 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
         private var communityId: String? = null
         private var community: EkoCommunity? = null
         private var avatarClickListener: IAvatarClickListener? = null
+        private var postShareClickListener: IPostShareClickListener? = null
 
         fun build(activity: AppCompatActivity): EkoCommunityFeedFragment {
             if (communityId == null && community == null) {
@@ -123,6 +122,11 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
             fragment.mViewModel =
                 ViewModelProvider(activity).get(EkoCommunityTimelineViewModel::class.java)
             fragment.mViewModel.avatarClickListener = avatarClickListener
+
+            if (postShareClickListener != null) {
+                fragment.mViewModel.postShareClickListener = postShareClickListener
+            }
+
             fragment.arguments = Bundle().apply {
                 putParcelable(ARG_COMMUNITY, this@Builder.community)
                 putString(ARG_COMMUNITY_ID, this@Builder.communityId)
@@ -138,8 +142,12 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
             return apply { this.community = community }
         }
 
-        fun onClickUserAvatar(onAvatarClickListener: IAvatarClickListener): Builder {
+        fun onClickUserAvatar(onAvatarClickListener: IAvatarClickListener?): Builder {
             return apply { this.avatarClickListener = onAvatarClickListener }
+        }
+
+        fun postShareClickListener(onPostShareClickListener: IPostShareClickListener): Builder {
+            return apply { this.postShareClickListener = onPostShareClickListener }
         }
     }
 }

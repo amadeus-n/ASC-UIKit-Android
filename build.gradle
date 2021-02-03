@@ -14,6 +14,7 @@ buildscript {
         ekoMessagingSdkVersion = '4.5.1'
         jacocoVersion = '0.8.5'
         exoplayerVersion = '2.12.1'
+
         // Will contain all support library dependencies
         sharedSupportLibraries = { dependencyHandler ->
             delegate = dependencyHandler

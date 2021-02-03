@@ -11,6 +11,7 @@ interface INewsFeedItemActionListener {
     fun onCommentAction(feed: EkoPost, comment: EkoComment, position: Int)
     fun showAllReply(feed: EkoPost, comment: EkoComment, position: Int)
     fun onLikeAction(liked: Boolean, ekoPost: EkoPost, position: Int)
+    fun onShareAction(ekoPost: EkoPost, position: Int)
     fun onClickUserAvatar(feed: EkoPost, user: EkoUser, position: Int)
     fun onClickCommunity(community: EkoCommunity)
 }

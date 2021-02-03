@@ -1,34 +1,55 @@
 package com.ekoapp.ekosdk.uikit.community.newsfeed.fragment
 
 import com.ekoapp.ekosdk.community.EkoCommunity
+import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IAvatarClickListener
 import com.ekoapp.ekosdk.user.EkoUser
 
 class EkoFeedFragment private constructor() {
 
     class Builder {
 
-        fun ofUser(userId: String): EkoUserFeedFragment.Builder {
-            return EkoUserFeedFragment.Builder().userId(userId)
+        @JvmOverloads
+        fun ofUser(
+            userId: String,
+            listener: IAvatarClickListener? = null
+        ): EkoUserFeedFragment.Builder {
+            return EkoUserFeedFragment.Builder().userId(userId).onClickUserAvatar(listener)
         }
 
-        fun ofUser(user: EkoUser): EkoUserFeedFragment.Builder {
-            return EkoUserFeedFragment.Builder().user(user)
+        @JvmOverloads
+        fun ofUser(
+            user: EkoUser,
+            listener: IAvatarClickListener? = null
+        ): EkoUserFeedFragment.Builder {
+            return EkoUserFeedFragment.Builder().user(user).onClickUserAvatar(listener)
         }
 
-        fun ofCommunity(communityId: String): EkoCommunityFeedFragment.Builder {
+        @JvmOverloads
+        fun ofCommunity(
+            communityId: String,
+            listener: IAvatarClickListener? = null
+        ): EkoCommunityFeedFragment.Builder {
             return EkoCommunityFeedFragment.Builder().communityId(communityId)
+                .onClickUserAvatar(listener)
         }
 
-        fun ofCommunity(community: EkoCommunity): EkoCommunityFeedFragment.Builder {
+        @JvmOverloads
+        fun ofCommunity(
+            community: EkoCommunity,
+            listener: IAvatarClickListener? = null
+        ): EkoCommunityFeedFragment.Builder {
             return EkoCommunityFeedFragment.Builder().community(community)
+                .onClickUserAvatar(listener)
         }
 
-        fun mine(): EkoMyFeedFragment.Builder {
-            return EkoMyFeedFragment.Builder()
+        @JvmOverloads
+        fun mine(listener: IAvatarClickListener? = null): EkoMyFeedFragment.Builder {
+            return EkoMyFeedFragment.Builder().onClickUserAvatar(listener)
         }
 
-        fun global(): EkoGlobalFeedFragment.Builder {
-            return EkoGlobalFeedFragment.Builder()
+        @JvmOverloads
+        fun global(listener: IAvatarClickListener? = null): EkoGlobalFeedFragment.Builder {
+            return EkoGlobalFeedFragment.Builder().onClickUserAvatar(listener)
         }
     }
 }

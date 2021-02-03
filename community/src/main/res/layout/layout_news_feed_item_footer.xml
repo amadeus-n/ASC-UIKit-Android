@@ -12,6 +12,11 @@
         <variable
             name="readOnly"
             type="Boolean" />
+
+        <variable
+            name="isShowShareButton"
+            type="Boolean" />
+
     </data>
 
     <merge
@@ -94,10 +99,20 @@
                 android:gravity="center_vertical"
                 android:text="@string/comment"
                 android:textColor="@{@color/upstraColorBase}"
-                app:layout_constraintBottom_toBottomOf="@id/cbLike"
-                app:layout_constraintStart_toEndOf="@id/cbLike"
-                app:layout_constraintTop_toBottomOf="@id/separator"
-                app:layout_constraintTop_toTopOf="@id/cbLike"
+                app:textColorShade="@{ColorShade.SHADE2}" />
+
+            <TextView
+                android:id="@+id/cbShare"
+                style="@style/TextStyleEkoBodyBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:drawableStart="@drawable/ic_uikit_share"
+                android:drawablePadding="@dimen/eight"
+                android:gravity="center_vertical"
+                android:text="@string/share"
+                android:textColor="@{@color/upstraColorBase}"
+                android:visibility="@{isShowShareButton? View.VISIBLE: View.GONE}"
                 app:textColorShade="@{ColorShade.SHADE2}" />
         </LinearLayout>
 
