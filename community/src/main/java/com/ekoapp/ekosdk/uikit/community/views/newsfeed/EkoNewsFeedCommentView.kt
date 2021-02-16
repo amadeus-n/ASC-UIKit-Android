@@ -12,13 +12,13 @@ import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.common.readableFeedPostTime
 import com.ekoapp.ekosdk.uikit.common.readableNumber
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.LayoutNewsFeedItemCommentBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityItemCommentNewsFeedBinding
 import com.google.android.material.checkbox.MaterialCheckBox
-import kotlinx.android.synthetic.main.layout_news_feed_item_comment.view.*
+import kotlinx.android.synthetic.main.amity_item_comment_news_feed.view.*
 
 class EkoNewsFeedCommentView : ConstraintLayout {
 
-    private lateinit var mBinding: LayoutNewsFeedItemCommentBinding
+    private lateinit var mBinding: AmityItemCommentNewsFeedBinding
 
     private var commentActionListener: ICommentActionListener? = null
     private var commentTextClickListener: OnClickListener? = null
@@ -42,7 +42,7 @@ class EkoNewsFeedCommentView : ConstraintLayout {
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.layout_news_feed_item_comment, this, true)
+            DataBindingUtil.inflate(inflater, R.layout.amity_item_comment_news_feed, this, true)
     }
 
     fun setVerticalDividerVisibility(visibility: Int) {
@@ -76,15 +76,15 @@ class EkoNewsFeedCommentView : ConstraintLayout {
         if (comment.getReactionCount() > 0)
             cbLike.text = comment.getReactionCount().readableNumber()
         else
-            cbLike.text = context.getString(R.string.like)
+            cbLike.text = context.getString(R.string.amity_like)
 
         tvUserName.text =
-            comment.getUser()?.getDisplayName() ?: context.getString(R.string.anonymous)
+            comment.getUser()?.getDisplayName() ?: context.getString(R.string.amity_anonymous)
         tvCommentTime.text = comment.getCreatedAt()?.millis?.readableFeedPostTime(context)
 
         if (comment.getChildrenNumber() > 0) {
             tvViewAllReply.text =
-                String.format(context.getString(R.string.view_replies), comment.getChildrenNumber())
+                String.format(context.getString(R.string.amity_view_replies), comment.getChildrenNumber())
             tvViewAllReply.visibility = View.GONE
         } else {
             tvViewAllReply.visibility = View.GONE

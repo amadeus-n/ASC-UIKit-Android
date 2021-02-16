@@ -46,9 +46,9 @@ class EkoAlertDialogFragment : DialogFragment() {
         val alertDialog = dialog.create()
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                .setTextColor(ContextCompat.getColor(requireContext(), R.color.upstraColorPrimary))
+                .setTextColor(ContextCompat.getColor(requireContext(), R.color.amityColorPrimary))
             alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                .setTextColor(ContextCompat.getColor(requireContext(), R.color.upstraColorPrimary))
+                .setTextColor(ContextCompat.getColor(requireContext(), R.color.amityColorPrimary))
         }
         return alertDialog
     }

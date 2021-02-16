@@ -20,7 +20,7 @@ import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoExploreCommunityVi
 import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_recommended_community.*
+import kotlinx.android.synthetic.main.amity_fragment_recommended_community.*
 
 class EkoRecommendedCommunityFragment : EkoBaseFragment(), IMyCommunityItemClickListener {
 
@@ -34,7 +34,7 @@ class EkoRecommendedCommunityFragment : EkoBaseFragment(), IMyCommunityItemClick
     ): View? {
         mViewModel =
             ViewModelProvider(requireActivity()).get(EkoExploreCommunityViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_eko_recommended_community, container, false)
+        return inflater.inflate(R.layout.amity_fragment_recommended_community, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

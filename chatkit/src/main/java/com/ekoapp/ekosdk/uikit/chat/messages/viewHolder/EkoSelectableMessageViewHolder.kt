@@ -58,9 +58,9 @@ abstract class EkoSelectableMessageViewHolder(
     }
 
     private fun showDeleteDialog() {
-        AlertDialogUtil.showDialog(context, context.getString(R.string.delete_msg),
-            context.getString(R.string.dlt_dlg_body), context.getString(R.string.delete),
-            context.getString(R.string.cancel),
+        AlertDialogUtil.showDialog(context, context.getString(R.string.amity_delete_msg),
+            context.getString(R.string.amity_dlt_dlg_body), context.getString(R.string.amity_delete),
+            context.getString(R.string.amity_cancel),
             DialogInterface.OnClickListener { dialog, which ->
                 if (which == DialogInterface.BUTTON_POSITIVE) {
                     deleteMessage()
@@ -71,9 +71,9 @@ abstract class EkoSelectableMessageViewHolder(
     }
 
     private fun showFailedMessageDialog() {
-        AlertDialogUtil.showDialog(context, context.getString(R.string.delete_msg),
-            context.getString(R.string.failed_dlg_body), context.getString(R.string.delete),
-            context.getString(R.string.cancel),
+        AlertDialogUtil.showDialog(context, context.getString(R.string.amity_delete_msg),
+            context.getString(R.string.amity_failed_dlg_body), context.getString(R.string.amity_delete),
+            context.getString(R.string.amity_cancel),
             DialogInterface.OnClickListener { dialog, which ->
                 if (which == DialogInterface.BUTTON_POSITIVE) {
                     deleteMessage()
@@ -98,8 +98,8 @@ abstract class EkoSelectableMessageViewHolder(
     }
 
     private fun showDeleteFailedDialog() {
-        AlertDialogUtil.showDialog(context, context.getString(R.string.unable_to_delete),
-            context.getString(R.string.try_again), context.getString(R.string.ok),
+        AlertDialogUtil.showDialog(context, context.getString(R.string.amity_unable_to_delete),
+            context.getString(R.string.amity_try_again), context.getString(R.string.amity_ok),
             null,
             DialogInterface.OnClickListener { dialog, which ->
                 if (which == DialogInterface.BUTTON_POSITIVE) {
@@ -115,7 +115,7 @@ abstract class EkoSelectableMessageViewHolder(
                     CoroutineScope(Dispatchers.Main).launch {
                         val snackBar = Snackbar.make(
                             itemView,
-                            context.getString(R.string.report_msg), Snackbar.LENGTH_SHORT
+                            context.getString(R.string.amity_report_msg), Snackbar.LENGTH_SHORT
                         )
                         snackBar.show()
                     }

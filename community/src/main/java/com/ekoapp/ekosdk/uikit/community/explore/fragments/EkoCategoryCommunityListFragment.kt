@@ -13,7 +13,7 @@ import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.community.category.EkoCommunityCategory
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoCategoryCommunityListBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentCategoryCommunityListBinding
 import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
 import com.ekoapp.ekosdk.uikit.community.explore.adapter.EkoCategoryCommunityListAdapter
 import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCommunityItemClickListener
@@ -21,7 +21,7 @@ import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoCategoryCommunityL
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_category_community_list.*
+import kotlinx.android.synthetic.main.amity_fragment_category_community_list.*
 
 const val ARG_CATEGORY_ID = "Category_id"
 const val ARG_CATEGORY_NAME = "Category_name"
@@ -32,7 +32,7 @@ class EkoCategoryCommunityListFragment internal constructor() : EkoBaseFragment(
     private lateinit var adapter: EkoCategoryCommunityListAdapter
     private var categoryId: String? = null
     private var categoryName: String? = null
-    lateinit var mBinding: FragmentEkoCategoryCommunityListBinding
+    lateinit var mBinding: AmityFragmentCategoryCommunityListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +53,7 @@ class EkoCategoryCommunityListFragment internal constructor() : EkoBaseFragment(
             ViewModelProvider(requireActivity()).get(EkoCategoryCommunityListViewModel::class.java)
         mBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_eko_category_community_list,
+            R.layout.amity_fragment_category_community_list,
             container,
             false
         )

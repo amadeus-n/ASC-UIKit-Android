@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewPagedAdapter
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.LayoutCommunitySelectionListItemViewBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityItemCommunitySelectionListBinding
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.ICreatePostCommunitySelectionListener
 
 class EkoCreatePostCommunitySelectionAdapter(private val listener: ICreatePostCommunitySelectionListener) :
     EkoBaseRecyclerViewPagedAdapter<EkoCommunity>(diffCallBack) {
 
     override fun getLayoutId(position: Int, obj: EkoCommunity?): Int =
-        R.layout.layout_community_selection_list_item_view
+        R.layout.amity_item_community_selection_list
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
         return EkoCommunityViewHolder(view, listener)
@@ -28,7 +28,7 @@ class EkoCreatePostCommunitySelectionAdapter(private val listener: ICreatePostCo
     ) :
         RecyclerView.ViewHolder(itemView), Binder<EkoCommunity> {
 
-        private val binding: LayoutCommunitySelectionListItemViewBinding? =
+        private val binding: AmityItemCommunitySelectionListBinding? =
             DataBindingUtil.bind(itemView)
 
         override fun bind(data: EkoCommunity?, position: Int) {
@@ -45,11 +45,11 @@ class EkoCreatePostCommunitySelectionAdapter(private val listener: ICreatePostCo
             var rightDrawable: Drawable? = null
             if (!data.isPublic()) {
                 leftDrawable =
-                    ContextCompat.getDrawable(itemView.context, R.drawable.ic_uikit_lock_24px)
+                    ContextCompat.getDrawable(itemView.context, R.drawable.amity_ic_lock2)
             }
             if (data.isOfficial()) {
                 rightDrawable =
-                    ContextCompat.getDrawable(itemView.context, R.drawable.ic_uikit_verified)
+                    ContextCompat.getDrawable(itemView.context, R.drawable.amity_ic_verified)
             }
             binding?.tvCommunityName?.setCompoundDrawablesWithIntrinsicBounds(
                 leftDrawable,

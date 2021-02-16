@@ -9,7 +9,7 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.fragment.EkoFeedFragment
 class EkoMyFeedActivity : EkoBaseToolbarFragmentContainerActivity() {
 
     override fun initToolbar() {
-        getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross))
+        getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.amity_ic_cross))
     }
 
     override fun getContentFragment(): Fragment {

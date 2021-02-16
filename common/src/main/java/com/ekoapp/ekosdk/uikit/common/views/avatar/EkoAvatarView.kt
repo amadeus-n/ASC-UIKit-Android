@@ -8,13 +8,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.ekoapp.ekosdk.uikit.R
-import kotlinx.android.synthetic.main.component_avatar.view.*
+import kotlinx.android.synthetic.main.amity_component_avatar.view.*
 
 class EkoAvatarView : ConstraintLayout {
     lateinit var style: EkoAvatarViewStyle
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.component_avatar, this, true)
+        LayoutInflater.from(context).inflate(R.layout.amity_component_avatar, this, true)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
@@ -50,7 +50,7 @@ class EkoAvatarView : ConstraintLayout {
     }
 
     private fun applyStyle() {
-        background = ContextCompat.getDrawable(context, R.drawable.default_ring)
+        background = ContextCompat.getDrawable(context, R.drawable.amity_ic_default_ring)
         image_avatar.layoutParams.height = style.avatarHeight
         image_avatar.layoutParams.width = style.avatarWidth
         if (style.avatarDrawable != -1) {
@@ -62,7 +62,7 @@ class EkoAvatarView : ConstraintLayout {
                 .centerCrop()
                 .into(image_avatar)
         } else {
-            Glide.with(context).load(R.drawable.ic_avatar_placeholder).into(image_avatar)
+            Glide.with(context).load(R.drawable.amity_ic_avatar_placeholder).into(image_avatar)
         }
 
 

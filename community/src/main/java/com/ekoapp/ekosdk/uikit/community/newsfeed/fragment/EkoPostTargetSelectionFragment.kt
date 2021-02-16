@@ -14,7 +14,7 @@ import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoPostTargetSelectionBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentPostTargetSelectionBinding
 import com.ekoapp.ekosdk.uikit.community.newsfeed.activity.EkoCreatePostActivity
 import com.ekoapp.ekosdk.uikit.community.newsfeed.adapter.EkoCreatePostCommunitySelectionAdapter
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.ICreatePostCommunitySelectionListener
@@ -22,13 +22,13 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoCreatePostRoleSel
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_post_target_selection.*
+import kotlinx.android.synthetic.main.amity_fragment_post_target_selection.*
 
 class EkoPostTargetSelectionFragment internal constructor() : EkoBaseFragment(),
     ICreatePostCommunitySelectionListener {
     private val mViewModel: EkoCreatePostRoleSelectionViewModel by activityViewModels()
     private lateinit var mAdapter: EkoCreatePostCommunitySelectionAdapter
-    private lateinit var mBinding: FragmentEkoPostTargetSelectionBinding
+    private lateinit var mBinding: AmityFragmentPostTargetSelectionBinding
     private val TAG = EkoPostTargetSelectionFragment::class.java.canonicalName
 
     override fun onCreateView(
@@ -37,7 +37,7 @@ class EkoPostTargetSelectionFragment internal constructor() : EkoBaseFragment(),
     ): View? {
         mBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_eko_post_target_selection,
+            R.layout.amity_fragment_post_target_selection,
             container,
             false
         )
@@ -59,7 +59,7 @@ class EkoPostTargetSelectionFragment internal constructor() : EkoBaseFragment(),
         val imageURL = user.getAvatar()?.getUrl(EkoImage.Size.MEDIUM)
         Glide.with(this)
             .load(imageURL)
-            .placeholder(R.drawable.ic_uikit_default_profile_large)
+            .placeholder(R.drawable.amity_ic_default_profile_large)
             .centerCrop()
             .into(avProfile)
     }

@@ -10,8 +10,8 @@ class EkoTextMessageViewModelTest {
     fun getter_setterTest() {
         val viewModel = EkoTextMessageViewModel()
         Assert.assertNull(viewModel.text.get())
-        Assert.assertEquals(viewModel.senderFillColor.get(), R.color.upstraColorPrimary)
-        Assert.assertEquals(viewModel.receiverFillColor.get(), R.color.upstraMessageBubbleInverse)
+        Assert.assertEquals(viewModel.senderFillColor.get(), R.color.amityColorPrimary)
+        Assert.assertEquals(viewModel.receiverFillColor.get(), R.color.amityMessageBubbleInverse)
 
         viewModel.text.set("test")
         viewModel.senderFillColor.set(100)

@@ -202,28 +202,28 @@ class FileUtils {
             return (when (mimeType) {
                 "application/x-msdos-program",
                 "application/vnd.microsoft.portable-executable",
-                "application/octet-stream" -> R.drawable.ic_uikit_exe_large
-                "application/rar" -> R.drawable.ic_uikit_rar_large
-                "application/pdf" -> R.drawable.ic_uikit_pdf_large
+                "application/octet-stream" -> R.drawable.amity_ic_exe_large
+                "application/rar" -> R.drawable.amity_ic_rar_large
+                "application/pdf" -> R.drawable.amity_ic_pdf_large
                 "application/msword",
-                "application/vnd.openxmlformats-officedocument.wordprocessingml.document" -> R.drawable.ic_uikit_doc_large
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document" -> R.drawable.amity_ic_doc_large
                 "application/vnd.ms-excel",
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" -> R.drawable.ic_xls_large
-                "text/html" -> R.drawable.ic_uikit_html_large
-                "video/mp4" -> R.drawable.ic_uikit_mp4_large
-                "video/quicktime" -> R.drawable.ic_uikit_mov_large
-                "application/vnd.ms-powerpoint" -> R.drawable.ic_uikit_ppt_large
-                "application/vnd.openxmlformats-officedocument.presentationml.presentation" -> R.drawable.ic_uikit_ppx_large
-                "application/zip" -> R.drawable.ic_zip_large
-                "audio/mpeg" -> R.drawable.ic_uikit_mp3_large
-                "text/plain" -> R.drawable.ic_uikit_txt_large
-                "text/comma-separated-values" -> R.drawable.ic_uikit_csv_large
-                "video/mpeg" -> R.drawable.ic_mpeg_large
-                "video/x-msvideo" -> R.drawable.ic_uikit_avi_large
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" -> R.drawable.amity_ic_xls_large
+                "text/html" -> R.drawable.amity_ic_html_large
+                "video/mp4" -> R.drawable.amity_ic_mp4_large
+                "video/quicktime" -> R.drawable.amity_ic_mov_large
+                "application/vnd.ms-powerpoint" -> R.drawable.amity_ic_ppt_large
+                "application/vnd.openxmlformats-officedocument.presentationml.presentation" -> R.drawable.amity_ic_ppx_large
+                "application/zip" -> R.drawable.amity_ic_zip_large
+                "audio/mpeg" -> R.drawable.amity_ic_mp3_large
+                "text/plain" -> R.drawable.amity_ic_txt_large
+                "text/comma-separated-values" -> R.drawable.amity_ic_csv_large
+                "video/mpeg" -> R.drawable.amity_ic_mpeg_large
+                "video/x-msvideo" -> R.drawable.amity_ic_avi_large
                 else -> {
-                    if (mimeType.startsWith("audio")) R.drawable.ic_uikit_audio_large
-                    else if (mimeType.startsWith("image")) R.drawable.ic_uikit_img_large
-                    else R.drawable.ic_uikit_file_type_unknown
+                    if (mimeType.startsWith("audio")) R.drawable.amity_ic_audio_large
+                    else if (mimeType.startsWith("image")) R.drawable.amity_ic_img_large
+                    else R.drawable.amity_ic_file_type_unknown
                 }
             })
 

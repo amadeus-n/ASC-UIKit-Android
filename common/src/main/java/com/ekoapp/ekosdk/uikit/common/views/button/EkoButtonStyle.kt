@@ -36,17 +36,17 @@ class EkoButtonStyle : Style {
     private fun parse(typedArray: TypedArray) {
         outlineColor = typedArray.getColor(
             R.styleable.Button_outlineColor,
-            getColor(R.color.upstraColorBase)
+            getColor(R.color.amityColorBase)
         )
 
         backgroundColor = typedArray.getColor(
             R.styleable.Button_backgroundColor,
-            getColor(R.color.black)
+            getColor(R.color.amityColorBlack)
         )
 
         buttonType = typedArray.getInt(R.styleable.Button_buttonType, EkoButtonType.Solid)
         buttonTextColor =
-            typedArray.getInt(R.styleable.Button_buttonTextColor, getColor(R.color.upstraColorBase))
+            typedArray.getInt(R.styleable.Button_buttonTextColor, getColor(R.color.amityColorBase))
 
         typedArray.recycle()
 

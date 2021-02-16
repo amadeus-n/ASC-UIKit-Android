@@ -7,7 +7,7 @@
         <item name="android:textSize">@dimen/ts_upstra_title</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginStart">@dimen/sixteen</item>
-        <item name="android:textColor">@color/upstraColorBase</item>
+        <item name="android:textColor">@color/amityColorBase</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
         <item name="android:layout_marginEnd">@dimen/sixteen</item>
@@ -18,7 +18,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/ts_upstra_body</item>
-        <item name="android:textColor">@color/upstraColorPrimary</item>
+        <item name="android:textColor">@color/amityColorPrimary</item>
     </style>
 
     <style name="ToolBarLeftDrawableStyle">

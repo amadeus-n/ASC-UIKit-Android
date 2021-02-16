@@ -36,7 +36,7 @@ class EkoTextStyle : Style {
     private fun parse(typedArray: TypedArray) {
         textColor = typedArray.getColor(
             R.styleable.Text_textColor,
-            getColor(R.color.upstraColorBase)
+            getColor(R.color.amityColorBase)
         )
         textStyle = typedArray.getInt(
             R.styleable.Text_textStyle,

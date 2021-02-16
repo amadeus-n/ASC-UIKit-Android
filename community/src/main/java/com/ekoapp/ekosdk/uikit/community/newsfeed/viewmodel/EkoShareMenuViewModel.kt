@@ -3,8 +3,8 @@ package com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.feed.EkoPostTarget
-import com.ekoapp.ekosdk.uikit.settings.feed.EkoFeedUISettings
-import com.ekoapp.ekosdk.uikit.settings.feed.EkoPostSharingTarget
+import com.ekoapp.ekosdk.uikit.feed.settings.EkoFeedUISettings
+import com.ekoapp.ekosdk.uikit.feed.settings.EkoPostSharingTarget
 
 open class EkoShareMenuViewModel(open val post: EkoPost) {
 
@@ -28,13 +28,9 @@ open class EkoShareMenuViewModel(open val post: EkoPost) {
 
     private fun getPostSharingTargets(): List<EkoPostSharingTarget> {
         val targetPost = post.getTarget()
-        if (targetPost is EkoPostTarget.USER && targetPost.getUser()
-                ?.getUserId() == EkoClient.getUserId()
-        ) {
+        if (targetPost is EkoPostTarget.USER && targetPost.getUser()?.getUserId() == EkoClient.getUserId()) {
             return EkoFeedUISettings.postSharingSettings.myFeedPostSharingTarget
-        } else if (targetPost is EkoPostTarget.USER && targetPost.getUser()
-                ?.getUserId() != EkoClient.getUserId()
-        ) {
+        } else if (targetPost is EkoPostTarget.USER && targetPost.getUser()?.getUserId() != EkoClient.getUserId()) {
             return EkoFeedUISettings.postSharingSettings.userFeedPostSharingTarget
         } else {
             if (targetPost is EkoPostTarget.COMMUNITY) {

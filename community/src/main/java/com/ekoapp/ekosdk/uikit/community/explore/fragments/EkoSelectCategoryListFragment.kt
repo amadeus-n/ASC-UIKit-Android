@@ -34,7 +34,7 @@ class EkoSelectCategoryListFragment internal constructor() : EkoBaseCategoryList
                 Menu.NONE,
                 ID_MENU_ITEM_SAVE_PROFILE,
                 Menu.NONE,
-                getString(R.string.uikit_done)
+                getString(R.string.amity_done)
             )
         menuItemDone?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         super.onCreateOptionsMenu(menu, inflater)

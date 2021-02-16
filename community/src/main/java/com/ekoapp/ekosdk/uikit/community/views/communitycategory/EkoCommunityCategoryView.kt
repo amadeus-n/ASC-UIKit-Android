@@ -9,11 +9,11 @@ import com.bumptech.glide.Glide
 import com.ekoapp.ekosdk.community.category.EkoCommunityCategory
 import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.LayoutCategoryListItemBinding
-import kotlinx.android.synthetic.main.layout_category_list_item.view.*
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityItemCategoryListBinding
+import kotlinx.android.synthetic.main.amity_item_category_list.view.*
 
 class EkoCommunityCategoryView : ConstraintLayout {
-    private lateinit var mBinding: LayoutCategoryListItemBinding
+    private lateinit var mBinding: AmityItemCategoryListBinding
 
 
     constructor(context: Context) : super(context) {
@@ -35,7 +35,7 @@ class EkoCommunityCategoryView : ConstraintLayout {
     fun setImageUrl(url: String) {
         Glide.with(context)
             .load(url)
-            .placeholder(R.drawable.ic_default_category_avatar_40)
+            .placeholder(R.drawable.amity_ic_default_category_avatar)
             .centerCrop()
             .into(categoryAvatar)
     }
@@ -49,7 +49,7 @@ class EkoCommunityCategoryView : ConstraintLayout {
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.layout_category_list_item, this, true)
+            DataBindingUtil.inflate(inflater, R.layout.amity_item_category_list, this, true)
 
     }
 

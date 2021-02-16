@@ -31,7 +31,7 @@ abstract class EkoPickerFragment : EkoBaseFragment() {
                     val pickImage = registerForActivityResult(EkoPickImageContract()) { data ->
                         onImagePicked(data)
                     }
-                    pickImage.launch(getString(R.string.choose_image))
+                    pickImage.launch(getString(R.string.amity_choose_image))
                 } else {
                     Toast.makeText(requireActivity(), "Permission denied", Toast.LENGTH_SHORT)
                         .show()

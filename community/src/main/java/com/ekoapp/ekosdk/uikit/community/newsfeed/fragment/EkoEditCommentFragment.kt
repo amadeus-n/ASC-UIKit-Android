@@ -16,7 +16,7 @@ import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.common.views.dialog.EkoAlertDialogFragment
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoEditCommentBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentEditCommentBinding
 import com.ekoapp.ekosdk.uikit.community.newsfeed.activity.EXTRA_PARAM_COMMENT
 import com.ekoapp.ekosdk.uikit.community.newsfeed.activity.EXTRA_PARAM_COMMENT_TEXT
 import com.ekoapp.ekosdk.uikit.community.newsfeed.activity.EkoEditCommentActivity
@@ -34,7 +34,7 @@ class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
     private val TAG = EkoEditCommentActivity::class.java.canonicalName
 
     private val mViewModel: EkoEditCommentViewModel by activityViewModels()
-    lateinit var mBinding: FragmentEkoEditCommentBinding
+    lateinit var mBinding: AmityFragmentEditCommentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         consumeBackPress = true
@@ -49,7 +49,7 @@ class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
         mBinding =
             DataBindingUtil.inflate(
                 inflater,
-                R.layout.fragment_eko_edit_comment,
+                R.layout.amity_fragment_edit_comment,
                 container,
                 false
             )
@@ -90,10 +90,10 @@ class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
     private fun setupToolbar() {
         if (mViewModel.editMode()) {
             (activity as AppCompatActivity).supportActionBar?.title =
-                getString(R.string.edit_comment)
+                getString(R.string.amity_edit_comment)
         } else {
             (activity as AppCompatActivity).supportActionBar?.title =
-                getString(R.string.add_comment)
+                getString(R.string.amity_add_comment)
         }
     }
 
@@ -107,9 +107,9 @@ class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
 
     private fun getMenuItemCommentTitle(): String {
         return if (mViewModel.editMode())
-            getString(R.string.save)
+            getString(R.string.amity_save)
         else
-            getString(R.string.post_caps)
+            getString(R.string.amity_post_caps)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -157,8 +157,8 @@ class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
     private fun showExitConfirmationDialog() {
         val exitConfirmationDialogFragment = EkoAlertDialogFragment
             .newInstance(
-                R.string.discard_comment_title, R.string.discard_comment_message,
-                R.string.discard, R.string.cancel
+                R.string.amity_discard_comment_title, R.string.amity_discard_comment_message,
+                R.string.amity_discard, R.string.amity_cancel
             )
         exitConfirmationDialogFragment.show(childFragmentManager, EkoAlertDialogFragment.TAG);
         exitConfirmationDialogFragment.listener = this
@@ -177,7 +177,7 @@ class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
                 Log.d(TAG, it.message ?: "")
                 Toast.makeText(
                     activity,
-                    getString(R.string.update_comment_error_message),
+                    getString(R.string.amity_update_comment_error_message),
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -202,7 +202,7 @@ class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
                 Log.d(TAG, it.message ?: "")
                 Toast.makeText(
                     activity,
-                    getString(R.string.add_comment_error_message),
+                    getString(R.string.amity_add_comment_error_message),
                     Toast.LENGTH_LONG
                 ).show()
             }

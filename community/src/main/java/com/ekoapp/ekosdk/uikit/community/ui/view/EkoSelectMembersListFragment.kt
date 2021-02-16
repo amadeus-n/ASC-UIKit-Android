@@ -19,7 +19,7 @@ import com.ekoapp.ekosdk.uikit.common.setShape
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.data.SelectMemberItem
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoSelectMembersListBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentSelectMembersListBinding
 import com.ekoapp.ekosdk.uikit.community.ui.adapter.EkoMembersListAdapter
 import com.ekoapp.ekosdk.uikit.community.ui.adapter.EkoSearchResultAdapter
 import com.ekoapp.ekosdk.uikit.community.ui.adapter.EkoSelectedMemberAdapter
@@ -34,7 +34,7 @@ import com.ekoapp.ekosdk.user.EkoUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_select_members_list.*
+import kotlinx.android.synthetic.main.amity_fragment_select_members_list.*
 
 private const val ARG_MEMBERS_LIST = "ARG_MEMBERS_LIST"
 
@@ -49,7 +49,7 @@ class EkoSelectMembersListFragment internal constructor() : Fragment(), EkoSelec
     private val disposable: CompositeDisposable by lazy {
         CompositeDisposable()
     }
-    private lateinit var mBinding: FragmentEkoSelectMembersListBinding
+    private lateinit var mBinding: AmityFragmentSelectMembersListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +58,7 @@ class EkoSelectMembersListFragment internal constructor() : Fragment(), EkoSelec
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_eko_select_members_list, container, false
+            R.layout.amity_fragment_select_members_list, container, false
         )
         mBinding.viewModel = mViewModel
         return mBinding.root
@@ -75,7 +75,7 @@ class EkoSelectMembersListFragment internal constructor() : Fragment(), EkoSelec
 
         etSearch.setShape(
             null, null, null, null,
-            R.color.upstraColorBase, null, ColorShade.SHADE4
+            R.color.amityColorBase, null, ColorShade.SHADE4
         )
 
     }
@@ -101,10 +101,10 @@ class EkoSelectMembersListFragment internal constructor() : Fragment(), EkoSelec
     private fun setToolBarState() {
         if (mViewModel.selectedMembersList.size != 0) {
             mViewModel.leftString.value =
-                "${mViewModel.selectedMembersList.size} ${getString(R.string.selected)}"
+                "${mViewModel.selectedMembersList.size} ${getString(R.string.amity_selected)}"
             mViewModel.rightStringActive.value = true
         } else {
-            mViewModel.leftString.value = getString(R.string.select_members)
+            mViewModel.leftString.value = getString(R.string.amity_select_members)
             mViewModel.rightStringActive.value = false
         }
     }
@@ -177,7 +177,7 @@ class EkoSelectMembersListFragment internal constructor() : Fragment(), EkoSelec
             member.getUserId(),
             member.getAvatar()?.getUrl(EkoImage.Size.MEDIUM) ?: "",
             member.getDisplayName()
-                ?: getString(R.string.anonymous), member.getDescription(), false
+                ?: getString(R.string.amity_anonymous), member.getDescription(), false
         )
         if (mViewModel.selectedMemberSet.contains(member.getUserId())) {
             mViewModel.prepareSelectedMembersList(selectMemberItem, false)

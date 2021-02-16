@@ -17,7 +17,7 @@ import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoCategoryListViewMo
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_category_list.*
+import kotlinx.android.synthetic.main.amity_fragment_category_list.*
 
 const val ARG_DEFAULT_SELECTION = "default_selection"
 
@@ -35,7 +35,7 @@ abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragm
     abstract fun getCategoryListAdapter(): EkoCategoryListAdapter
 
     private fun setupToolBar() {
-        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.category)
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.amity_category)
     }
 
     override fun onCreateView(
@@ -43,7 +43,7 @@ abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragm
         savedInstanceState: Bundle?
     ): View? {
         mViewModel = ViewModelProvider(requireActivity()).get(EkoCategoryListViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_eko_category_list, container, false)
+        return inflater.inflate(R.layout.amity_fragment_category_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

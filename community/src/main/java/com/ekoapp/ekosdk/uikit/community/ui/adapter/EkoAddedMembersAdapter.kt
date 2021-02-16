@@ -15,12 +15,12 @@ class EkoAddedMembersAdapter(private val listener: EkoAddedMemberClickListener) 
     EkoBaseRecyclerViewAdapter<SelectMemberItem>() {
     override fun getLayoutId(position: Int, obj: SelectMemberItem?): Int {
         return when (obj?.name) {
-            "ADD" -> R.layout.added_member_with_add_icon
+            "ADD" -> R.layout.amity_view_added_member_with_add_icon
             else -> {
                 if (position == 7) {
-                    R.layout.added_member_with_count
+                    R.layout.amity_view_added_member_with_count
                 } else {
-                    R.layout.added_member_item
+                    R.layout.amity_item_added_member
                 }
             }
         }
@@ -28,8 +28,8 @@ class EkoAddedMembersAdapter(private val listener: EkoAddedMemberClickListener) 
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            R.layout.added_member_with_count -> EkoAddedMembersCountViewHolder(view, listener)
-            R.layout.added_member_with_add_icon -> EkoAddedMemberWithAddButtonViewHolder(
+            R.layout.amity_view_added_member_with_count -> EkoAddedMembersCountViewHolder(view, listener)
+            R.layout.amity_view_added_member_with_add_icon -> EkoAddedMemberWithAddButtonViewHolder(
                 view,
                 listener
             )

@@ -4,14 +4,14 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.ekoapp.ekosdk.message.EkoMessage
 import com.ekoapp.ekosdk.uikit.chat.messages.viewHolder.EkoChatMessageBaseViewHolder
-import com.ekoapp.sample.databinding.ItemTextSenderBinding
+import com.ekoapp.sample.databinding.AmityItemTextSenderBinding
 
 class TextSenderViewHolder(
     itemView: View,
     private val itemViewModel: MyTextMsgViewModel
 ) : EkoChatMessageBaseViewHolder(itemView, itemViewModel) {
 
-    private val binding: ItemTextSenderBinding? = DataBindingUtil.bind(itemView)
+    private val binding: AmityItemTextSenderBinding? = DataBindingUtil.bind(itemView)
 
     init {
         binding?.viewModel = itemViewModel

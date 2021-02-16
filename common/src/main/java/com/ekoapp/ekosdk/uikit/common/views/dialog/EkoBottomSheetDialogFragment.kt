@@ -5,7 +5,7 @@ import android.view.*
 import androidx.annotation.MenuRes
 import com.ekoapp.ekosdk.uikit.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.layout_bottom_sheet_dialog.*
+import kotlinx.android.synthetic.main.amity_dialog_bottom_sheet.*
 import kotlin.properties.Delegates
 
 
@@ -21,12 +21,8 @@ class EkoBottomSheetDialogFragment private constructor() : BottomSheetDialogFrag
         menu = requireArguments().getInt(EXTRA_PARAM_NAV_MENU)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.layout_bottom_sheet_dialog, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.amity_dialog_bottom_sheet, container, false)
     }
 
     fun setOnNavigationItemSelectedListener(listener: OnNavigationItemSelectedListener) {

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
-import kotlinx.android.synthetic.main.activity_eko_create_community.*
+import kotlinx.android.synthetic.main.amity_activity_create_community.*
 
 class EkoCommunityCreateActivity : AppCompatActivity(), EkoToolBarClickListener {
 
@@ -14,16 +14,16 @@ class EkoCommunityCreateActivity : AppCompatActivity(), EkoToolBarClickListener 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_eko_create_community)
+        setContentView(R.layout.amity_activity_create_community)
         setUpToolBar()
         loadFragment()
     }
 
     private fun setUpToolBar() {
         communityToolbar.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross)
+            ContextCompat.getDrawable(this, R.drawable.amity_ic_cross)
         )
-        communityToolbar.setLeftString(getString(R.string.create_community))
+        communityToolbar.setLeftString(getString(R.string.amity_create_community))
 
         communityToolbar.setClickListener(this)
 

@@ -22,7 +22,7 @@ object EkoAlbumUtil {
                     if (currentCount == MAX_SELECTION_COUNT) {
                         Toast.makeText(
                             activity,
-                            activity.getString(R.string.max_image_selected),
+                            activity.getString(R.string.amity_max_image_selected),
                             Toast.LENGTH_LONG
                         ).show()
                     } else {
@@ -49,7 +49,7 @@ object EkoAlbumUtil {
                     if (currentCount == MAX_SELECTION_COUNT) {
                         Toast.makeText(
                             fragment.requireContext(),
-                            fragment.getString(R.string.max_image_selected),
+                            fragment.getString(R.string.amity_max_image_selected),
                             Toast.LENGTH_LONG
                         ).show()
                     } else {

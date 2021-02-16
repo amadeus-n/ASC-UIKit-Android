@@ -12,9 +12,9 @@ class EkoCommunityMemberSettingsActivity : EkoBaseToolbarFragmentContainerActivi
 
     override fun initToolbar() {
         getToolBar()?.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+            ContextCompat.getDrawable(this, R.drawable.amity_ic_arrow_back)
         )
-        getToolBar()?.setLeftString(getString(R.string.members_capital))
+        getToolBar()?.setLeftString(getString(R.string.amity_members_capital))
     }
 
     override fun getContentFragment(): Fragment {

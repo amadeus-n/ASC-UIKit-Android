@@ -7,6 +7,6 @@ import com.ekoapp.ekosdk.uikit.R
 class EkoCameraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_eko_camera)
+        setContentView(R.layout.amity_activity_camera)
     }
 }

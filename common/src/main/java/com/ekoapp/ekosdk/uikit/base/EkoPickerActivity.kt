@@ -36,7 +36,7 @@ abstract class EkoPickerActivity<T : ViewDataBinding, V : EkoBaseViewModel> :
                     val pickImage = registerForActivityResult(EkoPickImageContract()) { data ->
                         onImagePicked(data)
                     }
-                    pickImage.launch(getString(R.string.choose_image))
+                    pickImage.launch(getString(R.string.amity_choose_image))
                 } else {
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
                 }

@@ -31,12 +31,12 @@ class EkoCategoryListAdapter(
 
     override fun getLayoutId(position: Int, obj: EkoCommunityCategory?): Int {
         if (modeSelection)
-            return R.layout.layout_community_category_list_item_type_selector
-        return R.layout.layout_community_category_list_item
+            return R.layout.amity_item_type_selector_community_category_list
+        return R.layout.amity_item_community_category_list
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == R.layout.layout_community_category_list_item)
+        if (viewType == R.layout.amity_item_community_category_list)
             return EkoCategoryItemViewHolder(view, itemClickListener)
         else
             return EkoCategoryItemTypeSelectorViewHolder(view, itemClickListener, this)

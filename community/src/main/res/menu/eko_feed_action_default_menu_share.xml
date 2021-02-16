@@ -4,18 +4,18 @@
 
     <item
         android:id="@+id/actionShareToMyTimeline"
-        android:title="@string/share_to_my_timeline"
+        android:title="@string/amity_share_to_my_timeline"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/actionShareToGroup"
-        android:title="@string/share_to_group"
+        android:title="@string/amity_share_to_group"
         app:showAsAction="always" />
 
 
     <item
         android:id="@+id/actionMoreOptions"
-        android:title="@string/more_options"
+        android:title="@string/amity_more_options"
         app:showAsAction="always" />
 
 </menu>

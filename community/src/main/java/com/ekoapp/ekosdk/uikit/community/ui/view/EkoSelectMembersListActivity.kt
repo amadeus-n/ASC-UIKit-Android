@@ -8,20 +8,20 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseActivity
 import com.ekoapp.ekosdk.uikit.community.BR
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.data.SelectMemberItem
-import com.ekoapp.ekosdk.uikit.community.databinding.ActivityEkoSelectMembersListBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityActivitySelectMembersListBinding
 import com.ekoapp.ekosdk.uikit.community.ui.viewModel.EkoSelectMembersViewModel
 import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
 import com.ekoapp.ekosdk.uikit.utils.EkoConstants
-import kotlinx.android.synthetic.main.activity_eko_select_members_list.*
+import kotlinx.android.synthetic.main.amity_activity_select_members_list.*
 
-class EkoSelectMembersListActivity : EkoBaseActivity<ActivityEkoSelectMembersListBinding,
+class EkoSelectMembersListActivity : EkoBaseActivity<AmityActivitySelectMembersListBinding,
         EkoSelectMembersViewModel>(), EkoToolBarClickListener {
 
     private val mViewModel: EkoSelectMembersViewModel by viewModels()
     private lateinit var mFragment: EkoSelectMembersListFragment
 
 
-    override fun getLayoutId(): Int = R.layout.activity_eko_select_members_list
+    override fun getLayoutId(): Int = R.layout.amity_activity_select_members_list
 
     override fun getViewModel(): EkoSelectMembersViewModel = mViewModel
 
@@ -46,9 +46,9 @@ class EkoSelectMembersListActivity : EkoBaseActivity<ActivityEkoSelectMembersLis
 
     private fun setUpToolBar() {
         smToolBar.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+            ContextCompat.getDrawable(this, R.drawable.amity_ic_arrow_back)
         )
-        smToolBar.setRightString(getString(R.string.uikit_done))
+        smToolBar.setRightString(getString(R.string.amity_done))
         smToolBar.setClickListener(this)
         setSelectionCount()
     }

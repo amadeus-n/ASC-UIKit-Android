@@ -12,7 +12,7 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedCommentItemC
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedCommentShowAllReplyListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedCommentShowMoreActionListener
 import com.ekoapp.ekosdk.uikit.community.views.newsfeed.EkoNewsFeedCommentView
-import kotlinx.android.synthetic.main.layout_news_feed_item_comment.view.*
+import kotlinx.android.synthetic.main.amity_item_comment_news_feed.view.*
 
 
 class EkoNewsFeedCommentViewHolder(

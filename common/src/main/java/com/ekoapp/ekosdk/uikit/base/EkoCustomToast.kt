@@ -8,24 +8,21 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import com.ekoapp.ekosdk.uikit.R
-import com.ekoapp.ekosdk.uikit.databinding.LayoutEkoCustomToastBinding
+import com.ekoapp.ekosdk.uikit.databinding.AmityViewCustomToastBinding
 
 
 class EkoCustomToast {
     companion object {
-        private lateinit var mBinding: LayoutEkoCustomToastBinding
+        private lateinit var mBinding: AmityViewCustomToastBinding
         fun showMessage(
-            parent: View,
-            applicationContext: Context,
-            inflater: LayoutInflater,
-            message: String,
-            messageDuration: Int = Toast.LENGTH_LONG
-        ) {
-            mBinding = LayoutEkoCustomToastBinding.inflate(inflater)
-            val layout = inflater.inflate(
-                R.layout.layout_eko_custom_toast,
-                null
-            ) as ViewGroup
+                parent: View,
+                applicationContext: Context,
+                inflater: LayoutInflater,
+                message: String,
+                messageDuration: Int = Toast.LENGTH_LONG) {
+
+            mBinding = AmityViewCustomToastBinding.inflate(inflater)
+            val layout = inflater.inflate(R.layout.amity_view_custom_toast, null) as ViewGroup
 
             val text: TextView = layout.findViewById(R.id.tvMessage)
 

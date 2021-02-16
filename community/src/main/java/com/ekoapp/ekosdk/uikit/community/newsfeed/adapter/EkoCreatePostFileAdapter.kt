@@ -10,7 +10,7 @@ class EkoCreatePostFileAdapter(val listener: ICreatePostFileActionListener?) :
     EkoBaseFeedAttachmentAdapter() {
 
     override fun getLayoutId(position: Int, obj: FileAttachment?): Int {
-        return R.layout.layout_create_post_file_item
+        return R.layout.amity_item_create_post_file
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {

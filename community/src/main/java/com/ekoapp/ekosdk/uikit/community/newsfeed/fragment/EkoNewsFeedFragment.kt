@@ -14,7 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentNewsFeedBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentNewsFeedBinding
 import com.ekoapp.ekosdk.uikit.community.home.fragments.EkoCommunityHomeViewModel
 import com.ekoapp.ekosdk.uikit.community.home.listener.IGlobalFeedFragmentDelegate
 import com.ekoapp.ekosdk.uikit.community.home.listener.IMyCommunityListPreviewFragmentDelegate
@@ -25,12 +25,12 @@ import com.ekoapp.ekosdk.uikit.community.ui.view.EkoCommunityCreateActivity
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.google.android.material.appbar.AppBarLayout
-import kotlinx.android.synthetic.main.fragment_news_feed.*
+import kotlinx.android.synthetic.main.amity_fragment_news_feed.*
 
 class EkoNewsFeedFragment internal constructor() : EkoBaseFragment(),
     AppBarLayout.OnOffsetChangedListener {
 
-    private lateinit var mBinding: FragmentNewsFeedBinding
+    private lateinit var mBinding: AmityFragmentNewsFeedBinding
     private lateinit var mViewModel: EkoNewsFeedViewModel
     private val communityHomeViewModel: EkoCommunityHomeViewModel by activityViewModels()
 
@@ -39,7 +39,7 @@ class EkoNewsFeedFragment internal constructor() : EkoBaseFragment(),
         savedInstanceState: Bundle?
     ): View? {
         mViewModel = ViewModelProvider(requireActivity()).get(EkoNewsFeedViewModel::class.java)
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_news_feed, container, false)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.amity_fragment_news_feed, container, false)
         mBinding.viewModel = mViewModel
         return mBinding.root
     }
@@ -72,7 +72,7 @@ class EkoNewsFeedFragment internal constructor() : EkoBaseFragment(),
 
         }
 
-        refreshLayout.setColorSchemeResources(R.color.upstraColorPrimary)
+        refreshLayout.setColorSchemeResources(R.color.amityColorPrimary)
         refreshLayout.setOnRefreshListener {
             childFragmentManager.fragments.forEach { fragment ->
                 when (fragment) {

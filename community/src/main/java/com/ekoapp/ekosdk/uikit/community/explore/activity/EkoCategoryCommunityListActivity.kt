@@ -14,7 +14,7 @@ class EkoCategoryCommunityListActivity : EkoBaseToolbarFragmentContainerActivity
     override fun initToolbar() {
         val category: EkoCommunityCategory? = intent.getParcelableExtra(INTENT_CATEGORY)
         getToolBar()?.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+            ContextCompat.getDrawable(this, R.drawable.amity_ic_arrow_back)
         )
         getToolBar()?.setLeftString(category?.getName() ?: "")
         showToolbarDivider()

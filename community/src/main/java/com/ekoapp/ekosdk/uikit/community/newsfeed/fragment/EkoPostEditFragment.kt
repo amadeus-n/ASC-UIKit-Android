@@ -11,7 +11,7 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.util.NewsFeedEvents
 import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED_ID
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_eko_create_post.*
+import kotlinx.android.synthetic.main.amity_activity_create_post.*
 
 class EkoPostEditFragment internal constructor() : EkoBaseCreatePostFragment() {
 
@@ -33,11 +33,11 @@ class EkoPostEditFragment internal constructor() : EkoBaseCreatePostFragment() {
     }
 
     override fun setToolBarText() {
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.edit_post)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.amity_edit_post)
     }
 
     override fun getPostMenuText(): String {
-        return getString(R.string.save_caps)
+        return getString(R.string.amity_save_caps)
     }
 
     override fun isRightButtonActive(): Boolean {

@@ -5,13 +5,13 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.home.fragments.EkoCommunityHomePageFragment
-import kotlinx.android.synthetic.main.activity_community_home.*
+import kotlinx.android.synthetic.main.amity_activity_community_home.*
 
 class EkoCommunityHomePageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_community_home)
+        setContentView(R.layout.amity_activity_community_home)
         initToolbar()
         loadFragment()
     }
@@ -19,7 +19,7 @@ class EkoCommunityHomePageActivity : AppCompatActivity() {
     private fun initToolbar() {
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         setSupportActionBar(communityHomeToolbar)
-        communityHomeToolbar.setLeftString(getString(R.string.community))
+        communityHomeToolbar.setLeftString(getString(R.string.amity_community))
     }
 
     private fun loadFragment() {

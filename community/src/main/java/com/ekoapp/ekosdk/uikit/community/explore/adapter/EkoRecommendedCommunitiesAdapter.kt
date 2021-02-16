@@ -9,14 +9,14 @@ import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewPagedAdapter
 import com.ekoapp.ekosdk.uikit.common.formatCount
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.LayoutRecommCommItemBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityItemRecommCommBinding
 import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener
 
 class EkoRecommendedCommunitiesAdapter(private val listener: IMyCommunityItemClickListener) :
     EkoBaseRecyclerViewPagedAdapter<EkoCommunity>(diffCallBack) {
 
     override fun getLayoutId(position: Int, obj: EkoCommunity?): Int =
-        R.layout.layout_recomm_comm_item
+        R.layout.amity_item_recomm_comm
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder =
         EkoRecommendedCommunityViewHolder(view, listener)
@@ -26,7 +26,7 @@ class EkoRecommendedCommunitiesAdapter(private val listener: IMyCommunityItemCli
         private val listener: IMyCommunityItemClickListener
     ) : RecyclerView.ViewHolder(itemView), Binder<EkoCommunity> {
 
-        private val binding: LayoutRecommCommItemBinding? = DataBindingUtil.bind(itemView)
+        private val binding: AmityItemRecommCommBinding? = DataBindingUtil.bind(itemView)
         private val textviewCommunityName: TextView = itemView.findViewById(R.id.tvCommName)
 
         override fun bind(data: EkoCommunity?, position: Int) {
@@ -34,7 +34,7 @@ class EkoRecommendedCommunitiesAdapter(private val listener: IMyCommunityItemCli
                 textviewCommunityName.setCompoundDrawablesWithIntrinsicBounds(
                     0,
                     0,
-                    R.drawable.ic_uikit_verified,
+                    R.drawable.amity_ic_verified,
                     0
                 )
             } else {
@@ -49,7 +49,7 @@ class EkoRecommendedCommunitiesAdapter(private val listener: IMyCommunityItemCli
             binding?.ekoCommunity = data
             binding?.listener = listener
             binding?.tvMembersCount?.text = itemView.context.getString(
-                R.string.members_count,
+                R.string.amity_members_count,
                 "${data?.getMemberCount()?.toDouble()?.formatCount()}"
             )
             binding?.tvCommName?.text =

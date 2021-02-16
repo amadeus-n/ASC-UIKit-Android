@@ -36,7 +36,7 @@ class EkoImageView : AppCompatImageView {
     private fun applyStyle() {
         if (style.tintColor != -1) {
             setColorFilter(
-                ContextCompat.getColor(context, R.color.upstraColorAlert),
+                ContextCompat.getColor(context, R.color.amityColorAlert),
                 android.graphics.PorterDuff.Mode.MULTIPLY
             );
         }

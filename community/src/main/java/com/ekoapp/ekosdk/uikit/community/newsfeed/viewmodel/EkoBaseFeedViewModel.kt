@@ -10,9 +10,9 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedShareListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostItemClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostOptionClickListener
+import com.ekoapp.ekosdk.uikit.feed.settings.EkoFeedUISettings
+import com.ekoapp.ekosdk.uikit.feed.settings.IPostShareClickListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
-import com.ekoapp.ekosdk.uikit.settings.EkoUIKitClient
-import com.ekoapp.ekosdk.uikit.settings.feed.IPostShareClickListener
 import com.ekoapp.ekosdk.uikit.utils.SingleLiveData
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -21,8 +21,7 @@ abstract class EkoBaseFeedViewModel : EkoBaseViewModel(), INewsFeedShareListener
 
     var postOptionClickListener: IPostOptionClickListener? = null
     var postItemClickListener: IPostItemClickListener? = null
-    var postShareClickListener: IPostShareClickListener? =
-        EkoUIKitClient.feedUISettings.postShareClickListener
+    var postShareClickListener: IPostShareClickListener? = EkoFeedUISettings.postShareClickListener
 
     override val shareToMyTimelineActionRelay = SingleLiveData<Unit>()
     override val shareToGroupActionRelay = SingleLiveData<Unit>()
@@ -77,13 +76,13 @@ abstract class EkoBaseFeedViewModel : EkoBaseViewModel(), INewsFeedShareListener
 
     fun deleteComment(comment: EkoComment): Completable {
         return comment.delete()
-            .concatWith(Completable.defer {
-                val postId = (comment.getReference() as EkoCommentReference.Post).getPostId()
-                EkoClient.newFeedRepository()
-                    .getPost(postId)
-                    .ignoreElements()
-                    .onErrorComplete()
-            })
+                .concatWith(Completable.defer {
+                    val postId = (comment.getReference() as EkoCommentReference.Post).getPostId()
+                    EkoClient.newFeedRepository()
+                            .getPost(postId)
+                            .ignoreElements()
+                            .onErrorComplete()
+                })
     }
 
     fun postReaction(liked: Boolean, ekoPost: EkoPost): Completable {

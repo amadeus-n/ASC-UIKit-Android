@@ -6,8 +6,8 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.ekoapp.ekosdk.message.EkoMessage
 import com.ekoapp.ekosdk.uikit.chat.R
-import com.ekoapp.ekosdk.uikit.chat.databinding.ItemAudioMessageSenderBinding
-import com.ekoapp.ekosdk.uikit.chat.databinding.MsgDeletePopupBinding
+import com.ekoapp.ekosdk.uikit.chat.databinding.AmityItemAudioMessageSenderBinding
+import com.ekoapp.ekosdk.uikit.chat.databinding.AmityPopupMsgDeleteBinding
 import com.ekoapp.ekosdk.uikit.chat.messages.popUp.EkoPopUp
 import com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoAudioMsgViewModel
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
@@ -19,7 +19,7 @@ class EkoAudioMsgSenderViewHolder(
     audioPlayListener: IAudioPlayCallback
 ) : AudioMsgBaseViewHolder(itemView, itemViewModel, context, audioPlayListener) {
 
-    private val binding: ItemAudioMessageSenderBinding? = DataBindingUtil.bind(itemView)
+    private val binding: AmityItemAudioMessageSenderBinding? = DataBindingUtil.bind(itemView)
     private var popUp: EkoPopUp? = null
 
     init {
@@ -48,9 +48,9 @@ class EkoAudioMsgSenderViewHolder(
             popUp = EkoPopUp()
             val anchor: View = itemView.findViewById(R.id.layoutAudio)
             val inflater: LayoutInflater = LayoutInflater.from(anchor.context)
-            val binding: MsgDeletePopupBinding = DataBindingUtil.inflate(
+            val binding: AmityPopupMsgDeleteBinding = DataBindingUtil.inflate(
                 inflater,
-                R.layout.msg_delete_popup, null, true
+                R.layout.amity_popup_msg_delete, null, true
             )
             binding.viewModel = itemViewModel
             popUp?.showPopUp(binding.root, anchor, itemViewModel, EkoPopUp.PopUpGravity.END)

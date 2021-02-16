@@ -10,12 +10,12 @@ import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.uikit.base.EkoBaseActivity
 import com.ekoapp.ekosdk.uikit.community.BR
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.ActivityEkoCommunitySettingBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityActivityCommunitySettingBinding
 import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
-import kotlinx.android.synthetic.main.activity_eko_community_setting.*
+import kotlinx.android.synthetic.main.amity_activity_community_setting.*
 
 class EkoCommunitySettingsActivity :
-    EkoBaseActivity<ActivityEkoCommunitySettingBinding, EkoCommunitySettingViewModel>(),
+    EkoBaseActivity<AmityActivityCommunitySettingBinding, EkoCommunitySettingViewModel>(),
     EkoToolBarClickListener {
 
     private val mViewModel: EkoCommunitySettingViewModel by viewModels()
@@ -29,10 +29,10 @@ class EkoCommunitySettingsActivity :
 
     private fun setUpToolbar() {
         communitySettingsToolbar.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+            ContextCompat.getDrawable(this, R.drawable.amity_ic_arrow_back)
         )
         communitySettingsToolbar.setClickListener(this)
-        communitySettingsToolbar.setLeftString(getString(R.string.community_setting))
+        communitySettingsToolbar.setLeftString(getString(R.string.amity_community_setting))
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         setSupportActionBar(communitySettingsToolbar)
     }
@@ -59,7 +59,7 @@ class EkoCommunitySettingsActivity :
             }
     }
 
-    override fun getLayoutId(): Int = R.layout.activity_eko_community_setting
+    override fun getLayoutId(): Int = R.layout.amity_activity_community_setting
 
     override fun getViewModel(): EkoCommunitySettingViewModel = mViewModel
 

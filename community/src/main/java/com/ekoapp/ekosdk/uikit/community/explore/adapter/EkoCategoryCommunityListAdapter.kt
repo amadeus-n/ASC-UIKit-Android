@@ -16,7 +16,7 @@ class EkoCategoryCommunityListAdapter(
 
 
     override fun getLayoutId(position: Int, obj: EkoCommunity?): Int {
-        return R.layout.layout_category_community_list_item
+        return R.layout.amity_item_category_community_list
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {

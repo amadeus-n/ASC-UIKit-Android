@@ -23,9 +23,9 @@ class EkoCategoryListActivity :
     override fun initToolbar() {
         showToolbarDivider()
         getToolBar()?.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+            ContextCompat.getDrawable(this, R.drawable.amity_ic_arrow_back)
         )
-        getToolBar()?.setLeftString(getString(R.string.category))
+        getToolBar()?.setLeftString(getString(R.string.amity_category))
     }
 
     override fun getContentFragment(): Fragment {

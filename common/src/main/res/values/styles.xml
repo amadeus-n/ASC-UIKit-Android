@@ -1,12 +1,12 @@
 <resources>
 
     <style name="EkoAlertDialogStyle" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="colorPrimary">@color/upstraColorPrimary</item>
+        <item name="colorPrimary">@color/amityColorPrimary</item>
         <item name="materialAlertDialogBodyTextStyle">@style/AlertDialogBodyTextStyl</item>
     </style>
 
     <style name="AlertDialogBodyTextStyl" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
-        <item name="android:textColor">@color/upstraColorBase</item>
+        <item name="android:textColor">@color/amityColorBase</item>
     </style>
 
     <style name="IconButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
@@ -25,8 +25,8 @@
     </style>
 
     <style name="ImagePreviewToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Primary">
-        <item name="android:background">@color/black</item>
-        <item name="titleTextColor">@color/white</item>
+        <item name="android:background">@color/amityColorBlack</item>
+        <item name="titleTextColor">@color/amityColorWhite</item>
     </style>
 
     <style name="ImagePreviewTheme" parent="Base.Theme.EkoApp"></style>
@@ -47,12 +47,12 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="paddingStart">@dimen/twelve</item>
-        <item name="android:drawableStart">@drawable/ic_uikit_search</item>
+        <item name="android:drawableStart">@drawable/amity_ic_search</item>
         <item name="android:drawablePadding">@dimen/eight</item>
         <item name="android:paddingStart">@dimen/seventeen</item>
         <item name="android:layout_marginStart">@dimen/sixteen</item>
         <item name="android:layout_marginEnd">@dimen/sixteen</item>
-        <item name="android:hint">@string/search</item>
+        <item name="android:hint">@string/amity_search</item>
         <item name="android:textSize">@dimen/ts_upstra_body</item>
         <item name="drawableTint">#636768</item>
     </style>
@@ -86,20 +86,20 @@
     </style>
 
     <style name="ImagePickerTheme" parent="Matisse.Zhihu">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorPrimary">@color/amityColorWhite</item>
+        <item name="colorPrimaryDark">@color/amityColorWhite</item>
         <item name="toolbar">@style/ImagePickerToolbarStyle</item>
-        <item name="album.dropdown.title.color">@color/upstraColorBase</item>
-        <item name="album.dropdown.count.color">@color/upstraColorBase</item>
-        <item name="album.element.color">@color/upstraColorBase</item>
-        <item name="bottomToolbar.preview.textColor">@color/upstraColorBase</item>
-        <item name="bottomToolbar.apply.textColor">@color/upstraColorBase</item>
-        <item name="item.checkCircle.backgroundColor">@color/upstraColorBase</item>
+        <item name="album.dropdown.title.color">@color/amityColorBase</item>
+        <item name="album.dropdown.count.color">@color/amityColorBase</item>
+        <item name="album.element.color">@color/amityColorBase</item>
+        <item name="bottomToolbar.preview.textColor">@color/amityColorBase</item>
+        <item name="bottomToolbar.apply.textColor">@color/amityColorBase</item>
+        <item name="item.checkCircle.backgroundColor">@color/amityColorBase</item>
 
     </style>
 
     <style name="ImagePickerToolbarStyle" parent="Toolbar.Zhihu">
-        <item name="homeAsUpIndicator">@drawable/ic_uikit_cross</item>
+        <item name="homeAsUpIndicator">@drawable/amity_ic_cross</item>
 
     </style>
 

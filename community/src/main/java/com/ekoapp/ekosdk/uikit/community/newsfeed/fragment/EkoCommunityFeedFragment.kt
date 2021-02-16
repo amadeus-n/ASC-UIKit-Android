@@ -11,14 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.LayoutMyTimelineFeedEmptyViewBinding
-import com.ekoapp.ekosdk.uikit.community.databinding.LayoutOtherUserTimelineEmptyViewBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityViewMyTimelineFeedEmptyBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityViewOtherUserTimelineEmptyBinding
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IAvatarClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.util.EkoTimelineType
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoBaseFeedViewModel
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoCommunityTimelineViewModel
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
-import com.ekoapp.ekosdk.uikit.settings.feed.IPostShareClickListener
+import com.ekoapp.ekosdk.uikit.feed.settings.IPostShareClickListener
 import com.ekoapp.ekosdk.user.EkoUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -33,8 +33,7 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel =
-            ViewModelProvider(requireActivity()).get(EkoCommunityTimelineViewModel::class.java)
+        mViewModel = ViewModelProvider(requireActivity()).get(EkoCommunityTimelineViewModel::class.java)
         arguments.let {
             mViewModel.communityId = it?.getString(ARG_COMMUNITY_ID)
             mViewModel.community = it?.getParcelable(ARG_COMMUNITY)
@@ -48,16 +47,16 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
 
     private fun getCommunityDetails() {
         val communityDisposable = mViewModel.getCommunity(mViewModel.communityId!!)
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.doOnSuccess {
-                mViewModel.community = it
-                mViewModel.updateAdminAccess()
-            }
-            ?.doOnError {
-                Log.d(TAG, it.message ?: "")
-            }
-            ?.subscribe()
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.doOnSuccess {
+                    mViewModel.community = it
+                    mViewModel.updateAdminAccess()
+                }
+                ?.doOnError {
+                    Log.d(TAG, it.message ?: "")
+                }
+                ?.subscribe()
 
         communityDisposable?.let(disposable::add)
     }
@@ -77,25 +76,14 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
     }
 
     private fun getOtherUserEmptyFeed(): View {
-        val inflater =
-            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val mBinding: LayoutOtherUserTimelineEmptyViewBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.layout_other_user_timeline_empty_view,
-            getRootView(),
-            false
-        )
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val mBinding: AmityViewOtherUserTimelineEmptyBinding = DataBindingUtil.inflate(inflater, R.layout.amity_view_other_user_timeline_empty, getRootView(), false)
         return mBinding.root
     }
 
     private fun getAdminUserEmptyFeed(): View {
         val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val mBinding: LayoutMyTimelineFeedEmptyViewBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.layout_my_timeline_feed_empty_view,
-            getRootView(),
-            false
-        )
+        val mBinding: AmityViewMyTimelineFeedEmptyBinding = DataBindingUtil.inflate(inflater, R.layout.amity_view_my_timeline_feed_empty, getRootView(), false)
         return mBinding.root
     }
 
@@ -119,11 +107,10 @@ class EkoCommunityFeedFragment : EkoBaseFeedFragment() {
             }
 
             val fragment = EkoCommunityFeedFragment()
-            fragment.mViewModel =
-                ViewModelProvider(activity).get(EkoCommunityTimelineViewModel::class.java)
+            fragment.mViewModel = ViewModelProvider(activity).get(EkoCommunityTimelineViewModel::class.java)
             fragment.mViewModel.avatarClickListener = avatarClickListener
 
-            if (postShareClickListener != null) {
+            if(postShareClickListener != null){
                 fragment.mViewModel.postShareClickListener = postShareClickListener
             }
 

@@ -14,7 +14,7 @@ class EkoUserProfileActivity : EkoBaseToolbarFragmentContainerActivity() {
         getToolBar()?.setLeftDrawable(
             ContextCompat.getDrawable(
                 this,
-                R.drawable.ic_uikit_arrow_back
+                R.drawable.amity_ic_arrow_back
             )
         )
     }

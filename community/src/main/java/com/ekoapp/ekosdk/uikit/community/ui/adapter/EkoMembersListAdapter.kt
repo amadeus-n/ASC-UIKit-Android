@@ -24,30 +24,30 @@ class EkoMembersListAdapter(
     override fun getLayoutId(position: Int, obj: EkoUser?): Int {
         return if (position == 0) {
             viewModel.memberMap[obj!!.getUserId()] = position
-            R.layout.select_member_item_header
+            R.layout.amity_item_header_select_member
         } else {
             val currentUser = getItem(position)
             if (currentUser == null) {
                 Log.e("###", "getLayoutId: skeleton layout $position")
-                R.layout.select_member_item
+                R.layout.amity_item_select_member
             } else {
                 viewModel.memberMap[currentUser.getUserId()] = position
                 val prevUser = getItem(position - 1)!!
                 if (currentUser.getDisplayName()?.isEmpty() != false && prevUser.getDisplayName()
                         ?.isEmpty() != false
                 ) {
-                    R.layout.select_member_item
+                    R.layout.amity_item_select_member
                 } else if (currentUser.getDisplayName() != null && prevUser.getDisplayName()
                         ?.isEmpty() != false
                 ) {
-                    R.layout.select_member_item_header
+                    R.layout.amity_item_header_select_member
                 } else {
                     if (currentUser.getDisplayName()!![0]
                             .equals(prevUser.getDisplayName()!![0], true)
                     ) {
-                        R.layout.select_member_item
+                        R.layout.amity_item_select_member
                     } else {
-                        R.layout.select_member_item_header
+                        R.layout.amity_item_header_select_member
                     }
                 }
             }
@@ -57,7 +57,7 @@ class EkoMembersListAdapter(
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            R.layout.select_member_item_header -> EkoMemberListHeaderViewHolder(
+            R.layout.amity_item_header_select_member -> EkoMemberListHeaderViewHolder(
                 view,
                 listener,
                 selectedMemberSet

@@ -201,7 +201,7 @@ fun setEkoViewBackgroundColor(
     colorShade: ColorShade?
 ) {
     val shade = colorShade ?: ColorShade.DEFAULT
-    val bgColor = color ?: ContextCompat.getColor(view.context, R.color.upstraColorPrimary)
+    val bgColor = color ?: ContextCompat.getColor(view.context, R.color.amityColorPrimary)
     view.setBackgroundColor(ColorPaletteUtil.getColor(bgColor, shade))
 }
 
@@ -283,7 +283,7 @@ fun setRoundedCorner(
 
         val shapeDrawable = MaterialShapeDrawable(modal.build())
         if (fillColor == null) {
-            shapeDrawable.fillColor = ContextCompat.getColorStateList(view.context, R.color.white)
+            shapeDrawable.fillColor = ContextCompat.getColorStateList(view.context, R.color.amityColorWhite)
         } else {
             if (colorShade == null)
                 shapeDrawable.fillColor = ContextCompat.getColorStateList(view.context, fillColor)
@@ -301,7 +301,7 @@ fun setRoundedCorner(
 
         if (strokeColor == null) {
             if (fillColor == null) {
-                shapeDrawable.setStroke(2F, ContextCompat.getColor(view.context, R.color.white))
+                shapeDrawable.setStroke(2F, ContextCompat.getColor(view.context, R.color.amityColorWhite))
             } else {
                 if (colorShade == null)
                     shapeDrawable.setStroke(2F, ContextCompat.getColor(view.context, fillColor))
@@ -333,7 +333,7 @@ fun setImageUrl(view: ImageView, imageUrl: String?, placeholder: Drawable?) {
         glideImageUrl = ""
     }
     if (placeholder == null) {
-        mPlaceholder = ContextCompat.getDrawable(view.context, R.drawable.ic_uikit_user)
+        mPlaceholder = ContextCompat.getDrawable(view.context, R.drawable.amity_ic_user)
     }
     val imageSynced = if (glideImageUrl!!.startsWith("https")) {
         true
@@ -399,6 +399,6 @@ fun setText(textView: TextView, input: CharSequence?) {
     if (input != null && input.isNotEmpty()) {
         textView.text = input
     } else {
-        textView.text = textView.context.getString(R.string.anonymous)
+        textView.text = textView.context.getString(R.string.amity_anonymous)
     }
 }

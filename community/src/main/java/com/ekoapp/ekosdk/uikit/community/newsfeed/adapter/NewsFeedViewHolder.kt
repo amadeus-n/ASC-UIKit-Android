@@ -26,6 +26,7 @@ open class NewsFeedViewHolder(
     private val feedAction = itemView.findViewById<ImageButton>(R.id.btnFeedAction)
     private var headerLayout = itemView.findViewById<EkoNewsFeedItemHeader>(R.id.newsFeedHeader)
     private var footerLayout = itemView.findViewById<EkoNewsFeedItemFooter>(R.id.newsFeedFooter)
+
     override fun bind(data: EkoPost?, position: Int) {
         if (data != null) {
             //TODO data binding

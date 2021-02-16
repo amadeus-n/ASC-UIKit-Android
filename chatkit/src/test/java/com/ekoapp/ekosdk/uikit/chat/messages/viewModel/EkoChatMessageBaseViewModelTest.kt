@@ -23,7 +23,7 @@ class EkoChatMessageBaseViewModelTest {
         Assert.assertFalse(baseViewModel.isDeleted.get())
         Assert.assertEquals(baseViewModel.editedAt.get(), "")
         Assert.assertFalse(baseViewModel.isEdited.get())
-        Assert.assertEquals(baseViewModel.dateFillColor.get(), R.color.upstraColorBase)
+        Assert.assertEquals(baseViewModel.dateFillColor.get(), R.color.amityColorBase)
         Assert.assertFalse(baseViewModel.isFailed.get())
     }
 

@@ -24,9 +24,9 @@ class EkoCategorySelectionActivity :
     override fun initToolbar() {
         showToolbarDivider()
         getToolBar()?.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross)
+            ContextCompat.getDrawable(this, R.drawable.amity_ic_cross)
         )
-        getToolBar()?.setLeftString(getString(R.string.select_category))
+        getToolBar()?.setLeftString(getString(R.string.amity_select_category))
     }
 
     override fun getContentFragment(): Fragment {

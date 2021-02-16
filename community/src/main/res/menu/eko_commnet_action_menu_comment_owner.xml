@@ -4,11 +4,11 @@
 
     <item
         android:id="@+id/actionEditComment"
-        android:title="@string/edit_comment"
+        android:title="@string/amity_edit_comment"
         app:showAsAction="always" />
     <item
         android:id="@+id/actionDeleteComment"
-        android:title="@string/delete_comment"
+        android:title="@string/amity_delete_comment"
         app:showAsAction="always" />
 
 </menu>

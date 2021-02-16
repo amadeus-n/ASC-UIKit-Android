@@ -49,10 +49,10 @@ class EkoAvatarView : FrameLayout {
     }
 
     private fun init() {
-        val rootView = View.inflate(context, R.layout.avatar_layout, null)
+        val rootView = View.inflate(context, R.layout.amity_view_avatar, null)
         mAvatarImageView = rootView.findViewById(R.id.iv_avatar)
         mCameraImageView = rootView.findViewById(R.id.iv_camera)
-        mPlaceholderDrawable = ContextCompat.getDrawable(context, R.drawable.ic_uikit_tick_green)!!
+        mPlaceholderDrawable = ContextCompat.getDrawable(context, R.drawable.amity_ic_tick_green)!!
         loadView()
         addView(rootView)
     }

@@ -15,8 +15,8 @@ import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED_ID
 class EkoEditPostActivity : EkoBaseToolbarFragmentContainerActivity() {
 
     override fun initToolbar() {
-        getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross))
-        getToolBar()?.setLeftString(getString(R.string.edit_post))
+        getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.amity_ic_cross))
+        getToolBar()?.setLeftString(getString(R.string.amity_edit_post))
     }
 
     override fun getContentFragment(): Fragment {

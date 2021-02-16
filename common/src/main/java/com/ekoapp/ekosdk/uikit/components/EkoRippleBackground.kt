@@ -39,7 +39,7 @@ class EkoRippleBackground : RelativeLayout {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.EkoRippleBackground)
         val rippleColor = typedArray.getColor(
             R.styleable.EkoRippleBackground_rbColor,
-            resources.getColor(R.color.upstraColorBase)
+            resources.getColor(R.color.amityColorBase)
         )
         rippleStrokeWidth = typedArray.getDimension(
             R.styleable.EkoRippleBackground_rbStrokeWidth,

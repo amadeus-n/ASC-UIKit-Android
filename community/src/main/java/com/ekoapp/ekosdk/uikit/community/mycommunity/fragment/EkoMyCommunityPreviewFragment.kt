@@ -25,7 +25,7 @@ import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_my_community_list.*
+import kotlinx.android.synthetic.main.amity_fragment_my_community_list.*
 
 class EkoMyCommunityPreviewFragment internal constructor() : EkoBaseFragment(),
     IMyCommunityItemClickListener {
@@ -40,7 +40,7 @@ class EkoMyCommunityPreviewFragment internal constructor() : EkoBaseFragment(),
     ): View? {
         mViewModel =
             ViewModelProvider(requireActivity()).get(EkoMyCommunityListViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_eko_my_community_list, container, false)
+        return inflater.inflate(R.layout.amity_fragment_my_community_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

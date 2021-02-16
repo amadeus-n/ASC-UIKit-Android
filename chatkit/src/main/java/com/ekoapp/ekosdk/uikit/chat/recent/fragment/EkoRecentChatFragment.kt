@@ -10,20 +10,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekoapp.ekosdk.uikit.chat.R
-import com.ekoapp.ekosdk.uikit.chat.databinding.FragmentRecentChatBinding
+import com.ekoapp.ekosdk.uikit.chat.databinding.AmityFragmentRecentChatBinding
 import com.ekoapp.ekosdk.uikit.chat.home.callback.IRecentChatItemClickListener
 import com.ekoapp.ekosdk.uikit.chat.messages.EkoMessageListActivity
 import com.ekoapp.ekosdk.uikit.chat.recent.adapter.EkoRecentChatAdapter
 import com.ekoapp.ekosdk.uikit.chat.util.EkoRecentItemDecoration
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.fragment_recent_chat.*
+import kotlinx.android.synthetic.main.amity_fragment_recent_chat.*
 
 class EkoRecentChatFragment private constructor() : Fragment(), IRecentChatItemClickListener {
     private lateinit var mViewModel: EkoRecentChatViewModel
 
     private lateinit var mAdapter: EkoRecentChatAdapter
     private lateinit var recentChatDisposable: Disposable
-    private lateinit var mBinding: FragmentRecentChatBinding
+    private lateinit var mBinding: AmityFragmentRecentChatBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +31,7 @@ class EkoRecentChatFragment private constructor() : Fragment(), IRecentChatItemC
     ): View? {
         mViewModel = ViewModelProvider(requireActivity()).get(EkoRecentChatViewModel::class.java)
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_recent_chat, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.amity_fragment_recent_chat, container, false)
         return mBinding.root
     }
 

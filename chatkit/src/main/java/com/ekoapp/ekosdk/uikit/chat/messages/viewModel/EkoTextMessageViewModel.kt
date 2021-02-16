@@ -6,6 +6,6 @@ import com.ekoapp.ekosdk.uikit.chat.R
 class EkoTextMessageViewModel : EkoSelectableMessageViewModel() {
 
     val text = ObservableField<String>()
-    val senderFillColor = ObservableField<Int>(R.color.upstraColorPrimary)
-    val receiverFillColor = ObservableField<Int>(R.color.upstraMessageBubbleInverse)
+    val senderFillColor = ObservableField<Int>(R.color.amityColorPrimary)
+    val receiverFillColor = ObservableField<Int>(R.color.amityMessageBubbleInverse)
 }

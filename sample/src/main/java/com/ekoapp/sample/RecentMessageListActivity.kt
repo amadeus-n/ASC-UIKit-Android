@@ -9,7 +9,7 @@ import com.ekoapp.ekosdk.uikit.chat.home.fragment.EkoChatHomePageFragment
 class RecentMessageListActivity : AppCompatActivity(), IRecentChatItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recent_message_list)
+        setContentView(R.layout.amity_activity_recent_message_list)
 
         val chatHomeFragment = EkoChatHomePageFragment.Builder()
             .recentChatItemClickListener(this)

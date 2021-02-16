@@ -47,7 +47,7 @@ import com.zhihu.matisse.engine.impl.GlideEngine
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_eko_create_post.*
+import kotlinx.android.synthetic.main.amity_activity_create_post.*
 import java.io.File
 import java.util.*
 
@@ -89,7 +89,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_eko_post_create, container, false)
+        return inflater.inflate(R.layout.amity_fragment_post_create, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -106,7 +106,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menuItemPost =
-            menu.add(Menu.NONE, ID_MENU_ITEM_POST, Menu.NONE, getString(R.string.save))
+            menu.add(Menu.NONE, ID_MENU_ITEM_POST, Menu.NONE, getString(R.string.amity_save))
         menuItemPost?.setTitle(getPostMenuText())
             ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         updatePostMenu(isRightButtonActive())
@@ -355,8 +355,8 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
     private fun showExitConfirmationDialog() {
         val exitConfirmationDialogFragment = EkoAlertDialogFragment
             .newInstance(
-                R.string.discard_post_title, R.string.discard_post_message,
-                R.string.discard, R.string.cancel
+                R.string.amity_discard_post_title, R.string.amity_discard_post_message,
+                R.string.amity_discard, R.string.amity_cancel
             )
         exitConfirmationDialogFragment.show(childFragmentManager, EkoAlertDialogFragment.TAG);
         exitConfirmationDialogFragment.listener = this
@@ -376,7 +376,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
         if (selectedImageCount == MAX_IMAGE_SELECTABLE) {
             Toast.makeText(
                 context,
-                getString(R.string.create_post_max_image_selected_warning),
+                getString(R.string.amity_create_post_max_image_selected_warning),
                 Toast.LENGTH_LONG
             ).show()
         } else {
@@ -447,7 +447,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
                     showAttachmentUploadFailedDialog()
                 }
                 EventIdentifier.FILE_UPLOAD_MAX_LIMIT_EXCEED -> {
-                    showErrorMessage(R.string.attachment_count_limit_exceed)
+                    showErrorMessage(R.string.amity_attachment_count_limit_exceed)
                 }
                 EventIdentifier.CREATE_POST_IMAGE_REMOVED -> {
                     if (event.dataObj as Int > 0)
@@ -462,8 +462,8 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
     private fun showImageUploadFailedDialog() {
         val dialogFragment = EkoAlertDialogFragment
             .newInstance(
-                R.string.upload_incomplete, R.string.image_upload_failed_message,
-                null, R.string.ok
+                R.string.amity_upload_incomplete, R.string.amity_image_upload_failed_message,
+                null, R.string.amity_ok
             )
         dialogFragment.show(childFragmentManager, EkoAlertDialogFragment.TAG);
         dialogFragment.setAlertDialogActionListener(object :
@@ -482,8 +482,8 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
     private fun showAttachmentUploadFailedDialog() {
         val dialogFragment = EkoAlertDialogFragment
             .newInstance(
-                R.string.upload_incomplete, R.string.attachment_upload_failed_message,
-                null, R.string.ok
+                R.string.amity_upload_incomplete, R.string.amity_attachment_upload_failed_message,
+                null, R.string.amity_ok
             )
         dialogFragment.show(childFragmentManager, EkoAlertDialogFragment.TAG);
         dialogFragment.setAlertDialogActionListener(object :
@@ -528,7 +528,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
     private fun addFileAttachments(data: Intent) {
         setupFileAttachmentAdapter()
         if (maxAttachmentCountExceed(data)) {
-            showErrorMessage(R.string.attachment_count_limit_exceed)
+            showErrorMessage(R.string.amity_attachment_count_limit_exceed)
         } else {
             var maxLimitExceedError = false
             val fileUriList = mutableListOf<Uri>()
@@ -565,8 +565,8 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
     private fun showMaxLimitExceedError(addedFiles: MutableList<FileAttachment>) {
         val dialogFragment = EkoAlertDialogFragment
             .newInstance(
-                R.string.file_max_limit_exceed_title, R.string.file_max_limit_exceed_message,
-                null, R.string.ok
+                R.string.amity_file_max_limit_exceed_title, R.string.amity_file_max_limit_exceed_message,
+                null, R.string.amity_ok
             )
         dialogFragment.setAlertDialogActionListener(object :
             EkoAlertDialogFragment.IAlertDialogActionListener {
@@ -606,7 +606,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
     }
 
     private fun showDuplicateFilesMessage() {
-        Toast.makeText(context, getString(R.string.duplicate_files), Toast.LENGTH_LONG).show()
+        Toast.makeText(context, getString(R.string.amity_duplicate_files), Toast.LENGTH_LONG).show()
     }
 
 

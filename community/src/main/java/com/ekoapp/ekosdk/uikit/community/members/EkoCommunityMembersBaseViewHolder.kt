@@ -42,9 +42,9 @@ abstract class EkoCommunityMembersBaseViewHolder(
 
     private fun showDialogSentReportMessage(isReport: Boolean) {
         val messageSent = if (isReport) {
-            R.string.report_sent
+            R.string.amity_report_sent
         } else {
-            R.string.unreport_sent
+            R.string.amity_unreport_sent
         }
         Snackbar.make(
             itemView,
@@ -54,9 +54,9 @@ abstract class EkoCommunityMembersBaseViewHolder(
     }
 
     fun showRemoveUserDialog(ekoUser: EkoUser) {
-        AlertDialogUtil.showDialog(context, context.getString(R.string.remove_user),
-            context.getString(R.string.remove_user_msg), context.getString(R.string.remove),
-            context.getString(R.string.cancel),
+        AlertDialogUtil.showDialog(context, context.getString(R.string.amity_remove_user),
+            context.getString(R.string.amity_remove_user_msg), context.getString(R.string.amity_remove),
+            context.getString(R.string.amity_cancel),
             DialogInterface.OnClickListener { dialog, which ->
                 if (which == DialogInterface.BUTTON_POSITIVE) {
                     removeUser(ekoUser)
@@ -76,7 +76,7 @@ abstract class EkoCommunityMembersBaseViewHolder(
                         ekoUser.getUserId(),
                         ekoUser.getAvatar()?.getUrl(EkoImage.Size.MEDIUM) ?: "",
                         ekoUser.getDisplayName()
-                            ?: context.getString(R.string.anonymous),
+                            ?: context.getString(R.string.amity_anonymous),
                         ekoUser.getDescription(),
                         false
                     )

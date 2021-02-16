@@ -12,7 +12,7 @@ class EkoRecentChatAdapter : EkoBaseRecyclerViewPagedAdapter<EkoChannel>(diffCal
     private var recentChatItemClickListener: IRecentChatItemClickListener? = null
 
     override fun getLayoutId(position: Int, obj: EkoChannel?): Int =
-        R.layout.layout_recent_message_item
+        R.layout.amity_item_recent_message
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder =
         EkoRecentChatViewHolder(view, recentChatItemClickListener)

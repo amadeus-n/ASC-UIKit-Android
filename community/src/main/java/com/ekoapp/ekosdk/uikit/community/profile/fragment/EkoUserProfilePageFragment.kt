@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.base.EkoFragmentStateAdapter
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoUserProfilePageBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentUserProfilePageBinding
 import com.ekoapp.ekosdk.uikit.community.newsfeed.fragment.EkoMyFeedFragment
 import com.ekoapp.ekosdk.uikit.community.newsfeed.fragment.EkoUserFeedFragment
 import com.ekoapp.ekosdk.uikit.community.profile.activity.EkoEditUserProfileActivity
@@ -26,10 +26,10 @@ import com.ekoapp.ekosdk.user.EkoUser
 import com.google.android.material.appbar.AppBarLayout
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_community_home_page.tabLayout
-import kotlinx.android.synthetic.main.fragment_eko_user_profile_page.appBar
-import kotlinx.android.synthetic.main.fragment_eko_user_profile_page.fabCreatePost
-import kotlinx.android.synthetic.main.fragment_eko_user_profile_page.refreshLayout
+import kotlinx.android.synthetic.main.amity_fragment_community_home_page.tabLayout
+import kotlinx.android.synthetic.main.amity_fragment_user_profile_page.appBar
+import kotlinx.android.synthetic.main.amity_fragment_user_profile_page.fabCreatePost
+import kotlinx.android.synthetic.main.amity_fragment_user_profile_page.refreshLayout
 
 const val ARG_USER_ID = "com.ekoapp.ekosdk.uikit.community.profile.userid"
 
@@ -39,7 +39,7 @@ class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
 
     lateinit var mViewModel: EkoUserProfileViewModel
     private lateinit var fragmentStateAdapter: EkoFragmentStateAdapter
-    private lateinit var mBinding: FragmentEkoUserProfilePageBinding
+    private lateinit var mBinding: AmityFragmentUserProfilePageBinding
 
     private var isRefreshing = false
 
@@ -61,7 +61,7 @@ class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
         mBinding =
             DataBindingUtil.inflate(
                 inflater,
-                R.layout.fragment_eko_user_profile_page,
+                R.layout.amity_fragment_user_profile_page,
                 container,
                 false
             )
@@ -90,7 +90,7 @@ class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
             }
         }
 
-        refreshLayout.setColorSchemeResources(R.color.upstraColorPrimary)
+        refreshLayout.setColorSchemeResources(R.color.amityColorPrimary)
         refreshLayout.setOnRefreshListener {
             refreshFeed()
         }
@@ -157,7 +157,7 @@ class EkoUserProfilePageFragment internal constructor() : EkoBaseFragment(),
         fragmentStateAdapter.setFragmentList(
             arrayListOf(
                 EkoFragmentStateAdapter.EkoPagerModel(
-                    getString(R.string.timeline),
+                    getString(R.string.amity_timeline),
                     getTimeLineFragment()
                 )
             )

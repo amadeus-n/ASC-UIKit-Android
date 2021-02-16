@@ -12,7 +12,7 @@ class EkoCreatePostImageAdapter(private val listener: ICreatePostImageActionList
     EkoBaseRecyclerViewAdapter<FeedImage>(), IListItemChangeListener {
 
     override fun getLayoutId(position: Int, obj: FeedImage?): Int {
-        return R.layout.layout_create_post_image_item
+        return R.layout.amity_item_create_post_image
 //        if(itemCount < 3)
 //            return R.layout.layout_create_post_image_item
 //        else

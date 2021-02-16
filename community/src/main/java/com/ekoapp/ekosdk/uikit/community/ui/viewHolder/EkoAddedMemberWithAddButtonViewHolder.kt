@@ -23,7 +23,7 @@ class EkoAddedMemberWithAddButtonViewHolder(
     init {
         ivAdd.toCircularShape(
             ColorPaletteUtil.getColor(
-                ContextCompat.getColor(itemView.context, R.color.upstraColorBase), ColorShade.SHADE4
+                ContextCompat.getColor(itemView.context, R.color.amityColorBase), ColorShade.SHADE4
             )
         )
     }

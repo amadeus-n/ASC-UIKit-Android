@@ -9,19 +9,16 @@ import androidx.fragment.app.Fragment
 import com.ekoapp.ekosdk.uikit.R
 import com.ekoapp.ekosdk.uikit.components.EkoToolBar
 import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
-import com.ekoapp.ekosdk.uikit.databinding.ActivityEkoBaseToolbarFragmentContainerBinding
-import kotlinx.android.synthetic.main.activity_eko_base_toolbar_fragment_container.*
+import com.ekoapp.ekosdk.uikit.databinding.AmityActivityBaseToolbarFragmentContainerBinding
+import kotlinx.android.synthetic.main.amity_activity_base_toolbar_fragment_container.*
 
 
 abstract class EkoBaseToolbarFragmentContainerActivity : AppCompatActivity(),
-    EkoToolBarClickListener {
-    lateinit var binding: ActivityEkoBaseToolbarFragmentContainerBinding
+        EkoToolBarClickListener {
+    lateinit var binding: AmityActivityBaseToolbarFragmentContainerBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(
-            this,
-            R.layout.activity_eko_base_toolbar_fragment_container
-        )
+        binding = DataBindingUtil.setContentView(this, R.layout.amity_activity_base_toolbar_fragment_container)
         if (savedInstanceState == null) {
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()

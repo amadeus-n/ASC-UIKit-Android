@@ -13,7 +13,7 @@ class MessageListWithCustomUi : AppCompatActivity(), EkoMessageListAdapter.ICust
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val channelId = intent.getStringExtra("CHANNEL_ID") ?: ""
-        setContentView(R.layout.activity_message_list_with_custom_ui)
+        setContentView(R.layout.amity_activity_message_list_with_custom_ui)
 
         val messageListFragment = EkoMessageListFragment.Builder(channelId)
             .build()
@@ -32,10 +32,10 @@ class MessageListWithCustomUi : AppCompatActivity(), EkoMessageListAdapter.ICust
     ): EkoChatMessageBaseViewHolder? {
         return when (viewType) {
             MessageType.MESSAGE_ID_TEXT_RECEIVER -> TextReceiverViewHolder(
-                inflater.inflate(R.layout.item_text_receiver, parent, false), MyTextMsgViewModel()
+                inflater.inflate(R.layout.amity_item_text_receiver, parent, false), MyTextMsgViewModel()
             )
             MessageType.MESSAGE_ID_TEXT_SENDER -> TextSenderViewHolder(
-                inflater.inflate(R.layout.item_text_sender, parent, false), MyTextMsgViewModel()
+                inflater.inflate(R.layout.amity_item_text_sender, parent, false), MyTextMsgViewModel()
             )
             else -> null
         }

@@ -10,13 +10,13 @@ import com.ekoapp.ekosdk.uikit.community.domain.repository.EkoChannelRepository
 import com.ekoapp.ekosdk.uikit.community.home.activity.EkoCommunityHomePageActivity
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
 import com.ekoapp.ekosdk.uikit.utils.ThemeUtil
-import kotlinx.android.synthetic.main.activity_feature_list.*
+import kotlinx.android.synthetic.main.amity_activity_feature_list.*
 
 class FeatureListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         ThemeUtil.setCurrentTheme(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_feature_list)
+        setContentView(R.layout.amity_activity_feature_list)
         EkoChannelRepository.isTestMode = true
         communityHome.setOnClickListener {
             val communityIntent = Intent(this, EkoCommunityHomePageActivity::class.java)

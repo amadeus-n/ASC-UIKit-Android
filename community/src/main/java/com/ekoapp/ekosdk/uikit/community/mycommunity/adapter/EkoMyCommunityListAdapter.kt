@@ -15,11 +15,11 @@ class EkoMyCommunityListAdapter(
     EkoBaseRecyclerViewPagedAdapter<EkoCommunity>(diffCallBack) {
 
     override fun getLayoutId(position: Int, obj: EkoCommunity?): Int {
-        return if (previewMode) R.layout.layout_my_community_item else R.layout.layout_community_item
+        return if (previewMode) R.layout.amity_item_my_community else R.layout.amity_item_community
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == R.layout.layout_my_community_item) {
+        return if (viewType == R.layout.amity_item_my_community) {
             EkoMyCommunityListViewHolder(view, listener)
         } else {
             EkoMyCommunitiesViewHolder(view, listener)

@@ -18,7 +18,7 @@ import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemCl
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_trending_community.*
+import kotlinx.android.synthetic.main.amity_fragment_trending_community.*
 
 class EkoTrendingCommunityFragment : EkoBaseFragment(), IMyCommunityItemClickListener {
 
@@ -32,7 +32,7 @@ class EkoTrendingCommunityFragment : EkoBaseFragment(), IMyCommunityItemClickLis
     ): View? {
         mViewModel =
             ViewModelProvider(requireActivity()).get(EkoExploreCommunityViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_eko_trending_community, container, false)
+        return inflater.inflate(R.layout.amity_fragment_trending_community, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

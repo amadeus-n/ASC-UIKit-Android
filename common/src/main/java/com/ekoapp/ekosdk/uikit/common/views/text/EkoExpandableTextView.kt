@@ -16,7 +16,7 @@ import com.ekoapp.ekosdk.uikit.R
 
 class EkoExpandableTextView : AppCompatTextView {
     private var readMoreClicked: Boolean = false
-    private var readMoreColor = R.color.upstraColorHighlight
+    private var readMoreColor = R.color.amityColorHighlight
     private var originalText: CharSequence? = null
     private var trimmedText: CharSequence? = null
     private var trimmed = false
@@ -62,7 +62,7 @@ class EkoExpandableTextView : AppCompatTextView {
     }
 
     private fun setText() {
-        if (!text.endsWith(context.getString(R.string.read_more))) {
+        if (!text.endsWith(context.getString(R.string.amity_read_more))) {
             originalText = text
             trimmedText = getTrimmedText(text)
         }
@@ -87,7 +87,7 @@ class EkoExpandableTextView : AppCompatTextView {
                 val truncatedSpannableString: SpannableString
                 val lastCharShown = layout.getLineVisibleEnd(maxLines - 1)
 
-                val readMoreString = context.getString(R.string.read_more)
+                val readMoreString = context.getString(R.string.amity_read_more)
                 val visibleText = text?.substring(0, lastCharShown)
                 var displayText: String? = null
                 if (visibleText!!.contains(newLine)) {

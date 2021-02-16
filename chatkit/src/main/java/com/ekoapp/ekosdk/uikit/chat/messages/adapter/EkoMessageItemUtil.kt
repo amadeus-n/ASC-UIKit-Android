@@ -87,7 +87,7 @@ class EkoMessageItemUtil {
             val itemViewModel = EkoTextMessageViewModel()
             EkoTextMsgReceiverViewHolder(
                 inflater.inflate(
-                    R.layout.item_text_message_receiver,
+                    R.layout.amity_item_text_message_receiver,
                     parent, false
                 ), itemViewModel, parent.context
             )
@@ -105,7 +105,7 @@ class EkoMessageItemUtil {
             val itemViewModel = EkoTextMessageViewModel()
             EkoTextMsgSenderViewHolder(
                 inflater.inflate(
-                    R.layout.item_text_message_sender,
+                    R.layout.amity_item_text_message_sender,
                     parent, false
                 ), itemViewModel, parent.context
             )
@@ -123,7 +123,7 @@ class EkoMessageItemUtil {
             val itemViewModel = EkoImageMsgViewModel()
             EkoImageMsgReceiverViewHolder(
                 inflater.inflate(
-                    R.layout.item_image_msg_receiver,
+                    R.layout.amity_item_image_msg_receiver,
                     parent, false
                 ), itemViewModel, parent.context
             )
@@ -142,7 +142,7 @@ class EkoMessageItemUtil {
             val itemViewModel = EkoImageMsgViewModel()
             EkoImageMsgSenderViewHolder(
                 inflater.inflate(
-                    R.layout.item_image_msg_sender,
+                    R.layout.amity_item_image_msg_sender,
                     parent, false
                 ), itemViewModel, parent.context
             )
@@ -161,7 +161,7 @@ class EkoMessageItemUtil {
             val itemViewModel = EkoAudioMsgViewModel()
             EkoAudioMsgReceiverViewHolder(
                 inflater.inflate(
-                    R.layout.item_audio_message_receiver,
+                    R.layout.amity_item_audio_message_receiver,
                     parent, false
                 ), itemViewModel, parent.context, listener
             )
@@ -180,7 +180,7 @@ class EkoMessageItemUtil {
             val itemViewModel = EkoAudioMsgViewModel()
             EkoAudioMsgSenderViewHolder(
                 inflater.inflate(
-                    R.layout.item_audio_message_sender,
+                    R.layout.amity_item_audio_message_sender,
                     parent, false
                 ), itemViewModel, parent.context, listener
             )
@@ -191,7 +191,7 @@ class EkoMessageItemUtil {
             EkoChatMessageBaseViewHolder {
         return EkoUnknownMessageViewHolder(
             inflater.inflate(
-                R.layout.item_unknown_message, parent,
+                R.layout.amity_item_unknown_message, parent,
                 false
             ), EkoUnknownMsgViewModel()
         )
@@ -207,7 +207,7 @@ class EkoMessageItemUtil {
         } else {
             EkoUnknownMessageViewHolder(
                 inflater.inflate(
-                    R.layout.item_unknown_message, parent,
+                    R.layout.amity_item_unknown_message, parent,
                     false
                 ), EkoUnknownMsgViewModel()
             )
@@ -224,7 +224,7 @@ class EkoMessageItemUtil {
         } else {
             EkoUnknownMessageViewHolder(
                 inflater.inflate(
-                    R.layout.item_unknown_message, parent,
+                    R.layout.amity_item_unknown_message, parent,
                     false
                 ), EkoUnknownMsgViewModel()
             )

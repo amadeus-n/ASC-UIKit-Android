@@ -14,7 +14,7 @@ class EkoCreateGroupChatFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_eko_create_group_chat, container, false)
+        return inflater.inflate(R.layout.amity_fragment_create_group_chat, container, false)
     }
 
 }

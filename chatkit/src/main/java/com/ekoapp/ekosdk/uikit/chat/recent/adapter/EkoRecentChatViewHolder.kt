@@ -10,7 +10,7 @@ import com.ekoapp.ekosdk.channel.EkoChannel
 import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewPagedAdapter
 import com.ekoapp.ekosdk.uikit.chat.R
-import com.ekoapp.ekosdk.uikit.chat.databinding.LayoutRecentMessageItemBinding
+import com.ekoapp.ekosdk.uikit.chat.databinding.AmityItemRecentMessageBinding
 import com.ekoapp.ekosdk.uikit.chat.home.callback.IRecentChatItemClickListener
 import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
@@ -22,7 +22,7 @@ class EkoRecentChatViewHolder(
     private val listener: IRecentChatItemClickListener?
 ) : RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewPagedAdapter.Binder<EkoChannel> {
 
-    private val binding: LayoutRecentMessageItemBinding? = DataBindingUtil.bind(itemView)
+    private val binding: AmityItemRecentMessageBinding? = DataBindingUtil.bind(itemView)
 
     private val memberCount: TextView = itemView.findViewById(R.id.tvMemberCount)
     private val name: TextView = itemView.findViewById(R.id.tvDisplayName)
@@ -34,14 +34,14 @@ class EkoRecentChatViewHolder(
             if (data.getDisplayName().isNotEmpty()) {
                 name.text = data.getDisplayName()
             } else {
-                name.text = itemView.context.getString(R.string.anonymous)
+                name.text = itemView.context.getString(R.string.amity_anonymous)
             }
             setUpAvatarView(data)
             setupUnreadCount(data)
             binding?.tvTime?.text = EkoDateUtils.getMessageTime(data.getLastActivity()!!.millis)
             memberCount.text =
                 String.format(
-                    itemView.context.getString(R.string.member_count),
+                    itemView.context.getString(R.string.amity_member_count),
                     data.getMemberCount()
                 )
             itemView.setOnClickListener {
@@ -58,23 +58,23 @@ class EkoRecentChatViewHolder(
         val defaultAvatar: Int = when (data.getType()) {
             EkoChannel.Type.STANDARD -> {
                 //setupNameView(data)
-                R.drawable.ic_default_avatar_group_chat
+                R.drawable.amity_ic_default_avatar_group_chat
             }
             EkoChannel.Type.PRIVATE -> {
                 //setupNameView(data)
-                R.drawable.ic_default_avatar_private_community_chat
+                R.drawable.amity_ic_default_avatar_private_community_chat
             }
             EkoChannel.Type.CONVERSATION -> {
-                R.drawable.ic_default_avatar_direct_chat
+                R.drawable.amity_ic_default_avatar_direct_chat
             }
             else -> {
-                R.drawable.ic_default_avatar_publc_community_chat
+                R.drawable.amity_ic_default_avatar_publc_community_chat
             }
         }
 
         avatar.setBackgroundColor(
             ColorPaletteUtil.getColor(
-                ContextCompat.getColor(itemView.context, R.color.upstraColorPrimary),
+                ContextCompat.getColor(itemView.context, R.color.amityColorPrimary),
                 ColorShade.SHADE3
             )
         )
@@ -87,12 +87,12 @@ class EkoRecentChatViewHolder(
     }
 
     private fun setupNameView(data: EkoChannel) {
-        var leftDrawable = R.drawable.ic_community_public
+        var leftDrawable = R.drawable.amity_ic_community_public
         if (data.getType() == EkoChannel.Type.PRIVATE)
-            leftDrawable = R.drawable.ic_community_private
+            leftDrawable = R.drawable.amity_ic_community_private
         val rightDrawable = 0
 //        if (data.verified)
-//            rightDrawable = R.drawable.ic_uikit_verified
+//            rightDrawable = R.drawable.amity_ic_verified
         name.text = data.getDisplayName()
         name.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, 0, rightDrawable, 0);
     }

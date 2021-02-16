@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="upstraColorPrimary">#1054DE</color>
-    <color name="upstraColorSecondary">#292B32</color>
-    <color name="upstraColorAlert">#FA4D30</color>
-    <color name="upstraColorHighlight">#1054DE</color>
-    <color name="upstraColorBase">#292B32</color>
-    <color name="upstraColorBaseInverse">#FFFFFF</color>
-    <color name="upstraMessageBubble">#1054DE</color>
-    <color name="upstraMessageBubbleInverse">#EBECEF</color>
+    <color name="amityColorPrimary">@color/upstraColorPrimary</color>
+    <color name="amityColorSecondary">@color/upstraColorSecondary</color>
+    <color name="amityColorAlert">@color/upstraColorAlert</color>
+    <color name="amityColorHighlight">@color/upstraColorHighlight</color>
+    <color name="amityColorBase">@color/upstraColorBase</color>
+    <color name="amityColorBaseInverse">@color/upstraColorBaseInverse</color>
+    <color name="amityMessageBubble">@color/upstraMessageBubble</color>
+    <color name="amityMessageBubbleInverse">@color/upstraMessageBubbleInverse</color>
 </resources>
