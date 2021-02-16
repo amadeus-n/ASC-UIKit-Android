@@ -17,7 +17,7 @@ import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.permission.EkoPermission
 import com.ekoapp.ekosdk.uikit.base.EkoFragmentStateAdapter
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoCommunityPageBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentCommunityPageBinding
 import com.ekoapp.ekosdk.uikit.community.detailpage.listener.IEditCommunityProfileClickListener
 import com.ekoapp.ekosdk.uikit.community.detailpage.listener.IMessageClickListener
 import com.ekoapp.ekosdk.uikit.community.edit.EkoCommunityProfileActivity
@@ -33,7 +33,7 @@ import com.google.android.material.snackbar.Snackbar
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_community_page.*
+import kotlinx.android.synthetic.main.amity_fragment_community_page.*
 
 private const val ARG_COMMUNITY_ID = "ARG_COMMUNITY_ID"
 private const val ARG_IS_CREATE_COMMUNITY = "ARG_IS_CREATE_COMMUNITY"
@@ -66,9 +66,9 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val mBinding: FragmentEkoCommunityPageBinding = DataBindingUtil.inflate(
+        val mBinding: AmityFragmentCommunityPageBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_eko_community_page, container, false
+            R.layout.amity_fragment_community_page, container, false
         )
         mBinding.viewModel = mViewModel
         return mBinding.root
@@ -103,7 +103,7 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
             showCommunitySuccessMessage()
         }
 
-        refreshLayout.setColorSchemeResources(R.color.upstraColorPrimary)
+        refreshLayout.setColorSchemeResources(R.color.amityColorPrimary)
         refreshLayout.setOnRefreshListener {
             refreshCommunity()
         }
@@ -210,7 +210,7 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
 
     private fun showCommunitySuccessMessage() {
         val snackBar =
-            Snackbar.make(fabCreatePost, R.string.community_success, Snackbar.LENGTH_LONG)
+            Snackbar.make(fabCreatePost, R.string.amity_community_success, Snackbar.LENGTH_LONG)
         snackBar.anchorView = fabCreatePost
         snackBar.show()
     }
@@ -231,7 +231,7 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
         fragmentStateAdapter.setFragmentList(
             arrayListOf(
                 EkoFragmentStateAdapter.EkoPagerModel(
-                    getString(R.string.timeline),
+                    getString(R.string.amity_timeline),
                     getFeedFragment(community)
                 )
             )
@@ -251,12 +251,12 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         if (mViewModel.isMember.get()) {
             val drawable =
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_more_horiz)
+                ContextCompat.getDrawable(requireContext(), R.drawable.amity_ic_more_horiz)
             drawable?.mutate()
             drawable?.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-                R.color.black, BlendModeCompat.SRC_ATOP
+                R.color.amityColorBlack, BlendModeCompat.SRC_ATOP
             )
-            menuItem = menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.cancel))
+            menuItem = menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.amity_cancel))
             menuItem?.setIcon(drawable)?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         }
         super.onCreateOptionsMenu(menu, inflater)
@@ -290,7 +290,7 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
                 }
                 EventIdentifier.MODERATOR_MESSAGE -> Toast.makeText(
                     requireContext(),
-                    getString(R.string.moderator_msg),
+                    getString(R.string.amity_moderator_msg),
                     Toast.LENGTH_LONG
                 ).show()
                 EventIdentifier.SEND_MESSAGE -> {

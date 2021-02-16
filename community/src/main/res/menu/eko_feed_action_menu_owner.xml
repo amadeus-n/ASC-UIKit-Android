@@ -4,10 +4,10 @@
 
     <item
         android:id="@+id/actionEditPost"
-        android:title="@string/edit_post"
+        android:title="@string/amity_edit_post"
         app:showAsAction="always" />
     <item
         android:id="@+id/actionDeletePost"
-        android:title="@string/delete_post"
+        android:title="@string/amity_delete_post"
         app:showAsAction="always" />
 </menu>

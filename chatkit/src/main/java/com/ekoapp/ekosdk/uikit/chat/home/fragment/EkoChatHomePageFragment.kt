@@ -15,7 +15,7 @@ import com.ekoapp.ekosdk.uikit.chat.home.callback.IDirectoryFragmentDelegate
 import com.ekoapp.ekosdk.uikit.chat.home.callback.IRecentChatFragmentDelegate
 import com.ekoapp.ekosdk.uikit.chat.home.callback.IRecentChatItemClickListener
 import com.ekoapp.ekosdk.uikit.chat.recent.fragment.EkoRecentChatFragment
-import kotlinx.android.synthetic.main.fragment_chat_home_page.*
+import kotlinx.android.synthetic.main.amity_fragment_chat_home_page.*
 
 class EkoChatHomePageFragment internal constructor() : Fragment() {
     private lateinit var mViewModel: EkoChatHomePageViewModel
@@ -34,7 +34,7 @@ class EkoChatHomePageFragment internal constructor() : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_chat_home_page, container, false)
+        return inflater.inflate(R.layout.amity_fragment_chat_home_page, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class EkoChatHomePageFragment internal constructor() : Fragment() {
     }
 
     private fun initToolbar() {
-        chatHomeToolBar.setLeftString(getString(R.string.chat))
+        chatHomeToolBar.setLeftString(getString(R.string.amity_chat))
         (activity as AppCompatActivity).supportActionBar?.displayOptions =
             ActionBar.DISPLAY_SHOW_CUSTOM
         (activity as AppCompatActivity).setSupportActionBar(chatHomeToolBar as Toolbar)
@@ -55,7 +55,7 @@ class EkoChatHomePageFragment internal constructor() : Fragment() {
         fragmentStateAdapter.setFragmentList(
             arrayListOf(
                 EkoFragmentStateAdapter.EkoPagerModel(
-                    getString(R.string.title_recent_chat),
+                    getString(R.string.amity_title_recent_chat),
                     getRecentChatFragment()
                 )
                 //EkoFragmentStateAdapter.EkoPagerModel(getString(R.string.title_directory), directoryFragment)

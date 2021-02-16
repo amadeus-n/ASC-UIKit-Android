@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.LayoutMyTimelineFeedEmptyViewBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityViewMyTimelineFeedEmptyBinding
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IAvatarClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostItemClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostOptionClickListener
@@ -21,20 +21,16 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoGlobalFeedViewMod
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoNewsFeedViewModel
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
-import com.ekoapp.ekosdk.uikit.settings.feed.IPostShareClickListener
+import com.ekoapp.ekosdk.uikit.feed.settings.IPostShareClickListener
 import com.ekoapp.ekosdk.user.EkoUser
 
 class EkoGlobalFeedFragment internal constructor() : EkoBaseFeedFragment() {
 
     lateinit var mViewModel: EkoGlobalFeedViewModel
     private val newsFeedViewModel: EkoNewsFeedViewModel by activityViewModels()
-    private var emptyViewBinding: LayoutMyTimelineFeedEmptyViewBinding? = null
+    private var emptyViewBinding: AmityViewMyTimelineFeedEmptyBinding? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mViewModel = ViewModelProvider(requireActivity()).get(EkoGlobalFeedViewModel::class.java)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -46,21 +42,14 @@ class EkoGlobalFeedFragment internal constructor() : EkoBaseFeedFragment() {
     }
 
     override fun getEmptyView(): View {
-        val inflater =
-            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        emptyViewBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.layout_my_timeline_feed_empty_view,
-            getRootView(),
-            false
-        )
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        emptyViewBinding = DataBindingUtil.inflate(inflater, R.layout.amity_view_my_timeline_feed_empty, getRootView(), false)
         return emptyViewBinding!!.root
     }
 
     override fun handleEmptyList(isListEmpty: Boolean) {
         super.handleEmptyList(isListEmpty)
-        val isDataObjEmpty =
-            isListEmpty && parentFragment != null && parentFragment is EkoNewsFeedFragment
+        val isDataObjEmpty = isListEmpty && parentFragment != null && parentFragment is EkoNewsFeedFragment
         newsFeedViewModel.triggerEvent(EventIdentifier.EMPTY_GLOBAL_FEED, isDataObjEmpty)
     }
 
@@ -80,13 +69,12 @@ class EkoGlobalFeedFragment internal constructor() : EkoBaseFeedFragment() {
 
         fun build(activity: AppCompatActivity): EkoGlobalFeedFragment {
             val fragment = EkoGlobalFeedFragment()
-            fragment.mViewModel =
-                ViewModelProvider(activity).get(EkoGlobalFeedViewModel::class.java)
+            fragment.mViewModel = ViewModelProvider(activity).get(EkoGlobalFeedViewModel::class.java)
             fragment.mViewModel.postItemClickListener = postItemClickListener
             fragment.mViewModel.postOptionClickListener = postOptionClickListener
             fragment.mViewModel.avatarClickListener = avatarClickListener
 
-            if (postShareClickListener != null) {
+            if(postShareClickListener != null){
                 fragment.mViewModel.postShareClickListener = postShareClickListener
             }
 

@@ -28,25 +28,25 @@ object AlertDialogUtil {
         val dialog = builder.create()
         dialog.setOnShowListener {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                .setTextColor(ContextCompat.getColor(context, R.color.upstraColorPrimary))
+                .setTextColor(ContextCompat.getColor(context, R.color.amityColorPrimary))
             dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                .setTextColor(ContextCompat.getColor(context, R.color.upstraColorPrimary))
+                .setTextColor(ContextCompat.getColor(context, R.color.amityColorPrimary))
         }
         dialog.show()
     }
 
     fun showNoPermissionDialog(context: Context, listener: DialogInterface.OnClickListener) {
         val builder = MaterialAlertDialogBuilder(context)
-        builder.setTitle(context.getString(R.string.no_permission_title))
-            .setMessage(context.getString(R.string.no_permission_message))
-            .setPositiveButton(context.getText(R.string.ok)) { dialog, _ ->
+        builder.setTitle(context.getString(R.string.amity_no_permission_title))
+            .setMessage(context.getString(R.string.amity_no_permission_message))
+            .setPositiveButton(context.getText(R.string.amity_ok)) { dialog, _ ->
                 listener.onClick(dialog, DialogInterface.BUTTON_POSITIVE)
 
             }
         val dialog = builder.create()
         dialog.setOnShowListener {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                .setTextColor(ContextCompat.getColor(context, R.color.upstraColorPrimary))
+                .setTextColor(ContextCompat.getColor(context, R.color.amityColorPrimary))
         }
         dialog.show()
     }

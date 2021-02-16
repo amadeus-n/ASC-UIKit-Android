@@ -20,7 +20,7 @@ import com.ekoapp.ekosdk.uikit.base.EkoFragmentStateAdapter
 import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoCommunityHomePageBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentCommunityHomePageBinding
 import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
 import com.ekoapp.ekosdk.uikit.community.explore.fragments.EkoExploreFragment
 import com.ekoapp.ekosdk.uikit.community.home.listener.IExploreFragmentFragmentDelegate
@@ -35,7 +35,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_eko_community_home_page.*
+import kotlinx.android.synthetic.main.amity_fragment_community_home_page.*
 import java.util.concurrent.TimeUnit
 
 
@@ -45,7 +45,7 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
     private lateinit var fragmentStateAdapter: EkoFragmentStateAdapter
     private lateinit var searchMenuItem: MenuItem
     lateinit var mViewModel: EkoCommunityHomeViewModel
-    private lateinit var mBinding: FragmentEkoCommunityHomePageBinding
+    private lateinit var mBinding: AmityFragmentCommunityHomePageBinding
     private lateinit var mSearchAdapter: EkoMyCommunitiesAdapter
     private var searchResultDisposable: Disposable? = null
     private var textChangeDisposable: Disposable? = null
@@ -66,12 +66,13 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
         mViewModel = ViewModelProvider(requireActivity()).get(EkoCommunityHomeViewModel::class.java)
         mBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_eko_community_home_page,
+            R.layout.amity_fragment_community_home_page,
             container,
             false
         )
         mBinding.viewModel = mViewModel
         mBinding.tabLayout.disableSwipe()
+        mBinding.tabLayout.setOffscreenPageLimit(2)
         return mBinding.root
     }
 
@@ -98,11 +99,11 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
         fragmentStateAdapter.setFragmentList(
             arrayListOf(
                 EkoFragmentStateAdapter.EkoPagerModel(
-                    getString(R.string.title_news_feed),
+                    getString(R.string.amity_title_news_feed),
                     getNewsFeedFragment()
                 ),
                 EkoFragmentStateAdapter.EkoPagerModel(
-                    getString(R.string.title_explore),
+                    getString(R.string.amity_title_explore),
                     getExploreFragment()
                 )
             )
@@ -186,7 +187,7 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
             requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView =
             SearchView((activity as AppCompatActivity).supportActionBar!!.themedContext)
-        searchView.queryHint = getString(R.string.search)
+        searchView.queryHint = getString(R.string.amity_search)
         searchView.maxWidth = Int.MAX_VALUE
 
         val searchEditText =
@@ -194,12 +195,12 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
         searchEditText.setTextColor(
             ContextCompat.getColor(
                 requireContext(),
-                R.color.upstraColorBase
+                R.color.amityColorBase
             )
         )
         searchEditText.setHintTextColor(
             ColorPaletteUtil.getColor(
-                ContextCompat.getColor(requireContext(), R.color.upstraColorBase), ColorShade.SHADE2
+                ContextCompat.getColor(requireContext(), R.color.amityColorBase), ColorShade.SHADE2
             )
         )
         searchEditText.imeOptions = EditorInfo.IME_ACTION_NEXT
@@ -214,7 +215,7 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
         })
 
         searchMenuItem = menu.add("SearchMenu").setVisible(true).setActionView(searchView)
-            .setIcon(R.drawable.ic_uikit_search)
+            .setIcon(R.drawable.amity_ic_search)
         searchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM or MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW)
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))

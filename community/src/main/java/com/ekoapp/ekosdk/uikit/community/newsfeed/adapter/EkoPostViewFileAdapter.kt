@@ -34,14 +34,14 @@ class EkoPostViewFileAdapter() : EkoBaseFeedAttachmentAdapter() {
 
     override fun getLayoutId(position: Int, obj: FileAttachment?): Int {
         return if (collapsible && position == MAX_ITEM_TO_DISPLAY) {
-            R.layout.layout_view_post_file_item_footer
+            R.layout.amity_item_footer_view_post_file
         } else {
-            R.layout.layout_view_post_file_item
+            R.layout.amity_item_view_post_file
         }
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == R.layout.layout_view_post_file_item_footer) {
+        return if (viewType == R.layout.amity_item_footer_view_post_file) {
             EkoViewPostFileFooterViewHolder(view, loadMoreFilesClickListener, newsFeed)
         } else {
             EkoBaseFeedAttachmentViewHolder(view, fileItemClickListener)

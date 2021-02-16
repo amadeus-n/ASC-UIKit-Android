@@ -6,8 +6,8 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.ekoapp.ekosdk.message.EkoMessage
 import com.ekoapp.ekosdk.uikit.chat.R
-import com.ekoapp.ekosdk.uikit.chat.databinding.ItemTextMessageReceiverBinding
-import com.ekoapp.ekosdk.uikit.chat.databinding.MsgReportPopupBinding
+import com.ekoapp.ekosdk.uikit.chat.databinding.AmityItemTextMessageReceiverBinding
+import com.ekoapp.ekosdk.uikit.chat.databinding.AmityPopupMsgReportBinding
 import com.ekoapp.ekosdk.uikit.chat.messages.popUp.EkoPopUp
 import com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoTextMessageViewModel
 import com.ekoapp.ekosdk.uikit.components.ILongPressListener
@@ -19,7 +19,7 @@ class EkoTextMsgReceiverViewHolder(
     context: Context
 ) : EkoSelectableMessageViewHolder(itemView, itemViewModel, context), ILongPressListener {
 
-    private val binding: ItemTextMessageReceiverBinding? = DataBindingUtil.bind(itemView)
+    private val binding: AmityItemTextMessageReceiverBinding? = DataBindingUtil.bind(itemView)
     private var popUp: EkoPopUp? = null
 
     init {
@@ -48,9 +48,9 @@ class EkoTextMsgReceiverViewHolder(
         popUp = EkoPopUp()
         val anchor: View = itemView.findViewById(R.id.tvMessageIncoming)
         val inflater: LayoutInflater = LayoutInflater.from(anchor.context)
-        val binding: MsgReportPopupBinding = DataBindingUtil.inflate(
+        val binding: AmityPopupMsgReportBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.msg_report_popup, null, true
+            R.layout.amity_popup_msg_report, null, true
         )
         binding.viewModel = itemViewModel
         popUp?.showPopUp(binding.root, anchor, itemViewModel, EkoPopUp.PopUpGravity.START)

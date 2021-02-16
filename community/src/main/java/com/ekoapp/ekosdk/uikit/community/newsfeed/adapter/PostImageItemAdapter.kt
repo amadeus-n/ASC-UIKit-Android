@@ -22,7 +22,7 @@ class PostImageItemAdapter(private val itemClickListener: IPostImageItemClickLis
     EkoBaseRecyclerViewAdapter<EkoImage>() {
 
     override fun getLayoutId(position: Int, obj: EkoImage?): Int {
-        return R.layout.layout_post_image_item
+        return R.layout.amity_item_post_image
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
@@ -73,7 +73,7 @@ class PostImageItemAdapter(private val itemClickListener: IPostImageItemClickLis
         private val radius: Float = itemView.context.resources.getDimension(R.dimen.four)
         override fun bind(data: EkoImage?, position: Int) {
             if (data != null) {
-                val containerTag = position.toString().plus(itemCount)
+                val containerTag = position.toString().plus("-").plus(itemCount)
                 if (container.tag != containerTag) {
                     setupImageCount(position)
                     setupShape(position, itemCount)
@@ -81,7 +81,7 @@ class PostImageItemAdapter(private val itemClickListener: IPostImageItemClickLis
                         width = getWidth(position)
                         height = getHeight(position)
                     }
-                    container.tag == containerTag
+                    container.tag = containerTag
                 }
                 val imageUrl = data.getUrl(EkoImage.Size.MEDIUM)
                 if (image.tag != imageUrl) {
@@ -100,7 +100,7 @@ class PostImageItemAdapter(private val itemClickListener: IPostImageItemClickLis
         private fun setupImageCount(position: Int) {
             if (itemCount > 4 && position == 3) {
                 imageCount.text =
-                    String.format(itemView.resources.getString(R.string.image_count), itemCount - 3)
+                    String.format(itemView.resources.getString(R.string.amity_image_count), itemCount - 3)
                 imageCount.visibility = View.VISIBLE
 
             } else {
@@ -166,7 +166,7 @@ class PostImageItemAdapter(private val itemClickListener: IPostImageItemClickLis
                 ColorPaletteUtil.getColor(
                     ContextCompat.getColor(
                         itemView.context,
-                        R.color.upstraColorBase
+                        R.color.amityColorBase
                     ), ColorShade.SHADE4
                 )
             )

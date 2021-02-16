@@ -13,7 +13,7 @@ class EkoDirectoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_directory, container, false)
+        return inflater.inflate(R.layout.amity_fragment_directory, container, false)
     }
 
 }

@@ -5,11 +5,11 @@ import androidx.activity.viewModels
 import com.ekoapp.ekosdk.uikit.base.EkoBaseActivity
 import com.ekoapp.ekosdk.uikit.chat.BR
 import com.ekoapp.ekosdk.uikit.chat.R
-import com.ekoapp.ekosdk.uikit.chat.databinding.ActivityEkoChatHomeBinding
+import com.ekoapp.ekosdk.uikit.chat.databinding.AmityActivityChatHomeBinding
 import com.ekoapp.ekosdk.uikit.chat.home.fragment.EkoChatHomePageFragment
 
 class EkoChatHomePageActivity :
-    EkoBaseActivity<ActivityEkoChatHomeBinding, EkoChatHomePageViewModel>() {
+    EkoBaseActivity<AmityActivityChatHomeBinding, EkoChatHomePageViewModel>() {
 
     private val mViewModel: EkoChatHomePageViewModel by viewModels()
 
@@ -30,7 +30,7 @@ class EkoChatHomePageActivity :
         this.finish()
     }
 
-    override fun getLayoutId(): Int = R.layout.activity_eko_chat_home
+    override fun getLayoutId(): Int = R.layout.amity_activity_chat_home
 
     override fun getViewModel(): EkoChatHomePageViewModel = mViewModel
 

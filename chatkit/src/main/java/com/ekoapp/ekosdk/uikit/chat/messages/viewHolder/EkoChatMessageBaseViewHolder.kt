@@ -40,7 +40,7 @@ abstract class EkoChatMessageBaseViewHolder(
         return if (item.getUserId() == EkoClient.getUserId()) {
             "ME"
         } else {
-            item.getUser()?.getDisplayName() ?: itemView.context.getString(R.string.anonymous)
+            item.getUser()?.getDisplayName() ?: itemView.context.getString(R.string.amity_anonymous)
         }
     }
 }

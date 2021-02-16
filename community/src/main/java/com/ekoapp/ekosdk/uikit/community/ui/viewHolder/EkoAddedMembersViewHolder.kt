@@ -32,8 +32,8 @@ open class EkoAddedMembersViewHolder(
     init {
         val radius = itemView.context.resources.getDimensionPixelSize(R.dimen.twenty_four).toFloat()
         layout?.setShape(
-            radius, radius, radius, radius, R.color.upstraColorBase,
-            R.color.upstraColorBase, ColorShade.SHADE4
+            radius, radius, radius, radius, R.color.amityColorBase,
+            R.color.amityColorBase, ColorShade.SHADE4
         )
 
     }

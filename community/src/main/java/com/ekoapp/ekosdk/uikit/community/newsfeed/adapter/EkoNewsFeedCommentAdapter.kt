@@ -39,9 +39,9 @@ class EkoNewsFeedCommentAdapter(
 
     override fun getLayoutId(position: Int, obj: EkoComment?): Int {
         return if (obj?.isDeleted() == true) {
-            R.layout.layout_news_feed_comment_item_deleted
+            R.layout.amity_item_deleted_news_feed_comment
         } else {
-            R.layout.layout_news_feed_comment_item
+            R.layout.amity_item_news_feed_comment
         }
     }
 
@@ -51,7 +51,7 @@ class EkoNewsFeedCommentAdapter(
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == R.layout.layout_news_feed_comment_item_deleted)
+        return if (viewType == R.layout.amity_item_deleted_news_feed_comment)
             EkoNewsFeedCommentDeletedViewHolder(view)
         else {
             EkoNewsFeedCommentViewHolder(

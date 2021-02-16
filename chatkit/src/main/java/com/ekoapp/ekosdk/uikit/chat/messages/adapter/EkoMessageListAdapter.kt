@@ -194,7 +194,7 @@ open class EkoMessageListAdapter(
             super.onPlayerError(error)
             Log.e(TAG, "onPlayerError: ${error.printStackTrace()}")
             playingAudioHolder?.audioMsgBaseViewModel?.buffering?.set(false)
-            Toast.makeText(context, context.getString(R.string.playback_error), Toast.LENGTH_SHORT)
+            Toast.makeText(context, context.getString(R.string.amity_playback_error), Toast.LENGTH_SHORT)
                 .show()
         }
     }

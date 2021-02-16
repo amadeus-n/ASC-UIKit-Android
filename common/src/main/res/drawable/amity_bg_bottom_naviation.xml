@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/default_bottom_sheet">
+    <corners
+        android:topLeftRadius="@dimen/eight"
+        android:topRightRadius="@dimen/eight"
+        tools:ignore="PrivateResource" />
+    <solid android:color="@color/amityColorWhite" />
+</shape>

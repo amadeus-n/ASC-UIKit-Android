@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoCommunitySettingsBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentCommunitySettingsBinding
 import com.ekoapp.ekosdk.uikit.community.edit.EkoCommunityProfileActivity
 import com.ekoapp.ekosdk.uikit.community.home.activity.EkoCommunityHomePageActivity
 import com.ekoapp.ekosdk.uikit.community.members.EkoCommunityMemberSettingsActivity
@@ -20,7 +20,7 @@ import com.ekoapp.ekosdk.uikit.utils.AlertDialogUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_community_settings.*
+import kotlinx.android.synthetic.main.amity_fragment_community_settings.*
 import java.util.*
 
 private const val ARG_COMMUNITY_ID = "ARG_COMMUNITY_ID"
@@ -48,9 +48,9 @@ class EkoCommunitySettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val mBinding: FragmentEkoCommunitySettingsBinding = DataBindingUtil.inflate(
+        val mBinding: AmityFragmentCommunitySettingsBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_eko_community_settings, container, false
+            R.layout.amity_fragment_community_settings, container, false
         )
         mBinding.viewModel = mViewModel
         return mBinding.root
@@ -109,10 +109,10 @@ class EkoCommunitySettingsFragment : Fragment() {
 
     private fun leaveCommunity() {
         AlertDialogUtil.showDialog(requireContext(),
-            getString(R.string.leave_community) + "?",
-            getString(R.string.leave_community_msg),
-            getString(R.string.leave).toUpperCase(Locale.getDefault()),
-            getString(R.string.cancel).toUpperCase(Locale.getDefault()),
+            getString(R.string.amity_leave_community) + "?",
+            getString(R.string.amity_leave_community_msg),
+            getString(R.string.amity_leave).toUpperCase(Locale.getDefault()),
+            getString(R.string.amity_cancel).toUpperCase(Locale.getDefault()),
             DialogInterface.OnClickListener { dialog, which ->
                 if (which == DialogInterface.BUTTON_POSITIVE) {
                     mViewModel.leaveCommunity().subscribeOn(Schedulers.io())
@@ -130,10 +130,10 @@ class EkoCommunitySettingsFragment : Fragment() {
 
     private fun closeCommunity() {
         AlertDialogUtil.showDialog(requireContext(),
-            getString(R.string.close_community) + "?",
-            getString(R.string.close_community_msg),
-            getString(R.string.close).toUpperCase(Locale.getDefault()),
-            getString(R.string.cancel).toUpperCase(Locale.getDefault()),
+            getString(R.string.amity_close_community) + "?",
+            getString(R.string.amity_close_community_msg),
+            getString(R.string.amity_close).toUpperCase(Locale.getDefault()),
+            getString(R.string.amity_cancel).toUpperCase(Locale.getDefault()),
             DialogInterface.OnClickListener { dialog, which ->
                 if (which == DialogInterface.BUTTON_POSITIVE) {
                     mViewModel.closeCommunity().subscribeOn(Schedulers.io())

@@ -11,9 +11,9 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.uikit.community.domain.repository.EkoChannelRepository
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IAvatarClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedShareListener
+import com.ekoapp.ekosdk.uikit.feed.settings.EkoFeedUISettings
+import com.ekoapp.ekosdk.uikit.feed.settings.IPostShareClickListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
-import com.ekoapp.ekosdk.uikit.settings.EkoUIKitClient
-import com.ekoapp.ekosdk.uikit.settings.feed.IPostShareClickListener
 import com.ekoapp.ekosdk.uikit.utils.SingleLiveData
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -22,8 +22,7 @@ import io.reactivex.Single
 class EkoPostDetailsViewModel : EkoBaseViewModel(), INewsFeedShareListener {
     var newsFeed: EkoPost? = null
     var avatarClickListener: IAvatarClickListener? = null
-    var postShareClickListener: IPostShareClickListener? =
-        EkoUIKitClient.feedUISettings.postShareClickListener
+    var postShareClickListener: IPostShareClickListener? = EkoFeedUISettings.postShareClickListener
 
     private val feedRepository: EkoFeedRepository = EkoClient.newFeedRepository()
     private val commentRepository: EkoCommentRepository = EkoClient.newCommentRepository()
@@ -34,10 +33,10 @@ class EkoPostDetailsViewModel : EkoBaseViewModel(), INewsFeedShareListener {
 
     fun getComments(postId: String): Flowable<PagedList<EkoComment>> {
         return commentRepository.getCommentCollection()
-            .post(postId)
-            .includeDeleted(true)
-            .build()
-            .query()
+                .post(postId)
+                .includeDeleted(true)
+                .build()
+                .query()
     }
 
     fun getPostDetails(id: String): Flowable<EkoPost> {
@@ -55,15 +54,15 @@ class EkoPostDetailsViewModel : EkoBaseViewModel(), INewsFeedShareListener {
 
     fun addComment(commentId: String, postId: String, message: String): Single<EkoComment> {
         return commentRepository.createComment(commentId)
-            .post(postId)
-            .with()
-            .text(message)
-            .build()
-            .send()
-            .map {
-                EkoClient.newFeedRepository().getPost(postId).ignoreElements().onErrorComplete()
-                it
-            }
+                .post(postId)
+                .with()
+                .text(message)
+                .build()
+                .send()
+                .map {
+                    EkoClient.newFeedRepository().getPost(postId).ignoreElements().onErrorComplete()
+                    it
+                }
     }
 
     fun deleteComment(commentId: String): Completable {
@@ -72,12 +71,12 @@ class EkoPostDetailsViewModel : EkoBaseViewModel(), INewsFeedShareListener {
 
     fun replyComment(postId: String, commentId: String, message: String): Single<EkoComment> {
         return commentRepository.createComment()
-            .post(postId)
-            .parentId(commentId)
-            .with()
-            .text(message)
-            .build()
-            .send()
+                .post(postId)
+                .parentId(commentId)
+                .with()
+                .text(message)
+                .build()
+                .send()
     }
 
     //TODO remove after sdk (core) fix bug for fetch post data

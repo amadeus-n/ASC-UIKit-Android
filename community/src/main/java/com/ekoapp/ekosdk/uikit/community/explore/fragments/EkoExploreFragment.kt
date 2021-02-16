@@ -11,12 +11,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoExploreBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentExploreBinding
 import com.ekoapp.ekosdk.uikit.community.explore.listener.ICategoryPreviewFragmentDelegate
 import com.ekoapp.ekosdk.uikit.community.explore.listener.IRecommendedCommunityFragmentDelegate
 import com.ekoapp.ekosdk.uikit.community.explore.listener.ITrendingCommunityFragmentDelegate
 import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoExploreCommunityViewModel
-import kotlinx.android.synthetic.main.fragment_news_feed.*
+import kotlinx.android.synthetic.main.amity_fragment_news_feed.*
 
 class EkoExploreFragment internal constructor() : Fragment() {
 
@@ -28,8 +28,8 @@ class EkoExploreFragment internal constructor() : Fragment() {
     ): View? {
         mViewModel =
             ViewModelProvider(requireActivity()).get(EkoExploreCommunityViewModel::class.java)
-        val binding: FragmentEkoExploreBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_eko_explore, container, false
+        val binding: AmityFragmentExploreBinding = DataBindingUtil.inflate(
+            inflater, R.layout.amity_fragment_explore, container, false
         )
         binding.viewModel = mViewModel
         return binding.root
@@ -51,7 +51,7 @@ class EkoExploreFragment internal constructor() : Fragment() {
     }
 
     private fun initListener() {
-        refreshLayout.setColorSchemeResources(R.color.upstraColorPrimary)
+        refreshLayout.setColorSchemeResources(R.color.amityColorPrimary)
         refreshLayout.setOnRefreshListener {
             childFragmentManager.fragments.forEach { fragment ->
                 when (fragment) {

@@ -12,13 +12,13 @@ import com.ekoapp.ekosdk.uikit.R
 import com.ekoapp.ekosdk.uikit.common.expandViewHitArea
 import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
-import com.ekoapp.ekosdk.uikit.databinding.EkoToolbarBinding
+import com.ekoapp.ekosdk.uikit.databinding.AmityToolbarBinding
 import com.google.android.material.appbar.MaterialToolbar
-import kotlinx.android.synthetic.main.eko_toolbar.view.*
+import kotlinx.android.synthetic.main.amity_toolbar.view.*
 
 class EkoToolBar : MaterialToolbar {
 
-    private lateinit var mBinding: EkoToolbarBinding
+    private lateinit var mBinding: AmityToolbarBinding
 
     constructor(context: Context) : super(context) {
         init()
@@ -38,7 +38,7 @@ class EkoToolBar : MaterialToolbar {
 
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.eko_toolbar, this, true)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.amity_toolbar, this, true)
         mBinding.rightStringActive = false
         toggleRightTextColor(false)
         setContentInsetsRelative(0, 0)
@@ -80,14 +80,14 @@ class EkoToolBar : MaterialToolbar {
         if (value) {
             tv_right.setTextColor(
                 ColorPaletteUtil.getColor(
-                    ContextCompat.getColor(context, R.color.upstraColorHighlight),
+                    ContextCompat.getColor(context, R.color.amityColorHighlight),
                     ColorShade.DEFAULT
                 )
             )
         } else {
             tv_right.setTextColor(
                 ColorPaletteUtil.getColor(
-                    ContextCompat.getColor(context, R.color.upstraColorHighlight), ColorShade.SHADE2
+                    ContextCompat.getColor(context, R.color.amityColorHighlight), ColorShade.SHADE2
                 )
             )
         }

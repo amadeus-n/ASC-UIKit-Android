@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewAdapter
 import com.ekoapp.ekosdk.uikit.common.loadImage
 import com.ekoapp.ekosdk.uikit.community.data.SelectMemberItem
-import com.ekoapp.ekosdk.uikit.community.databinding.SelectedMemberItemBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityItemSelectedMemberBinding
 import com.ekoapp.ekosdk.uikit.community.ui.clickListener.EkoSelectedMemberListener
 
 class EkoSelectedMemberViewHolder(
@@ -16,7 +16,7 @@ class EkoSelectedMemberViewHolder(
     RecyclerView.ViewHolder(itemView),
     EkoBaseRecyclerViewAdapter.IBinder<SelectMemberItem> {
 
-    private val binding: SelectedMemberItemBinding? = DataBindingUtil.bind(itemView)
+    private val binding: AmityItemSelectedMemberBinding? = DataBindingUtil.bind(itemView)
 
     override fun bind(data: SelectMemberItem?, position: Int) {
 

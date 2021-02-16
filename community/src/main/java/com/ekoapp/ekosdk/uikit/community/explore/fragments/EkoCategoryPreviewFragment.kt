@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.ekoapp.ekosdk.community.category.EkoCommunityCategory
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoCategoryPreviewBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentCategoryPreviewBinding
 import com.ekoapp.ekosdk.uikit.community.explore.activity.EkoCategoryCommunityListActivity
 import com.ekoapp.ekosdk.uikit.community.explore.activity.EkoCategoryListActivity
 import com.ekoapp.ekosdk.uikit.community.explore.adapter.EkoCommunityCategoryAdapter
@@ -22,7 +22,7 @@ import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoExploreCommunityVi
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_category_preview.*
+import kotlinx.android.synthetic.main.amity_fragment_category_preview.*
 
 class EkoCategoryPreviewFragment internal constructor() : EkoBaseFragment(),
     IEkoCategoryItemClickListener {
@@ -37,8 +37,8 @@ class EkoCategoryPreviewFragment internal constructor() : EkoBaseFragment(),
     ): View? {
         mViewModel =
             ViewModelProvider(requireActivity()).get(EkoExploreCommunityViewModel::class.java)
-        val binding: FragmentEkoCategoryPreviewBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_eko_category_preview, container, false
+        val binding: AmityFragmentCategoryPreviewBinding = DataBindingUtil.inflate(
+            inflater, R.layout.amity_fragment_category_preview, container, false
         )
         return binding.root
     }

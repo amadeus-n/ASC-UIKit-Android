@@ -9,9 +9,9 @@ import com.ekoapp.ekosdk.uikit.community.mycommunity.fragment.EkoMyCommunityFrag
 class EkoMyCommunityActivity : EkoBaseToolbarFragmentContainerActivity() {
     override fun initToolbar() {
         getToolBar()?.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+            ContextCompat.getDrawable(this, R.drawable.amity_ic_arrow_back)
         )
-        getToolBar()?.setLeftString(getString(R.string.my_community))
+        getToolBar()?.setLeftString(getString(R.string.amity_my_community))
     }
 
     override fun getContentFragment(): Fragment {

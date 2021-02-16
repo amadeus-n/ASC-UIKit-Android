@@ -12,7 +12,7 @@ class EkoMyCommunitiesAdapter(private val listener: IMyCommunityItemClickListene
     EkoBaseRecyclerViewPagedAdapter<EkoCommunity>(diffCallBack) {
 
     override fun getLayoutId(position: Int, obj: EkoCommunity?): Int =
-        R.layout.layout_community_item
+        R.layout.amity_item_community
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder =
         EkoMyCommunitiesViewHolder(view, listener)

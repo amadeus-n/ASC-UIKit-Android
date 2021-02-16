@@ -21,7 +21,7 @@ import com.ekoapp.ekosdk.uikit.utils.AlertDialogUtil
 import com.ekoapp.ekosdk.uikit.utils.EkoConstants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_community_member_settings.*
+import kotlinx.android.synthetic.main.amity_fragment_community_member_settings.*
 
 private const val ARG_COMMUNITY_ID = "ARG_COMMUNITY_ID"
 private const val ARG_IS_MEMBER = "ARG_IS_MEMBER"
@@ -50,7 +50,7 @@ class EkoCommunityMemberSettingsFragment internal constructor() : EkoBaseFragmen
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_eko_community_member_settings, container, false)
+        return inflater.inflate(R.layout.amity_fragment_community_member_settings, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,7 +65,7 @@ class EkoCommunityMemberSettingsFragment internal constructor() : EkoBaseFragmen
 
     private fun setUpToolbar() {
         (activity as AppCompatActivity).supportActionBar?.title =
-            getString(R.string.members_capital)
+            getString(R.string.amity_members_capital)
         if (mViewModel.isJoined.get()) {
             disposable.add(mViewModel.checkModeratorPermissionAtCommunity(
                 EkoPermission.ADD_COMMUNITY_USER,
@@ -88,11 +88,11 @@ class EkoCommunityMemberSettingsFragment internal constructor() : EkoBaseFragmen
         fragmentStateAdapter.setFragmentList(
             arrayListOf(
                 EkoFragmentStateAdapter.EkoPagerModel(
-                    getString(R.string.members_capital),
+                    getString(R.string.amity_members_capital),
                     EkoMembersFragment.newInstance()
                 ),
                 EkoFragmentStateAdapter.EkoPagerModel(
-                    getString(R.string.moderators),
+                    getString(R.string.amity_moderators),
                     EkoModeratorsFragment.newInstance()
                 )
             )
@@ -136,8 +136,8 @@ class EkoCommunityMemberSettingsFragment internal constructor() : EkoBaseFragmen
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_add)
-        menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.add))
+        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.amity_ic_add)
+        menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.amity_add))
             ?.setIcon(drawable)
             ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         super.onCreateOptionsMenu(menu, inflater)

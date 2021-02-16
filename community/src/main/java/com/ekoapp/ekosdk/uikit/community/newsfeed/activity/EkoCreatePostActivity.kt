@@ -17,10 +17,10 @@ class EkoCreatePostActivity : EkoBaseToolbarFragmentContainerActivity() {
 
     override fun initToolbar() {
         val community = intent?.getParcelableExtra<EkoCommunity>(EXTRA_PARAM_COMMUNITY)
-        getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross))
+        getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.amity_ic_cross))
         getToolBar()?.setLeftString(
             if (community != null) community.getDisplayName() else getString(
-                R.string.my_timeline
+                R.string.amity_my_timeline
             )
         )
     }

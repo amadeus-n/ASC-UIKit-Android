@@ -7,17 +7,17 @@
 
     <style name="EkoCommunityHeaderDisplayNameStyle">
         <item name="textStyle">normal</item>
-        <item name="textColor">@color/black</item>
+        <item name="textColor">@color/amityColorBlack</item>
     </style>
 
     <style name="EkoCommunityNameStyle">
         <item name="textStyle">normal</item>
-        <item name="textColor">@color/black</item>
+        <item name="textColor">@color/amityColorBlack</item>
     </style>
 
     <style name="EkoCommunityFollowerStyle">
         <item name="textStyle">normal</item>
-        <item name="textColor">@color/white</item>
+        <item name="textColor">@color/amityColorWhite</item>
     </style>
 
     <style name="EkoRecommendedCommunityStyle">
@@ -34,12 +34,12 @@
 
     <style name="EkoTrendingCommunityNameStyle">
         <item name="textStyle">normal</item>
-        <item name="textColor">@color/black</item>
+        <item name="textColor">@color/amityColorBlack</item>
     </style>
 
     <style name="EkoTrendingCommunityDescriptionStyle">
         <item name="textStyle">normal</item>
-        <item name="textColor">@color/black</item>
+        <item name="textColor">@color/amityColorBlack</item>
     </style>
 
     <style name="EkoTrendingCommunityFollowerStyle">
@@ -47,8 +47,8 @@
     </style>
 
     <style name="EkoTrendingCommunityFollowButtonStyle">
-        <item name="buttonTextColor">@color/white</item>
-        <item name="backgroundColor">@color/black</item>
+        <item name="buttonTextColor">@color/amityColorWhite</item>
+        <item name="backgroundColor">@color/amityColorBlack</item>
         <item name="buttonType">solid</item>
     </style>
 
@@ -67,12 +67,12 @@
 
     <style name="EkoCommunityCategoryNameStyle">
         <item name="textStyle">normal</item>
-        <item name="textColor">@color/black</item>
+        <item name="textColor">@color/amityColorBlack</item>
     </style>
 
     <style name="EkoCommunitySubCategoryNameStyle">
         <item name="textStyle">normal</item>
-        <item name="textColor">@color/black</item>
+        <item name="textColor">@color/amityColorBlack</item>
     </style>
 
     <style name="BaseButtonStyle" parent="Widget.MaterialComponents.Button">
@@ -91,7 +91,7 @@
     <style name="FollowButtonAppearance">
         <item name="cornerFamily">cut</item>
         <item name="cornerRadius">@dimen/six</item>
-        <item name="strokeColor">@color/black</item>
+        <item name="strokeColor">@color/amityColorBlack</item>
     </style>
 
     <style name="EnterCommunityStyle">
@@ -113,7 +113,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/ts_upstra_body</item>
-        <item name="android:textColor">@color/upstraColorBase</item>
+        <item name="android:textColor">@color/amityColorBase</item>
     </style>
 
     <style name="RadioButtonStyle" parent="EkoRadioButtonStyle">
@@ -159,9 +159,9 @@
         <item name="android:textSize">@dimen/ts_upstra_body</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:textColor">@color/upstraColorBase</item>
+        <item name="android:textColor">@color/amityColorBase</item>
         <item name="android:autoLink">web</item>
-        <item name="android:textColorLink">@color/upstraColorHighlight</item>
+        <item name="android:textColorLink">@color/amityColorHighlight</item>
     </style>
 
     <style name="CommunityHomeToolBarStyle" parent="BaseToolBarStyle">
@@ -181,7 +181,7 @@
         <item name="android:textSize">@dimen/ts_upstra_headline</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginStart">@dimen/sixteen</item>
-        <item name="android:textColor">@color/upstraColorBase</item>
+        <item name="android:textColor">@color/amityColorBase</item>
     </style>
 
 </resources>

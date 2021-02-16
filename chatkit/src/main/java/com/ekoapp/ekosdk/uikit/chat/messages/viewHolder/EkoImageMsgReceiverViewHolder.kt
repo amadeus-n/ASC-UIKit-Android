@@ -6,8 +6,8 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.ekoapp.ekosdk.message.EkoMessage
 import com.ekoapp.ekosdk.uikit.chat.R
-import com.ekoapp.ekosdk.uikit.chat.databinding.ItemImageMsgReceiverBinding
-import com.ekoapp.ekosdk.uikit.chat.databinding.MsgReportPopupBinding
+import com.ekoapp.ekosdk.uikit.chat.databinding.AmityItemImageMsgReceiverBinding
+import com.ekoapp.ekosdk.uikit.chat.databinding.AmityPopupMsgReportBinding
 import com.ekoapp.ekosdk.uikit.chat.messages.popUp.EkoPopUp
 import com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoImageMsgViewModel
 import com.ekoapp.ekosdk.uikit.common.isNotEmptyOrBlank
@@ -24,7 +24,7 @@ class EkoImageMsgReceiverViewHolder(
     private val context: Context
 ) : EkoSelectableMessageViewHolder(itemView, itemViewModel, context) {
 
-    private val binding: ItemImageMsgReceiverBinding? = DataBindingUtil.bind(itemView)
+    private val binding: AmityItemImageMsgReceiverBinding? = DataBindingUtil.bind(itemView)
     private var popUp: EkoPopUp? = null
 
     init {
@@ -59,7 +59,7 @@ class EkoImageMsgReceiverViewHolder(
             binding?.ivImageIncoming?.setShape(
                 null, null,
                 itemView.context.resources.getDimension(R.dimen.zero),
-                null, R.color.upstraColorBase, null, ColorShade.SHADE4
+                null, R.color.amityColorBase, null, ColorShade.SHADE4
             )
         }
 
@@ -81,9 +81,9 @@ class EkoImageMsgReceiverViewHolder(
         popUp = EkoPopUp()
         val anchor: View = itemView.findViewById(R.id.ivImageIncoming)
         val inflater: LayoutInflater = LayoutInflater.from(anchor.context)
-        val binding: MsgReportPopupBinding = DataBindingUtil.inflate(
+        val binding: AmityPopupMsgReportBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.msg_report_popup, null, true
+            R.layout.amity_popup_msg_report, null, true
         )
         binding.viewModel = itemViewModel
         popUp?.showPopUp(binding.root, anchor, itemViewModel, EkoPopUp.PopUpGravity.START)

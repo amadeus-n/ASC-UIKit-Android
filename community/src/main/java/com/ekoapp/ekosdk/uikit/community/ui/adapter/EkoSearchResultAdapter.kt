@@ -15,7 +15,7 @@ class EkoSearchResultAdapter(private val listener: EkoSelectMemberListener) :
 
     private val selectedMemberSet = HashSet<String>()
 
-    override fun getLayoutId(position: Int, obj: EkoUser?): Int = R.layout.select_member_item
+    override fun getLayoutId(position: Int, obj: EkoUser?): Int = R.layout.amity_item_select_member
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder =
         EkoMemberListItemViewHolder(view, listener, selectedMemberSet)

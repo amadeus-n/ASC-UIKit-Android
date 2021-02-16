@@ -16,7 +16,7 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.common.setShape
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoMyCommunityBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentMyCommunityBinding
 import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
 import com.ekoapp.ekosdk.uikit.community.mycommunity.adapter.EkoMyCommunityListAdapter
 import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener
@@ -27,7 +27,7 @@ import com.ekoapp.ekosdk.uikit.utils.AndroidUtil
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_my_community.*
+import kotlinx.android.synthetic.main.amity_fragment_my_community.*
 
 private const val ARG_SHOW_SEARCH = "ARG_SHOW_SEARCH"
 private const val ARG_SHOW_OPTIONS_MENU = "ARG_SHOW_OPTIONS_MENU"
@@ -36,7 +36,7 @@ class EkoMyCommunityFragment internal constructor() : EkoBaseFragment(),
     IMyCommunityItemClickListener {
     private val TAG = EkoMyCommunityFragment::class.java.simpleName
     private lateinit var mViewModel: EkoMyCommunityListViewModel
-    lateinit var mBinding: FragmentEkoMyCommunityBinding
+    lateinit var mBinding: AmityFragmentMyCommunityBinding
     private lateinit var mAdapter: EkoMyCommunityListAdapter
 
 
@@ -57,7 +57,7 @@ class EkoMyCommunityFragment internal constructor() : EkoBaseFragment(),
         mBinding =
             DataBindingUtil.inflate(
                 inflater,
-                R.layout.fragment_eko_my_community,
+                R.layout.amity_fragment_my_community,
                 container,
                 false
             )
@@ -82,7 +82,7 @@ class EkoMyCommunityFragment internal constructor() : EkoBaseFragment(),
     private fun handleEditTextInput() {
         etSearch.setShape(
             null, null, null, null,
-            R.color.upstraColorBase, null, ColorShade.SHADE4
+            R.color.amityColorBase, null, ColorShade.SHADE4
         )
         etSearch.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
@@ -96,7 +96,7 @@ class EkoMyCommunityFragment internal constructor() : EkoBaseFragment(),
     }
 
     private fun setUpToolBar() {
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.my_community)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.amity_my_community)
     }
 
     private fun subscribeObservers() {
@@ -147,8 +147,8 @@ class EkoMyCommunityFragment internal constructor() : EkoBaseFragment(),
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_uikit_add)
-        menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.add))
+        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.amity_ic_add)
+        menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.amity_add))
             ?.setIcon(drawable)
             ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         super.onCreateOptionsMenu(menu, inflater)

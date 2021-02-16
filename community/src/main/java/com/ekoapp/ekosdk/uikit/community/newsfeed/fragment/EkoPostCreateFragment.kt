@@ -13,7 +13,7 @@ import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_COMMUNITY_ID
 import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED_ID
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_post_create.*
+import kotlinx.android.synthetic.main.amity_fragment_post_create.*
 
 class EkoPostCreateFragment internal constructor() : EkoBaseCreatePostFragment() {
 
@@ -26,13 +26,13 @@ class EkoPostCreateFragment internal constructor() : EkoBaseCreatePostFragment()
     }
 
     override fun getPostMenuText(): String {
-        return getString(R.string.post_caps)
+        return getString(R.string.amity_post_caps)
     }
 
     private fun getToolbarTitleForCreatePost(): String {
         if (mViewModel.community != null)
             return mViewModel.community!!.getDisplayName()
-        return getString(R.string.my_timeline)
+        return getString(R.string.amity_my_timeline)
     }
 
     private fun createPost() {

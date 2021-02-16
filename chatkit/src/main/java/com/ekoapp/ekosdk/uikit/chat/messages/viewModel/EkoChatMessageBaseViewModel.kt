@@ -19,7 +19,7 @@ open class EkoChatMessageBaseViewModel : EkoBaseViewModel() {
     val isDeleted = ObservableBoolean(false)
     val editedAt = ObservableField("")
     val isEdited = ObservableBoolean(false)
-    val dateFillColor = ObservableField<Int>(R.color.upstraColorBase)
+    val dateFillColor = ObservableField<Int>(R.color.amityColorBase)
     val isFailed = ObservableBoolean(false)
 
     fun deleteMessage(): Completable? {

@@ -18,14 +18,14 @@ import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.base.EkoPickerFragment
 import com.ekoapp.ekosdk.uikit.common.views.dialog.EkoBottomSheetDialogFragment
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoEditUserProfileBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentEditUserProfileBinding
 import com.ekoapp.ekosdk.uikit.community.profile.viewmodel.EkoEditUserProfileViewModel
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.ekoapp.ekosdk.uikit.utils.EkoOptionMenuColorUtil
 import com.ekoapp.ekosdk.user.EkoUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_edit_user_profile.*
+import kotlinx.android.synthetic.main.amity_fragment_edit_user_profile.*
 import java.io.File
 
 
@@ -34,7 +34,7 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
     private val ID_MENU_ITEM_SAVE_PROFILE: Int = 111
     private val TAG = EkoEditUserProfileFragment::class.java.canonicalName
     private val mViewModel: EkoEditUserProfileViewModel by activityViewModels()
-    lateinit var mBinding: FragmentEkoEditUserProfileBinding
+    lateinit var mBinding: AmityFragmentEditUserProfileBinding
     private var profileUri: Uri? = null
 
 
@@ -50,7 +50,7 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
         mBinding =
             DataBindingUtil.inflate(
                 inflater,
-                R.layout.fragment_eko_edit_user_profile,
+                R.layout.amity_fragment_edit_user_profile,
                 container,
                 false
             )
@@ -95,7 +95,7 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
         mViewModel.updateProfileUri(profileUri)
         Glide.with(requireContext())
             .load(profileUri)
-            .placeholder(R.drawable.ic_uikit_default_profile)
+            .placeholder(R.drawable.amity_ic_default_profile1)
             .centerCrop()
             .into(mBinding.ivAvatar)
     }
@@ -138,13 +138,13 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
 
     private fun initToolBar() {
         setHasOptionsMenu(true)
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.edit_profile)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.amity_edit_profile)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menuItemSaveProfile =
-            menu.add(Menu.NONE, ID_MENU_ITEM_SAVE_PROFILE, Menu.NONE, getString(R.string.save))
-        menuItemSaveProfile?.setTitle(R.string.save)
+            menu.add(Menu.NONE, ID_MENU_ITEM_SAVE_PROFILE, Menu.NONE, getString(R.string.amity_save))
+        menuItemSaveProfile?.setTitle(R.string.amity_save)
             ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         updateSaveProfileMenu(mViewModel.hasProfileUpdate.value ?: false)
         super.onCreateOptionsMenu(menu, inflater)
@@ -164,7 +164,7 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
 
     private fun updateSaveProfileMenu(enabled: Boolean) {
         menuItemSaveProfile?.isEnabled = enabled
-        val s = SpannableString(getString(R.string.save))
+        val s = SpannableString(getString(R.string.amity_save))
         s.setSpan(
             ForegroundColorSpan(
                 EkoOptionMenuColorUtil.getColor(
@@ -193,7 +193,7 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
     private fun handleErrorProfilePictureUpload() {
         Toast.makeText(
             requireContext(),
-            getString(R.string.upload_failed_profile_picture),
+            getString(R.string.amity_upload_failed_profile_picture),
             Toast.LENGTH_SHORT
         ).show()
     }
@@ -247,7 +247,7 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
                     context?.also {
                         Toast.makeText(
                             requireContext(),
-                            getText(R.string.edit_profile_update_failed),
+                            getText(R.string.amity_edit_profile_update_failed),
                             Toast.LENGTH_SHORT
                         ).show()
                     }

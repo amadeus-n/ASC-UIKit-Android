@@ -13,18 +13,18 @@ import com.ekoapp.ekosdk.feed.EkoPostTarget
 import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.common.readableFeedPostTime
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.LayoutNewsFeedItemHeaderBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityItemHeaderNewsFeedBinding
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedActionAvatarClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedActionCommunityClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.util.EkoTimelineType
 import com.ekoapp.ekosdk.uikit.utils.EkoConstants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.layout_news_feed_item_header.view.*
+import kotlinx.android.synthetic.main.amity_item_header_news_feed.view.*
 
 class EkoNewsFeedItemHeader : ConstraintLayout {
 
-    private lateinit var mBinding: LayoutNewsFeedItemHeaderBinding
+    private lateinit var mBinding: AmityItemHeaderNewsFeedBinding
     private var newsFeedActionAvatarClickListener: INewsFeedActionAvatarClickListener? = null
     private var newsFeedActionCommunityClickListener: INewsFeedActionCommunityClickListener? = null
     private var showFeedAction = true
@@ -48,7 +48,7 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.layout_news_feed_item_header, this, true)
+            DataBindingUtil.inflate(inflater, R.layout.amity_item_header_news_feed, this, true)
     }
 
     fun setNewsFeedActionAvatarClickListener(listener: INewsFeedActionAvatarClickListener) {
@@ -107,7 +107,7 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
                 userName.setCompoundDrawablesWithIntrinsicBounds(
                     null,
                     null,
-                    ContextCompat.getDrawable(context, R.drawable.ic_uikit_arrow),
+                    ContextCompat.getDrawable(context, R.drawable.amity_ic_arrow),
                     null
                 )
                 communityName.text = it.getDisplayName().trim()
@@ -115,7 +115,7 @@ class EkoNewsFeedItemHeader : ConstraintLayout {
                     communityName.setCompoundDrawablesWithIntrinsicBounds(
                         null,
                         null,
-                        ContextCompat.getDrawable(context, R.drawable.ic_uikit_verified),
+                        ContextCompat.getDrawable(context, R.drawable.amity_ic_verified),
                         null
                     )
                 } else {

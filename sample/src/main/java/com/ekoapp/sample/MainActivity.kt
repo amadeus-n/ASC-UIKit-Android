@@ -7,14 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ekoapp.ekosdk.EkoClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.amity_activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.amity_activity_main)
 
         if (EkoClient.getDisplayName().isNotEmpty()) {
             val intent = Intent(this, SettingActivity::class.java)

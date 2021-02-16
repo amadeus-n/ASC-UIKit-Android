@@ -14,8 +14,12 @@ class NewsFeedItemTextViewHolder(
     override fun bind(data: EkoPost?, position: Int) {
         super.bind(data, position)
         if (data != null) {
-            val textData = data.getData() as EkoPost.Data.TEXT
-            feed.text = textData.getText()
+            if (data.getData() is EkoPost.Data.TEXT) {
+                val textData = data.getData() as EkoPost.Data.TEXT
+                feed.text = textData.getText()
+            } else {
+                feed.text = ""
+            }
             feed.visibility = View.VISIBLE
         }
     }

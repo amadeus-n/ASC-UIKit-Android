@@ -14,9 +14,9 @@ class EkoPostTargetSelectionActivity : EkoBaseToolbarFragmentContainerActivity()
 
     override fun initToolbar() {
         getToolBar()?.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross)
+            ContextCompat.getDrawable(this, R.drawable.amity_ic_cross)
         )
-        getToolBar()?.setLeftString(getString(R.string.post_to))
+        getToolBar()?.setLeftString(getString(R.string.amity_post_to))
     }
 
     override fun leftIconClick() {

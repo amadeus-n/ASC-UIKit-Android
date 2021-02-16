@@ -21,11 +21,11 @@ class EkoEditCommentActivity : EkoBaseToolbarFragmentContainerActivity() {
     private val TAG = EkoEditCommentActivity::class.java.canonicalName
 
     override fun initToolbar() {
-        getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.ic_uikit_cross))
+        getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.amity_ic_cross))
         val comment: EkoComment? = intent.getParcelableExtra(EXTRA_PARAM_COMMENT)
         getToolBar()?.setLeftString(
-            if (comment != null) getString(R.string.edit_comment) else getString(
-                R.string.add_comment
+            if (comment != null) getString(R.string.amity_edit_comment) else getString(
+                R.string.amity_add_comment
             )
         )
     }

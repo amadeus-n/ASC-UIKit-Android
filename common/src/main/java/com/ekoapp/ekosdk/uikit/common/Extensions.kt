@@ -63,7 +63,7 @@ fun ImageView.loadImage(url: String?, id: Int? = null) {
         Glide.with(this)
             .load(url)
             .centerCrop()
-            .placeholder(R.drawable.ic_uikit_user)
+            .placeholder(R.drawable.amity_ic_user)
             .into(ScaleErrorImageViewTarget(this).error())
     }
 
@@ -77,21 +77,21 @@ fun Long.readableFeedPostTime(context: Context): String {
 
     return when {
         days > 0 -> context.resources.getQuantityString(
-            R.plurals.number_of_days,
+            R.plurals.amity_number_of_days,
             days.toInt(),
             days
         )
         hours > 0 -> context.resources.getQuantityString(
-            R.plurals.number_of_hours,
+            R.plurals.amity_number_of_hours,
             hours.toInt(),
             hours
         )
         minutes > 0 -> context.resources.getQuantityString(
-            R.plurals.number_of_mins,
+            R.plurals.amity_number_of_mins,
             minutes.toInt(),
             minutes
         )
-        else -> context.getString(R.string.just_now)
+        else -> context.getString(R.string.amity_just_now)
     }
 }
 
@@ -156,7 +156,7 @@ fun View.setShape(
     val shapeDrawable = MaterialShapeDrawable(modal.build())
 
     if (fillColor == null) {
-        shapeDrawable.fillColor = ContextCompat.getColorStateList(this.context, R.color.white)
+        shapeDrawable.fillColor = ContextCompat.getColorStateList(this.context, R.color.amityColorWhite)
     } else {
         if (colorShade == null)
             shapeDrawable.fillColor = ContextCompat.getColorStateList(this.context, fillColor)
@@ -217,14 +217,14 @@ fun View.toCircularShape(fillColor: Int, strokeWidth: Float? = null) {
     val shapeDrawable = MaterialShapeDrawable(modal.build())
     shapeDrawable.setTint(fillColor)
     if (strokeWidth != null) {
-        shapeDrawable.setStroke(strokeWidth, ContextCompat.getColor(this.context, R.color.white))
+        shapeDrawable.setStroke(strokeWidth, ContextCompat.getColor(this.context, R.color.amityColorWhite))
     }
     ViewCompat.setBackground(this, shapeDrawable)
 }
 
 fun View.setBackgroundColor(color: Int?, colorShade: ColorShade?) {
     val shade = colorShade ?: ColorShade.DEFAULT
-    val backgroundColor = color ?: ContextCompat.getColor(this.context, R.color.upstraColorBase)
+    val backgroundColor = color ?: ContextCompat.getColor(this.context, R.color.amityColorBase)
     this.setBackgroundColor(ColorPaletteUtil.getColor(backgroundColor, shade))
 }
 

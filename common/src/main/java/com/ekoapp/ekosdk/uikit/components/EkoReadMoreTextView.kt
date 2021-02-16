@@ -8,11 +8,11 @@ import android.view.ViewTreeObserver
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.ekoapp.ekosdk.uikit.R
-import com.ekoapp.ekosdk.uikit.databinding.LayoutReadMoreBinding
+import com.ekoapp.ekosdk.uikit.databinding.AmityViewReadMoreBinding
 
 class EkoReadMoreTextView : ConstraintLayout {
 
-    private lateinit var mBinding: LayoutReadMoreBinding
+    private lateinit var mBinding: AmityViewReadMoreBinding
     private var isSender = true
     private var message: String? = ""
     private var mListener: ILongPressListener? = null
@@ -35,7 +35,7 @@ class EkoReadMoreTextView : ConstraintLayout {
 
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.layout_read_more, this, true)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.amity_view_read_more, this, true)
         mBinding.isSender = isSender
         mBinding.readMoreContainer.setOnClickListener {
             mBinding.tvMessage.maxLines = Int.MAX_VALUE

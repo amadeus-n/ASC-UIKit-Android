@@ -9,37 +9,23 @@ class EkoFeedFragment private constructor() {
     class Builder {
 
         @JvmOverloads
-        fun ofUser(
-            userId: String,
-            listener: IAvatarClickListener? = null
-        ): EkoUserFeedFragment.Builder {
+        fun ofUser(userId: String, listener: IAvatarClickListener? = null): EkoUserFeedFragment.Builder {
             return EkoUserFeedFragment.Builder().userId(userId).onClickUserAvatar(listener)
         }
 
         @JvmOverloads
-        fun ofUser(
-            user: EkoUser,
-            listener: IAvatarClickListener? = null
-        ): EkoUserFeedFragment.Builder {
+        fun ofUser(user: EkoUser, listener: IAvatarClickListener? = null): EkoUserFeedFragment.Builder {
             return EkoUserFeedFragment.Builder().user(user).onClickUserAvatar(listener)
         }
 
         @JvmOverloads
-        fun ofCommunity(
-            communityId: String,
-            listener: IAvatarClickListener? = null
-        ): EkoCommunityFeedFragment.Builder {
-            return EkoCommunityFeedFragment.Builder().communityId(communityId)
-                .onClickUserAvatar(listener)
+        fun ofCommunity(communityId: String, listener: IAvatarClickListener? = null): EkoCommunityFeedFragment.Builder {
+            return EkoCommunityFeedFragment.Builder().communityId(communityId).onClickUserAvatar(listener)
         }
 
         @JvmOverloads
-        fun ofCommunity(
-            community: EkoCommunity,
-            listener: IAvatarClickListener? = null
-        ): EkoCommunityFeedFragment.Builder {
-            return EkoCommunityFeedFragment.Builder().community(community)
-                .onClickUserAvatar(listener)
+        fun ofCommunity(community: EkoCommunity, listener: IAvatarClickListener? = null): EkoCommunityFeedFragment.Builder {
+            return EkoCommunityFeedFragment.Builder().community(community).onClickUserAvatar(listener)
         }
 
         @JvmOverloads

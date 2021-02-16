@@ -11,7 +11,7 @@ import com.github.chrisbanes.photoview.PhotoView
 class EkoImagePreviewPagerAdapter : EkoBaseRecyclerViewAdapter<PreviewImage>() {
 
     override fun getLayoutId(position: Int, obj: PreviewImage?): Int {
-        return R.layout.layout_image_preview_item
+        return R.layout.amity_item_image_preview
     }
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {

@@ -7,13 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.uikit.utils.EkoConstants
 import com.ekoapp.ekosdk.uikit.utils.ThemeUtil
-import kotlinx.android.synthetic.main.activity_setting.*
+import kotlinx.android.synthetic.main.amity_activity_setting.*
 
 class SettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         ThemeUtil.setCurrentTheme(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_setting)
+        setContentView(R.layout.amity_activity_setting)
 
         btnConfirm.setOnClickListener {
             setTheme()

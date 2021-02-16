@@ -28,7 +28,7 @@ import com.ekoapp.ekosdk.channel.EkoChannel
 import com.ekoapp.ekosdk.internal.util.RealPathUtil
 import com.ekoapp.ekosdk.uikit.base.EkoPickerFragment
 import com.ekoapp.ekosdk.uikit.chat.R
-import com.ekoapp.ekosdk.uikit.chat.databinding.FragmentEkoChatBinding
+import com.ekoapp.ekosdk.uikit.chat.databinding.AmityFragmentChatBinding
 import com.ekoapp.ekosdk.uikit.chat.messages.adapter.EkoMessageListAdapter
 import com.ekoapp.ekosdk.uikit.chat.messages.viewModel.EkoMessageListViewModel
 import com.ekoapp.ekosdk.uikit.common.setShape
@@ -44,8 +44,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.zhihu.matisse.Matisse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.chat_tool_bar.view.*
-import kotlinx.android.synthetic.main.fragment_eko_chat.*
+import kotlinx.android.synthetic.main.amity_chat_bar.view.*
+import kotlinx.android.synthetic.main.amity_fragment_chat.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -60,7 +60,7 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
 
     private val messageListViewModel: EkoMessageListViewModel by activityViewModels()
     private lateinit var mAdapter: EkoMessageListAdapter
-    private lateinit var mBinding: FragmentEkoChatBinding
+    private lateinit var mBinding: AmityFragmentChatBinding
     private var scrollRequired = true
     private var msgSent = false
     private var iCustomViewHolder: EkoMessageListAdapter.ICustomViewHolder? = null
@@ -80,7 +80,7 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_eko_chat, container, false)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.amity_fragment_chat, container, false)
         mBinding.viewModel = messageListViewModel
         return mBinding.root
     }
@@ -94,18 +94,18 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
         setRecorderTouchListener()
         etMessage.setShape(
             null, null, null, null,
-            R.color.upstraColorBase, R.color.upstraColorBase, ColorShade.SHADE4
+            R.color.amityColorBase, R.color.amityColorBase, ColorShade.SHADE4
         )
         recordBackground.setShape(
             null, null, null, null,
-            R.color.upstraColorBase, R.color.upstraColorBase, ColorShade.SHADE4
+            R.color.amityColorBase, R.color.amityColorBase, ColorShade.SHADE4
         )
         val percentage = 30F / 100
         val background = ColorUtils.setAlphaComponent(
             ColorPaletteUtil.getColor(
                 ContextCompat.getColor(
                     requireContext(),
-                    R.color.upstraColorBase
+                    R.color.amityColorBase
                 ), ColorShade.SHADE4
             ), (percentage * 255).toInt()
         )
@@ -146,14 +146,14 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
                 mBinding.chatToolBar.ivAvatar.setImageDrawable(
                     ContextCompat.getDrawable(
                         requireContext(),
-                        R.drawable.ic_uikit_group
+                        R.drawable.amity_ic_group
                     )
                 )
             } else {
                 mBinding.chatToolBar.ivAvatar.setImageDrawable(
                     ContextCompat.getDrawable(
                         requireContext(),
-                        R.drawable.ic_uikit_user
+                        R.drawable.amity_ic_user
                     )
                 )
             }
@@ -297,7 +297,7 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
                 EventIdentifier.MSG_SEND_ERROR -> {
                     CoroutineScope(Dispatchers.Main).launch {
                         val snackBar =
-                            Snackbar.make(rvChatList, R.string.failed_msg, Snackbar.LENGTH_SHORT)
+                            Snackbar.make(rvChatList, R.string.amity_failed_msg, Snackbar.LENGTH_SHORT)
                         snackBar.show()
                     }
                 }
@@ -389,11 +389,11 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
 
     override fun showMessage() {
         val layout: View = layoutInflater.inflate(
-            R.layout.layout_audio_msg_error,
+            R.layout.amity_view_audio_msg_error,
             activity?.findViewById(R.id.errorMessageContainer)
         )
         val textView = layout.findViewById<TextView>(R.id.tvMessage)
-        textView.setShape(null, null, null, null, R.color.upstraColorBase, null, null)
+        textView.setShape(null, null, null, null, R.color.amityColorBase, null, null)
 
         val toast = Toast(context)
         toast.setGravity(Gravity.BOTTOM, 0, 180)

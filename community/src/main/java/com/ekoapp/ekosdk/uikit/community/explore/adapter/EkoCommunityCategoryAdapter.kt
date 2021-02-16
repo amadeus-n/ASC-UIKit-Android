@@ -8,14 +8,14 @@ import com.ekoapp.ekosdk.community.category.EkoCommunityCategory
 import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewPagedAdapter
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.LayoutCommunityCategoryItemBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityItemCommunityCategoryBinding
 import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCategoryItemClickListener
 
 class EkoCommunityCategoryAdapter(private val listener: IEkoCategoryItemClickListener) :
     EkoBaseRecyclerViewPagedAdapter<EkoCommunityCategory>(diffCallBack) {
 
     override fun getLayoutId(position: Int, obj: EkoCommunityCategory?): Int =
-        R.layout.layout_community_category_item
+        R.layout.amity_item_community_category
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder =
         EkoCommunityCategoryViewHolder(view, listener)
@@ -26,7 +26,7 @@ class EkoCommunityCategoryAdapter(private val listener: IEkoCategoryItemClickLis
         private val listener: IEkoCategoryItemClickListener
     ) : RecyclerView.ViewHolder(itemView), Binder<EkoCommunityCategory> {
 
-        private val binding: LayoutCommunityCategoryItemBinding? = DataBindingUtil.bind(itemView)
+        private val binding: AmityItemCommunityCategoryBinding? = DataBindingUtil.bind(itemView)
 
         override fun bind(data: EkoCommunityCategory?, position: Int) {
             binding?.communityCategory = data

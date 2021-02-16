@@ -13,7 +13,7 @@ class EkoSelectedMemberAdapter(private val listener: EkoSelectedMemberListener) 
     EkoBaseRecyclerViewAdapter<SelectMemberItem>() {
 
     override fun getLayoutId(position: Int, obj: SelectMemberItem?): Int =
-        R.layout.selected_member_item
+        R.layout.amity_item_selected_member
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder =
         EkoSelectedMemberViewHolder(view, listener)

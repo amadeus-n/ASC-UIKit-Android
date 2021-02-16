@@ -9,14 +9,14 @@ import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewPagedAdapter
 import com.ekoapp.ekosdk.uikit.common.formatCount
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.LayoutTrendingCommunityListItemBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityItemTrendingCommunityListBinding
 import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener
 
 class EkoTrendingCommunityAdapter(private val listener: IMyCommunityItemClickListener) :
     EkoBaseRecyclerViewPagedAdapter<EkoCommunity>(diffCallBack) {
 
     override fun getLayoutId(position: Int, obj: EkoCommunity?): Int =
-        R.layout.layout_trending_community_list_item
+        R.layout.amity_item_trending_community_list
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder =
         EkoTrendingCommunityViewHolder(view, listener)
@@ -35,7 +35,7 @@ class EkoTrendingCommunityAdapter(private val listener: IMyCommunityItemClickLis
     ) :
         RecyclerView.ViewHolder(itemView), Binder<EkoCommunity> {
 
-        private val binding: LayoutTrendingCommunityListItemBinding? =
+        private val binding: AmityItemTrendingCommunityListBinding? =
             DataBindingUtil.bind(itemView)
 
         override fun bind(data: EkoCommunity?, position: Int) {
@@ -44,7 +44,7 @@ class EkoTrendingCommunityAdapter(private val listener: IMyCommunityItemClickLis
             binding?.listener = listener
             binding?.tvCount?.text = "${position + 1}"
             binding?.tvMembersCount?.text = itemView.context.getString(
-                R.string.members_count,
+                R.string.amity_members_count,
                 "${data?.getMemberCount()?.toDouble()?.formatCount()}"
             )
             binding?.tvCategory?.text =

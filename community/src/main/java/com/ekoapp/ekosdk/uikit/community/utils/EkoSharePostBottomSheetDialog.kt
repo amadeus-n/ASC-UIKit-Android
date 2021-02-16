@@ -24,8 +24,7 @@ class EkoSharePostBottomSheetDialog(override val post: EkoPost) : EkoShareMenuVi
 
     fun setNavigationListener(listener: INewsFeedShareListener): EkoSharePostBottomSheetDialog {
         this.listener = listener
-        fragment.setOnNavigationItemSelectedListener(object :
-            EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
+        fragment.setOnNavigationItemSelectedListener(object : EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
             override fun onItemSelected(item: MenuItem) {
                 when (item.itemId) {
                     R.id.actionShareToMyTimeline -> {
@@ -43,8 +42,7 @@ class EkoSharePostBottomSheetDialog(override val post: EkoPost) : EkoShareMenuVi
         return this
     }
 
-    fun observeShareToMyTimeline(
-        lifecycleOwner: LifecycleOwner, callback: (EkoPost) -> Unit
+    fun observeShareToMyTimeline(lifecycleOwner: LifecycleOwner, callback: (EkoPost) -> Unit
     ): EkoSharePostBottomSheetDialog {
         listener.observeShareToMyTimelinePage().observeOnce(lifecycleOwner) {
             callback.invoke(post)
@@ -52,20 +50,14 @@ class EkoSharePostBottomSheetDialog(override val post: EkoPost) : EkoShareMenuVi
         return this
     }
 
-    fun observeShareToGroup(
-        lifecycleOwner: LifecycleOwner,
-        callback: (EkoPost) -> Unit
-    ): EkoSharePostBottomSheetDialog {
+    fun observeShareToGroup(lifecycleOwner: LifecycleOwner, callback: (EkoPost) -> Unit): EkoSharePostBottomSheetDialog {
         listener.observeShareToPage().observeOnce(lifecycleOwner) {
             callback.invoke(post)
         }
         return this
     }
 
-    fun observeShareToExternalApp(
-        lifecycleOwner: LifecycleOwner,
-        callback: (EkoPost) -> Unit
-    ): EkoSharePostBottomSheetDialog {
+    fun observeShareToExternalApp(lifecycleOwner: LifecycleOwner, callback: (EkoPost) -> Unit): EkoSharePostBottomSheetDialog {
         listener.observeShareToExternalApp().observeOnce(lifecycleOwner) {
             callback.invoke(post)
         }

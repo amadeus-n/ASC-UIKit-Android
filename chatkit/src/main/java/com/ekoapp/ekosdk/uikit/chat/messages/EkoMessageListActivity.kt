@@ -14,7 +14,7 @@ class EkoMessageListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         ThemeUtil.setCurrentTheme(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
+        setContentView(R.layout.amity_activity_chat)
         channelId = intent.getStringExtra(INTENT_CHANNEL_ID) ?: ""
         initializeFragment()
     }

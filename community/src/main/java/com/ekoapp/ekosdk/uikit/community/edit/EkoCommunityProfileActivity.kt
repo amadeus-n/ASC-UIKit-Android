@@ -11,8 +11,8 @@ import androidx.lifecycle.Observer
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.ui.viewModel.EkoCreateCommunityViewModel
 import com.ekoapp.ekosdk.uikit.components.EkoToolBarClickListener
-import kotlinx.android.synthetic.main.activity_eko_create_community.*
-import kotlinx.android.synthetic.main.activity_eko_edit_community.*
+import kotlinx.android.synthetic.main.amity_activity_create_community.*
+import kotlinx.android.synthetic.main.amity_activity_edit_community.*
 
 class EkoCommunityProfileActivity : AppCompatActivity(), EkoToolBarClickListener {
 
@@ -22,7 +22,7 @@ class EkoCommunityProfileActivity : AppCompatActivity(), EkoToolBarClickListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_eko_edit_community)
+        setContentView(R.layout.amity_activity_edit_community)
 
         communityId = intent?.getStringExtra(COMMUNITY_ID) ?: ""
         setUpToolbar()
@@ -35,10 +35,10 @@ class EkoCommunityProfileActivity : AppCompatActivity(), EkoToolBarClickListener
 
     private fun setUpToolbar() {
         editCommunityToolbar.setLeftDrawable(
-            ContextCompat.getDrawable(this, R.drawable.ic_uikit_arrow_back)
+            ContextCompat.getDrawable(this, R.drawable.amity_ic_arrow_back)
         )
-        editCommunityToolbar.setLeftString(getString(R.string.edit_profile))
-        editCommunityToolbar.setRightString(getString(R.string.save))
+        editCommunityToolbar.setLeftString(getString(R.string.amity_edit_profile))
+        editCommunityToolbar.setRightString(getString(R.string.amity_save))
 
         editCommunityToolbar.setClickListener(this)
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM

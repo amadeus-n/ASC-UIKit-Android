@@ -13,7 +13,7 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewPagedAdapter
 import com.ekoapp.ekosdk.uikit.common.views.bottomsheet.EkoBottomSheetListFragment
 import com.ekoapp.ekosdk.uikit.common.views.bottomsheet.IEkoMenuItemClickListener
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.LayoutCommunityMembershipItemBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityItemCommunityMembershipBinding
 import com.ekoapp.ekosdk.uikit.model.EkoMenuItem
 import com.ekoapp.ekosdk.uikit.utils.EkoConstants
 import com.ekoapp.ekosdk.user.EkoUser
@@ -27,7 +27,7 @@ class EkoCommunityModeratorAdapter(
 ) : EkoBaseRecyclerViewPagedAdapter<EkoCommunityMembership>(diffCallBack) {
 
     override fun getLayoutId(position: Int, obj: EkoCommunityMembership?): Int =
-        R.layout.layout_community_membership_item
+        R.layout.amity_item_community_membership
 
     override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
         val itemViewModel = EkoMembershipItemViewModel()
@@ -48,7 +48,7 @@ class EkoCommunityModeratorAdapter(
     ),
         Binder<EkoCommunityMembership> {
 
-        private val binding: LayoutCommunityMembershipItemBinding? = DataBindingUtil.bind(itemView)
+        private val binding: AmityItemCommunityMembershipBinding? = DataBindingUtil.bind(itemView)
 
         override fun bind(data: EkoCommunityMembership?, position: Int) {
             binding?.avatarUrl = data?.getUser()?.getAvatar()?.getUrl(EkoImage.Size.MEDIUM)
@@ -87,7 +87,7 @@ class EkoCommunityModeratorAdapter(
                 itemList.add(
                     EkoMenuItem(
                         EkoConstants.ID_REMOVE_MODERATOR,
-                        context.getString(R.string.remove_moderator)
+                        context.getString(R.string.amity_remove_moderator)
                     )
                 )
             }
@@ -95,14 +95,14 @@ class EkoCommunityModeratorAdapter(
                 itemList.add(
                     EkoMenuItem(
                         EkoConstants.ID_UN_REPORT_USER,
-                        context.getString(R.string.unreport_user)
+                        context.getString(R.string.amity_unreport_user)
                     )
                 )
             } else {
                 itemList.add(
                     EkoMenuItem(
                         EkoConstants.ID_REPORT_USER,
-                        context.getString(R.string.report_user)
+                        context.getString(R.string.amity_report_user)
                     )
                 )
             }
@@ -110,7 +110,7 @@ class EkoCommunityModeratorAdapter(
                 itemList.add(
                     EkoMenuItem(
                         EkoConstants.ID_REMOVE_USER,
-                        context.getString(R.string.remove_user)
+                        context.getString(R.string.amity_remove_user)
                     )
                 )
             }

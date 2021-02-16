@@ -12,13 +12,13 @@ import com.ekoapp.ekosdk.message.EkoMessage
 import com.ekoapp.ekosdk.uikit.base.EkoBaseActivity
 import com.ekoapp.ekosdk.uikit.chat.BR
 import com.ekoapp.ekosdk.uikit.chat.R
-import com.ekoapp.ekosdk.uikit.chat.databinding.ActivityEkoEditMessageBinding
+import com.ekoapp.ekosdk.uikit.chat.databinding.AmityActivityEditMessageBinding
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_eko_edit_message.*
-import kotlinx.android.synthetic.main.edit_msg_toolbar.view.*
+import kotlinx.android.synthetic.main.amity_activity_edit_message.*
+import kotlinx.android.synthetic.main.amity_edit_msg_bar.view.*
 
 class EkoEditMessageActivity :
-    EkoBaseActivity<ActivityEkoEditMessageBinding, EkoEditMessageViewModel>() {
+    EkoBaseActivity<AmityActivityEditMessageBinding, EkoEditMessageViewModel>() {
 
     private val editMessageViewModel: EkoEditMessageViewModel by viewModels()
     private var messageDisposable: Disposable? = null
@@ -26,7 +26,7 @@ class EkoEditMessageActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        editMessageViewModel.saveColor.set(ContextCompat.getColor(this, R.color.upstraColorPrimary))
+        editMessageViewModel.saveColor.set(ContextCompat.getColor(this, R.color.amityColorPrimary))
         setUpToolbar()
         getMessage()
         lMessage.setOnClickListener {
@@ -86,7 +86,7 @@ class EkoEditMessageActivity :
         }
     }
 
-    override fun getLayoutId(): Int = R.layout.activity_eko_edit_message
+    override fun getLayoutId(): Int = R.layout.amity_activity_edit_message
 
     override fun getViewModel(): EkoEditMessageViewModel = editMessageViewModel
 

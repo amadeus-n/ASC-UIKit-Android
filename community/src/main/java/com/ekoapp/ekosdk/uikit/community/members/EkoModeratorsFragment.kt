@@ -20,7 +20,7 @@ import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_moderators.*
+import kotlinx.android.synthetic.main.amity_fragment_moderators.*
 
 /**
  * A simple [Fragment] subclass.
@@ -38,7 +38,7 @@ class EkoModeratorsFragment : EkoBaseFragment(), IMemberClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_eko_moderators, container, false)
+        return inflater.inflate(R.layout.amity_fragment_moderators, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,7 +51,7 @@ class EkoModeratorsFragment : EkoBaseFragment(), IMemberClickListener {
 
         etSearch.setShape(
             null, null, null, null,
-            R.color.upstraColorBase, null, ColorShade.SHADE4
+            R.color.amityColorBase, null, ColorShade.SHADE4
         )
     }
 
@@ -99,7 +99,7 @@ class EkoModeratorsFragment : EkoBaseFragment(), IMemberClickListener {
                 val selectMemberItem = SelectMemberItem(
                     ekoUser.getUserId(),
                     ekoUser.getAvatar()?.getUrl(EkoImage.Size.MEDIUM) ?: "",
-                    ekoUser.getDisplayName() ?: getString(R.string.anonymous),
+                    ekoUser.getDisplayName() ?: getString(R.string.amity_anonymous),
                     ekoUser.getDescription(),
                     false
                 )

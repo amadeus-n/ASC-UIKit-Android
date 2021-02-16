@@ -8,13 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.LayoutMyTimelineFeedEmptyViewBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityViewMyTimelineFeedEmptyBinding
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IAvatarClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.util.EkoTimelineType
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoBaseFeedViewModel
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoMyTimelineViewModel
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
-import com.ekoapp.ekosdk.uikit.settings.feed.IPostShareClickListener
+import com.ekoapp.ekosdk.uikit.feed.settings.IPostShareClickListener
 import com.ekoapp.ekosdk.user.EkoUser
 
 class EkoMyFeedFragment : EkoBaseFeedFragment() {
@@ -29,14 +29,8 @@ class EkoMyFeedFragment : EkoBaseFeedFragment() {
     override fun getFeedType(): EkoTimelineType = EkoTimelineType.MY_TIMELINE
 
     override fun getEmptyView(): View {
-        val inflater =
-            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val mBinding: LayoutMyTimelineFeedEmptyViewBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.layout_my_timeline_feed_empty_view,
-            getRootView(),
-            false
-        )
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val mBinding: AmityViewMyTimelineFeedEmptyBinding = DataBindingUtil.inflate(inflater, R.layout.amity_view_my_timeline_feed_empty, getRootView(), false)
         return mBinding.root
     }
 
@@ -54,11 +48,10 @@ class EkoMyFeedFragment : EkoBaseFeedFragment() {
 
         fun build(activity: AppCompatActivity): EkoMyFeedFragment {
             val fragment = EkoMyFeedFragment()
-            fragment.mViewModel =
-                ViewModelProvider(activity).get(EkoMyTimelineViewModel::class.java)
+            fragment.mViewModel = ViewModelProvider(activity).get(EkoMyTimelineViewModel::class.java)
             fragment.mViewModel.avatarClickListener = avatarClickListener
 
-            if (postShareClickListener != null) {
+            if(postShareClickListener != null){
                 fragment.mViewModel.postShareClickListener = postShareClickListener
             }
 

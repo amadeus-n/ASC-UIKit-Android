@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
+        <variable
+            name="viewModel"
+            type="com.ekoapp.ekosdk.uikit.chat.editMessage.EkoEditMessageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lMessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="false"
+        tools:context=".editMessage.EkoEditMessageActivity">
+
+        <include
+            android:id="@+id/emToolBar"
+            layout="@layout/amity_edit_msg_bar"
+            app:viewModel="@{viewModel}" />
+
+        <View
+            android:id="@+id/divider"
+            backgroundColorShade="@{ColorShade.SHADE4}"
+            ekoBackgroundColor="@{@color/amityColorBase}"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/fourteen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/emToolBar" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etMessage"
+            style="@style/TextStyleEkoBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/sixteen"
+            android:background="@null"
+            android:text="@={viewModel.message}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

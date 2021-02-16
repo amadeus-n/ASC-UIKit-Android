@@ -14,7 +14,7 @@ import android.view.ViewAnimationUtils
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.ekoapp.ekosdk.uikit.R
-import com.ekoapp.ekosdk.uikit.databinding.EkoAudioRecorderViewBinding
+import com.ekoapp.ekosdk.uikit.databinding.AmityViewAudioRecorderBinding
 import org.joda.time.DateTime
 import java.io.File
 import java.io.IOException
@@ -23,7 +23,7 @@ import java.util.*
 
 class EkoAudioRecorderView : ConstraintLayout {
 
-    private lateinit var mBinding: EkoAudioRecorderViewBinding
+    private lateinit var mBinding: AmityViewAudioRecorderBinding
     private var initialRecordBtnPos = 0
     private var initialDltBtnPos = 0
     private var recordButtonHeight = 0
@@ -52,7 +52,7 @@ class EkoAudioRecorderView : ConstraintLayout {
 
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.eko_audio_recorder_view, this, true)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.amity_view_audio_recorder, this, true)
     }
 
     fun setAudioRecorderListener(listener: IAudioRecorderListener) {
@@ -141,7 +141,7 @@ class EkoAudioRecorderView : ConstraintLayout {
             if (seconds == "00") {
                 i++
             }
-            chronometer.text = context.getString(R.string.time, seconds)
+            chronometer.text = context.getString(R.string.amity_time, seconds)
         }
         mBinding.chronometer.start()
     }

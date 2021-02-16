@@ -25,7 +25,7 @@ import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.data.SelectCategoryItem
-import com.ekoapp.ekosdk.uikit.community.databinding.FragmentEkoCreateCommunityBinding
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentCreateCommunityBinding
 import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
 import com.ekoapp.ekosdk.uikit.community.explore.activity.EkoCategorySelectionActivity
 import com.ekoapp.ekosdk.uikit.community.home.activity.EkoCommunityHomePageActivity
@@ -36,7 +36,7 @@ import com.ekoapp.ekosdk.uikit.utils.EkoConstants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_eko_create_community.*
+import kotlinx.android.synthetic.main.amity_fragment_create_community.*
 
 abstract class EkoCommunityCreateBaseFragment : Fragment() {
 
@@ -44,7 +44,7 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
     var disposable = CompositeDisposable()
     private var imageUri: Uri? = null
     val mViewModel: EkoCreateCommunityViewModel by activityViewModels()
-    private lateinit var mBinding: FragmentEkoCreateCommunityBinding
+    private lateinit var mBinding: AmityFragmentCreateCommunityBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +53,7 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_eko_create_community, container, false
+            R.layout.amity_fragment_create_community, container, false
         )
         mBinding.viewModel = mViewModel
         return mBinding.root
@@ -86,7 +86,7 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
         mViewModel.setPropertyChangeCallback()
     }
 
-    fun getBindingVariable(): FragmentEkoCreateCommunityBinding = mBinding
+    fun getBindingVariable(): AmityFragmentCreateCommunityBinding = mBinding
 
     private fun pickImage() {
         val pickImagePermission =
@@ -101,7 +101,7 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
                             .dontAnimate()
                             .into(ccAvatar)
                     }
-                    pickImage.launch(getString(com.ekoapp.ekosdk.uikit.R.string.choose_image))
+                    pickImage.launch(getString(com.ekoapp.ekosdk.uikit.R.string.amity_choose_image))
                 } else {
                     Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
                 }
@@ -117,7 +117,7 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
 
         mBinding.icCamera.toCircularShape(
             ColorPaletteUtil.getColor(
-                ContextCompat.getColor(requireContext(), R.color.upstraColorBase), ColorShade.SHADE4
+                ContextCompat.getColor(requireContext(), R.color.amityColorBase), ColorShade.SHADE4
             ), 2F
         )
 
@@ -197,10 +197,10 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
 
     private fun showDialog() {
         AlertDialogUtil.showDialog(requireContext(),
-            getString(R.string.cc_leave),
-            getString(R.string.cc_dialog_msg),
-            getString(R.string.leave),
-            getString(R.string.cancel),
+            getString(R.string.amity_cc_leave),
+            getString(R.string.amity_cc_dialog_msg),
+            getString(R.string.amity_leave),
+            getString(R.string.amity_cancel),
             DialogInterface.OnClickListener { dialog, which ->
                 if (which == DialogInterface.BUTTON_POSITIVE) {
                     requireActivity().finish()

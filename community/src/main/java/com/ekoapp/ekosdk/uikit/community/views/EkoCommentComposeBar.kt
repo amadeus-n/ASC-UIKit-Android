@@ -12,11 +12,11 @@ import com.bumptech.glide.Glide
 import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.databinding.LayoutCommentComposeBarBinding
-import kotlinx.android.synthetic.main.layout_comment_compose_bar.view.*
+import com.ekoapp.ekosdk.uikit.community.databinding.AmityCommentComposeBarBinding
+import kotlinx.android.synthetic.main.amity_comment_compose_bar.view.*
 
 class EkoCommentComposeBar : ConstraintLayout {
-    private lateinit var mBinding: LayoutCommentComposeBarBinding
+    private lateinit var mBinding: AmityCommentComposeBarBinding
     private var commentExpandClickListener: OnClickListener? = null
 
 
@@ -39,7 +39,7 @@ class EkoCommentComposeBar : ConstraintLayout {
     fun setImageUrl(url: String) {
         Glide.with(context)
             .load(url)
-            .placeholder(R.drawable.ic_uikit_default_profile)
+            .placeholder(R.drawable.amity_ic_default_profile1)
             .into(avProfile)
     }
 
@@ -51,10 +51,10 @@ class EkoCommentComposeBar : ConstraintLayout {
     private fun init() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.layout_comment_compose_bar, this, true)
+            DataBindingUtil.inflate(inflater, R.layout.amity_comment_compose_bar, this, true)
         avProfile.setBackgroundColor(
             ColorPaletteUtil.getColor(
-                ContextCompat.getColor(context, R.color.upstraColorPrimary), ColorShade.SHADE3
+                ContextCompat.getColor(context, R.color.amityColorPrimary), ColorShade.SHADE3
             )
         )
         btnPost.isEnabled = false

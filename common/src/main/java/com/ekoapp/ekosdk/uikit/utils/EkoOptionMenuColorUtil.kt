@@ -13,7 +13,7 @@ class EkoOptionMenuColorUtil {
                 ColorPaletteUtil.getColor(
                     ContextCompat.getColor(
                         context,
-                        com.ekoapp.ekosdk.uikit.R.color.upstraColorHighlight
+                        com.ekoapp.ekosdk.uikit.R.color.amityColorHighlight
                     ), ColorShade.DEFAULT
                 )
             } else {
@@ -21,7 +21,7 @@ class EkoOptionMenuColorUtil {
                 ColorPaletteUtil.getColor(
                     ContextCompat.getColor(
                         context,
-                        com.ekoapp.ekosdk.uikit.R.color.upstraColorHighlight
+                        com.ekoapp.ekosdk.uikit.R.color.amityColorHighlight
                     ), ColorShade.SHADE2
                 )
             }

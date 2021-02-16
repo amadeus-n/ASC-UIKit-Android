@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekoapp.ekosdk.uikit.R
 import com.ekoapp.ekosdk.uikit.model.EkoMenuItem
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.layout_eko_bottom_sheet.*
+import kotlinx.android.synthetic.main.amity_bottom_sheet.*
 
 class EkoBottomSheetListFragment private constructor() : BottomSheetDialogFragment() {
 
@@ -26,7 +26,7 @@ class EkoBottomSheetListFragment private constructor() : BottomSheetDialogFragme
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.layout_eko_bottom_sheet, container, false)
+        return inflater.inflate(R.layout.amity_bottom_sheet, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

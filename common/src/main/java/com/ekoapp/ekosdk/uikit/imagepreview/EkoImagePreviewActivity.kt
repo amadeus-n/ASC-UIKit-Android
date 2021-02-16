@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.ekoapp.ekosdk.uikit.R
-import kotlinx.android.synthetic.main.activity_eko_image_preview.*
+import kotlinx.android.synthetic.main.amity_activity_image_preview.*
 
 class EkoImagePreviewActivity : AppCompatActivity() {
     private lateinit var ekoImages: List<PreviewImage>
@@ -18,9 +18,9 @@ class EkoImagePreviewActivity : AppCompatActivity() {
     private lateinit var pageChangeCallback: ViewPager2.OnPageChangeCallback
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.upstraColorSecondary);
+        window.statusBarColor = ContextCompat.getColor(this, R.color.amityColorSecondary);
 
-        setContentView(R.layout.activity_eko_image_preview)
+        setContentView(R.layout.amity_activity_image_preview)
         ekoImages = intent.getParcelableArrayListExtra(EXTRA_IMAGES) ?: listOf()
         showImageCount = intent.getBooleanExtra(EXTRA_SHOW_IMAGE_COUNT, true)
         imagePosition = intent.getIntExtra(EXTRA_IMAGE_POSITION, 0)
@@ -58,7 +58,7 @@ class EkoImagePreviewActivity : AppCompatActivity() {
 
     private fun initToolbar() {
         setSupportActionBar(toolbar)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_uikit_close)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.amity_ic_close)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -69,7 +69,7 @@ class EkoImagePreviewActivity : AppCompatActivity() {
             supportActionBar?.setDisplayShowTitleEnabled(false)
         } else {
             supportActionBar?.title =
-                String.format(getString(R.string.image_preview_title, position + 1, ekoImages.size))
+                String.format(getString(R.string.amity_image_preview_title, position + 1, ekoImages.size))
         }
     }
 

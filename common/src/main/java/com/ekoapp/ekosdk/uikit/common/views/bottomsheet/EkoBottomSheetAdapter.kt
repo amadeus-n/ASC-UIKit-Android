@@ -5,19 +5,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ekoapp.ekosdk.uikit.R
-import com.ekoapp.ekosdk.uikit.databinding.LayoutBottomSheetItemBinding
+import com.ekoapp.ekosdk.uikit.databinding.AmityItemBottomSheetBinding
 import com.ekoapp.ekosdk.uikit.model.EkoMenuItem
 
-class EkoBottomSheetAdapter(
-    private val list: List<EkoMenuItem>,
-    private val listener: IEkoMenuItemClickListener?
-) :
-    RecyclerView.Adapter<EkoBottomSheetAdapter.BottomSheetViewHolder>() {
+class EkoBottomSheetAdapter(private val list: List<EkoMenuItem>,
+                            private val listener: IEkoMenuItemClickListener?) : RecyclerView.Adapter<EkoBottomSheetAdapter.BottomSheetViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BottomSheetViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: LayoutBottomSheetItemBinding =
-            DataBindingUtil.inflate(inflater, R.layout.layout_bottom_sheet_item, parent, false)
+        val binding: AmityItemBottomSheetBinding = DataBindingUtil.inflate(inflater, R.layout.amity_item_bottom_sheet, parent, false)
         return BottomSheetViewHolder(binding, listener)
     }
 
@@ -28,16 +24,15 @@ class EkoBottomSheetAdapter(
     override fun getItemCount(): Int = list.size
 
     inner class BottomSheetViewHolder(
-        private val binding: LayoutBottomSheetItemBinding,
-        private val listener: IEkoMenuItemClickListener?
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+            private val binding: AmityItemBottomSheetBinding,
+            private val listener: IEkoMenuItemClickListener?
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: EkoMenuItem?) {
             if (item != null) {
                 binding.menuItem = item
                 binding.listener = listener
-                binding.alertColor = item.title == itemView.context.getString(R.string.remove_user)
+                binding.alertColor = item.title == itemView.context.getString(R.string.amity_remove_user)
             }
         }
     }

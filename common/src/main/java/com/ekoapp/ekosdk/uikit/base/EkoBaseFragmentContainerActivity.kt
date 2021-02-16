@@ -8,7 +8,7 @@ import com.ekoapp.ekosdk.uikit.R
 abstract class EkoBaseFragmentContainerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_eko_base_fragment_container)
+        setContentView(R.layout.amity_activity_base_fragment_container)
         if (savedInstanceState == null) {
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
