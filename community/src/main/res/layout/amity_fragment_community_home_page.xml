@@ -30,7 +30,7 @@
             android:id="@+id/rvCommunitySearch"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/sixteen"
+            android:layout_marginHorizontal="@dimen/amity_padding_m1"
             android:visibility="@{viewModel.isSearchMode() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,18 +46,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            style="@style/TextStyleEkoBodyBold"
+            style="@style/AmityTextStyleBodyBold"
             textColorShade="@{ColorShade.SHADE3}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/thirty"
+            android:layout_marginTop="@dimen/amity_thirty"
             android:text="@string/amity_no_community"
             android:textColor="@color/amityColorBase"
             android:visibility="@{viewModel.emptySearch &amp;&amp; viewModel.isSearchMode() ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_goneMarginTop="@dimen/thirty" />
+            app:layout_goneMarginTop="@dimen/amity_thirty" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

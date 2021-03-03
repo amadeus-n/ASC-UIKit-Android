@@ -97,11 +97,11 @@
 
     <style name="EkoAlertDialogTheme.App.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:textColor">@color/amityColorBase</item>
-        <item name="android:textAppearance">@style/TextStyleEkoTitleBold</item>
+        <item name="android:textAppearance">@style/AmityTextStyleTitleBold</item>
     </style>
 
     <style name="EkoSnackBarStyle" parent="Widget.MaterialComponents.Snackbar">
-        <item name="android:layout_margin">@dimen/sixteen</item>
+        <item name="android:layout_margin">@dimen/amity_padding_m1</item>
         <item name="backgroundTint">#000</item>
         <item name="textColor">#fff</item>
     </style>

@@ -13,7 +13,7 @@ class EkoPostComposeViewStyle : Style {
 
     init {
         backgroundColor = getColor(android.R.color.transparent)
-        padding = getDimensionPixelSize(R.dimen.eight)
+        padding = getDimensionPixelSize(R.dimen.amity_padding_xs)
         hint = R.string.amity_post_compose_hint
     }
 

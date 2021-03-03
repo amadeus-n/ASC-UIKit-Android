@@ -50,9 +50,9 @@ class EkoTrendingCommunityFragment : EkoBaseFragment(), IMyCommunityItemClickLis
         rvTrendingCommunity.adapter = adapter
         rvTrendingCommunity.addItemDecoration(
             EkoRecyclerViewItemDecoration(
-                requireContext().resources.getDimensionPixelSize(R.dimen.sixteen),
-                requireContext().resources.getDimensionPixelSize(R.dimen.zero),
-                requireContext().resources.getDimensionPixelSize(R.dimen.eight)
+                requireContext().resources.getDimensionPixelSize(R.dimen.amity_padding_m1),
+                requireContext().resources.getDimensionPixelSize(R.dimen.amity_zero),
+                requireContext().resources.getDimensionPixelSize(R.dimen.amity_padding_xs)
             )
         )
 

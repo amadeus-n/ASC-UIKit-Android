@@ -32,8 +32,8 @@
             android:id="@+id/rvSelectedMembers"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/fourteen"
-            android:layout_marginEnd="@dimen/sixteen"
+            android:layout_marginTop="@dimen/amity_fourteen"
+            android:layout_marginEnd="@dimen/amity_padding_m1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etSearch" />
@@ -42,7 +42,7 @@
             android:id="@+id/rvMembersList"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/twelve"
+            android:layout_marginTop="@dimen/amity_padding_s"
             android:visibility="@{TextUtils.isEmpty(viewModel.searchString) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,15 +60,15 @@
 
             <TextView
                 android:id="@+id/tv_search_result"
-                style="@style/TextStyleEkoBodyBold"
+                style="@style/AmityTextStyleBodyBold"
                 backgroundColorShade="@{ColorShade.SHADE4}"
                 ekoBackgroundColor="@{@color/amityColorBase}"
                 textColorShade="@{ColorShade.SHADE1}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/sixteen"
-                android:paddingHorizontal="@dimen/sixteen"
-                android:paddingVertical="@dimen/four"
+                android:layout_marginTop="@dimen/amity_padding_m1"
+                android:paddingHorizontal="@dimen/amity_padding_m1"
+                android:paddingVertical="@dimen/amity_padding_xxs"
                 android:text="@string/amity_search_results"
                 android:textColor="@color/amityColorBase"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,11 +83,11 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_search_result" />
 
             <TextView
-                style="@style/TextStyleEkoBodyBold"
+                style="@style/AmityTextStyleBodyBold"
                 textColorShade="@{ColorShade.SHADE3}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/thirty_two"
+                android:layout_marginTop="@dimen/amity_padding_l"
                 android:text="@string/amity_no_user_found"
                 android:textColor="@color/amityColorBase"
                 android:visibility="@{viewModel.isSearchUser() ? View.GONE : View.VISIBLE}"

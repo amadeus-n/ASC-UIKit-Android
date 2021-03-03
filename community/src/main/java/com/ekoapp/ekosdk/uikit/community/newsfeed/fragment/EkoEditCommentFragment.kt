@@ -17,18 +17,19 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.common.views.dialog.EkoAlertDialogFragment
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentEditCommentBinding
-import com.ekoapp.ekosdk.uikit.community.newsfeed.activity.EXTRA_PARAM_COMMENT
-import com.ekoapp.ekosdk.uikit.community.newsfeed.activity.EXTRA_PARAM_COMMENT_TEXT
 import com.ekoapp.ekosdk.uikit.community.newsfeed.activity.EkoEditCommentActivity
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoEditCommentViewModel
-import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED
 import com.ekoapp.ekosdk.uikit.utils.EkoOptionMenuColorUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.bson.types.ObjectId
 
-class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
-    EkoAlertDialogFragment.IAlertDialogActionListener {
+class EkoEditCommentFragment internal constructor(
+    private val ekoPost: EkoPost?,
+    private val ekoComment: EkoComment?,
+    private val reply: EkoComment?,
+    private val commentText: String?
+) : EkoBaseFragment(), EkoAlertDialogFragment.IAlertDialogActionListener {
     private val ID_MENU_ITEM_ADD_COMMENT: Int = 144
     private var menuItemComment: MenuItem? = null
     private val TAG = EkoEditCommentActivity::class.java.canonicalName
@@ -66,12 +67,10 @@ class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
     }
 
     private fun setupInitialData() {
-        val comment = arguments?.getParcelable<EkoComment>(EXTRA_PARAM_COMMENT)
-        mViewModel.setComment(comment)
-
-        val ekoPost: EkoPost? = arguments?.getParcelable(EXTRA_PARAM_NEWS_FEED)
+        mViewModel.setComment(ekoComment)
         mViewModel.setPost(ekoPost)
-        val commentText: String? = arguments?.getString(EXTRA_PARAM_COMMENT_TEXT)
+        mViewModel.setReplyTo(reply)
+
         if (!commentText.isNullOrEmpty())
             mViewModel.setCommentData(commentText)
     }
@@ -88,12 +87,25 @@ class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
 
 
     private fun setupToolbar() {
+        mBinding.showReplyingTo = false
         if (mViewModel.editMode()) {
-            (activity as AppCompatActivity).supportActionBar?.title =
-                getString(R.string.amity_edit_comment)
+            if (mViewModel.getReply() != null) {
+                (activity as AppCompatActivity).supportActionBar?.title =
+                    getString(R.string.amity_edit_reply)
+            } else {
+                (activity as AppCompatActivity).supportActionBar?.title =
+                    getString(R.string.amity_edit_comment)
+            }
         } else {
-            (activity as AppCompatActivity).supportActionBar?.title =
-                getString(R.string.amity_add_comment)
+            if (mViewModel.getReply() != null) {
+                (activity as AppCompatActivity).supportActionBar?.title =
+                    getString(R.string.amity_reply_to)
+                mBinding.replyingToUser = mViewModel.getReply()?.getUser()?.getDisplayName()
+                mBinding.showReplyingTo = true
+            } else {
+                (activity as AppCompatActivity).supportActionBar?.title =
+                    getString(R.string.amity_add_comment)
+            }
         }
     }
 
@@ -155,11 +167,20 @@ class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
     }
 
     private fun showExitConfirmationDialog() {
-        val exitConfirmationDialogFragment = EkoAlertDialogFragment
-            .newInstance(
-                R.string.amity_discard_comment_title, R.string.amity_discard_comment_message,
-                R.string.amity_discard, R.string.amity_cancel
-            )
+        val isReply = mViewModel.getComment()?.getParentId()?.isNotEmpty() == true
+        val exitConfirmationDialogFragment = if (mViewModel.getReply() != null || isReply) {
+            EkoAlertDialogFragment
+                .newInstance(
+                    R.string.amity_discard_reply_title, R.string.amity_discard_reply_message,
+                    R.string.amity_discard, R.string.amity_cancel
+                )
+        } else {
+            EkoAlertDialogFragment
+                .newInstance(
+                    R.string.amity_discard_comment_title, R.string.amity_discard_comment_message,
+                    R.string.amity_discard, R.string.amity_cancel
+                )
+        }
         exitConfirmationDialogFragment.show(childFragmentManager, EkoAlertDialogFragment.TAG);
         exitConfirmationDialogFragment.listener = this
     }
@@ -175,39 +196,53 @@ class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
             ?.doOnError {
                 updateCommentMenu(true)
                 Log.d(TAG, it.message ?: "")
-                Toast.makeText(
-                    activity,
-                    getString(R.string.amity_update_comment_error_message),
-                    Toast.LENGTH_LONG
-                ).show()
+                val isReply = mViewModel.getComment()?.getParentId()?.isNotEmpty() == true
+                if (isReply) {
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.amity_update_reply_error_message),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.amity_update_comment_error_message),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
             ?.subscribe()
     }
 
     private fun addComment() {
         val commentId = ObjectId.get().toHexString()
-        mViewModel.addComment(commentId)
+        val addComment = mViewModel.addComment(commentId)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
-            ?.doOnSuccess {
-
+            ?.subscribe({ comment ->
                 activity?.setResult(AppCompatActivity.RESULT_OK)
                 backPressFragment()
-            }
-            ?.doOnError {
+            }, {
                 if (EkoError.from(it) == EkoError.BAN_WORD_FOUND) {
                     mViewModel.deleteComment(commentId).subscribe()
                 }
                 updateCommentMenu(true)
                 Log.d(TAG, it.message ?: "")
-                Toast.makeText(
-                    activity,
-                    getString(R.string.amity_add_comment_error_message),
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-            ?.subscribe()
-
+                if (mViewModel.getReply() != null) {
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.amity_add_reply_error_message),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.amity_add_comment_error_message),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
+        addComment?.let { disposable.add(addComment) }
     }
 
     override fun onClickPositiveButton() {
@@ -222,15 +257,10 @@ class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
         private var ekoComment: EkoComment? = null
         private var ekoPost: EkoPost? = null
         private var commentText: String? = null
+        private var reply: EkoComment? = null
 
         fun build(activity: AppCompatActivity): EkoEditCommentFragment {
-            return EkoEditCommentFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(EXTRA_PARAM_COMMENT, this@Builder.ekoComment)
-                    putParcelable(EXTRA_PARAM_NEWS_FEED, this@Builder.ekoPost)
-                    putString(EXTRA_PARAM_COMMENT_TEXT, this@Builder.commentText)
-                }
-            }
+            return EkoEditCommentFragment(ekoPost, ekoComment, reply, commentText)
         }
 
         fun setNewsFeed(post: EkoPost?): Builder {
@@ -240,6 +270,11 @@ class EkoEditCommentFragment internal constructor() : EkoBaseFragment(),
 
         fun setComment(comment: EkoComment?): Builder {
             this.ekoComment = comment
+            return this
+        }
+
+        fun setReplyTo(reply: EkoComment?): Builder {
+            this.reply = reply
             return this
         }
 

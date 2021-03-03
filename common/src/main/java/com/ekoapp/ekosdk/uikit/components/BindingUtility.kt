@@ -254,7 +254,7 @@ fun setRoundedCorner(
     colorShade: ColorShade?
 ) {
     if (roundedCorner) {
-        val radius = view.context.resources.getDimension(R.dimen.six)
+        val radius = view.context.resources.getDimension(R.dimen.amity_six)
         val modal = ShapeAppearanceModel()
             .toBuilder()
         if (topLeft == null) {
@@ -384,7 +384,7 @@ fun setRoundedImageView(imageView: ImageView, fillColor: Int, shade: ColorShade)
         .toBuilder()
         .setAllCorners(
             CornerFamily.ROUNDED,
-            imageView.context.resources.getDimensionPixelSize(R.dimen.thirty_two).toFloat()
+            imageView.context.resources.getDimensionPixelSize(R.dimen.amity_thirty_two).toFloat()
         )
     val shapeDrawable = MaterialShapeDrawable(modal.build())
     shapeDrawable.setTint(

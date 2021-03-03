@@ -13,14 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/amityColorBase"
-        android:paddingVertical="@dimen/eight"
-        android:paddingStart="@dimen/twelve"
-        android:paddingEnd="@dimen/eleven"
-        app:bottomLeftRadius="@{@dimen/zero}"
+        android:paddingVertical="@dimen/amity_padding_xs"
+        android:paddingStart="@dimen/amity_padding_s"
+        android:paddingEnd="@dimen/amity_padding_s"
+        app:bottomLeftRadius="@{@dimen/amity_zero}"
         app:roundedCorner="@{true}">
 
         <TextView
-            style="@style/TextStyleEkoBody"
+            style="@style/AmityTextStyleBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{() -> viewModel.onReportClick()}"

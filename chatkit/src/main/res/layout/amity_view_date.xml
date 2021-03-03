@@ -18,18 +18,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/sixteen"
-        android:paddingBottom="@dimen/twenty">
+        android:paddingTop="@dimen/amity_padding_m1"
+        android:paddingBottom="@dimen/amity_padding_m2">
 
         <TextView
-            style="@style/TextStyleEkoCaption"
+            style="@style/AmityTextStyleCaption"
             colorShade="@{ColorShade.SHADE4}"
             fillColor="@{dateFillColor}"
             roundedCorner="@{true}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/twelve"
-            android:paddingVertical="@dimen/two"
+            android:paddingHorizontal="@dimen/amity_padding_s"
+            android:paddingVertical="@dimen/amity_two"
             android:text="@{date}"
             android:textAllCaps="true"
             android:textColor="@color/amityColorBase"

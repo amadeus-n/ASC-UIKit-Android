@@ -22,7 +22,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSearch"
                 style="@style/SearchEditTextStyle"
-                android:layout_marginTop="@dimen/fourteen"
+                android:layout_marginTop="@dimen/amity_fourteen"
                 android:text="@={viewModel.searchString}"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"

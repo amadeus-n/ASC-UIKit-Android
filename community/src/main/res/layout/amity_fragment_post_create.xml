@@ -29,7 +29,7 @@
                     android:id="@+id/etPost"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/sixteen"
+                    android:layout_margin="@dimen/amity_padding_m1"
                     android:textColor="@color/amityColorBase"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,7 +37,7 @@
                     android:id="@+id/rvAttachment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/sixteen"
+                    android:layout_margin="@dimen/amity_padding_m1"
                     app:layout_constraintTop_toBottomOf="@id/etPost" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -59,26 +59,26 @@
 
                 <View
                     style="@style/Divider"
-                    android:layout_marginTop="@dimen/twelve"
-                    android:layout_marginBottom="@dimen/twelve"
+                    android:layout_marginTop="@dimen/amity_padding_s"
+                    android:layout_marginBottom="@dimen/amity_padding_s"
                     app:layout_constraintBottom_toTopOf="@id/layoutPostAsCommunity" />
 
 
                 <TextView
-                    style="@style/TextStyleEkoTitleBold"
+                    style="@style/AmityTextStyleTitleBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/sixteen"
-                    android:layout_marginEnd="@dimen/sixteen"
+                    android:layout_marginStart="@dimen/amity_padding_m1"
+                    android:layout_marginEnd="@dimen/amity_padding_m1"
                     android:text="@string/amity_post_as_community" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchPostAsCommunity"
-                    style="@style/TextStyleEkoCaption"
+                    style="@style/AmityTextStyleCaption"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/sixteen"
-                    android:layout_marginEnd="@dimen/sixteen"
+                    android:layout_marginStart="@dimen/amity_padding_m1"
+                    android:layout_marginEnd="@dimen/amity_padding_m1"
                     android:text="@string/amity_post_as_community_message" />
             </LinearLayout>
 
@@ -93,7 +93,7 @@
                     android:id="@+id/separator"
                     style="@style/Divider"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="@dimen/twelve" />
+                    android:layout_marginTop="@dimen/amity_padding_s" />
 
 
                 <com.google.android.material.button.MaterialButton

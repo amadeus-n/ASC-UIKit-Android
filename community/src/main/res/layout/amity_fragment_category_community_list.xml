@@ -17,8 +17,8 @@
             android:id="@+id/rvCommunity"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/sixteen"
-            android:layout_marginEnd="@dimen/sixteen"
+            android:layout_marginStart="@dimen/amity_padding_m1"
+            android:layout_marginEnd="@dimen/amity_padding_m1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,22 +36,22 @@
                 android:id="@+id/ivIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/eleven"
+                android:layout_marginBottom="@dimen/amity_padding_s"
                 android:src="@drawable/amity_ic_xmlid" />
 
             <TextView
                 android:id="@+id/tvEmptyCommunity"
-                style="@style/TextStyleEkoHeadline"
+                style="@style/AmityTextStyleHeadline"
                 textColorShade="@{ColorShade.SHADE2}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/eleven"
+                android:layout_marginTop="@dimen/amity_padding_s"
                 android:text="@string/amity_empty_category_community"
                 android:textColor="@color/amityColorBase" />
 
             <TextView
                 android:id="@+id/tvEmptyCommunityMessage"
-                style="@style/TextStyleEkoBody"
+                style="@style/AmityTextStyleBody"
                 textColorShade="@{ColorShade.SHADE2}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

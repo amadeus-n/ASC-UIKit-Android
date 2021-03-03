@@ -30,16 +30,16 @@
             ekoBackgroundColor="@{@color/amityColorBase}"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/fourteen"
+            android:layout_marginTop="@dimen/amity_fourteen"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/emToolBar" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etMessage"
-            style="@style/TextStyleEkoBody"
+            style="@style/AmityTextStyleBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/sixteen"
+            android:layout_margin="@dimen/amity_padding_m1"
             android:background="@null"
             android:text="@={viewModel.message}"
             app:layout_constraintStart_toStartOf="parent"

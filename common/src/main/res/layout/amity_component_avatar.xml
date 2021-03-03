@@ -19,8 +19,8 @@
             style="@style/CircularAvatarStyle"
             backgroundColorShade="@{ColorShade.SHADE3}"
             ekoBackgroundColor="@{@color/amityColorPrimary}"
-            android:layout_width="@dimen/forty"
-            android:layout_height="@dimen/forty"
+            android:layout_width="@dimen/amity_forty"
+            android:layout_height="@dimen/amity_forty"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

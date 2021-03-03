@@ -55,7 +55,7 @@ abstract class EkoBaseCategoryListFragment internal constructor() : EkoBaseFragm
 
     private fun initView() {
         val itemDecorSpace =
-            EkoRecyclerViewItemDecoration(resources.getDimensionPixelSize(R.dimen.eight))
+            EkoRecyclerViewItemDecoration(resources.getDimensionPixelSize(R.dimen.amity_padding_xs))
         rvCategory.layoutManager = LinearLayoutManager(requireContext())
         rvCategory.adapter = adapter
         rvCategory.addItemDecoration(itemDecorSpace)

@@ -66,6 +66,10 @@ class EkoSelectMembersListActivity : EkoBaseActivity<AmityActivitySelectMembersL
         mFragment.finishActivity(true)
     }
 
+    override fun onBackPressed() {
+        mFragment.finishActivity(true)
+    }
+
     override fun rightIconClick() {
         mFragment.finishActivity(false)
     }

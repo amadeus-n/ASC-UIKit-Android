@@ -7,7 +7,7 @@
         android:id="@+id/ivPreviewImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/sixteen"
-        android:layout_marginBottom="@dimen/sixteen" />
+        android:layout_marginTop="@dimen/amity_padding_m1"
+        android:layout_marginBottom="@dimen/amity_padding_m1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

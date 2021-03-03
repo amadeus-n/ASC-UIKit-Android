@@ -21,7 +21,7 @@
         android:id="@+id/rgTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/sixteen"
+        android:layout_marginTop="@dimen/amity_padding_m1"
         android:checkedButton="@id/theme1"
         app:layout_constraintEnd_toEndOf="@id/tvSelectTheme"
         app:layout_constraintStart_toStartOf="@+id/tvSelectTheme"
@@ -45,7 +45,7 @@
         android:id="@+id/btnConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/sixteen"
+        android:layout_marginTop="@dimen/amity_padding_m1"
         android:text="confirm"
         app:layout_constraintStart_toStartOf="@id/rgTheme"
         app:layout_constraintTop_toBottomOf="@id/rgTheme" />
@@ -54,7 +54,7 @@
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/sixteen"
+        android:layout_marginTop="@dimen/amity_padding_m1"
         android:text="Logout"
         app:layout_constraintStart_toStartOf="@id/btnConfirm"
         app:layout_constraintTop_toBottomOf="@id/btnConfirm" />

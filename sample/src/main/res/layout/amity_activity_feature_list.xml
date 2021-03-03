@@ -12,7 +12,7 @@
             android:id="@+id/communityHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/sixty_two"
+            android:layout_marginTop="@dimen/amity_sixty_two"
             android:text="Test News Feed"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
             android:id="@+id/chatHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/sixteen"
+            android:layout_marginTop="@dimen/amity_padding_m1"
             android:text="Test Recent Chat"
             app:layout_constraintStart_toStartOf="@id/communityHome"
             app:layout_constraintTop_toBottomOf="@id/communityHome" />
@@ -32,7 +32,7 @@
             android:id="@+id/msgListCustom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/sixteen"
+            android:layout_marginTop="@dimen/amity_padding_m1"
             android:text="Test Msg List Custom"
             app:layout_constraintStart_toStartOf="@id/communityHome"
             app:layout_constraintTop_toBottomOf="@id/chatHome" />
@@ -50,7 +50,7 @@
             android:id="@+id/otherUserProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/sixteen"
+            android:layout_marginTop="@dimen/amity_padding_m1"
             android:text="Other User Profile"
             app:layout_constraintStart_toStartOf="@id/communityHome"
             app:layout_constraintTop_toBottomOf="@id/otherUserId" />
@@ -59,7 +59,7 @@
             android:id="@+id/userProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/sixteen"
+            android:layout_marginTop="@dimen/amity_padding_m1"
             android:text="LoggedIn User Profile"
             app:layout_constraintStart_toStartOf="@id/communityHome"
             app:layout_constraintTop_toBottomOf="@id/otherUserProfile" />
@@ -69,7 +69,7 @@
             android:id="@+id/btnChangeTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/sixteen"
+            android:layout_marginBottom="@dimen/amity_padding_m1"
             android:text="Change Theme"
             app:layout_constraintStart_toStartOf="@id/communityHome"
             app:layout_constraintTop_toBottomOf="@id/userProfile" />

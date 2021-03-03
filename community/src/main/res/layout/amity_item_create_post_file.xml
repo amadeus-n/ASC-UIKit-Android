@@ -22,7 +22,7 @@
             android:layout_margin="0dp"
             android:background="@drawable/amity_bg_border"
             android:max="100"
-            android:minHeight="@dimen/fifty_eight"
+            android:minHeight="@dimen/amity_fifty_eight"
             android:padding="0dp"
             android:progress="0"
             android:progressBackgroundTint="@android:color/transparent"
@@ -35,7 +35,7 @@
             android:id="@+id/ivFileIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/sixteen"
+            android:layout_marginStart="@dimen/amity_padding_m1"
             android:src="@drawable/amity_ic_doc_large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,10 +45,10 @@
 
         <TextView
             android:id="@+id/tvFileName"
-            style="@style/TextStyleEkoBodyBold"
+            style="@style/AmityTextStyleBodyBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/eight"
+            android:layout_marginStart="@dimen/amity_padding_xs"
             android:maxLines="1"
             android:textColor="@color/amityColorBase"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -59,10 +59,10 @@
 
         <TextView
             android:id="@+id/tvFileSize"
-            style="@style/TextStyleEkoCaption"
+            style="@style/AmityTextStyleCaption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/eight"
+            android:layout_marginStart="@dimen/amity_padding_xs"
             android:textColor="@color/amityColorBase"
             app:layout_constraintStart_toEndOf="@id/ivFileIcon"
             app:layout_constraintTop_toBottomOf="@id/tvFileName"
@@ -72,8 +72,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivError"
-            android:layout_width="@dimen/twenty_five"
-            android:layout_height="@dimen/twenty_five"
+            android:layout_width="@dimen/amity_twenty_five"
+            android:layout_height="@dimen/amity_twenty_five"
             android:background="@color/amityColorBase"
             android:scaleType="centerInside"
             android:src="@drawable/amity_ic_info"
@@ -91,7 +91,7 @@
             android:layout_height="0dp"
             android:alpha="0.6"
             android:background="@color/amityColorWhite"
-            android:minHeight="@dimen/fifty_eight"
+            android:minHeight="@dimen/amity_fifty_eight"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -107,13 +107,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ProgressBar
-                android:layout_width="@dimen/twenty_four"
-                android:layout_height="@dimen/twenty_four"
+                android:layout_width="@dimen/amity_twenty_four"
+                android:layout_height="@dimen/amity_twenty_four"
                 android:indeterminate="true"
                 android:indeterminateTint="@color/amityColorPrimary" />
 
             <TextView
-                style="@style/TextStyleEkoCaption"
+                style="@style/AmityTextStyleCaption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/amity_preparing"
@@ -124,9 +124,9 @@
             android:id="@+id/ivRemove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/eight"
-            android:layout_marginEnd="@dimen/sixteen"
-            android:padding="@dimen/four"
+            android:layout_marginStart="@dimen/amity_padding_xs"
+            android:layout_marginEnd="@dimen/amity_padding_m1"
+            android:padding="@dimen/amity_padding_xxs"
             android:src="@drawable/amity_ic_cross_black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

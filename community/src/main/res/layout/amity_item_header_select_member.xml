@@ -27,7 +27,7 @@
             layout="@layout/amity_item_select_member"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/twelve"
+            android:layout_marginTop="@dimen/amity_padding_s"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvHeader" />
 

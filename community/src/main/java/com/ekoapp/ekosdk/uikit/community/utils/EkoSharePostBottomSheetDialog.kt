@@ -7,7 +7,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.uikit.common.views.dialog.EkoBottomSheetDialogFragment
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedShareListener
+import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostShareListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoShareMenuViewModel
 import com.ekoapp.ekosdk.uikit.utils.observeOnce
 
@@ -15,14 +15,14 @@ import com.ekoapp.ekosdk.uikit.utils.observeOnce
 class EkoSharePostBottomSheetDialog(override val post: EkoPost) : EkoShareMenuViewModel(post) {
 
     private val fragment = EkoBottomSheetDialogFragment.newInstance(getMenu())
-    private lateinit var listener: INewsFeedShareListener
+    private lateinit var listener: IPostShareListener
 
     fun show(childFragmentManager: FragmentManager) {
         fragment.menuItem(this::renderMenuItem)
         fragment.show(childFragmentManager, EkoBottomSheetDialogFragment.toString())
     }
 
-    fun setNavigationListener(listener: INewsFeedShareListener): EkoSharePostBottomSheetDialog {
+    fun setNavigationListener(listener: IPostShareListener): EkoSharePostBottomSheetDialog {
         this.listener = listener
         fragment.setOnNavigationItemSelectedListener(object : EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
             override fun onItemSelected(item: MenuItem) {
@@ -77,7 +77,7 @@ class EkoSharePostBottomSheetDialog(override val post: EkoPost) : EkoShareMenuVi
     }
 
     private fun getMenu(): Int {
-        return R.menu.eko_feed_action_default_menu_share
+        return R.menu.amity_feed_action_default_menu_share
     }
 
 }

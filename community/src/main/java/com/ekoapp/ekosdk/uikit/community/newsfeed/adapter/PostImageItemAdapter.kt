@@ -70,7 +70,7 @@ class PostImageItemAdapter(private val itemClickListener: IPostImageItemClickLis
         var image: ShapeableImageView = itemView.findViewById(R.id.ivFeedImage)
         var imageCount: MaterialTextView = itemView.findViewById(R.id.tvImageCount)
         val container: ConstraintLayout = itemView.findViewById(R.id.imageContainerLayout)
-        private val radius: Float = itemView.context.resources.getDimension(R.dimen.four)
+        private val radius: Float = itemView.context.resources.getDimension(R.dimen.amity_four)
         override fun bind(data: EkoImage?, position: Int) {
             if (data != null) {
                 val containerTag = position.toString().plus("-").plus(itemCount)
@@ -175,20 +175,20 @@ class PostImageItemAdapter(private val itemClickListener: IPostImageItemClickLis
         private fun getHeight(position: Int): Int {
             var dimenRes: Int = -1
             dimenRes = when (itemCount) {
-                1, 2 -> R.dimen.three_hundred_twenty_eight
-                3 -> R.dimen.one_hundred_sixty
+                1, 2 -> R.dimen.amity_three_hundred_twenty_eight
+                3 -> R.dimen.amity_one_hundred_sixty
                 else -> {
                     if (position == 0) {
-                        R.dimen.two_hundred_twenty
-                    } else R.dimen.one_hundred_four
+                        R.dimen.amity_two_hundred_twenty
+                    } else R.dimen.amity_one_hundred_four
                 }
             }
             return itemView.context.resources.getDimensionPixelSize(dimenRes)
         }
 
         private fun getWidth(position: Int): Int {
-            val margin: Int = itemView.context.resources.getDimensionPixelSize(R.dimen.sixteen)
-            val dimenRes: Int = itemView.context.resources.getDimensionPixelSize(R.dimen.eight)
+            val margin: Int = itemView.context.resources.getDimensionPixelSize(R.dimen.amity_padding_m1)
+            val dimenRes: Int = itemView.context.resources.getDimensionPixelSize(R.dimen.amity_eight)
             when (itemCount) {
                 1 -> return ScreenUtils.getScreenWidth(itemView.context) - margin * 2 - dimenRes
                 2 -> {

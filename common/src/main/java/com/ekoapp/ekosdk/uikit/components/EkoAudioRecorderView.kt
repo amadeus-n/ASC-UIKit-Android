@@ -94,9 +94,9 @@ class EkoAudioRecorderView : ConstraintLayout {
 
                 if (mBinding.delete == true) {
                     mBinding.btnDelete.layoutParams.width =
-                        resources.getDimensionPixelSize(R.dimen.sixty_four)
+                        resources.getDimensionPixelSize(R.dimen.amity_sixty_four)
                     mBinding.btnDelete.layoutParams.height =
-                        resources.getDimensionPixelSize(R.dimen.sixty_four)
+                        resources.getDimensionPixelSize(R.dimen.amity_sixty_four)
                     mBinding.btnDelete.requestLayout()
                 } else {
                     resetDeleteButton()
@@ -148,9 +148,9 @@ class EkoAudioRecorderView : ConstraintLayout {
 
 
     private fun resetDeleteButton() {
-        mBinding.btnDelete.layoutParams.width = resources.getDimensionPixelSize(R.dimen.forty_eight)
+        mBinding.btnDelete.layoutParams.width = resources.getDimensionPixelSize(R.dimen.amity_forty_eight)
         mBinding.btnDelete.layoutParams.height =
-            resources.getDimensionPixelSize(R.dimen.forty_eight)
+            resources.getDimensionPixelSize(R.dimen.amity_forty_eight)
         mBinding.btnDelete.requestLayout()
     }
 

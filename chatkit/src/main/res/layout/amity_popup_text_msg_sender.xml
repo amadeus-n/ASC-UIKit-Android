@@ -15,15 +15,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/amityColorBase"
-        android:paddingVertical="@dimen/eight"
-        android:paddingStart="@dimen/nine"
-        android:paddingEnd="@dimen/eleven"
-        app:bottomRightRadius="@{@dimen/zero}"
+        android:paddingVertical="@dimen/amity_padding_xs"
+        android:paddingStart="@dimen/amity_padding_xs"
+        android:paddingEnd="@dimen/amity_padding_s"
+        app:bottomRightRadius="@{@dimen/amity_zero}"
         app:roundedCorner="@{true}">
 
         <TextView
             android:id="@+id/tvEdit"
-            style="@style/TextStyleEkoBody"
+            style="@style/AmityTextStyleBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{() -> viewModel.onEditClick()}"
@@ -38,17 +38,17 @@
             ekoBackgroundColor="@{@color/amityColorBase}"
             android:layout_width="1dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/twelve"
+            android:layout_marginStart="@dimen/amity_padding_s"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvEdit"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvDelete"
-            style="@style/TextStyleEkoBody"
+            style="@style/AmityTextStyleBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/twelve"
+            android:layout_marginStart="@dimen/amity_padding_s"
             android:onClick="@{() -> viewModel.onDeleteClick()}"
             android:text="@string/amity_delete"
             android:textColor="@color/amityColorWhite"
