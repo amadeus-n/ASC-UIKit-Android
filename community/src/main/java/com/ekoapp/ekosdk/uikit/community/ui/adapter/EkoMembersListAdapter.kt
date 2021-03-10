@@ -1,6 +1,5 @@
 package com.ekoapp.ekosdk.uikit.community.ui.adapter
 
-import android.util.Log
 import android.view.View
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DiffUtil
@@ -21,29 +20,24 @@ class EkoMembersListAdapter(
 
     private val selectedMemberSet = HashSet<String>()
 
-    override fun getLayoutId(position: Int, obj: EkoUser?): Int {
-        return if (position == 0) {
-            viewModel.memberMap[obj!!.getUserId()] = position
+    override fun getLayoutId(position: Int, user: EkoUser?): Int {
+        return if (position == 0 && user != null) {
+            viewModel.memberMap[user.getUserId()] = position
             R.layout.amity_item_header_select_member
         } else {
-            val currentUser = getItem(position)
-            if (currentUser == null) {
-                Log.e("###", "getLayoutId: skeleton layout $position")
+            if (user == null) {
                 R.layout.amity_item_select_member
             } else {
-                viewModel.memberMap[currentUser.getUserId()] = position
-                val prevUser = getItem(position - 1)!!
-                if (currentUser.getDisplayName()?.isEmpty() != false && prevUser.getDisplayName()
-                        ?.isEmpty() != false
-                ) {
+                viewModel.memberMap[user.getUserId()] = position
+                val prevUser = getItem(position - 1)
+                val currentUserDisplayName = user.getDisplayName() ?: ""
+                val prevUserDisplayName = prevUser?.getDisplayName() ?: ""
+                if (currentUserDisplayName.isEmpty() && prevUserDisplayName.isEmpty()) {
                     R.layout.amity_item_select_member
-                } else if (currentUser.getDisplayName() != null && prevUser.getDisplayName()
-                        ?.isEmpty() != false
-                ) {
+                } else if (currentUserDisplayName.isNotEmpty() && prevUserDisplayName.isEmpty()) {
                     R.layout.amity_item_header_select_member
                 } else {
-                    if (currentUser.getDisplayName()!![0]
-                            .equals(prevUser.getDisplayName()!![0], true)
+                    if (currentUserDisplayName[0].equals(prevUserDisplayName[0], true)
                     ) {
                         R.layout.amity_item_select_member
                     } else {

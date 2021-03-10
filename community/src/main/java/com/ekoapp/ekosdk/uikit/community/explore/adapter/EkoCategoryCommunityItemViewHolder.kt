@@ -18,6 +18,7 @@ open class EkoCategoryCommunityItemViewHolder(
     private val binding: AmityItemCategoryCommunityListBinding? = DataBindingUtil.bind(itemView)
 
     override fun bind(data: EkoCommunity?, position: Int) {
+        binding?.ekoCommunity = data
         if (data?.isOfficial() == true) {
             binding?.tvCommunityName?.setCompoundDrawablesWithIntrinsicBounds(
                 0,

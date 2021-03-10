@@ -26,8 +26,8 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
     val posts = ObservableField("0")
     val members = ObservableField("0")
     val description = ObservableField("")
-    val isPublic = ObservableBoolean(true)
-    val isMember = ObservableBoolean(true)
+    val isPublic = ObservableBoolean(false)
+    val isMember = ObservableBoolean(false)
     val isOfficial = ObservableBoolean(false)
     val isModerator = ObservableBoolean(false)
     var feedFragmentDelegate: IFeedFragmentDelegate? = null
@@ -67,27 +67,17 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
         return communityRepository.joinCommunity(communityID)
     }
 
-    fun onPrimaryButtonClick() {
-        if (isModerator.get()) {
-            triggerEvent(EventIdentifier.EDIT_PROFILE)
-        }
-        /*else if (isModerator.get()) { //TODO Uncomment when SDK already support role feature.
-            triggerEvent(EventIdentifier.MODERATOR_MESSAGE)
-        }*/
-        else {
-            triggerEvent(EventIdentifier.SEND_MESSAGE)
-        }
+    fun onMessageButtonClick() {
+        triggerEvent(EventIdentifier.SEND_MESSAGE)
+    }
 
-
+    fun onEditProfileButtonClick() {
+        triggerEvent(EventIdentifier.EDIT_PROFILE)
     }
 
     fun assignRole(): Completable {
         val communityRepository = EkoClient.newCommunityRepository()
         return communityRepository.moderate(communityID)
             .addRole(EkoConstants.MODERATOR_ROLE, listOf(EkoClient.getUserId()))
-    }
-
-    fun onSecondaryButtonClick() {
-        triggerEvent(EventIdentifier.SEND_MESSAGE)
     }
 }

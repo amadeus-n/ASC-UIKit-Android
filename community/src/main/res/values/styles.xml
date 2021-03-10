@@ -55,14 +55,14 @@
     <style name="EkoCHTitleStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_size_20</item>
+        <item name="android:textSize">@dimen/amity_text_size_headline</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginStart">@dimen/eighteen</item>
-        <item name="android:layout_marginLeft">@dimen/eighteen</item>
-        <item name="android:layout_marginEnd">@dimen/eighteen</item>
-        <item name="android:layout_marginRight">@dimen/eighteen</item>
+        <item name="android:layout_marginStart">@dimen/amity_eighteen</item>
+        <item name="android:layout_marginLeft">@dimen/amity_eighteen</item>
+        <item name="android:layout_marginEnd">@dimen/amity_eighteen</item>
+        <item name="android:layout_marginRight">@dimen/amity_eighteen</item>
     </style>
 
     <style name="EkoCommunityCategoryNameStyle">
@@ -77,42 +77,42 @@
 
     <style name="BaseButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">@dimen/forty_eight</item>
+        <item name="android:layout_height">@dimen/amity_forty_eight</item>
         <item name="android:gravity">center</item>
         <item name="iconGravity">textStart</item>
     </style>
 
     <style name="FollowButtonStyle" parent="BaseButtonStyle">
         <item name="shapeAppearanceOverlay">@style/FollowButtonAppearance</item>
-        <item name="backgroundTint">@color/eko_button_bg_selector</item>
-        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="backgroundTint">@color/amity_button_bg_selector</item>
+        <item name="android:textSize">@dimen/amity_text_size_body</item>
     </style>
 
     <style name="FollowButtonAppearance">
         <item name="cornerFamily">cut</item>
-        <item name="cornerRadius">@dimen/six</item>
+        <item name="cornerRadius">@dimen/amity_six</item>
         <item name="strokeColor">@color/amityColorBlack</item>
     </style>
 
     <style name="EnterCommunityStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textSize">@dimen/amity_text_size_title</item>
         <item name="background">@android:color/transparent</item>
     </style>
 
     <style name="PublicTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/sixteen</item>
-        <item name="android:layout_marginLeft">@dimen/sixteen</item>
+        <item name="android:layout_marginStart">@dimen/amity_padding_m1</item>
+        <item name="android:layout_marginLeft">@dimen/amity_padding_m1</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="PublicDescriptionTextStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/ts_upstra_body</item>
+        <item name="android:textSize">@dimen/amity_text_size_body</item>
         <item name="android:textColor">@color/amityColorBase</item>
     </style>
 
@@ -125,15 +125,15 @@
     <style name="SwitchButtonStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/thirty_eight</item>
+        <item name="android:layout_marginStart">@dimen/amity_thirty_eight</item>
     </style>
 
     <style name="AlphabetHeaderStyle">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">@dimen/twenty_eight</item>
+        <item name="android:layout_height">@dimen/amity_twenty_eight</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">@dimen/ts_upstra_body</item>
-        <item name="android:paddingStart">@dimen/sixteen</item>
+        <item name="android:textSize">@dimen/amity_text_size_body</item>
+        <item name="android:paddingStart">@dimen/amity_padding_m1</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -141,7 +141,7 @@
     <style name="SelectMembersSubTitleTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/ts_upstra_caption</item>
+        <item name="android:textSize">@dimen/amity_text_size_caption</item>
     </style>
 
 
@@ -150,15 +150,15 @@
     </style>
 
     <style name="EkoFeedPostLikeStyle">
-        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textSize">@dimen/amity_text_size_caption</item>
     </style>
 
     <style name="ImagePreviewTheme" parent="Base.Theme.EkoApp"></style>
 
     <style name="NewsFeedItemTextStyle">
-        <item name="android:textSize">@dimen/ts_upstra_body</item>
+        <item name="android:textSize">@dimen/amity_text_size_body</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/amityColorBase</item>
         <item name="android:autoLink">web</item>
         <item name="android:textColorLink">@color/amityColorHighlight</item>
@@ -178,9 +178,9 @@
     <style name="CommunityToolbarLeftTextStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/ts_upstra_headline</item>
+        <item name="android:textSize">@dimen/amity_text_size_headline</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginStart">@dimen/sixteen</item>
+        <item name="android:layout_marginStart">@dimen/amity_padding_m1</item>
         <item name="android:textColor">@color/amityColorBase</item>
     </style>
 

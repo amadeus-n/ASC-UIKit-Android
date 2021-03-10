@@ -45,6 +45,7 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
     private val TAG = EkoCommunityPageFragment::class.java.canonicalName
     private lateinit var mViewModel: EkoCommunityDetailViewModel
     private lateinit var fragmentStateAdapter: EkoFragmentStateAdapter
+    private var refreshDisposable = CompositeDisposable()
     private var disposable = CompositeDisposable()
     private var menuItem: MenuItem? = null
     private var isFirstLoad = true
@@ -173,7 +174,9 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
     }
 
     private fun getCommunityDetail() {
-        disposable.add(mViewModel.getCommunityDetail()
+        refreshDisposable.dispose()
+        refreshDisposable = CompositeDisposable()
+        refreshDisposable.add(mViewModel.getCommunityDetail()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext {
@@ -181,6 +184,9 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
                 if (current == null) {
                     setUpTabLayout(it)
                 } else {
+                    if(it.isDeleted()) {
+                        requireActivity().finish()
+                    }
                     if (current.isJoined() != it.isJoined()) {
                         setUpTabLayout(it)
                     }
@@ -194,7 +200,7 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
             }.subscribe()
         )
 
-        disposable.add(mViewModel.checkModeratorPermissionAtCommunity(
+        refreshDisposable.add(mViewModel.checkModeratorPermissionAtCommunity(
             EkoPermission.EDIT_COMMUNITY,
             mViewModel.communityID
         )
@@ -314,13 +320,8 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
         disposable.add(mViewModel.joinCommunity()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnComplete {
-                mViewModel.getCommunityDetail().subscribe()
-            }.doOnError {
-                Log.e(TAG, "getCommunityDetail: ${it.localizedMessage}")
-            }.subscribe()
+            .subscribe()
         )
-
     }
 
     override fun leftIconClick() {

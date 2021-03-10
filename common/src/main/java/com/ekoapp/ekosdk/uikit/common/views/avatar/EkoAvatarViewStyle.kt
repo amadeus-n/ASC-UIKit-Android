@@ -36,11 +36,11 @@ class EkoAvatarViewStyle : Style {
     private fun parse(typedArray: TypedArray) {
         avatarHeight = typedArray.getDimensionPixelSize(
             R.styleable.Avatar_avatarHeight,
-            getDimensionPixelSize(R.dimen.avatar_default_height)
+            getDimensionPixelSize(R.dimen.amity_avatar_default_height)
         )
         avatarWidth = typedArray.getDimensionPixelSize(
             R.styleable.Avatar_avatarWidth,
-            getDimensionPixelSize(R.dimen.avatar_default_width)
+            getDimensionPixelSize(R.dimen.amity_avatar_default_width)
         )
         avatarShape = typedArray.getInt(R.styleable.Avatar_avatarShape, AvatarShape.Circle)
         avatarDrawable = typedArray.getResourceId(R.styleable.Avatar_avatarDrawable, -1);

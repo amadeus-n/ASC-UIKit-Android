@@ -41,7 +41,7 @@
             app:layout_constraintVertical_bias="0.1">
 
             <androidx.core.widget.ContentLoadingProgressBar
-                android:layout_marginTop="@dimen/margin_64dp"
+                android:layout_marginTop="@dimen/amity_padding_xl"
                 android:indeterminateTint="@color/amityColorPrimary"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/base_feed_progress_bar"

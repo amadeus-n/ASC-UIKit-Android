@@ -11,6 +11,7 @@ import io.reactivex.Single
 
 class EkoEditCommentViewModel : EkoBaseViewModel() {
     private var ekoComment: EkoComment? = null
+    private var ekoReply: EkoComment? = null
     private var ekoPost: EkoPost? = null
 
     val commentText = MutableLiveData<String>().apply { value = "" }
@@ -34,8 +35,14 @@ class EkoEditCommentViewModel : EkoBaseViewModel() {
         if (ekoPost == null)
             return null
 
-        return EkoClient.newCommentRepository().createComment(commentId)
+        val commentCreator = EkoClient.newCommentRepository().createComment(commentId)
             .post(ekoPost!!.getPostId())
+
+        if (ekoReply != null) {
+            commentCreator.parentId(ekoReply?.getCommentId())
+        }
+
+        return commentCreator
             .with()
             .text(commentText.value!!)
             .build()
@@ -63,10 +70,16 @@ class EkoEditCommentViewModel : EkoBaseViewModel() {
 
     fun setComment(comment: EkoComment?) {
         this.ekoComment = comment
-        val commentData = (comment?.getData() as? EkoComment.Data.TEXT)?.getText()
-        if (commentData != null)
-            commentText.value = commentData
 
+        if (editMode()) {
+            val commentData = (comment?.getData() as? EkoComment.Data.TEXT)?.getText()
+            if (commentData != null)
+                commentText.value = commentData
+        }
+    }
+
+    fun setReplyTo(reply: EkoComment?) {
+        this.ekoReply = reply
     }
 
     fun editMode(): Boolean {
@@ -75,6 +88,10 @@ class EkoEditCommentViewModel : EkoBaseViewModel() {
 
     fun getComment(): EkoComment? {
         return ekoComment
+    }
+
+    fun getReply(): EkoComment? {
+        return ekoReply
     }
 
     fun setCommentData(commentText: String?) {

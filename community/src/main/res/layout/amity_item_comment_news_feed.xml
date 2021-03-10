@@ -24,6 +24,14 @@
         <variable
             name="avatarUrl"
             type="String" />
+
+        <variable
+            name="showViewRepliesButton"
+            type="Boolean" />
+
+        <variable
+            name="isReplyComment"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,19 +45,19 @@
             ekoBackgroundColor="@{@color/amityColorPrimary}"
             imageUrl="@{avatarUrl}"
             placeHolder="@{@drawable/amity_ic_default_profile1}"
-            android:layout_width="@dimen/twenty_eight"
-            android:layout_height="@dimen/twenty_eight"
-            android:layout_marginEnd="@dimen/eight"
+            android:layout_width="@dimen/amity_twenty_eight"
+            android:layout_height="@dimen/amity_twenty_eight"
+            android:layout_marginEnd="@dimen/amity_padding_xs"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvUserName"
-            style="@style/TextStyleEkoBodyBold"
+            style="@style/AmityTextStyleBodyBold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/eight"
-            android:layout_marginEnd="@dimen/sixteen"
+            android:layout_marginStart="@dimen/amity_padding_xs"
+            android:layout_marginEnd="@dimen/amity_padding_m1"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/amityColorBase"
@@ -61,10 +69,10 @@
 
         <TextView
             android:id="@+id/tvCommentTime"
-            style="@style/TextStyleEkoCaption"
+            style="@style/AmityTextStyleCaption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/four"
+            android:drawablePadding="@dimen/amity_padding_xxs"
             android:textColor="@color/amityColorBase"
             app:layout_constraintStart_toStartOf="@id/tvUserName"
             app:layout_constraintTop_toBottomOf="@id/tvUserName"
@@ -73,28 +81,29 @@
 
         <TextView
             android:id="@+id/tvEdited"
-            style="@style/TextStyleEkoCaption"
+            style="@style/AmityTextStyleCaption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/four"
+            android:layout_marginStart="@dimen/amity_padding_xxs"
             android:drawableStart="@drawable/amity_ic_dot"
-            android:drawablePadding="@dimen/four"
+            android:drawablePadding="@dimen/amity_padding_xxs"
             android:text="@string/amity_edited"
-            android:textColor="@color/amityColorBase"
-            android:visibility="@{edited ? View.VISIBLE : View.GONE}"
+            android:textColor="@color/upstraColorBase"
+            android:visibility="@{edited ? View.VISIBLE : View.GONE, default=gone}"
             app:layout_constraintStart_toEndOf="@id/tvCommentTime"
             app:layout_constraintTop_toTopOf="@id/tvCommentTime"
-            app:textColorShade="@{ColorShade.SHADE1}" />
+            app:textColorShade="@{ColorShade.SHADE1}"
+            tools:visibility="visible" />
 
         <com.ekoapp.ekosdk.uikit.common.views.text.EkoExpandableTextView
             android:id="@+id/tvPostComment"
-            style="@style/TextStyleEkoBody"
+            style="@style/AmityTextStyleBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/thirty_six"
-            android:layout_marginTop="@dimen/four"
+            android:layout_marginStart="@dimen/amity_thirty_six"
+            android:layout_marginTop="@dimen/amity_padding_xxs"
             android:maxLines="@integer/maxLineTextOnlyFeed"
-            android:paddingBottom="@{addBottomSpace ? @dimen/eight : 0}"
+            android:paddingBottom="@{addBottomSpace ? @dimen/amity_padding_xs : 0}"
             android:textColor="@color/amityColorBase"
             app:layout_constraintStart_toStartOf="@id/tvUserName"
             app:layout_constraintTop_toBottomOf="@id/tvCommentTime"
@@ -102,13 +111,13 @@
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/cbLike"
-            style="@style/TextStyleEkoBodyBold"
+            style="@style/AmityTextStyleBodyBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/amity_ic_like_selector"
             android:enabled="@{readOnly ? false : true}"
             android:gravity="center_vertical"
-            android:paddingStart="@dimen/five"
+            android:paddingStart="@dimen/amity_padding_xxs"
             android:paddingEnd="0dp"
             android:text="@string/amity_like"
             app:checkBoxCheckedColor="@{@color/amityColorPrimary}"
@@ -119,27 +128,30 @@
 
         <TextView
             android:id="@+id/reply"
-            style="@style/TextStyleEkoBodyBold"
+            style="@style/AmityTextStyleBodyBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ten"
+            android:layout_marginStart="@dimen/amity_ten"
             android:drawableStart="@drawable/amity_ic_reply"
-            android:drawablePadding="@dimen/eight"
+            android:drawablePadding="@dimen/amity_padding_xs"
             android:gravity="center_vertical"
             android:text="@string/amity_reply"
-            android:textColor="@{@color/amityColorBase}"
+            android:textColor="@{@color/upstraColorBase}"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/cbLike"
             app:layout_constraintStart_toEndOf="@id/cbLike"
             app:layout_constraintTop_toTopOf="@id/cbLike"
-            app:textColorShade="@{ColorShade.SHADE2}" />
+            app:textColorShade="@{ColorShade.SHADE2}"
+            tools:visibility="visible" />
 
+        <!--  TODO uncomment and use this logic when we allow client to create reply comment      -->
+        <!--        android:visibility="@{(isReplyComment || readOnly) ? View.GONE : View.VISIBLE, default=gone}"-->
 
         <ImageButton
             android:id="@+id/btnCommentAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ten"
+            android:layout_marginStart="@dimen/amity_ten"
             android:background="@android:color/transparent"
             android:src="@drawable/amity_ic_more_horizontal"
             android:tint="@color/amityColorBase"
@@ -152,32 +164,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="@{readOnly ? View.GONE : View.VISIBLE}"
-            app:constraint_referenced_ids="cbLike,btnCommentAction" />
+            app:constraint_referenced_ids="cbLike,btnCommentAction"
+            tools:visibility="visible" />
 
 
-        <View
-            android:id="@+id/verticalDivider"
-            android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginBottom="-8dp"
-            android:visibility="gone"
-            app:backgroundColorShade="@{ColorShade.SHADE4}"
-            app:ekoBackgroundColor="@{@color/amityColorBase}"
-            app:layout_constraintBottom_toTopOf="@id/tvViewAllReply"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivAvatar" />
-
-        <TextView
-            android:id="@+id/tvViewAllReply"
-            style="@style/TextStyleEkoBody"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/viewRepliesContainer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/eight"
-            android:text="@string/amity_view_replies"
-            android:textColor="@color/amityColorBase"
+            android:layout_marginTop="@dimen/amity_padding_xxs"
+            android:layout_marginBottom="@dimen/amity_padding_m1"
+            android:background="@drawable/amity_bg_view_replies"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/amity_padding_xxs"
+            android:visibility="@{showViewRepliesButton ? View.VISIBLE : View.GONE, default=gone}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="120:30"
+            app:layout_constraintStart_toStartOf="@+id/cbLike"
             app:layout_constraintTop_toBottomOf="@id/cbLike"
-            app:textColorShade="@{ColorShade.SHADE2}" />
+            tools:visibility="visible">
 
+            <TextView
+                android:id="@+id/tvViewReplies"
+                style="@style/AmityTextStyleCaptionBold"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableStart="@drawable/amity_view_replies"
+                android:gravity="center"
+                android:text="@string/amity_view_replies"
+                android:textColor="#636878" />
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

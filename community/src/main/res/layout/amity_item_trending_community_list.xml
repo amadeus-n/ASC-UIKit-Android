@@ -34,18 +34,18 @@
             ekoBackgroundColor="@{@color/amityColorPrimary}"
             imageUrl="@{avatarUrl}"
             placeHolder="@{@drawable/amity_ic_default_community_avatar_small}"
-            android:layout_width="@dimen/forty"
-            android:layout_height="@dimen/forty"
-            android:layout_marginStart="@dimen/sixteen"
+            android:layout_width="@dimen/amity_forty"
+            android:layout_height="@dimen/amity_forty"
+            android:layout_marginStart="@dimen/amity_padding_m1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvCount"
-            style="@style/TextStyleEkoTitleBold"
+            style="@style/AmityTextStyleTitleBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/twelve"
+            android:layout_marginStart="@dimen/amity_padding_s"
             android:textColor="@color/amityColorHighlight"
             app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
             app:layout_constraintStart_toEndOf="@id/ivAvatar"
@@ -55,21 +55,21 @@
             android:id="@+id/communityNameContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/fourteen"
+            android:layout_marginStart="@dimen/amity_fourteen"
             android:paddingStart="0dp"
-            android:paddingEnd="@dimen/four"
+            android:paddingEnd="@dimen/amity_padding_xxs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvCount"
             app:layout_constraintTop_toTopOf="@id/ivAvatar">
 
             <TextView
                 android:id="@+id/tvCommName"
-                style="@style/TextStyleEkoBodyBold"
+                style="@style/AmityTextStyleBodyBold"
                 safeText="@{ekoCommunity.displayName}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@{ekoCommunity.official ? @drawable/amity_ic_verified : null}"
-                android:drawablePadding="@dimen/four"
+                android:drawablePadding="@dimen/amity_padding_xxs"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="@color/amityColorBase"
@@ -78,21 +78,21 @@
 
         <TextView
             android:id="@+id/tvCategory"
-            style="@style/TextStyleEkoCaption"
+            style="@style/AmityTextStyleCaption"
             textColorShade="@{ColorShade.SHADE1}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
             android:paddingStart="0dp"
-            android:paddingEnd="@dimen/four"
+            android:paddingEnd="@dimen/amity_padding_xxs"
             android:text="@string/amity_general"
             android:textColor="@color/amityColorBase"
             app:layout_constrainedWidth="true" />
 
         <TextView
             android:id="@+id/tvDot"
-            style="@style/TextStyleEkoCaption"
+            style="@style/AmityTextStyleCaption"
             textColorShade="@{ColorShade.SHADE1}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -101,14 +101,14 @@
 
         <TextView
             android:id="@+id/tvMembersCount"
-            style="@style/TextStyleEkoCaption"
+            style="@style/AmityTextStyleCaption"
             textColorShade="@{ColorShade.SHADE1}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingStart="@dimen/four"
-            android:paddingEnd="@dimen/sixteen"
+            android:paddingStart="@dimen/amity_padding_xxs"
+            android:paddingEnd="@dimen/amity_padding_m1"
             android:textColor="@color/amityColorBase" />
 
         <androidx.constraintlayout.helper.widget.Flow
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingStart="0dp"
-            android:paddingEnd="@dimen/four"
+            android:paddingEnd="@dimen/amity_padding_xxs"
             app:constraint_referenced_ids="tvCategory,tvDot,tvMembersCount"
             app:flow_horizontalAlign="start"
             app:flow_horizontalBias="0"

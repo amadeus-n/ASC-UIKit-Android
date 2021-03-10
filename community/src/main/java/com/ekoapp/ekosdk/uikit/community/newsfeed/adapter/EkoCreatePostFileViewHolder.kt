@@ -13,7 +13,7 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.model.FileUploadState
 class EkoCreatePostFileViewHolder(
     itemView: View,
     val listener: ICreatePostFileActionListener?
-) : EkoBaseFeedAttachmentViewHolder(itemView) {
+) : EkoBasePostAttachmentViewHolder(itemView) {
 
     private val removeFile: ImageView = itemView.findViewById(R.id.ivRemove)
     private val errorFile: ImageView = itemView.findViewById(R.id.ivError)

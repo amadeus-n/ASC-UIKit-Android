@@ -4,6 +4,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ekoapp.ekosdk.community.EkoCommunity
+import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewPagedAdapter
 import com.ekoapp.ekosdk.uikit.common.loadImage
 import com.ekoapp.ekosdk.uikit.common.setBackgroundColor
@@ -31,7 +32,7 @@ class EkoMyCommunityListViewHolder(
             binding?.ekoCommunity = data
             binding?.listener = listener
             binding?.ivAvatar?.loadImage(
-                data?.getAvatar()?.getUrl(),
+                data?.getAvatar()?.getUrl(EkoImage.Size.SMALL),
                 R.drawable.amity_ic_default_community_avatar_small
             )
         }

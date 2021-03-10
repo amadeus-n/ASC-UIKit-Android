@@ -15,7 +15,8 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.fragment.EkoEditCommentFragmen
 import com.ekoapp.ekosdk.uikit.community.utils.EXTRA_PARAM_NEWS_FEED
 
 const val EXTRA_PARAM_COMMENT: String = "Comment"
-const val EXTRA_PARAM_COMMENT_TEXT: String = "Comment_TEXT"
+const val EXTRA_PARAM_COMMENT_TEXT: String = "Comment_Text"
+const val EXTRA_PARAM_COMMENT_REPLY_TO: String = "Comment_Reply_To"
 
 class EkoEditCommentActivity : EkoBaseToolbarFragmentContainerActivity() {
     private val TAG = EkoEditCommentActivity::class.java.canonicalName
@@ -23,20 +24,34 @@ class EkoEditCommentActivity : EkoBaseToolbarFragmentContainerActivity() {
     override fun initToolbar() {
         getToolBar()?.setLeftDrawable(ContextCompat.getDrawable(this, R.drawable.amity_ic_cross))
         val comment: EkoComment? = intent.getParcelableExtra(EXTRA_PARAM_COMMENT)
-        getToolBar()?.setLeftString(
-            if (comment != null) getString(R.string.amity_edit_comment) else getString(
-                R.string.amity_add_comment
+        val replyTo: EkoComment? = intent.getParcelableExtra(EXTRA_PARAM_COMMENT_REPLY_TO)
+        val isReply = comment?.getParentId()?.isNotEmpty() == true
+
+        if (replyTo != null || isReply) {
+            if (isReply) {
+                getToolBar()?.setLeftString(getString(R.string.amity_edit_reply))
+            } else {
+                getToolBar()?.setLeftString(getString(R.string.amity_reply_to))
+            }
+        } else {
+            getToolBar()?.setLeftString(
+                if (comment != null) getString(R.string.amity_edit_comment) else getString(
+                    R.string.amity_add_comment
+                )
             )
-        )
+        }
     }
 
 
     override fun getContentFragment(): Fragment {
         val comment: EkoComment? = intent.getParcelableExtra(EXTRA_PARAM_COMMENT)
+        val replyTo: EkoComment? = intent.getParcelableExtra(EXTRA_PARAM_COMMENT_REPLY_TO)
         val ekoPost: EkoPost? = intent.getParcelableExtra(EXTRA_PARAM_NEWS_FEED)
         val commentText: String? = intent.getStringExtra(EXTRA_PARAM_COMMENT_TEXT)
+
         return EkoEditCommentFragment.Builder()
             .setComment(comment)
+            .setReplyTo(replyTo)
             .setCommentText(commentText)
             .setNewsFeed(ekoPost).build(this)
     }
@@ -61,10 +76,12 @@ class EkoEditCommentActivity : EkoBaseToolbarFragmentContainerActivity() {
 
         override fun createIntent(context: Context, input: Bundle?): Intent {
             val newsFeed: EkoPost? = input?.getParcelable(EXTRA_PARAM_NEWS_FEED)
-            val comment = input?.getString(EXTRA_PARAM_COMMENT_TEXT)
+            val commentText = input?.getString(EXTRA_PARAM_COMMENT_TEXT)
+            val replyTo: EkoComment? = input?.getParcelable(EXTRA_PARAM_COMMENT_REPLY_TO)
             val intent = Intent(context, EkoEditCommentActivity::class.java)
             intent.putExtra(EXTRA_PARAM_NEWS_FEED, newsFeed)
-            intent.putExtra(EXTRA_PARAM_COMMENT_TEXT, comment)
+            intent.putExtra(EXTRA_PARAM_COMMENT_TEXT, commentText)
+            intent.putExtra(EXTRA_PARAM_COMMENT_REPLY_TO, replyTo)
             return intent
         }
 

@@ -13,9 +13,10 @@ class EkoCommunitySettingViewModel : EkoBaseViewModel() {
 
     val communityId = ObservableField("")
     var ekoCommunity: EkoCommunity? = null
-    val isAdmin = ObservableBoolean(false)
+    val isModerator = ObservableBoolean(false)
     val membersCount = ObservableField("0")
-    val isPublic = ObservableBoolean(true)
+    val isPublic = ObservableBoolean(false)
+    val checkedPermission = ObservableBoolean(false)
 
     fun leaveCommunity(): Completable {
         val communityRepository = EkoClient.newCommunityRepository()
@@ -34,7 +35,6 @@ class EkoCommunitySettingViewModel : EkoBaseViewModel() {
 
     fun setCommunity(ekoCommunity: EkoCommunity) {
         communityId.set(ekoCommunity.getCommunityId())
-        isAdmin.set(ekoCommunity.getUserId() == EkoClient.getUserId())
         membersCount.set(ekoCommunity.getMemberCount().toDouble().formatCount())
         isPublic.set(ekoCommunity.isPublic())
     }

@@ -23,11 +23,11 @@
 
         <TextView
             android:id="@+id/tvNoPost"
-            style="@style/TextStyleEkoBody"
+            style="@style/AmityTextStyleBody"
             textColorShade="@{ColorShade.SHADE3}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eleven"
+            android:layout_marginTop="@dimen/amity_padding_s"
             android:text="@string/amity_no_post"
             android:textColor="@color/amityColorBase"
             app:layout_constraintEnd_toEndOf="parent"

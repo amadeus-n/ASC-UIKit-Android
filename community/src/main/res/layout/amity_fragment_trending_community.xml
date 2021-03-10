@@ -8,11 +8,11 @@
 
     <TextView
         android:id="@+id/trendingLabel"
-        style="@style/TextStyleEkoTitleBold"
+        style="@style/AmityTextStyleTitleBold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/sixteen"
-        android:layout_marginTop="@dimen/twenty"
+        android:layout_marginStart="@dimen/amity_padding_m1"
+        android:layout_marginTop="@dimen/amity_padding_m2"
         android:text="@string/amity_todays_trending"
         android:textColor="@color/amityColorBase"
         app:layout_constraintTop_toTopOf="parent" />

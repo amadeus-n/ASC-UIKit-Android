@@ -129,8 +129,8 @@ class EkoMyCommunityFragment internal constructor() : EkoBaseFragment(),
         rvMyCommunities.adapter = mAdapter
         rvMyCommunities.addItemDecoration(
             EkoRecyclerViewItemDecoration(
-                resources.getDimensionPixelSize(R.dimen.eight),
-                0, resources.getDimensionPixelSize(R.dimen.eight), 0
+                resources.getDimensionPixelSize(R.dimen.amity_padding_xs),
+                0, resources.getDimensionPixelSize(R.dimen.amity_padding_xs), 0
             )
         )
         rvMyCommunities.setHasFixedSize(true)

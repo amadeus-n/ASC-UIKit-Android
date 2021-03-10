@@ -17,9 +17,9 @@
             android:id="@+id/rvCategory"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/sixteen"
-            android:layout_marginEnd="@dimen/sixteen"
-            android:layout_marginBottom="@dimen/sixteen"
+            android:layout_marginStart="@dimen/amity_padding_m1"
+            android:layout_marginEnd="@dimen/amity_padding_m1"
+            android:layout_marginBottom="@dimen/amity_padding_m1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -14,9 +14,8 @@ abstract class EkoBaseRecyclerViewAdapter<T> :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         getViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                viewType, parent, false
-            ), viewType
+            LayoutInflater.from(parent.context).inflate(viewType, parent, false),
+            viewType
         )
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =

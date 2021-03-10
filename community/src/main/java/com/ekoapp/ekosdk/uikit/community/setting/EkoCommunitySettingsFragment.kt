@@ -1,7 +1,6 @@
 package com.ekoapp.ekosdk.uikit.community.setting
 
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +10,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.ekoapp.ekosdk.community.EkoCommunity
+import com.ekoapp.ekosdk.permission.EkoPermission
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentCommunitySettingsBinding
 import com.ekoapp.ekosdk.uikit.community.edit.EkoCommunityProfileActivity
-import com.ekoapp.ekosdk.uikit.community.home.activity.EkoCommunityHomePageActivity
 import com.ekoapp.ekosdk.uikit.community.members.EkoCommunityMemberSettingsActivity
 import com.ekoapp.ekosdk.uikit.utils.AlertDialogUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -58,7 +57,7 @@ class EkoCommunitySettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        checkModeratorPermissionAtCommunity()
         handleClickEvents()
         getCommunityDetails()
     }
@@ -69,6 +68,24 @@ class EkoCommunitySettingsFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext {
                     mViewModel.setCommunity(it)
+                }.doOnError {
+
+                }.subscribe()
+            )
+        }
+    }
+
+    private fun checkModeratorPermissionAtCommunity() {
+        mViewModel.communityId.get()?.let { communityId ->
+            compositeDisposable.add(mViewModel.checkModeratorPermissionAtCommunity(
+                EkoPermission.DELETE_COMMUNITY, communityId
+            )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .firstOrError()
+                .doOnSuccess {
+                    mViewModel.isModerator.set(it)
+                    mViewModel.checkedPermission.set(true)
                 }.doOnError {
 
                 }.subscribe()
@@ -99,7 +116,7 @@ class EkoCommunitySettingsFragment : Fragment() {
         }
 
         tvLeaveCommunity.setOnClickListener {
-            if (mViewModel.isAdmin.get()) {
+            if (mViewModel.isModerator.get()) {
                 closeCommunity()
             } else {
                 leaveCommunity()
@@ -150,8 +167,7 @@ class EkoCommunitySettingsFragment : Fragment() {
     }
 
     private fun navigateToCommunityHome() {
-        val intent = Intent(requireContext(), EkoCommunityHomePageActivity::class.java)
-        startActivity(intent)
+        requireActivity().finish()
     }
 
     class Builder {

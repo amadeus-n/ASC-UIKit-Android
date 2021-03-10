@@ -17,9 +17,9 @@
         style="@style/EkoCommunitySubCategoryNameStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginTop="@dimen/amity_padding_xs"
         android:text="Sports"
-        android:textSize="@dimen/text_size_17sp"
+        android:textSize="@dimen/amity_text_size_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/avatarView"
         app:layout_constraintTop_toTopOf="parent" />

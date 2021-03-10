@@ -17,7 +17,7 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.detailpage.EkoCommunityPageActivity
 import com.ekoapp.ekosdk.uikit.community.mycommunity.activity.EkoMyCommunityActivity
-import com.ekoapp.ekosdk.uikit.community.mycommunity.adapter.EkoMyCommunityListAdapter
+import com.ekoapp.ekosdk.uikit.community.mycommunity.adapter.EkoMyCommunityPreviewAdapter
 import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener
 import com.ekoapp.ekosdk.uikit.community.mycommunity.viewmodel.EkoMyCommunityListViewModel
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoNewsFeedViewModel
@@ -31,7 +31,7 @@ class EkoMyCommunityPreviewFragment internal constructor() : EkoBaseFragment(),
     IMyCommunityItemClickListener {
     lateinit var mViewModel: EkoMyCommunityListViewModel
     private val newFeedViewModel: EkoNewsFeedViewModel by activityViewModels()
-    private lateinit var mAdapter: EkoMyCommunityListAdapter
+    private lateinit var mAdapter: EkoMyCommunityPreviewAdapter
     private val TAG = EkoMyCommunityPreviewFragment::class.java.canonicalName
 
     override fun onCreateView(
@@ -68,15 +68,15 @@ class EkoMyCommunityPreviewFragment internal constructor() : EkoBaseFragment(),
     }
 
     private fun initRecyclerView() {
-        mAdapter = EkoMyCommunityListAdapter(this, true)
+        mAdapter = EkoMyCommunityPreviewAdapter(this)
         rvMyCommunity.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rvMyCommunity.adapter = mAdapter
         rvMyCommunity.itemAnimator = null
         rvMyCommunity.addItemDecoration(
             EkoRecyclerViewItemDecoration(
-                0, resources.getDimensionPixelSize(R.dimen.sixteen), 0,
-                resources.getDimensionPixelSize(R.dimen.sixteen)
+                0, resources.getDimensionPixelSize(R.dimen.amity_padding_m1), 0,
+                resources.getDimensionPixelSize(R.dimen.amity_padding_m1)
             )
         )
         rvMyCommunity.setHasFixedSize(true)

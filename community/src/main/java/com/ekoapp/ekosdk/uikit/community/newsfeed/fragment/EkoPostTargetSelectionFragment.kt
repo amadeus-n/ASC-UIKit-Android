@@ -70,8 +70,8 @@ class EkoPostTargetSelectionFragment internal constructor() : EkoBaseFragment(),
         rvCommunity.adapter = mAdapter
         rvCommunity.addItemDecoration(
             EkoRecyclerViewItemDecoration(
-                resources.getDimensionPixelSize(R.dimen.eight),
-                0, resources.getDimensionPixelSize(R.dimen.eight)
+                resources.getDimensionPixelSize(R.dimen.amity_padding_xs),
+                0, resources.getDimensionPixelSize(R.dimen.amity_padding_xs)
             )
         )
         rvCommunity.hasFixedSize()

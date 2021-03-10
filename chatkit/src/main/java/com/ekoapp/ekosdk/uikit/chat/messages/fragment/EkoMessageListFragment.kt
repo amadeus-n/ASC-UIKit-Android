@@ -202,7 +202,7 @@ class EkoMessageListFragment private constructor() : EkoPickerFragment(), IAudio
             EkoRecyclerViewItemDecoration(
                 0,
                 0,
-                resources.getDimensionPixelSize(R.dimen.eight)
+                resources.getDimensionPixelSize(R.dimen.amity_padding_xs)
             )
         )
         rvChatList.itemAnimator?.changeDuration = 0

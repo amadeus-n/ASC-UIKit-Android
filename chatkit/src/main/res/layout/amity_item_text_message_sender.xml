@@ -45,22 +45,22 @@
 
             <TextView
                 android:id="@+id/tvTimeOutgoing"
-                style="@style/TextStyleEkoCaption"
+                style="@style/AmityTextStyleCaption"
                 textColorShade="@{ColorShade.SHADE2}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/four"
+                android:layout_marginTop="@dimen/amity_padding_xxs"
                 android:text="@{vmTextMessage.isEdited() ? vmTextMessage.editedAt : vmTextMessage.msgTime}"
                 android:textColor="@color/amityColorBase"
                 app:layout_constraintEnd_toEndOf="@id/tvMessageOutgoing"
                 app:layout_constraintTop_toBottomOf="@id/tvMessageOutgoing" />
 
             <TextView
-                style="@style/TextStyleEkoCaption"
+                style="@style/AmityTextStyleCaption"
                 textColorShade="@{ColorShade.SHADE2}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/four"
+                android:layout_marginEnd="@dimen/amity_padding_xxs"
                 android:text="@string/amity_msg_edited"
                 android:textColor="@color/amityColorBase"
                 android:visibility="@{vmTextMessage.isEdited() ? View.VISIBLE : View.GONE}"
@@ -74,11 +74,11 @@
                 longPress="@{lonPressListener}"
                 message="@{vmTextMessage.text}"
                 roundedCorner="@{true}"
-                topRightRadius="@{@dimen/zero}"
+                topRightRadius="@{@dimen/amity_zero}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/one_hundred_fourteen"
-                android:layout_marginEnd="@dimen/sixteen"
+                android:layout_marginStart="@dimen/amity_one_hundred_fourteen"
+                android:layout_marginEnd="@dimen/amity_padding_m1"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -89,7 +89,7 @@
                 layout="@layout/amity_view_msg_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/four"
+                android:layout_marginEnd="@dimen/amity_padding_xxs"
                 android:visibility="@{vmTextMessage.isFailed() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="@id/tvMessageOutgoing"
                 app:layout_constraintEnd_toStartOf="@id/tvMessageOutgoing"
@@ -106,7 +106,7 @@
                 app:layout_constraintStart_toStartOf="@id/tvMessageOutgoing"
                 app:layout_constraintTop_toTopOf="@id/tvMessageOutgoing"
                 app:roundedCorner="@{true}"
-                app:topRightRadius="@{@dimen/zero}" />
+                app:topRightRadius="@{@dimen/amity_zero}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -114,7 +114,7 @@
             layout="@layout/amity_view_msg_deleted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/twelve"
+            android:layout_marginEnd="@dimen/amity_padding_s"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dateHeader"
             app:viewModel="@{vmTextMessage}" />

@@ -128,7 +128,7 @@ fun View.setShape(
 
     val modal = ShapeAppearanceModel()
         .toBuilder()
-    val cornerRadius = this.context.resources.getDimensionPixelSize(R.dimen.eight).toFloat()
+    val cornerRadius = this.context.resources.getDimensionPixelSize(R.dimen.amity_eight).toFloat()
     if (topLeft == null) {
         modal.setTopLeftCorner(CornerFamily.ROUNDED, cornerRadius)
     } else {
@@ -212,7 +212,7 @@ fun View.toCircularShape(fillColor: Int, strokeWidth: Float? = null) {
         .toBuilder()
         .setAllCorners(
             CornerFamily.ROUNDED,
-            this.context.resources.getDimensionPixelSize(R.dimen.thirty_two).toFloat()
+            this.context.resources.getDimensionPixelSize(R.dimen.amity_thirty_two).toFloat()
         )
     val shapeDrawable = MaterialShapeDrawable(modal.build())
     shapeDrawable.setTint(fillColor)

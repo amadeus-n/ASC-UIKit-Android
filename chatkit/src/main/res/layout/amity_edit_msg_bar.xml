@@ -15,8 +15,8 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
-        android:layout_height="@dimen/thirty_two"
-        app:contentInsetStart="@dimen/zero">
+        android:layout_height="@dimen/amity_thirty_two"
+        app:contentInsetStart="@dimen/amity_zero">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,19 +24,19 @@
 
             <ImageView
                 android:id="@+id/icCross"
-                android:layout_width="@dimen/fourteen"
-                android:layout_height="@dimen/fourteen"
-                android:layout_marginStart="@dimen/sixteen"
+                android:layout_width="@dimen/amity_fourteen"
+                android:layout_height="@dimen/amity_fourteen"
+                android:layout_marginStart="@dimen/amity_padding_m1"
                 android:src="@drawable/amity_ic_cross"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                style="@style/TextStyleEkoTitleBold"
+                style="@style/AmityTextStyleTitleBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/sixteen"
+                android:layout_marginStart="@dimen/amity_padding_m1"
                 android:text="@string/amity_edit_msg"
                 app:layout_constraintBottom_toBottomOf="@id/icCross"
                 app:layout_constraintStart_toEndOf="@id/icCross"
@@ -44,10 +44,10 @@
 
             <TextView
                 android:id="@+id/tvSave"
-                style="@style/TextStyleEkoBody"
+                style="@style/AmityTextStyleBody"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/sixteen"
+                android:layout_marginEnd="@dimen/amity_padding_m1"
                 android:enabled="@{viewModel.isSaveEnabled()}"
                 android:onClick="@{() -> viewModel.saveMessage()}"
                 android:text="@string/amity_save"

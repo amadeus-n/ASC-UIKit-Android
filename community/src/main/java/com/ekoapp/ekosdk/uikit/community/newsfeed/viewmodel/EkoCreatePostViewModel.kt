@@ -394,7 +394,7 @@ class EkoCreatePostViewModel : EkoBaseViewModel() {
         return FeedImage(
             ekoImage.getFileId(),
             null,
-            Uri.parse(ekoImage.getUrl(EkoImage.Size.LARGE)),
+            Uri.parse(ekoImage.getUrl(EkoImage.Size.MEDIUM)),
             FileUploadState.COMPLETE,
             100
         )

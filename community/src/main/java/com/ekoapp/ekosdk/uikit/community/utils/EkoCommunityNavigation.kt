@@ -54,9 +54,7 @@ class EkoCommunityNavigation {
         }
 
         fun navigateToPostDetails(context: Context, postId: String, timelineType: EkoTimelineType) {
-            var intent = Intent(context, EkoPostDetailsActivity::class.java)
-            intent.putExtra(EXTRA_PARAM_NEWS_FEED_ID, postId)
-            intent.putExtra(EXTRA_PARAM_TIMELINE_TYPE, timelineType)
+            val intent = EkoPostDetailsActivity.newIntent(context, postId, timelineType)
             context.startActivity(intent)
         }
 
@@ -66,10 +64,7 @@ class EkoCommunityNavigation {
             comment: EkoComment,
             timelineType: EkoTimelineType
         ) {
-            var intent = Intent(context, EkoPostDetailsActivity::class.java)
-            intent.putExtra(EXTRA_PARAM_NEWS_FEED_ID, post.getPostId())
-            intent.putExtra(EXTRA_PARAM_COMMENT, comment)
-            intent.putExtra(EXTRA_PARAM_TIMELINE_TYPE, timelineType)
+            val intent = EkoPostDetailsActivity.newIntent(context, post.getPostId(), timelineType, comment)
             context.startActivity(intent)
         }
 
@@ -89,7 +84,7 @@ class EkoCommunityNavigation {
         }
 
         fun navigateToEditProfile(context: Context) {
-            var intent = Intent(context, EkoEditUserProfileActivity::class.java)
+            val intent = Intent(context, EkoEditUserProfileActivity::class.java)
             context.startActivity(intent)
         }
 

@@ -7,11 +7,11 @@
 
     <TextView
         android:id="@+id/tvMessage"
-        style="@style/TextStyleEkoBody"
+        style="@style/AmityTextStyleBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/twelve"
-        android:paddingVertical="@dimen/nine"
+        android:paddingHorizontal="@dimen/amity_padding_s"
+        android:paddingVertical="@dimen/amity_padding_xs"
         android:text="@string/amity_message_is_too_short"
         android:textColor="@color/amityColorWhite"
         app:layout_constraintEnd_toEndOf="parent"

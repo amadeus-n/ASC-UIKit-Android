@@ -21,9 +21,9 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivCross"
-            android:layout_width="@dimen/twenty"
-            android:layout_height="@dimen/twenty"
-            android:layout_margin="@dimen/eight"
+            android:layout_width="@dimen/amity_twenty"
+            android:layout_height="@dimen/amity_twenty"
+            android:layout_margin="@dimen/amity_padding_xs"
             android:background="@color/amityColorBase"
             android:scaleType="centerInside"
             android:src="@drawable/amity_ic_cross_white"
@@ -36,9 +36,9 @@
             android:id="@+id/pbImageUpload"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/eight"
-            android:layout_marginStart="@dimen/sixteen"
-            android:layout_marginEnd="@dimen/sixteen"
+            android:layout_height="@dimen/amity_padding_xs"
+            android:layout_marginStart="@dimen/amity_padding_m1"
+            android:layout_marginEnd="@dimen/amity_padding_m1"
             android:max="@integer/maxProgressImageUpload"
             android:progressBackgroundTint="@color/amityColorWhite"
             android:progressTint="@color/amityColorPrimary"
@@ -49,8 +49,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivError"
-            android:layout_width="@dimen/twenty_five"
-            android:layout_height="@dimen/twenty_five"
+            android:layout_width="@dimen/amity_twenty_five"
+            android:layout_height="@dimen/amity_twenty_five"
             android:background="@color/amityColorBase"
             android:scaleType="centerInside"
             android:src="@drawable/amity_ic_info"

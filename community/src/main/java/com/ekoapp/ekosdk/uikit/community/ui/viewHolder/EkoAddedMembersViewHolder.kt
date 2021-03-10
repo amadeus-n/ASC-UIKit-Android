@@ -30,7 +30,7 @@ open class EkoAddedMembersViewHolder(
     private val layout: ConstraintLayout? = itemView.findViewById(R.id.lAddedMemberItem)
 
     init {
-        val radius = itemView.context.resources.getDimensionPixelSize(R.dimen.twenty_four).toFloat()
+        val radius = itemView.context.resources.getDimensionPixelSize(R.dimen.amity_twenty_four).toFloat()
         layout?.setShape(
             radius, radius, radius, radius, R.color.amityColorBase,
             R.color.amityColorBase, ColorShade.SHADE4

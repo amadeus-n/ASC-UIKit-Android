@@ -36,8 +36,8 @@ class EkoCommunityCreateFragment internal constructor() : EkoCommunityCreateBase
         getBindingVariable().rvAddedMembers.adapter = mAdapter
         getBindingVariable().rvAddedMembers.addItemDecoration(
             AddedMemberItemDecoration(
-                resources.getDimensionPixelSize(R.dimen.eight),
-                resources.getDimensionPixelSize(R.dimen.twelve)
+                resources.getDimensionPixelSize(R.dimen.amity_padding_xs),
+                resources.getDimensionPixelSize(R.dimen.amity_padding_s)
             )
         )
         mAdapter.submitList(mViewModel.selectedMembersList)

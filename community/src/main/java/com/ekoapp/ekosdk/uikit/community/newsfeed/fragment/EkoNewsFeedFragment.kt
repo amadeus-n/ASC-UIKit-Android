@@ -37,7 +37,7 @@ class EkoNewsFeedFragment internal constructor() : EkoBaseFragment(),
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mViewModel = ViewModelProvider(requireActivity()).get(EkoNewsFeedViewModel::class.java)
         mBinding = DataBindingUtil.inflate(inflater, R.layout.amity_fragment_news_feed, container, false)
         mBinding.viewModel = mViewModel

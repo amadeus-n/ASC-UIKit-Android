@@ -59,10 +59,10 @@ class EkoRecommendedCommunityFragment : EkoBaseFragment(), IMyCommunityItemClick
         rvRecommCommunity.adapter = mAdapter
         rvRecommCommunity.addItemDecoration(
             EkoRCommunityItemDecoration(
-                requireContext().resources.getDimensionPixelSize(R.dimen.ten),
-                requireContext().resources.getDimensionPixelSize(R.dimen.eight),
-                requireContext().resources.getDimensionPixelSize(R.dimen.eighteen),
-                requireContext().resources.getDimensionPixelSize(R.dimen.eight)
+                requireContext().resources.getDimensionPixelSize(R.dimen.amity_ten),
+                requireContext().resources.getDimensionPixelSize(R.dimen.amity_padding_xs),
+                requireContext().resources.getDimensionPixelSize(R.dimen.amity_eighteen),
+                requireContext().resources.getDimensionPixelSize(R.dimen.amity_padding_xs)
             )
         )
         rvRecommCommunity.setHasFixedSize(true)

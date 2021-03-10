@@ -47,7 +47,7 @@ class EkoImageMsgReceiverViewHolder(
         if (itemViewModel.imageUrl.get() != null && itemViewModel.imageUrl.get()!!
                 .isNotEmptyOrBlank()
         ) {
-            val radius = context.resources.getDimension(com.ekoapp.ekosdk.uikit.R.dimen.six)
+            val radius = context.resources.getDimension(com.ekoapp.ekosdk.uikit.R.dimen.amity_six)
             binding?.ivImageIncoming?.shapeAppearanceModel =
                 binding?.ivImageIncoming?.shapeAppearanceModel
                     ?.toBuilder()
@@ -58,7 +58,7 @@ class EkoImageMsgReceiverViewHolder(
         } else {
             binding?.ivImageIncoming?.setShape(
                 null, null,
-                itemView.context.resources.getDimension(R.dimen.zero),
+                itemView.context.resources.getDimension(R.dimen.amity_zero),
                 null, R.color.amityColorBase, null, ColorShade.SHADE4
             )
         }

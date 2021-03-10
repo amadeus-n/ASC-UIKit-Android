@@ -149,7 +149,7 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
                 val DRAWABLE_BOTTOM = 3
 
                 if (event?.action == MotionEvent.ACTION_UP) {
-                    if (event.rawX >= (ccName.right - ccName.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
+                    if (event.rawX >= (etDescription.right - etDescription.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
                         mViewModel.description.set("")
                     }
                 }
@@ -307,7 +307,5 @@ abstract class EkoCommunityCreateBaseFragment : Fragment() {
         it?.let {
             mViewModel.setCategory(it)
         }
-
-
     }
 }

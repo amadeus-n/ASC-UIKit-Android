@@ -39,10 +39,10 @@ class EkoTrendingCommunityAdapter(private val listener: IMyCommunityItemClickLis
             DataBindingUtil.bind(itemView)
 
         override fun bind(data: EkoCommunity?, position: Int) {
+            binding?.tvCount?.text = "${position.plus(1)}"
             binding?.avatarUrl = data?.getAvatar()?.getUrl(EkoImage.Size.MEDIUM)
             binding?.ekoCommunity = data
             binding?.listener = listener
-            binding?.tvCount?.text = "${position + 1}"
             binding?.tvMembersCount?.text = itemView.context.getString(
                 R.string.amity_members_count,
                 "${data?.getMemberCount()?.toDouble()?.formatCount()}"
@@ -68,6 +68,9 @@ class EkoTrendingCommunityAdapter(private val listener: IMyCommunityItemClickLis
                 oldItem.getAvatar()?.getUrl() == newItem.getAvatar()?.getUrl()
                         && oldItem.getDisplayName() == newItem.getDisplayName()
                         && oldItem.isOfficial() == newItem.isOfficial()
+                        && oldItem.getCommunityId() == newItem.getCommunityId()
+                        && oldItem.getMemberCount() == newItem.getMemberCount()
+                        && oldItem.getCategories() == newItem.getCategories()
         }
     }
 }
