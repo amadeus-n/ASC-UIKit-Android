@@ -7,7 +7,7 @@ import com.ekoapp.ekosdk.comment.EkoComment
 import com.ekoapp.ekosdk.comment.EkoCommentReference
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
-import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedShareListener
+import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostShareListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostItemClickListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostOptionClickListener
 import com.ekoapp.ekosdk.uikit.feed.settings.EkoFeedUISettings
@@ -17,7 +17,7 @@ import com.ekoapp.ekosdk.uikit.utils.SingleLiveData
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-abstract class EkoBaseFeedViewModel : EkoBaseViewModel(), INewsFeedShareListener {
+abstract class EkoBaseFeedViewModel : EkoBaseViewModel(), IPostShareListener {
 
     var postOptionClickListener: IPostOptionClickListener? = null
     var postItemClickListener: IPostItemClickListener? = null

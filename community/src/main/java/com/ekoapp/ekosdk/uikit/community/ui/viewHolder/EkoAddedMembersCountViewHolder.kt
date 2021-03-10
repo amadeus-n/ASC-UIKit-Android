@@ -23,7 +23,7 @@ class EkoAddedMembersCountViewHolder(
     private val binding: AmityViewAddedMemberWithCountBinding? = DataBindingUtil.bind(itemView)
 
     init {
-        val radius = itemView.context.resources.getDimensionPixelSize(R.dimen.twenty_four).toFloat()
+        val radius = itemView.context.resources.getDimensionPixelSize(R.dimen.amity_twenty_four).toFloat()
         layoutMember.setShape(
             radius, radius, radius, radius, R.color.amityColorBase,
             R.color.amityColorBase, ColorShade.SHADE4

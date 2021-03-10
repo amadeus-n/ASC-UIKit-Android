@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.SimpleItemAnimator
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.comment.EkoComment
 import com.ekoapp.ekosdk.community.EkoCommunity
@@ -31,10 +30,11 @@ import com.ekoapp.ekosdk.uikit.community.domain.model.FileAttachment
 import com.ekoapp.ekosdk.uikit.community.newsfeed.activity.EkoEditCommentActivity
 import com.ekoapp.ekosdk.uikit.community.newsfeed.adapter.EkoNewsFeedAdapter
 import com.ekoapp.ekosdk.uikit.community.newsfeed.adapter.EkoPostViewFileAdapter
-import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedImageClickListener
-import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.INewsFeedItemActionListener
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostFileItemClickListener
-import com.ekoapp.ekosdk.uikit.community.newsfeed.util.*
+import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostImageClickListener
+import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostItemActionListener
+import com.ekoapp.ekosdk.uikit.community.newsfeed.util.EkoTimelineType
+import com.ekoapp.ekosdk.uikit.community.newsfeed.util.NewsFeedEvents
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoBaseFeedViewModel
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
 import com.ekoapp.ekosdk.uikit.community.utils.EkoSharePostBottomSheetDialog
@@ -49,19 +49,13 @@ import kotlinx.android.synthetic.main.amity_fragment_base_feed.*
 import java.util.concurrent.TimeUnit
 
 abstract class EkoBaseFeedFragment : EkoBaseFragment(),
-        INewsFeedImageClickListener, INewsFeedItemActionListener,
+        IPostImageClickListener, IPostItemActionListener,
         EkoPostViewFileAdapter.ILoadMoreFilesClickListener, IPostFileItemClickListener {
 
     private val TAG = EkoBaseFeedFragment::class.java.canonicalName
     private lateinit var adapter: EkoNewsFeedAdapter
-    private lateinit var itemDecorSpace: EkoRecyclerViewItemDecoration
     private lateinit var mBinding: AmityFragmentBaseFeedBinding
     private var feedDisposable: Disposable? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        itemDecorSpace = EkoRecyclerViewItemDecoration(resources.getDimensionPixelSize(R.dimen.twenty_four))
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.amity_fragment_base_feed, container, false)
@@ -122,16 +116,10 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(),
             feedDisposable?.dispose()
         }
         feedDisposable = getViewModel().getFeed()
-            ?.flatMapSingle { result ->
-                if (result.isEmpty()) { SingleTimer(1, TimeUnit.SECONDS, Schedulers.io()).map { result }
-                } else {
-                    Single.just(result)
-                }
-            }
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.doOnError { showGetFeedErrorMessage(it.message) }
-            ?.doOnNext { onFeedsLoaded(it)}
+            ?.doOnNext { onFeedsLoaded(it) }
             ?.subscribe()
 
         feedDisposable?.let {
@@ -187,8 +175,8 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(),
     private fun initNewsFeedRecyclerView() {
         rvNewsFeed.layoutManager = LinearLayoutManager(requireContext())
         rvNewsFeed.adapter = adapter
-        rvNewsFeed.addItemDecoration(itemDecorSpace)
         rvNewsFeed.setHasFixedSize(true)
+        rvNewsFeed.itemAnimator = null
         getFeeds()
     }
 
@@ -258,9 +246,11 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(),
 
     private fun showFeedActionByOwner(feed: EkoPost) {
         if (isAdded) {
-            val fragment = EkoBottomSheetDialogFragment.newInstance(R.menu.eko_feed_action_menu_owner)
+            val fragment =
+                EkoBottomSheetDialogFragment.newInstance(R.menu.amity_feed_action_menu_owner)
             fragment.show(childFragmentManager, EkoBottomSheetDialogFragment.toString())
-            fragment.setOnNavigationItemSelectedListener(object : EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
+            fragment.setOnNavigationItemSelectedListener(object :
+                EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
                 override fun onItemSelected(item: MenuItem) {
                     handleFeedActionItemClick(item, feed)
                 }
@@ -271,14 +261,15 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(),
     private fun showFeedActionByOtherUser(feed: EkoPost) {
         if (isAdded) {
             val menu = if (feed.isFlaggedByMe) {
-                R.menu.eko_feed_action_menu_unreport_post
+                R.menu.amity_feed_action_menu_unreport_post
             } else {
-                R.menu.eko_feed_action_menu_report_post
+                R.menu.amity_feed_action_menu_report_post
             }
 
             val fragment = EkoBottomSheetDialogFragment.newInstance(menu)
             fragment.show(childFragmentManager, EkoBottomSheetDialogFragment.toString())
-            fragment.setOnNavigationItemSelectedListener(object : EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
+            fragment.setOnNavigationItemSelectedListener(object :
+                EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
                 override fun onItemSelected(item: MenuItem) {
                     handleFeedActionItemClick(item, feed)
                 }
@@ -288,14 +279,15 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(),
 
     private fun showFeedActionByAdmin(feed: EkoPost) {
         val menu = if (feed.isFlaggedByMe) {
-            R.menu.eko_feed_action_menu_admin_with_unreport
+            R.menu.amity_feed_action_menu_admin_with_unreport
         } else {
-            R.menu.eko_feed_action_menu_admin
+            R.menu.amity_feed_action_menu_admin
         }
 
         val fragment = EkoBottomSheetDialogFragment.newInstance(menu)
         fragment.show(childFragmentManager, EkoBottomSheetDialogFragment.toString())
-        fragment.setOnNavigationItemSelectedListener(object : EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
+        fragment.setOnNavigationItemSelectedListener(object :
+            EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
             override fun onItemSelected(item: MenuItem) {
                 handleFeedActionItemClick(item, feed)
             }
@@ -411,7 +403,8 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(),
     private fun showCommentActionCommentOwner(ekoComment: EkoComment) {
         if (!isAdded)
             return
-        val fragment = EkoBottomSheetDialogFragment.newInstance(R.menu.eko_commnet_action_menu_comment_owner)
+        val fragment = EkoBottomSheetDialogFragment.newInstance(
+            R.menu.amity_commnet_action_menu_comment_owner)
         fragment.show(childFragmentManager, EkoBottomSheetDialogFragment.toString())
         fragment.setOnNavigationItemSelectedListener(object : EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
             override fun onItemSelected(item: MenuItem) {
@@ -425,14 +418,15 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(),
             return
         }
         val menu = if (ekoComment.isFlaggedByMe()) {
-            R.menu.eko_comment_action_menu_unreport
+            R.menu.amity_comment_action_menu_unreport
         } else {
-            R.menu.eko_comment_action_menu_report
+            R.menu.amity_comment_action_menu_report
         }
 
         val fragment = EkoBottomSheetDialogFragment.newInstance(menu)
         fragment.show(childFragmentManager, EkoBottomSheetDialogFragment.toString())
-        fragment.setOnNavigationItemSelectedListener(object : EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
+        fragment.setOnNavigationItemSelectedListener(object :
+            EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
             override fun onItemSelected(item: MenuItem) {
                 handleCommentActionItemClick(item, ekoComment)
             }
@@ -443,14 +437,15 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(),
         if (!isAdded)
             return
         val menu = if (ekoComment.isFlaggedByMe()) {
-            R.menu.eko_commnet_action_menu_admin_with_unreport
+            R.menu.amity_commnet_action_menu_admin_with_unreport
         } else {
-            R.menu.eko_commnet_action_menu_admin
+            R.menu.amity_commnet_action_menu_admin
         }
 
         val fragment = EkoBottomSheetDialogFragment.newInstance(menu)
         fragment.show(childFragmentManager, EkoBottomSheetDialogFragment.toString())
-        fragment.setOnNavigationItemSelectedListener(object : EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
+        fragment.setOnNavigationItemSelectedListener(object :
+            EkoBottomSheetDialogFragment.OnNavigationItemSelectedListener {
             override fun onItemSelected(item: MenuItem) {
                 handleCommentActionItemClick(item, ekoComment)
             }

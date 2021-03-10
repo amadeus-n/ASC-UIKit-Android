@@ -30,8 +30,8 @@
 
     <style name="ThemeOverlay.EkoThemeShapeAppearanceBottomSheetDialog" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">@dimen/six</item>
-        <item name="cornerSizeTopLeft">@dimen/six</item>
+        <item name="cornerSizeTopRight">@dimen/amity_six</item>
+        <item name="cornerSizeTopLeft">@dimen/amity_six</item>
     </style>
 
 </resources>

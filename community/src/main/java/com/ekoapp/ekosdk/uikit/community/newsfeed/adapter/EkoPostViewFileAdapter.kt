@@ -9,7 +9,7 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.IPostFileItemClickLis
 
 const val MAX_ITEM_TO_DISPLAY = 5
 
-class EkoPostViewFileAdapter() : EkoBaseFeedAttachmentAdapter() {
+class EkoPostViewFileAdapter() : EkoBasePostAttachmentAdapter() {
 
     private var loadMoreFilesClickListener: ILoadMoreFilesClickListener? = null
     private var fileItemClickListener: IPostFileItemClickListener? = null
@@ -44,7 +44,7 @@ class EkoPostViewFileAdapter() : EkoBaseFeedAttachmentAdapter() {
         return if (viewType == R.layout.amity_item_footer_view_post_file) {
             EkoViewPostFileFooterViewHolder(view, loadMoreFilesClickListener, newsFeed)
         } else {
-            EkoBaseFeedAttachmentViewHolder(view, fileItemClickListener)
+            EkoBasePostAttachmentViewHolder(view, fileItemClickListener)
         }
     }
 

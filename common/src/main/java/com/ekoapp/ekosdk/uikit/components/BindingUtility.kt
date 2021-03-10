@@ -21,6 +21,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ekoapp.ekosdk.uikit.R
+import com.ekoapp.ekosdk.uikit.common.isNotEmptyOrBlank
 import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.utils.ScaleErrorImageViewTarget
@@ -254,7 +255,7 @@ fun setRoundedCorner(
     colorShade: ColorShade?
 ) {
     if (roundedCorner) {
-        val radius = view.context.resources.getDimension(R.dimen.six)
+        val radius = view.context.resources.getDimension(R.dimen.amity_six)
         val modal = ShapeAppearanceModel()
             .toBuilder()
         if (topLeft == null) {
@@ -335,13 +336,16 @@ fun setImageUrl(view: ImageView, imageUrl: String?, placeholder: Drawable?) {
     if (placeholder == null) {
         mPlaceholder = ContextCompat.getDrawable(view.context, R.drawable.amity_ic_user)
     }
-    val imageSynced = if (glideImageUrl!!.startsWith("https")) {
-        true
-    } else {
-        imageUri = Uri.fromFile(File(glideImageUrl))
-        false
+    val imageSynced = when {
+        glideImageUrl!!.startsWith("https") -> {
+            true
+        }
+        glideImageUrl.isNotEmptyOrBlank() -> {
+            imageUri = Uri.fromFile(File(glideImageUrl))
+            false
+        }
+        else -> false
     }
-
     Glide.with(view.context)
         .load(if (imageSynced) glideImageUrl else imageUri)
         .centerCrop()
@@ -384,7 +388,7 @@ fun setRoundedImageView(imageView: ImageView, fillColor: Int, shade: ColorShade)
         .toBuilder()
         .setAllCorners(
             CornerFamily.ROUNDED,
-            imageView.context.resources.getDimensionPixelSize(R.dimen.thirty_two).toFloat()
+            imageView.context.resources.getDimensionPixelSize(R.dimen.amity_thirty_two).toFloat()
         )
     val shapeDrawable = MaterialShapeDrawable(modal.build())
     shapeDrawable.setTint(

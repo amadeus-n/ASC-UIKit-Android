@@ -12,13 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/amity_bg_border"
-        android:padding="@dimen/eight">
+        android:padding="@dimen/amity_padding_xs">
 
         <ImageView
             android:id="@+id/ivFileIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/sixteen"
+            android:layout_marginStart="@dimen/amity_padding_m1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -27,10 +27,10 @@
 
         <TextView
             android:id="@+id/tvFileName"
-            style="@style/TextStyleEkoBodyBold"
+            style="@style/AmityTextStyleBodyBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/eight"
+            android:layout_marginStart="@dimen/amity_padding_xs"
             android:maxLines="1"
             android:textColor="@color/amityColorBase"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,10 +41,10 @@
 
         <TextView
             android:id="@+id/tvFileSize"
-            style="@style/TextStyleEkoCaption"
+            style="@style/AmityTextStyleCaption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/eight"
+            android:layout_marginStart="@dimen/amity_padding_xs"
             android:textColor="@color/amityColorBase"
             app:layout_constraintStart_toEndOf="@id/ivFileIcon"
             app:layout_constraintTop_toBottomOf="@id/tvFileName"

@@ -41,20 +41,20 @@
                 style="@style/CircularAvatarStyle"
                 backgroundColorShade="@{ColorShade.SHADE3}"
                 ekoBackgroundColor="@{@color/amityColorPrimary}"
-                android:layout_width="@dimen/forty"
-                android:layout_height="@dimen/forty"
-                android:layout_marginStart="@dimen/sixteen"
+                android:layout_width="@dimen/amity_forty"
+                android:layout_height="@dimen/amity_forty"
+                android:layout_marginStart="@dimen/amity_padding_m1"
                 android:visibility="@{vmAudioMsg.isSenderVisible() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvName"
-                style="@style/TextStyleEkoBody"
+                style="@style/AmityTextStyleBody"
                 textColorShade="@{ColorShade.SHADE1}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/twelve"
+                android:layout_marginStart="@dimen/amity_padding_s"
                 android:text="@{vmAudioMsg.sender}"
                 android:textColor="@color/amityColorBase"
                 android:visibility="@{vmAudioMsg.isSenderVisible() ? View.VISIBLE : View.GONE}"
@@ -65,20 +65,20 @@
                 android:id="@+id/layoutAudio"
                 fillColor="@{vmAudioMsg.receiverFillColor}"
                 roundedCorner="@{true}"
-                topLeftRadius="@{@dimen/zero}"
+                topLeftRadius="@{@dimen/amity_zero}"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/four"
+                android:layout_marginTop="@dimen/amity_padding_xxs"
                 android:onLongClick="@{() -> vmAudioMsg.onLongPress()}"
                 app:layout_constraintStart_toStartOf="@id/tvName"
                 app:layout_constraintTop_toBottomOf="@id/tvName"
-                app:layout_goneMarginStart="@dimen/sixty_eight">
+                app:layout_goneMarginStart="@dimen/amity_sixty_eight">
 
                 <ImageView
                     android:id="@+id/ivPlay"
-                    android:layout_width="@dimen/twenty_four"
-                    android:layout_height="@dimen/twenty_four"
-                    android:layout_margin="@dimen/eight"
+                    android:layout_width="@dimen/amity_twenty_four"
+                    android:layout_height="@dimen/amity_twenty_four"
+                    android:layout_margin="@dimen/amity_padding_xs"
                     android:onClick="@{() -> vmAudioMsg.playButtonClicked()}"
                     android:src="@{vmAudioMsg.isPlaying() ? @drawable/amity_ic_pause : @drawable/amity_ic_play}"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -87,10 +87,10 @@
                     app:tint="@color/amityColorBase" />
 
                 <TextView
-                    style="@style/TextStyleEkoBody"
+                    style="@style/AmityTextStyleBody"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/ten"
+                    android:layout_marginEnd="@dimen/amity_ten"
                     android:text="@{vmAudioMsg.duration}"
                     android:textColor="@color/amityColorBase"
                     android:visibility="@{vmAudioMsg.uploading || vmAudioMsg.buffering ? View.GONE : View.VISIBLE}"
@@ -99,19 +99,19 @@
                     app:layout_constraintTop_toTopOf="@id/ivPlay" />
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:layout_width="@dimen/eighteen"
-                    android:layout_height="@dimen/eighteen"
-                    android:layout_marginEnd="@dimen/two"
+                    android:layout_width="@dimen/amity_eighteen"
+                    android:layout_height="@dimen/amity_eighteen"
+                    android:layout_marginEnd="@dimen/amity_two"
                     android:indeterminate="true"
                     android:visibility="@{vmAudioMsg.uploading || vmAudioMsg.buffering ? View.VISIBLE : View.GONE}"
                     app:indicatorColor="@color/amityColorBase"
                     app:indicatorDirectionCircular="clockwise"
-                    app:indicatorSize="@dimen/eighteen"
+                    app:indicatorSize="@dimen/amity_eighteen"
                     app:layout_constraintBottom_toBottomOf="@id/ivPlay"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/ivPlay"
                     app:trackColor="#33000000"
-                    app:trackThickness="@dimen/two" />
+                    app:trackThickness="@dimen/amity_two" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -126,13 +126,13 @@
                 app:layout_constraintStart_toStartOf="@id/layoutAudio"
                 app:layout_constraintTop_toTopOf="@id/layoutAudio"
                 app:roundedCorner="@{true}"
-                app:topRightRadius="@{@dimen/zero}" />
+                app:topRightRadius="@{@dimen/amity_zero}" />
 
             <include
                 layout="@layout/amity_view_msg_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/four"
+                android:layout_marginStart="@dimen/amity_padding_xxs"
                 android:visibility="@{vmAudioMsg.isFailed() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="@id/layoutAudio"
                 app:layout_constraintStart_toEndOf="@id/layoutAudio"
@@ -141,12 +141,12 @@
 
             <TextView
                 android:id="@+id/tvTime"
-                style="@style/TextStyleEkoCaption"
+                style="@style/AmityTextStyleCaption"
                 textColorShade="@{ColorShade.SHADE2}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/four"
-                android:layout_marginTop="@dimen/four"
+                android:layout_marginStart="@dimen/amity_padding_xxs"
+                android:layout_marginTop="@dimen/amity_padding_xxs"
                 android:text="@{vmAudioMsg.msgTime}"
                 android:textColor="@color/amityColorBase"
                 android:visibility="@{vmAudioMsg.isDeleted() ? View.GONE : View.VISIBLE}"
@@ -160,7 +160,7 @@
             layout="@layout/amity_view_msg_deleted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/sixty_eight"
+            android:layout_marginStart="@dimen/amity_sixty_eight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dateHeader"
             app:viewModel="@{vmAudioMsg}" />

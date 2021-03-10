@@ -18,11 +18,11 @@
         android:id="@+id/readMoreContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/eight">
+        android:padding="@dimen/amity_padding_xs">
 
         <TextView
             android:id="@+id/tvMessage"
-            style="@style/TextStyleEkoBody"
+            style="@style/AmityTextStyleBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="12"
@@ -32,7 +32,7 @@
 
         <TextView
             android:id="@+id/tvReadMore"
-            style="@style/TextStyleEkoBody"
+            style="@style/AmityTextStyleBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/amity_read_more"

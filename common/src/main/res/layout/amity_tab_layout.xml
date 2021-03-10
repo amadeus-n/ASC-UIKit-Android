@@ -16,7 +16,7 @@
         android:id="@+id/tab_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/six"
+        android:layout_marginStart="@dimen/amity_six"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorColor="@color/amityColorPrimary"

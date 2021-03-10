@@ -43,11 +43,11 @@ class EkoRippleBackground : RelativeLayout {
         )
         rippleStrokeWidth = typedArray.getDimension(
             R.styleable.EkoRippleBackground_rbStrokeWidth,
-            resources.getDimension(R.dimen.two)
+            resources.getDimension(R.dimen.amity_two)
         )
         val rippleRadius = typedArray.getDimension(
             R.styleable.EkoRippleBackground_rbRadius,
-            resources.getDimension(R.dimen.sixty_four)
+            resources.getDimension(R.dimen.amity_sixty_four)
         )
         val rippleDurationTime =
             typedArray.getInt(R.styleable.EkoRippleBackground_rbDuration, DEFAULT_DURATION_TIME)

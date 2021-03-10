@@ -1,3 +1,7 @@
 <resources>
     <string name="amity_app_name">UIKitTest</string>
+    <string name="amity_happy_birthday">Happy birthday,</string>
+    <string name="amity_birthday_wish">Send your friend a birthday wish!</string>
+    <string name="amity_welcome_message">Send your friend a welcome message!</string>
+    <string name="amity_welcome">Welcome to the team,</string>
 </resources>

@@ -20,15 +20,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/forty"
+        android:layout_height="@dimen/amity_forty"
         android:onClick="@{() -> listener.onMenuItemClicked(menuItem)}">
 
         <TextView
             android:id="@+id/tvTitle"
-            style="@style/TextStyleEkoBodyBold"
+            style="@style/AmityTextStyleBodyBold"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/sixteen"
+            android:layout_marginHorizontal="@dimen/amity_padding_m1"
             android:gravity="center_vertical"
             android:text="@{menuItem.title}"
             android:textColor="@{alertColor ? @color/amityColorAlert : @color/amityColorBase}"

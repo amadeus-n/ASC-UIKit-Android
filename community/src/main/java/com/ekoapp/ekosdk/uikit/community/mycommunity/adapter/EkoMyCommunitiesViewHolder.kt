@@ -18,6 +18,6 @@ class EkoMyCommunitiesViewHolder(
     override fun bind(data: EkoCommunity?, position: Int) {
         binding?.ekoCommunity = data
         binding?.listener = listener
-        binding?.avatarUrl = data?.getAvatar()?.getUrl(EkoImage.Size.MEDIUM)
+        binding?.avatarUrl = data?.getAvatar()?.getUrl(EkoImage.Size.SMALL)
     }
 }

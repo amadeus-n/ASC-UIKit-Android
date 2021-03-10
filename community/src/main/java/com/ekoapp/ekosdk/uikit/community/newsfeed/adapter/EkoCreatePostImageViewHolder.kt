@@ -26,7 +26,7 @@ class EkoCreatePostImageViewHolder(
     var removePhoto: ShapeableImageView = itemView.findViewById(R.id.ivCross)
     var errorPhoto: ShapeableImageView = itemView.findViewById(R.id.ivError)
     private val progrssBar: ProgressBar = itemView.findViewById(R.id.pbImageUpload)
-    private val radius: Float = itemView.context.resources.getDimension(R.dimen.four)
+    private val radius: Float = itemView.context.resources.getDimension(R.dimen.amity_four)
     override fun bind(data: FeedImage?, position: Int) {
         setupShape()
         if (container.tag != itemChangeListener.itemCount().toString()) {
@@ -86,17 +86,17 @@ class EkoCreatePostImageViewHolder(
     private fun getHeight(itemCount: Int): Int {
         var dimenRes: Int = -1
         dimenRes = when (itemCount) {
-            1, 2 -> R.dimen.three_hundred_twenty_eight
+            1, 2 -> R.dimen.amity_three_hundred_twenty_eight
             else -> {
-                R.dimen.one_hundred_twenty
+                R.dimen.amity_one_hundred_twenty
             }
         }
         return itemView.context.resources.getDimensionPixelSize(dimenRes)
     }
 
     private fun getWidth(itemCount: Int): Int {
-        val margin: Int = itemView.context.resources.getDimensionPixelSize(R.dimen.sixteen)
-        var dimenRes: Int = itemView.context.resources.getDimensionPixelSize(R.dimen.eight)
+        val margin: Int = itemView.context.resources.getDimensionPixelSize(R.dimen.amity_sixteen)
+        var dimenRes: Int = itemView.context.resources.getDimensionPixelSize(R.dimen.amity_eight)
         dimenRes = when (itemCount) {
             1 -> return ScreenUtils.getScreenWidth(itemView.context) - margin * 2
             2 -> {

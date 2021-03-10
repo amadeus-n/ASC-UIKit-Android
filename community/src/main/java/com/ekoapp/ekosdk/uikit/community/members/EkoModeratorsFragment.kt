@@ -73,7 +73,7 @@ class EkoModeratorsFragment : EkoBaseFragment(), IMemberClickListener {
         rvCommunityModerators.adapter = moderatorAdapter
         rvCommunityModerators.addItemDecoration(
             EkoRecyclerViewItemDecoration(
-                requireContext().resources.getDimensionPixelSize(R.dimen.sixteen)
+                requireContext().resources.getDimensionPixelSize(R.dimen.amity_padding_m1)
             )
         )
 

@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.bumptech.glide.Glide
 import com.ekoapp.ekosdk.uikit.common.views.ColorPaletteUtil
 import com.ekoapp.ekosdk.uikit.common.views.ColorShade
 import com.ekoapp.ekosdk.uikit.community.R
@@ -37,10 +36,7 @@ class EkoCommentComposeBar : ConstraintLayout {
     }
 
     fun setImageUrl(url: String) {
-        Glide.with(context)
-            .load(url)
-            .placeholder(R.drawable.amity_ic_default_profile1)
-            .into(avProfile)
+        mBinding.avatarUrl = url
     }
 
     fun setCommentExpandClickListener(onClickListener: OnClickListener) {

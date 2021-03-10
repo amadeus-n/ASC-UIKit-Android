@@ -74,7 +74,7 @@ class EkoMembersFragment : EkoBaseFragment(), IMemberClickListener {
         rvCommunityMembers.layoutManager = LinearLayoutManager(requireContext())
         rvCommunityMembers.adapter = mAdapter
         rvCommunityMembers.addItemDecoration(
-            EkoRecyclerViewItemDecoration(requireContext().resources.getDimensionPixelSize(R.dimen.sixteen))
+            EkoRecyclerViewItemDecoration(requireContext().resources.getDimensionPixelSize(R.dimen.amity_padding_m1))
         )
     }
 

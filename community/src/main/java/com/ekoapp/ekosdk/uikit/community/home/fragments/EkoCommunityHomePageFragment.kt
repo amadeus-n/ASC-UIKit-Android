@@ -143,7 +143,7 @@ class EkoCommunityHomePageFragment internal constructor() : Fragment(),
         rvCommunitySearch.adapter = mSearchAdapter
         rvCommunitySearch.addItemDecoration(
             EkoRecyclerViewItemDecoration(
-                resources.getDimensionPixelSize(R.dimen.sixteen)
+                resources.getDimensionPixelSize(R.dimen.amity_padding_m1)
             )
         )
         rvCommunitySearch.setHasFixedSize(true)

@@ -19,7 +19,7 @@
         android:layout_height="match_parent">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/layoutParent"
+            android:id="@+id/layout_parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -53,9 +53,9 @@
                             ekoBackgroundColor="@{@color/amityColorPrimary}"
                             imageUrl="@{viewModel.avatarUrl}"
                             placeHolder="@{@drawable/amity_ic_default_community_avatar}"
-                            android:layout_width="@dimen/sixty_four"
-                            android:layout_height="@dimen/sixty_four"
-                            android:layout_marginStart="@dimen/seventeen"
+                            android:layout_width="@dimen/amity_sixty_four"
+                            android:layout_height="@dimen/amity_sixty_four"
+                            android:layout_marginStart="@dimen/amity_padding_m1"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:shapeAppearanceOverlay="@style/CircleImage" />
@@ -64,22 +64,22 @@
                             android:id="@+id/communityNameContainer"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/twelve"
-                            android:layout_marginTop="@dimen/ten"
-                            android:layout_marginEnd="@dimen/sixteen"
+                            android:layout_marginStart="@dimen/amity_padding_s"
+                            android:layout_marginTop="@dimen/amity_ten"
+                            android:layout_marginEnd="@dimen/amity_padding_m1"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/ivAvatar"
                             app:layout_constraintTop_toTopOf="@id/ivAvatar">
 
                             <TextView
                                 android:id="@+id/tvName"
-                                style="@style/TextStyleEkoHeadline"
+                                style="@style/AmityTextStyleHeadline"
                                 safeText="@{viewModel.name}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@{viewModel.isPublic() ? null : @drawable/amity_ic_lock2}"
                                 android:drawableEnd="@{viewModel.isOfficial() ? @drawable/amity_ic_verified : null}"
-                                android:drawablePadding="@dimen/four"
+                                android:drawablePadding="@dimen/amity_padding_xxs"
                                 android:ellipsize="end"
                                 android:maxLines="3"
                                 android:textColor="@color/amityColorBase" />
@@ -87,11 +87,11 @@
 
                         <TextView
                             android:id="@+id/tvCategory"
-                            style="@style/TextStyleEkoCaption"
+                            style="@style/AmityTextStyleCaption"
                             textColorShade="@{ColorShade.SHADE1}"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/sixteen"
+                            android:layout_marginEnd="@dimen/amity_padding_m1"
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:minLines="2"
@@ -103,10 +103,10 @@
 
                         <TextView
                             android:id="@+id/tvPostCount"
-                            style="@style/TextStyleEkoCaptionBold"
+                            style="@style/AmityTextStyleCaptionBold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/twelve"
+                            android:layout_marginTop="@dimen/amity_padding_s"
                             android:text="@{viewModel.posts}"
                             android:textColor="@color/amityColorBase"
                             android:textStyle="bold"
@@ -115,10 +115,10 @@
 
                         <TextView
                             android:id="@+id/tvPost"
-                            style="@style/TextStyleEkoCaption"
+                            style="@style/AmityTextStyleCaption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/two"
+                            android:layout_marginStart="@dimen/amity_two"
                             android:text="@string/amity_posts"
                             android:textColor="@color/amityColorBase"
                             app:layout_constraintStart_toEndOf="@id/tvPostCount"
@@ -126,10 +126,10 @@
 
                         <TextView
                             android:id="@+id/tvMembersCount"
-                            style="@style/TextStyleEkoCaptionBold"
+                            style="@style/AmityTextStyleCaptionBold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/eight"
+                            android:layout_marginStart="@dimen/amity_padding_xs"
                             android:text="@{viewModel.members}"
                             android:textColor="@color/amityColorBase"
                             app:layout_constraintStart_toEndOf="@id/tvPost"
@@ -137,10 +137,10 @@
 
                         <TextView
                             android:id="@+id/tvMembers"
-                            style="@style/TextStyleEkoCaption"
+                            style="@style/AmityTextStyleCaption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/two"
+                            android:layout_marginStart="@dimen/amity_two"
                             android:text="@string/amity_members"
                             android:textColor="@color/amityColorBase"
                             app:layout_constraintStart_toEndOf="@id/tvMembersCount"
@@ -148,58 +148,81 @@
 
                         <TextView
                             android:id="@+id/tvDescription"
-                            style="@style/TextStyleEkoBody"
+                            style="@style/AmityTextStyleBody"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/sixteen"
-                            android:layout_marginTop="@dimen/eight"
+                            android:layout_marginHorizontal="@dimen/amity_padding_m1"
+                            android:layout_marginTop="@dimen/amity_padding_xs"
                             android:text="@{viewModel.description}"
                             android:textColor="@color/amityColorBase"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tvPostCount" />
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnPrimary"
-                            style="@style/EkoOutlinedButtonStyle"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/view_container_action_buttons"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/twelve"
-                            android:onClick="@{() -> viewModel.onPrimaryButtonClick()}"
-                            android:text="@{viewModel.isModerator() ? @string/amity_edit_profile : @string/amity_message}"
-                            android:visibility="@{viewModel.isModerator() || (viewModel.isMessageVisible &amp;&amp; viewModel.isMember()) ?  View.VISIBLE : View.GONE}"
-                            app:ekoButtonStrokeShade="@{ColorShade.SHADE3}"
-                            app:icon="@{viewModel.isModerator() ? @drawable/amity_ic_create : @drawable/amity_ic_conversation}"
-                            app:iconGravity="textStart"
-                            app:iconTint="@color/amityColorBase"
-                            app:layout_constraintEnd_toStartOf="@id/btnSecondary"
+                            android:layout_marginTop="@dimen/amity_padding_s"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toStartOf="@id/button_secondary_message"
                             app:layout_constraintStart_toStartOf="@id/tvDescription"
-                            app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+                            app:layout_constraintTop_toBottomOf="@id/tvDescription">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/button_edit_profile"
+                                style="@style/EkoOutlinedButtonStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:onClick="@{() -> viewModel.onEditProfileButtonClick()}"
+                                android:text="@string/amity_edit_profile"
+                                android:visibility="@{viewModel.isModerator() ?  View.VISIBLE : View.GONE, default=gone}"
+                                app:ekoButtonStrokeShade="@{ColorShade.SHADE3}"
+                                app:icon="@drawable/amity_ic_create"
+                                app:iconGravity="textStart"
+                                app:iconTint="@color/amityColorBase"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/button_message"
+                                style="@style/EkoOutlinedButtonStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:onClick="@{() -> viewModel.onMessageButtonClick()}"
+                                android:text="@string/amity_message"
+                                android:visibility="@{(!viewModel.isModerator &amp;&amp; viewModel.isMessageVisible &amp;&amp; viewModel.isMember()) ?  View.VISIBLE : View.GONE, default=gone}"
+                                app:ekoButtonStrokeShade="@{ColorShade.SHADE3}"
+                                app:icon="@drawable/amity_ic_conversation"
+                                app:iconGravity="textStart"
+                                app:iconTint="@color/amityColorBase"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnSecondary"
+                            android:id="@+id/button_secondary_message"
                             style="@style/EkoOutlinedButtonStyle"
                             android:layout_width="48dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/twelve"
-                            android:onClick="@{() -> viewModel.onSecondaryButtonClick()}"
-                            android:paddingHorizontal="@dimen/eight"
-                            android:visibility="@{(viewModel.isMessageVisible &amp;&amp; viewModel.isModerator()) ?  View.VISIBLE : View.GONE}"
+                            android:layout_marginStart="@dimen/amity_padding_s"
+                            android:onClick="@{() -> viewModel.onMessageButtonClick()}"
+                            android:paddingHorizontal="@dimen/amity_padding_xs"
+                            android:visibility="@{(viewModel.isMessageVisible &amp;&amp; viewModel.isModerator()) ?  View.VISIBLE : View.GONE, default=gone}"
                             app:icon="@drawable/amity_ic_conversation"
                             app:iconGravity="textStart"
                             app:iconTint="@color/amityColorBase"
                             app:layout_constraintEnd_toEndOf="@id/tvDescription"
-                            app:layout_constraintStart_toEndOf="@id/btnPrimary"
-                            app:layout_constraintTop_toTopOf="@id/btnPrimary" />
+                            app:layout_constraintStart_toEndOf="@id/view_container_action_buttons"
+                            app:layout_constraintTop_toTopOf="@id/view_container_action_buttons" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_join"
                             style="@style/EkoMaterialButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/twelve"
+                            android:layout_marginTop="@dimen/amity_padding_s"
                             android:text="@string/amity_join"
-                            android:visibility="@{viewModel.isMember() ? View.GONE : View.VISIBLE}"
+                            android:visibility="@{viewModel.isMember() ? View.GONE : View.VISIBLE, default=gone}"
                             app:icon="@drawable/amity_ic_plus"
                             app:iconGravity="textStart"
                             app:layout_constraintEnd_toEndOf="@id/tvDescription"
@@ -216,7 +239,7 @@
                 android:id="@+id/ccDetailTab"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/twelve"
+                android:layout_marginTop="@dimen/amity_padding_s"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -227,7 +250,7 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="16dp"
                 android:foregroundGravity="bottom"
-                android:visibility="@{viewModel.isMember() ?  View.VISIBLE : View.GONE}"
+                android:visibility="@{viewModel.isMember() ?  View.VISIBLE : View.GONE, default=gone}"
                 app:layout_anchorGravity="bottom|end|right"
                 app:srcCompat="@drawable/amity_ic_edit" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

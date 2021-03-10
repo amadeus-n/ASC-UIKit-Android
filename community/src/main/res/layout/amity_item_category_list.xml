@@ -24,8 +24,8 @@
             ekoFillShade="@{ColorShade.SHADE3}"
             imageUrl="@{avatarUrl}"
             placeHolder="@{@drawable/amity_ic_default_category_avatar}"
-            android:layout_width="@dimen/forty"
-            android:layout_height="@dimen/forty"
+            android:layout_width="@dimen/amity_forty"
+            android:layout_height="@dimen/amity_forty"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,8 +33,8 @@
             android:id="@+id/tvCategoryName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/eight"
-            android:layout_marginEnd="@dimen/four"
+            android:layout_marginStart="@dimen/amity_padding_xs"
+            android:layout_marginEnd="@dimen/amity_padding_xxs"
             android:ellipsize="end"
             android:gravity="start|center_vertical"
             android:maxLines="1"

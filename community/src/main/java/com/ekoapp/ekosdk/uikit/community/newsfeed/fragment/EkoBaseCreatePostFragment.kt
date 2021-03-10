@@ -218,7 +218,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
                 rvAttachment.removeItemDecoration(itemDecor!!)
             }
 
-            val space = resources.getDimensionPixelSize(R.dimen.eight)
+            val space = resources.getDimensionPixelSize(R.dimen.amity_padding_xs)
             itemDecor = SpacesItemDecoration(0, 0, 0, space)
 
             imageAdapter = EkoCreatePostImageAdapter(this)
@@ -251,7 +251,7 @@ abstract class EkoBaseCreatePostFragment : EkoBaseFragment(),
             if (itemDecor != null) {
                 rvAttachment.removeItemDecoration(itemDecor!!)
             }
-            val space = resources.getDimensionPixelSize(R.dimen.eight)
+            val space = resources.getDimensionPixelSize(R.dimen.amity_padding_xs)
 
             itemDecor = SpacesItemDecoration(0, 0, 0, space)
             rvAttachment.addItemDecoration(itemDecor!!)

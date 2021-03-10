@@ -215,7 +215,7 @@ class EkoEditUserProfileFragment : EkoPickerFragment() {
 
     private fun showOptionTakePhoto() {
         val fragment =
-            EkoBottomSheetDialogFragment.newInstance(R.menu.eko_upload_profile_picture)
+            EkoBottomSheetDialogFragment.newInstance(R.menu.amity_upload_profile_picture)
 
         fragment.show(childFragmentManager, EkoBottomSheetDialogFragment.toString())
         fragment.setOnNavigationItemSelectedListener(object :

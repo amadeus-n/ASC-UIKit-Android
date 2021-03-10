@@ -9,7 +9,17 @@
             name="vm"
             type="com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoEditCommentViewModel" />
 
+        <variable
+            name="replyingToUser"
+            type="String" />
+
+        <variable
+            name="showReplyingTo"
+            type="Boolean" />
+
         <import type="com.ekoapp.ekosdk.uikit.common.views.ColorShade" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,18 +27,35 @@
         android:layout_height="match_parent"
         tools:context=".newsfeed.activity.EkoEditCommentActivity">
 
+        <TextView
+            android:id="@+id/textview_reply_to"
+            style="@style/AmityTextStyleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/amityColorAthensGray"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingStart="@dimen/amity_padding_m1"
+            android:paddingTop="@dimen/amity_ten"
+            android:paddingEnd="@dimen/amity_padding_m1"
+            android:paddingBottom="@dimen/amity_ten"
+            android:text="@{String.format(@string/amity_replying_to, replyingToUser)}"
+            android:textColor="@color/amityColorShuttleGray"
+            android:visibility="@{showReplyingTo ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Replying to A very very very very long name" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPostComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/sixteen"
             android:background="@android:color/transparent"
             android:hint="@string/amity_post_comment_hint"
+            android:padding="@dimen/amity_padding_m1"
             android:text="@={vm.commentText}"
-            android:textColor="@color/amityColorBase"
-            android:textColorHint="@color/amityColorBase"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/upstraColorBase"
+            android:textColorHint="@color/upstraColorBase"
+            app:layout_constraintTop_toBottomOf="@+id/textview_reply_to"
             app:textColorHintShade="@{ColorShade.SHADE2}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,7 +41,7 @@ class EkoButton : AppCompatButton {
 
         setTextColor(style.buttonTextColor)
 
-        setPadding(context.resources.getDimensionPixelSize(R.dimen.padding_8dp))
+        setPadding(context.resources.getDimensionPixelSize(R.dimen.amity_padding_xs))
 
 
     }

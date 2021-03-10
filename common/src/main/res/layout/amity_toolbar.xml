@@ -63,7 +63,7 @@
             <TextView
                 android:id="@+id/tv_right"
                 style="?attr/rightTextViewStyle"
-                android:layout_marginEnd="@dimen/sixteen"
+                android:layout_marginEnd="@dimen/amity_padding_m1"
                 android:drawableStart="@{rightDrawable}"
                 android:enabled="@{rightStringActive}"
                 android:gravity="end"

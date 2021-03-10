@@ -131,9 +131,9 @@ class EkoSelectMembersListFragment internal constructor() : Fragment(), EkoSelec
         rvSelectedMembers.addItemDecoration(
             EkoRecyclerViewItemDecoration(
                 0,
-                resources.getDimensionPixelSize(R.dimen.nineteen),
+                resources.getDimensionPixelSize(R.dimen.amity_padding_m2),
                 0,
-                resources.getDimensionPixelSize(R.dimen.four)
+                resources.getDimensionPixelSize(R.dimen.amity_padding_xxs)
             )
         )
     }
@@ -144,8 +144,8 @@ class EkoSelectMembersListFragment internal constructor() : Fragment(), EkoSelec
         rvMembersList.adapter = mMemberListAdapter
         rvMembersList.addItemDecoration(
             SelectMembersItemDecoration(
-                resources.getDimensionPixelSize(R.dimen.eighteen),
-                resources.getDimensionPixelSize(R.dimen.sixteen)
+                resources.getDimensionPixelSize(R.dimen.amity_eighteen),
+                resources.getDimensionPixelSize(R.dimen.amity_padding_m1)
             )
         )
         disposable.add(mViewModel.getAllUsers().doOnError {
@@ -166,7 +166,7 @@ class EkoSelectMembersListFragment internal constructor() : Fragment(), EkoSelec
         rvSearchResults.adapter = mSearchResultAdapter
         rvSearchResults.addItemDecoration(
             EkoRecyclerViewItemDecoration(
-                resources.getDimensionPixelSize(R.dimen.sixteen)
+                resources.getDimensionPixelSize(R.dimen.amity_padding_m1)
             )
         )
         (rvSearchResults.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false

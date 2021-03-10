@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/tvEmptyFeed"
-            style="@style/TextStyleEkoBodyBold"
+            style="@style/AmityTextStyleBodyBold"
             textColorShade="@{ColorShade.SHADE3}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
 
         <TextView
             android:id="@+id/tvStartPost"
-            style="@style/TextStyleEkoTitleBold"
+            style="@style/AmityTextStyleTitleBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/amity_start_post"

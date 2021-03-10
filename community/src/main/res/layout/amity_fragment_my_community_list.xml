@@ -12,10 +12,10 @@
 
         <TextView
             android:id="@+id/tvMyCommunity"
-            style="@style/TextStyleEkoTitleBold"
+            style="@style/AmityTextStyleTitleBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/sixteen"
+            android:layout_marginStart="@dimen/amity_padding_m1"
             android:text="@string/amity_my_community"
             android:textColor="@color/amityColorBase"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,11 +23,11 @@
 
         <ImageView
             android:id="@+id/ivMore"
-            android:layout_width="@dimen/twenty_four"
-            android:layout_height="@dimen/twenty_four"
-            android:layout_marginEnd="@dimen/sixteen"
-            android:paddingHorizontal="@dimen/eight"
-            android:paddingVertical="@dimen/six"
+            android:layout_width="@dimen/amity_twenty_four"
+            android:layout_height="@dimen/amity_twenty_four"
+            android:layout_marginEnd="@dimen/amity_padding_m1"
+            android:paddingHorizontal="@dimen/amity_padding_xs"
+            android:paddingVertical="@dimen/amity_six"
             android:src="@drawable/amity_ic_chevron_right"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvMyCommunity" />
@@ -36,7 +36,7 @@
             android:id="@+id/rvMyCommunity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/twelve"
+            android:layout_marginTop="@dimen/amity_padding_s"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvMyCommunity" />

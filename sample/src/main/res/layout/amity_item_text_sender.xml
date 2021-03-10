@@ -17,7 +17,7 @@
             android:id="@+id/tvMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/sixteen"
+            android:layout_marginEnd="@dimen/amity_padding_m1"
             android:textColor="@color/amityColorBase"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -48,7 +48,7 @@ class EkoRecentChatFragment private constructor() : Fragment(), IRecentChatItemC
         rvRecentChat.addItemDecoration(
             EkoRecentItemDecoration(
                 requireContext(),
-                resources.getDimensionPixelSize(R.dimen.twenty)
+                resources.getDimensionPixelSize(R.dimen.amity_padding_m2)
             )
         )
         getRecentChatData()

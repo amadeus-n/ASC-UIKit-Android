@@ -14,15 +14,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lAddedMemberItem"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/forty">
+        android:layout_height="@dimen/amity_forty">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/amAvatar"
             backgroundColorShade="@{ColorShade.SHADE3}"
             ekoBackgroundColor="@{@color/amityColorPrimary}"
-            android:layout_width="@dimen/twenty_eight"
-            android:layout_height="@dimen/twenty_eight"
-            android:layout_marginStart="@dimen/eight"
+            android:layout_width="@dimen/amity_twenty_eight"
+            android:layout_height="@dimen/amity_twenty_eight"
+            android:layout_marginStart="@dimen/amity_padding_xs"
             android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,10 +31,10 @@
 
         <TextView
             android:id="@+id/amName"
-            style="@style/TextStyleEkoBody"
+            style="@style/AmityTextStyleBody"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/six"
+            android:layout_marginStart="@dimen/amity_six"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/amityColorBase"
@@ -49,8 +49,8 @@
             ekoFillShade="@{ColorShade.SHADE4}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/eight"
-            android:layout_marginEnd="@dimen/nine"
+            android:layout_marginStart="@dimen/amity_padding_xs"
+            android:layout_marginEnd="@dimen/amity_padding_xs"
             android:src="@drawable/amity_ic_filled_cross"
             app:layout_constraintBottom_toBottomOf="@id/amAvatar"
             app:layout_constraintEnd_toEndOf="parent"

@@ -75,7 +75,7 @@ class EkoCategoryCommunityListFragment internal constructor() : EkoBaseFragment(
 
     private fun initView() {
         val itemDecorSpace =
-            EkoRecyclerViewItemDecoration(resources.getDimensionPixelSize(R.dimen.eight))
+            EkoRecyclerViewItemDecoration(resources.getDimensionPixelSize(R.dimen.amity_padding_xs))
         rvCommunity.layoutManager = LinearLayoutManager(requireContext())
         rvCommunity.adapter = adapter
         rvCommunity.addItemDecoration(itemDecorSpace)

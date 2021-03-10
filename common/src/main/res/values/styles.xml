@@ -18,8 +18,8 @@
     </style>
 
     <style name="EkoAvatarStyle">
-        <item name="avatarWidth">@dimen/avatar_default_height</item>
-        <item name="avatarHeight">@dimen/avatar_default_width</item>
+        <item name="avatarWidth">@dimen/amity_avatar_default_height</item>
+        <item name="avatarHeight">@dimen/amity_avatar_default_width</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -32,8 +32,8 @@
     <style name="ImagePreviewTheme" parent="Base.Theme.EkoApp"></style>
 
     <style name="EkoNewsFeedAvatarStyle">
-        <item name="avatarWidth">@dimen/forty</item>
-        <item name="avatarHeight">@dimen/forty</item>
+        <item name="avatarWidth">@dimen/amity_forty</item>
+        <item name="avatarHeight">@dimen/amity_forty</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -46,14 +46,14 @@
     <style name="SearchEditTextStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="paddingStart">@dimen/twelve</item>
+        <item name="paddingStart">@dimen/amity_padding_s</item>
         <item name="android:drawableStart">@drawable/amity_ic_search</item>
-        <item name="android:drawablePadding">@dimen/eight</item>
-        <item name="android:paddingStart">@dimen/seventeen</item>
-        <item name="android:layout_marginStart">@dimen/sixteen</item>
-        <item name="android:layout_marginEnd">@dimen/sixteen</item>
+        <item name="android:drawablePadding">@dimen/amity_padding_xs</item>
+        <item name="android:paddingStart">@dimen/amity_padding_m1</item>
+        <item name="android:layout_marginStart">@dimen/amity_padding_m1</item>
+        <item name="android:layout_marginEnd">@dimen/amity_padding_m1</item>
         <item name="android:hint">@string/amity_search</item>
-        <item name="android:textSize">@dimen/ts_upstra_body</item>
+        <item name="android:textSize">@dimen/amity_text_size_body</item>
         <item name="drawableTint">#636768</item>
     </style>
 

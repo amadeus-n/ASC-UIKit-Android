@@ -17,7 +17,7 @@ class EkoCommunitySettingViewModelTest {
         assertEquals(viewModel.communityId.get(), "")
         assertEquals(viewModel.membersCount.get(), "0")
         assertTrue(viewModel.isPublic.get())
-        assertFalse(viewModel.isAdmin.get())
+        assertFalse(viewModel.isModerator.get())
     }
 
     @Test
