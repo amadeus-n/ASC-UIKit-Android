@@ -26,7 +26,7 @@ class EkoPostCommentViewHolder(
     private val showAllReplyListener: IPostCommentShowAllReplyListener?,
     private val showMoreActionListener: IPostCommentShowMoreActionListener?,
     private val commentReplyClickListener: IPostCommentReplyClickListener?,
-    private val showRepliesComment: Boolean = false,
+    private val showRepliesComment: Boolean,
     private val loaderMap: MutableMap<String, EkoCommentReplyLoader>,
     var readOnlyMode: Boolean
 ) : RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewPagedAdapter.Binder<EkoComment> {
@@ -211,6 +211,16 @@ class EkoPostCommentViewHolder(
         binding?.rvReply?.apply {
             layoutManager = LinearLayoutManager(itemView.context)
             adapter = newsFeedCommentAdapter
+        }
+    }
+
+    fun updateData(commentData: EkoComment.Data) {
+        when (commentData) {
+            is EkoComment.Data.TEXT -> {
+                binding?.ekoNewsFeedComment?.setText(commentData.getText())
+            }
+            else -> {
+            }
         }
     }
 

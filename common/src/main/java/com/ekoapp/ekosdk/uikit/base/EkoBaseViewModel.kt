@@ -18,12 +18,13 @@ import io.reactivex.disposables.Disposable
  */
 open class EkoBaseViewModel : ViewModel() {
 
-    private val compositeDisposable: CompositeDisposable by lazy {
+    protected val compositeDisposable: CompositeDisposable by lazy {
         CompositeDisposable()
     }
 
     val onEventReceived: Event<EventType> = Event()
 
+    //TODO Refactor permission function move to other class
     fun checkModeratorPermissionAtCommunity(
         permission: EkoPermission,
         communityId: String

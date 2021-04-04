@@ -14,6 +14,7 @@
     <string name="amity_edit_post">Edit Post</string>
     <string name="amity_delete_post">Delete Post</string>
     <string name="amity_save">Save</string>
+    <string name="amity_saved">Saved.</string>
     <string name="amity_delete_msg">Delete this message?</string>
     <string name="amity_dlt_dlg_body">Message will also be permanently removed from your friend\'s devices.</string>
     <string name="amity_failed_dlg_body">Your message was not sent</string>

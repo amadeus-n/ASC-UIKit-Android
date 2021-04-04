@@ -1,6 +1,7 @@
 package com.ekoapp.ekosdk.uikit.community.views.newsfeed
 
 import android.content.Context
+import android.os.Handler
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -16,11 +17,14 @@ import com.ekoapp.ekosdk.uikit.common.readableNumber
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.AmityItemPostFooterBinding
 import com.ekoapp.ekosdk.uikit.community.newsfeed.adapter.EkoPostCommentAdapter
+import com.ekoapp.ekosdk.uikit.community.newsfeed.adapter.EkoPostCommentViewHolder
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.*
 import com.ekoapp.ekosdk.uikit.components.EkoDividerItemDecor
 import com.ekoapp.ekosdk.uikit.feed.settings.EkoFeedUISettings
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
 import kotlinx.android.synthetic.main.amity_item_post_footer.view.*
+import java.util.*
+import kotlin.concurrent.schedule
 
 
 class EkoPostItemFooter : ConstraintLayout {
@@ -202,6 +206,8 @@ class EkoPostItemFooter : ConstraintLayout {
             showRepliesComment,
             readOnlyView
         )
+        newsFeedCommentAdapter?.setHasStableIds(true)
+
         val space8 = resources.getDimensionPixelSize(R.dimen.amity_padding_xs)
         val space16 = resources.getDimensionPixelSize(R.dimen.amity_padding_m1)
         val spaceItemDecoration = EkoRecyclerViewItemDecoration(space8, space16, 0, space16)
@@ -214,7 +220,7 @@ class EkoPostItemFooter : ConstraintLayout {
         separator2.visibility = GONE
     }
 
-    fun submitComments(commentList: PagedList<EkoComment>?) {
+    fun submitComments(commentList: PagedList<EkoComment>?, isScrollable: Boolean = false) {
         if (newsFeedCommentAdapter == null) {
             createAdapter()
         }
@@ -223,6 +229,9 @@ class EkoPostItemFooter : ConstraintLayout {
         if (newsFeedCommentAdapter!!.itemCount > 0) {
             rvCommentFooter.visibility = VISIBLE
             separator2.visibility = VISIBLE
+            if(isScrollable) {
+                rvCommentFooter.smoothScrollToPosition(0)
+            }
         } else {
             rvCommentFooter.visibility = GONE
             separator2.visibility = GONE
@@ -239,6 +248,11 @@ class EkoPostItemFooter : ConstraintLayout {
 
     fun showViewAllComment(isVisible: Boolean) {
         mBinding.showViewAllComment = isVisible
+    }
+
+    fun updateComment(comment: EkoComment) {
+        val viewHolder = rvCommentFooter.findViewHolderForItemId(comment.getCommentId().hashCode().toLong()) as? EkoPostCommentViewHolder
+        viewHolder?.updateData(comment.getData())
     }
 
 }

@@ -22,6 +22,7 @@ class SettingActivity : AppCompatActivity() {
         btnLogout.setOnClickListener {
             val sharedPref = getSharedPreferences(EkoConstants.PREF_NAME, Context.MODE_PRIVATE)
             sharedPref?.edit()?.clear()?.apply()
+            EkoClient.unregisterDeviceForPushNotification(EkoClient.getUserId()).subscribe()
             EkoClient.unregisterDevice().subscribe {
                 this.finish()
             }

@@ -3,19 +3,18 @@ package com.ekoapp.ekosdk.uikit.community.ui.viewHolder
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewPagedAdapter
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.AmityItemSelectMemberBinding
 import com.ekoapp.ekosdk.uikit.community.ui.clickListener.EkoSelectMemberListener
+import com.ekoapp.ekosdk.uikit.components.setVisibility
 import com.ekoapp.ekosdk.user.EkoUser
 
-class EkoMemberListItemViewHolder(
-    itemView: View,
-    private val mClickListener: EkoSelectMemberListener,
-    private val membersSet: HashSet<String>
-) :
-    RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewPagedAdapter.Binder<EkoUser> {
+class EkoMemberListItemViewHolder(itemView: View,
+                                  private val mClickListener: EkoSelectMemberListener,
+                                  private val membersSet: HashSet<String>) : RecyclerView.ViewHolder(itemView), EkoBaseRecyclerViewPagedAdapter.Binder<EkoUser> {
 
     private val binding: AmityItemSelectMemberBinding? = DataBindingUtil.bind(itemView)
 
@@ -32,6 +31,7 @@ class EkoMemberListItemViewHolder(
             binding?.ivStatus?.setOnClickListener {
                 mClickListener.onMemberClicked(data, position)
             }
+            binding?.let { setVisibility(it.ivStatus, EkoClient.getUserId() != data.getUserId()) }
         }
     }
 }

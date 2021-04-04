@@ -95,14 +95,14 @@ class EkoCommunityModeratorAdapter(
                 itemList.add(
                     EkoMenuItem(
                         EkoConstants.ID_UN_REPORT_USER,
-                        context.getString(R.string.amity_unreport_user)
+                        context.getString(R.string.amity_undo_report)
                     )
                 )
             } else {
                 itemList.add(
                     EkoMenuItem(
                         EkoConstants.ID_REPORT_USER,
-                        context.getString(R.string.amity_report_user)
+                        context.getString(R.string.amity_report)
                     )
                 )
             }

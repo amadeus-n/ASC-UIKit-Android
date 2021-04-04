@@ -1,5 +1,6 @@
 package com.ekoapp.ekosdk.uikit.community.newsfeed.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -17,6 +18,7 @@ import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.common.views.dialog.EkoAlertDialogFragment
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentEditCommentBinding
+import com.ekoapp.ekosdk.uikit.community.newsfeed.activity.EXTRA_PARAM_COMMENT
 import com.ekoapp.ekosdk.uikit.community.newsfeed.activity.EkoEditCommentActivity
 import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoEditCommentViewModel
 import com.ekoapp.ekosdk.uikit.utils.EkoOptionMenuColorUtil
@@ -189,13 +191,14 @@ class EkoEditCommentFragment internal constructor(
         mViewModel.updateComment()
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
-            ?.doOnSuccess {
-                activity?.setResult(AppCompatActivity.RESULT_OK)
+            ?.doOnSuccess { comment ->
+                val resultIntent = Intent()
+                resultIntent.putExtra(EXTRA_PARAM_COMMENT, comment)
+                activity?.setResult(AppCompatActivity.RESULT_OK, resultIntent)
                 backPressFragment()
             }
             ?.doOnError {
                 updateCommentMenu(true)
-                Log.d(TAG, it.message ?: "")
                 val isReply = mViewModel.getComment()?.getParentId()?.isNotEmpty() == true
                 if (isReply) {
                     Toast.makeText(
@@ -227,7 +230,6 @@ class EkoEditCommentFragment internal constructor(
                     mViewModel.deleteComment(commentId).subscribe()
                 }
                 updateCommentMenu(true)
-                Log.d(TAG, it.message ?: "")
                 if (mViewModel.getReply() != null) {
                     Toast.makeText(
                         activity,

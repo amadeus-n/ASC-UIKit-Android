@@ -39,11 +39,11 @@ import com.ekoapp.ekosdk.uikit.community.newsfeed.viewmodel.EkoBaseFeedViewModel
 import com.ekoapp.ekosdk.uikit.community.utils.EkoCommunityNavigation
 import com.ekoapp.ekosdk.uikit.community.utils.EkoSharePostBottomSheetDialog
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
-import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.internal.operators.single.SingleTimer
+import io.reactivex.functions.Consumer
+import io.reactivex.internal.operators.flowable.FlowableInterval
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.amity_fragment_base_feed.*
 import java.util.concurrent.TimeUnit
@@ -56,6 +56,9 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(),
     private lateinit var adapter: EkoNewsFeedAdapter
     private lateinit var mBinding: AmityFragmentBaseFeedBinding
     private var feedDisposable: Disposable? = null
+    private var isLoaded = false
+    private var loadingTimerDisposable: Disposable? = null
+    private var loadingDuration = 0L
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.amity_fragment_base_feed, container, false)
@@ -116,6 +119,15 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(),
             feedDisposable?.dispose()
         }
         feedDisposable = getViewModel().getFeed()
+            ?.flatMapSingle { result ->
+                if (result.isEmpty()) {
+                    startLoadingTimer()
+                } else {
+                    stopLoadingTimer()
+                }
+                Single.just(result)
+            }
+            ?.filter { isLoaded }
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.doOnError { showGetFeedErrorMessage(it.message) }
@@ -127,10 +139,33 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(),
         }
     }
 
+    private fun startLoadingTimer() {
+        if (loadingTimerDisposable == null) {
+            isLoaded = false
+            loadingTimerDisposable = FlowableInterval(0, 1, TimeUnit.SECONDS, Schedulers.io())
+                .map {
+                    loadingDuration ++
+                    if (loadingDuration >= MAX_LOADING_DURATION) {
+                        throw Exception()
+                    }
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError { handleEmptyList(true) }
+                .subscribe()
+        }
+    }
+
+    private fun stopLoadingTimer() {
+        isLoaded = true
+        if (loadingTimerDisposable != null && loadingTimerDisposable?.isDisposed == false) {
+            loadingTimerDisposable?.dispose()
+        }
+    }
+
     private fun onFeedsLoaded(result: PagedList<EkoPost>) {
         Log.d(TAG, "submit list ${result.size}")
-        base_feed_loading_view.visibility = View.GONE
         adapter.submitList(result)
+        base_feed_loading_view.visibility = View.GONE
         handleEmptyList(result.isEmpty())
         if (NewsFeedEvents.newPostCreated) {
             Handler(Looper.getMainLooper()).postDelayed({
@@ -145,6 +180,7 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(),
     }
 
     open fun handleEmptyList(isListEmpty: Boolean) {
+        base_feed_loading_view.visibility = View.GONE
         if (isListEmpty) {
             if (context != null) {
                 if (mBinding.emptyViewContainer.childCount == 0) {
@@ -544,3 +580,5 @@ abstract class EkoBaseFeedFragment : EkoBaseFragment(),
     }
 
 }
+
+const val MAX_LOADING_DURATION = 8L

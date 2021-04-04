@@ -7,7 +7,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ekoapp.ekosdk.community.EkoCommunity
+import com.ekoapp.ekosdk.file.EkoImage
 import com.ekoapp.ekosdk.uikit.base.EkoBaseRecyclerViewPagedAdapter
+import com.ekoapp.ekosdk.uikit.common.loadImage
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.AmityItemCommunitySelectionListBinding
 import com.ekoapp.ekosdk.uikit.community.newsfeed.listener.ICreatePostCommunitySelectionListener
@@ -60,7 +62,10 @@ class EkoCreatePostCommunitySelectionAdapter(private val listener: ICreatePostCo
         }
 
         private fun setupCommunityImageView(data: EkoCommunity) {
-
+            binding?.avCommunityProfile?.loadImage(
+                data.getAvatar()?.getUrl(EkoImage.Size.SMALL),
+                R.drawable.amity_ic_default_community_avatar_small
+            )
         }
 
     }

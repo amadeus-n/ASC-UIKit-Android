@@ -17,10 +17,15 @@ class EkoPostCommentAdapter(
     private val showAllReplyListener: IPostCommentShowAllReplyListener?,
     private val showMoreActionListener: IPostCommentShowMoreActionListener?,
     private val commentReplyClickListener: IPostCommentReplyClickListener?,
-    private val showRepliesComment: Boolean = false,
+    private val showRepliesComment: Boolean,
     var readOnlyMode: Boolean = false,
     private val loaderMap: MutableMap<String, EkoCommentReplyLoader> = mutableMapOf()
-) : EkoBaseRecyclerViewPagedAdapter<EkoComment>(PostCommentDiffUtil(loaderMap)) {
+) : EkoBaseRecyclerViewPagedAdapter<EkoComment>(
+    PostCommentDiffUtil(
+        loaderMap,
+        showRepliesComment
+    )
+) {
 
     override fun getLayoutId(position: Int, obj: EkoComment?): Int {
         return if (obj?.isDeleted() == true) {
@@ -63,11 +68,18 @@ class EkoPostCommentAdapter(
         }
     }
 
+    override fun getItemId(position: Int): Long {
+        return getItem(position)?.getCommentId()?.hashCode()?.toLong() ?: 0L
+    }
+
     private fun setReadOnlyMode(holder: RecyclerView.ViewHolder) {
         (holder as? EkoPostCommentViewHolder)?.readOnlyMode = readOnlyMode
     }
 
-    class PostCommentDiffUtil(private val loaderMap: Map<String, EkoCommentReplyLoader>) :
+    class PostCommentDiffUtil(
+        private val loaderMap: Map<String, EkoCommentReplyLoader>,
+        private val showRepliesComment: Boolean
+    ) :
         DiffUtil.ItemCallback<EkoComment>() {
 
         private fun shouldIgnoreReplies(comment: EkoComment): Boolean {
@@ -81,14 +93,10 @@ class EkoPostCommentAdapter(
         override fun areContentsTheSame(oldItem: EkoComment, newItem: EkoComment): Boolean {
             return oldItem.getCommentId() == newItem.getCommentId()
                     && oldItem.isDeleted() == newItem.isDeleted()
-                    && oldItem.getUser()
-                ?.getDisplayName() == newItem.getUser()?.getDisplayName()
-                    && oldItem.getUser()?.getAvatar()
-                ?.getUrl() == newItem.getUser()?.getAvatar()?.getUrl()
-                    && oldItem.getReactionCount() == newItem.getReactionCount()
-                    && isDataTheSame(oldItem, newItem)
-                    && (shouldIgnoreReplies(newItem)
-                    || areRepliesTheSame(oldItem.getLatestReplies(), newItem.getLatestReplies()))
+                    && oldItem.getUser()?.getDisplayName() == newItem.getUser()?.getDisplayName()
+                    && oldItem.getUser()?.getAvatar()?.getUrl() == newItem.getUser()?.getAvatar()?.getUrl()
+                    && (shouldIgnoreData() && isDataTheSame(oldItem, newItem) )
+                    && (shouldIgnoreReplies(newItem) || areRepliesTheSame(oldItem.getLatestReplies(), newItem.getLatestReplies()))
         }
 
         private fun isDataTheSame(oldItem: EkoComment, newItem: EkoComment): Boolean {
@@ -100,6 +108,10 @@ class EkoPostCommentAdapter(
                 }
                 else -> false
             }
+        }
+
+        private fun shouldIgnoreData(): Boolean {
+            return showRepliesComment
         }
 
         private fun areRepliesTheSame(

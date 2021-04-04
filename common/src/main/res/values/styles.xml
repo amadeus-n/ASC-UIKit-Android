@@ -103,4 +103,9 @@
 
     </style>
 
+    <style name="BrandedSwitch.control" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/amityColorPrimary</item>
+        <item name="colorSwitchThumbNormal">@color/amityColorWhite</item>
+    </style>
+
 </resources>

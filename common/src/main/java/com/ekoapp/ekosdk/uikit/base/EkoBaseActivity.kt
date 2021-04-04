@@ -5,20 +5,20 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.ekoapp.ekosdk.uikit.utils.ThemeUtil
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 
 /**
  * Base activity to be extended by all activities of application.
  * @author sumitlakra
  * @date 06/01/2020
  */
-abstract class EkoBaseActivity<T : ViewDataBinding, V : EkoBaseViewModel> : AppCompatActivity() {
+abstract class EkoBaseActivity<T : ViewDataBinding, V : EkoBaseViewModel> : RxAppCompatActivity() {
 
     private lateinit var mViewDataBinding: T
     private var mViewModel: V? = null

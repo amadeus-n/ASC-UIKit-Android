@@ -5,6 +5,7 @@ import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.EkoCommentRepository
 import com.ekoapp.ekosdk.EkoFeedRepository
 import com.ekoapp.ekosdk.comment.EkoComment
+import com.ekoapp.ekosdk.exception.EkoError
 import com.ekoapp.ekosdk.feed.EkoPost
 import com.ekoapp.ekosdk.feed.EkoPostTarget
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
@@ -15,9 +16,13 @@ import com.ekoapp.ekosdk.uikit.feed.settings.IPostShareClickListener
 import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.ekoapp.ekosdk.uikit.utils.SingleLiveData
 import com.ekoapp.ekosdk.user.EkoUser
+import com.ekoapp.rxlifecycle.extension.untilLifecycleEnd
+import com.google.gson.annotations.Until
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class EkoPostDetailsViewModel : EkoBaseViewModel(), IPostShareListener {
     var newsFeed: EkoPost? = null
@@ -52,7 +57,9 @@ class EkoPostDetailsViewModel : EkoBaseViewModel(), IPostShareListener {
         parentId: String?,
         commentId: String,
         postId: String,
-        message: String
+        message: String,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
     ): Single<EkoComment> {
         return commentRepository.createComment(commentId)
             .post(postId)
@@ -62,13 +69,26 @@ class EkoPostDetailsViewModel : EkoBaseViewModel(), IPostShareListener {
             .build()
             .send()
             .map {
-                EkoClient.newFeedRepository().getPost(postId).ignoreElements().onErrorComplete()
+                EkoClient.newFeedRepository().getPost(postId).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .ignoreElements().onErrorComplete()
                 it
+            }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess {
+                onSuccess.invoke()
+            }
+            .doOnError {
+                if (EkoError.from(it) == EkoError.BAN_WORD_FOUND) {
+                    onError.invoke()
+                }
             }
     }
 
     fun deleteComment(commentId: String): Completable {
         return commentRepository.deleteComment(commentId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
     //TODO remove after sdk (core) fix bug for fetch post data

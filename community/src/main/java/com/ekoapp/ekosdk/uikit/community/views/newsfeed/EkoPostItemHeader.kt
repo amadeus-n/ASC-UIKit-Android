@@ -136,7 +136,7 @@ class EkoPostItemHeader : ConstraintLayout {
             }
 
             val community = target.getCommunity()
-            showFeedAction = community!!.isJoined()
+            showFeedAction = community?.isJoined() ?: showFeedAction
         } else {
             mBinding.readOnly = false
             communityName.visibility = View.GONE
