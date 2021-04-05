@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.community.R
@@ -16,6 +15,7 @@ import com.ekoapp.ekosdk.uikit.community.explore.adapter.EkoTrendingCommunityAda
 import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoExploreCommunityViewModel
 import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
+import com.ekoapp.ekosdk.uikit.utils.ExceptionCatchLinearLayoutManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.amity_fragment_trending_community.*
@@ -46,7 +46,7 @@ class EkoTrendingCommunityFragment : EkoBaseFragment(), IMyCommunityItemClickLis
 
     private fun initializeRecyclerView() {
         adapter = EkoTrendingCommunityAdapter(this)
-        rvTrendingCommunity.layoutManager = LinearLayoutManager(requireContext())
+        rvTrendingCommunity.layoutManager = ExceptionCatchLinearLayoutManager(requireContext())
         rvTrendingCommunity.adapter = adapter
         rvTrendingCommunity.addItemDecoration(
             EkoRecyclerViewItemDecoration(
@@ -55,7 +55,6 @@ class EkoTrendingCommunityFragment : EkoBaseFragment(), IMyCommunityItemClickLis
                 requireContext().resources.getDimensionPixelSize(R.dimen.amity_padding_xs)
             )
         )
-
         getTrendingCommunity()
     }
 

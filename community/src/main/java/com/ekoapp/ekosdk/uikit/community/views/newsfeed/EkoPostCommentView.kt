@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.comment.EkoComment
 import com.ekoapp.ekosdk.file.EkoImage
-import com.ekoapp.ekosdk.uikit.common.expandViewHitArea
 import com.ekoapp.ekosdk.uikit.common.readableFeedPostTime
 import com.ekoapp.ekosdk.uikit.common.readableNumber
 import com.ekoapp.ekosdk.uikit.community.R
@@ -26,6 +25,8 @@ class EkoPostCommentView : ConstraintLayout {
 
     private var commentActionListener: ICommentActionListener? = null
     private var commentTextClickListener: OnClickListener? = null
+
+    private var reactionCount = 0
 
     constructor(context: Context) : super(context) {
         init()
@@ -72,8 +73,9 @@ class EkoPostCommentView : ConstraintLayout {
 
         cbLike.isChecked = comment.getMyReactions().contains("like")
 
-        if (comment.getReactionCount() > 0) {
-            cbLike.text = comment.getReactionCount().readableNumber()
+        reactionCount = comment.getReactionCount()
+        if (reactionCount > 0) {
+            cbLike.text = reactionCount.readableNumber()
         } else {
             cbLike.text = context.getString(R.string.amity_like)
         }
@@ -92,6 +94,8 @@ class EkoPostCommentView : ConstraintLayout {
 
         cbLike.setOnClickListener {
             if ((it as? MaterialCheckBox)?.isChecked == true) {
+                reactionCount = reactionCount.inc()
+                cbLike.text = reactionCount.readableNumber()
                 comment
                     .react()
                     .addReaction("like")
@@ -100,6 +104,12 @@ class EkoPostCommentView : ConstraintLayout {
                     .untilLifecycleEnd(view = this)
                     .subscribe()
             } else {
+                reactionCount = reactionCount.dec().coerceAtLeast(0)
+                if (reactionCount == 0) {
+                    cbLike.text = context.getString(R.string.amity_like)
+                } else {
+                    cbLike.text = reactionCount.readableNumber()
+                }
                 comment
                     .react()
                     .removeReaction("like")
@@ -133,6 +143,10 @@ class EkoPostCommentView : ConstraintLayout {
     fun enableReadOnlyMode() {
         mBinding.readOnly = true
         handleBottomSpace()
+    }
+
+    fun setText(text: String) {
+        tvPostComment.text = text
     }
 
     interface ICommentActionListener {

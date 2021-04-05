@@ -56,7 +56,7 @@ class EkoPostTargetSelectionFragment internal constructor() : EkoBaseFragment(),
 
     private fun initProfileImage() {
         val user = mViewModel.getUser()
-        val imageURL = user.getAvatar()?.getUrl(EkoImage.Size.MEDIUM)
+        val imageURL = user.getAvatar()?.getUrl(EkoImage.Size.SMALL)
         Glide.with(this)
             .load(imageURL)
             .placeholder(R.drawable.amity_ic_default_profile_large)

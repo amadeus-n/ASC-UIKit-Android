@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.text.Spannable
@@ -34,58 +35,35 @@ import com.google.android.material.shape.ShapeAppearanceModel
 import java.io.File
 
 
-@BindingAdapter(value = ["textColorShade", "textColorHintShade"], requireAll = false)
-fun setEkoTextColor(
-    view: TextView,
-    colorShade: ColorShade?,
-    textColorHintShade: ColorShade?
-) {
+@BindingAdapter(
+        value = ["textColorShade", "textColorHintShade"],
+        requireAll = false)
+fun setEkoTextColor(view: TextView, colorShade: ColorShade?, textColorHintShade: ColorShade?) {
     colorShade?.let {
-        view.setTextColor(
-            ColorPaletteUtil.getColor(
-                view.currentTextColor,
-                colorShade
-            )
-        )
+        view.setTextColor(ColorPaletteUtil.getColor(view.currentTextColor, colorShade))
     }
     textColorHintShade?.let {
-        view.setHintTextColor(
-            ColorPaletteUtil.getColor(
-                view.currentHintTextColor,
-                textColorHintShade
-            )
-        )
+        view.setHintTextColor(ColorPaletteUtil.getColor(view.currentHintTextColor, textColorHintShade))
     }
 }
 
 @BindingAdapter(
-    value = ["buttonEnabledTextColor", "buttonEnabledTextColorShade", "buttonDisabledTextColor", "buttonDisabledTextColorShade"],
-    requireAll = false
-)
-fun setEkoButtonTextColor(
-    view: Button,
-    buttonEnabledTextColor: Int?,
-    buttonEnabledTextColorShade: ColorShade?,
-    buttonDisabledTextColor: Int?,
-    buttonDisabledTextColorShade: ColorShade?
-) {
+        value = [
+            "buttonEnabledTextColor",
+            "buttonEnabledTextColorShade",
+            "buttonDisabledTextColor",
+            "buttonDisabledTextColorShade"],
+        requireAll = false)
+fun setEkoButtonTextColor(view: Button, buttonEnabledTextColor: Int?,
+                          buttonEnabledTextColorShade: ColorShade?, buttonDisabledTextColor: Int?,
+                          buttonDisabledTextColorShade: ColorShade?) {
 
-    val states = arrayOf(
-        intArrayOf(android.R.attr.state_enabled),
-        intArrayOf(-android.R.attr.state_enabled)
-    )
-    val colorEnabled = ColorPaletteUtil.getColor(
-        buttonEnabledTextColor!!,
-        buttonEnabledTextColorShade ?: ColorShade.DEFAULT
-    )
-
-    val colorDefault = ColorPaletteUtil.getColor(
-        buttonDisabledTextColor!!,
-        buttonDisabledTextColorShade ?: ColorShade.DEFAULT
-    )
-    val colors = intArrayOf(
-        colorEnabled, colorDefault
-    )
+    val states = arrayOf(intArrayOf(android.R.attr.state_enabled), intArrayOf(-android.R.attr.state_enabled))
+    val colorEnabled = ColorPaletteUtil.getColor(buttonEnabledTextColor!!, buttonEnabledTextColorShade
+            ?: ColorShade.DEFAULT)
+    val colorDefault = ColorPaletteUtil.getColor(buttonDisabledTextColor!!, buttonDisabledTextColorShade
+            ?: ColorShade.DEFAULT)
+    val colors = intArrayOf(colorEnabled, colorDefault)
 
     val colorStateList = ColorStateList(states, colors)
     view.setTextColor(colorStateList)
@@ -101,34 +79,21 @@ fun setBackgroundAlpha(view: MaterialButton, shade: ColorShade) {
     val strokeColor = view.strokeColor.defaultColor
 
     val colorDefault = ColorPaletteUtil.getColor(strokeColor, ColorShade.SHADE3)
-    val states = arrayOf(
-        intArrayOf(android.R.attr.state_enabled),
-        intArrayOf(-android.R.attr.state_enabled)
-    )
-    val colors = intArrayOf(
-        colorDefault, colorDefault
-    )
+    val states = arrayOf(intArrayOf(android.R.attr.state_enabled), intArrayOf(-android.R.attr.state_enabled))
+    val colors = intArrayOf(colorDefault, colorDefault)
+
     val colorStateList = ColorStateList(states, colors)
     view.strokeColor = colorStateList
 }
 
 @BindingAdapter(value = ["drawableTintColor", "drawableTintShade"], requireAll = false)
-fun setDrawableTint(
-    view: TextView,
-    drawableTintColor: Int?,
-    drawableTintShade: ColorShade?
-) {
+fun setDrawableTint(view: TextView, drawableTintColor: Int?, drawableTintShade: ColorShade?) {
     if (drawableTintColor != null) {
-        val tintColor: Int = ColorPaletteUtil.getColor(
-            drawableTintColor,
-            drawableTintShade ?: ColorShade.DEFAULT
-        )
+        val tintColor: Int = ColorPaletteUtil.getColor(drawableTintColor, drawableTintShade
+                ?: ColorShade.DEFAULT)
         if (drawableTintShade != null) {
             for (drawable in view.compoundDrawables) {
-                drawable?.colorFilter = PorterDuffColorFilter(
-                    tintColor, PorterDuff.Mode.SRC_IN
-                )
-
+                drawable?.colorFilter = PorterDuffColorFilter(tintColor, PorterDuff.Mode.SRC_IN)
             }
         }
     }
@@ -137,45 +102,29 @@ fun setDrawableTint(
 @BindingAdapter(value = ["ekoTintColor", "ekoTintShade"], requireAll = false)
 fun setImageViewTint(imageView: ImageView, tintColor: Int, tintShade: ColorShade?) {
     val shade = tintShade ?: ColorShade.SHADE2
-    ImageViewCompat.setImageTintList(
-        imageView,
-        ColorStateList.valueOf(ColorPaletteUtil.getColor(tintColor, shade))
-    )
+    ImageViewCompat.setImageTintList(imageView, ColorStateList.valueOf(ColorPaletteUtil.getColor(tintColor, shade)))
 }
 
 @BindingAdapter(
-    value = ["checkBoxDefaultColor", "checkBoxDefaultShade", "checkBoxCheckedColor", "checkBoxCheckedShade"],
-    requireAll = false
-)
-fun setCheckboxSelectorColor(
-    view: MaterialCheckBox,
-    checkBoxDefaultColor: Int?,
-    checkBoxDefaultShade: ColorShade?,
-    checkBoxCheckedColor: Int?,
-    checkBoxCheckedShade: ColorShade?
-) {
+        value = [
+            "checkBoxDefaultColor",
+            "checkBoxDefaultShade",
+            "checkBoxCheckedColor",
+            "checkBoxCheckedShade"],
+        requireAll = false)
+fun setCheckboxSelectorColor(view: MaterialCheckBox, checkBoxDefaultColor: Int?, checkBoxDefaultShade: ColorShade?,
+                             checkBoxCheckedColor: Int?, checkBoxCheckedShade: ColorShade?) {
 
-    val states = arrayOf(
-        intArrayOf(android.R.attr.state_checked),
-        intArrayOf(-android.R.attr.state_checked)
-    )
-    val tintColorChecked = ColorPaletteUtil.getColor(
-        checkBoxCheckedColor!!,
-        checkBoxCheckedShade ?: ColorShade.DEFAULT
-    )
-
-    val tintColorDefault = ColorPaletteUtil.getColor(
-        checkBoxDefaultColor!!,
-        checkBoxDefaultShade ?: ColorShade.DEFAULT
-    )
-    val colors = intArrayOf(
-        tintColorChecked, tintColorDefault
-    )
+    val states = arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf(-android.R.attr.state_checked))
+    val tintColorChecked = ColorPaletteUtil.getColor(checkBoxCheckedColor!!, checkBoxCheckedShade
+            ?: ColorShade.DEFAULT)
+    val tintColorDefault = ColorPaletteUtil.getColor(checkBoxDefaultColor!!, checkBoxDefaultShade
+            ?: ColorShade.DEFAULT)
+    val colors = intArrayOf(tintColorChecked, tintColorDefault)
 
     val colorStateList = ColorStateList(states, colors)
     view.buttonTintList = colorStateList
     view.setTextColor(colorStateList)
-
 }
 
 @BindingAdapter(value = ["message", "isSender"], requireAll = true)
@@ -183,7 +132,6 @@ fun setText(view: EkoReadMoreTextView, message: String?, isSender: Boolean) {
     view.isSender(isSender)
     view.setText(message)
 }
-
 
 @BindingAdapter(value = ["longPress", "maxLines"], requireAll = false)
 fun setListener(view: EkoReadMoreTextView, listener: ILongPressListener?, maxLines: Int?) {
@@ -196,25 +144,21 @@ fun setListener(view: EkoReadMoreTextView, listener: ILongPressListener?, maxLin
 }
 
 @BindingAdapter(value = ["ekoBackgroundColor", "backgroundColorShade"], requireAll = false)
-fun setEkoViewBackgroundColor(
-    view: View,
-    color: Int?,
-    colorShade: ColorShade?
-) {
+fun setEkoViewBackgroundColor(view: View, color: Int?, colorShade: ColorShade?) {
     val shade = colorShade ?: ColorShade.DEFAULT
     val bgColor = color ?: ContextCompat.getColor(view.context, R.color.amityColorPrimary)
     view.setBackgroundColor(ColorPaletteUtil.getColor(bgColor, shade))
 }
 
-
 @BindingAdapter(
-    value = ["avatarViewImage", "avatarViewPlaceHolder", "avatarViewSignature",
-        "isCircular"], requireAll = false
-)
-fun setAvatarViewImage(
-    view: EkoAvatarView, imagePath: String?, placeholder: Drawable?, signature: String? = "",
-    isCircular: Boolean = true
-) {
+        value = [
+            "avatarViewImage",
+            "avatarViewPlaceHolder",
+            "avatarViewSignature",
+            "isCircular"],
+        requireAll = false)
+fun setAvatarViewImage(view: EkoAvatarView, imagePath: String?, placeholder: Drawable?,
+                       signature: String? = "", isCircular: Boolean = true) {
     view.setIsCircular(isCircular)
     view.setAvatarUrl(imagePath, placeholder, signature ?: "")
 }
@@ -229,35 +173,28 @@ fun setRequiredInLabel(view: TextView, required: Boolean = false) {
     if (required) {
         val required: Spannable = SpannableString("*")
 
-        required.setSpan(
-            ForegroundColorSpan(Color.RED),
-            0,
-            required.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
+        required.setSpan(ForegroundColorSpan(Color.RED), 0, required.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         view.append(required)
     }
 }
 
 @BindingAdapter(
-    value = ["roundedCorner", "topLeftRadius", "bottomLeftRadius", "topRightRadius",
-        "bottomRightRadius", "fillColor", "StrokeColor", "colorShade"], requireAll = false
-)
-fun setRoundedCorner(
-    view: View,
-    roundedCorner: Boolean,
-    topLeft: Float?,
-    bottomLeft: Float?,
-    topRight: Float?,
-    bottomRight: Float?,
-    @ColorRes fillColor: Int?,
-    @ColorRes strokeColor: Int?,
-    colorShade: ColorShade?
-) {
+        value = [
+            "roundedCorner",
+            "topLeftRadius",
+            "bottomLeftRadius",
+            "topRightRadius",
+            "bottomRightRadius",
+            "fillColor",
+            "StrokeColor",
+            "colorShade"],
+        requireAll = false)
+fun setRoundedCorner(view: View, roundedCorner: Boolean, topLeft: Float?,
+                     bottomLeft: Float?, topRight: Float?, bottomRight: Float?,
+                     @ColorRes fillColor: Int?, @ColorRes strokeColor: Int?, colorShade: ColorShade?) {
     if (roundedCorner) {
         val radius = view.context.resources.getDimension(R.dimen.amity_six)
-        val modal = ShapeAppearanceModel()
-            .toBuilder()
+        val modal = ShapeAppearanceModel().toBuilder()
         if (topLeft == null) {
             modal.setTopLeftCorner(CornerFamily.ROUNDED, radius)
         } else {
@@ -289,15 +226,7 @@ fun setRoundedCorner(
             if (colorShade == null)
                 shapeDrawable.fillColor = ContextCompat.getColorStateList(view.context, fillColor)
             else
-                shapeDrawable.setTint(
-                    ColorPaletteUtil.getColor(
-                        ContextCompat.getColor(
-                            view.context,
-                            fillColor
-                        ), colorShade
-                    )
-                )
-
+                shapeDrawable.setTint(ColorPaletteUtil.getColor(ContextCompat.getColor(view.context, fillColor), colorShade))
         }
 
         if (strokeColor == null) {
@@ -307,13 +236,7 @@ fun setRoundedCorner(
                 if (colorShade == null)
                     shapeDrawable.setStroke(2F, ContextCompat.getColor(view.context, fillColor))
                 else
-                    shapeDrawable.setStroke(
-                        2F,
-                        ColorPaletteUtil.getColor(
-                            ContextCompat.getColor(view.context, fillColor),
-                            colorShade
-                        )
-                    )
+                    shapeDrawable.setStroke(2F, ColorPaletteUtil.getColor(ContextCompat.getColor(view.context, fillColor), colorShade))
             }
         } else {
             shapeDrawable.setStroke(2F, ContextCompat.getColor(view.context, strokeColor))
@@ -321,8 +244,6 @@ fun setRoundedCorner(
 
         ViewCompat.setBackground(view, shapeDrawable)
     }
-
-
 }
 
 @BindingAdapter("imageUrl", "placeHolder", requireAll = false)
@@ -347,20 +268,16 @@ fun setImageUrl(view: ImageView, imageUrl: String?, placeholder: Drawable?) {
         else -> false
     }
     Glide.with(view.context)
-        .load(if (imageSynced) glideImageUrl else imageUri)
-        .centerCrop()
-        .placeholder(mPlaceholder)
-        .error(mPlaceholder)
-        .dontAnimate()
-        .into(ScaleErrorImageViewTarget(view).error())
+            .load(if (imageSynced) glideImageUrl else imageUri)
+            .centerCrop()
+            .placeholder(mPlaceholder)
+            .error(mPlaceholder)
+            .dontAnimate()
+            .into(ScaleErrorImageViewTarget(view).error())
 }
 
 @BindingAdapter(value = ["onScrolled", "onScrollStateChanged"], requireAll = false)
-fun setOnRVScroll(
-    rv: RecyclerView,
-    onScroll: OnScroll?,
-    onScrollStateChanged: OnScrollStateChanged?
-) {
+fun setOnRVScroll(rv: RecyclerView, onScroll: OnScroll?, onScrollStateChanged: OnScrollStateChanged?) {
     rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             onScroll?.onScrolled(recyclerView, dx, dy)
@@ -385,15 +302,10 @@ interface OnScrollStateChanged {
 @BindingAdapter(value = ["ekoFillColor", "ekoFillShade"])
 fun setRoundedImageView(imageView: ImageView, fillColor: Int, shade: ColorShade) {
     val modal = ShapeAppearanceModel()
-        .toBuilder()
-        .setAllCorners(
-            CornerFamily.ROUNDED,
-            imageView.context.resources.getDimensionPixelSize(R.dimen.amity_thirty_two).toFloat()
-        )
+            .toBuilder()
+            .setAllCorners(CornerFamily.ROUNDED, imageView.context.resources.getDimensionPixelSize(R.dimen.amity_thirty_two).toFloat())
     val shapeDrawable = MaterialShapeDrawable(modal.build())
-    shapeDrawable.setTint(
-        ColorPaletteUtil.getColor(fillColor, shade)
-    )
+    shapeDrawable.setTint(ColorPaletteUtil.getColor(fillColor, shade))
 
     ViewCompat.setBackground(imageView, shapeDrawable)
 }
@@ -405,4 +317,18 @@ fun setText(textView: TextView, input: CharSequence?) {
     } else {
         textView.text = textView.context.getString(R.string.amity_anonymous)
     }
+}
+
+@BindingAdapter("isBold")
+fun setBold(view: TextView, isBold: Boolean) {
+    if (isBold) {
+        view.setTypeface(null, Typeface.BOLD)
+    } else {
+        view.setTypeface(null, Typeface.NORMAL)
+    }
+}
+
+@BindingAdapter("ekoVisibility")
+fun setVisibility(view: View, value: Boolean) {
+    view.visibility = if (value) View.VISIBLE else View.GONE
 }

@@ -14,7 +14,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.ekoapp.ekosdk.community.EkoCommunity
-import com.ekoapp.ekosdk.permission.EkoPermission
 import com.ekoapp.ekosdk.uikit.base.EkoFragmentStateAdapter
 import com.ekoapp.ekosdk.uikit.community.R
 import com.ekoapp.ekosdk.uikit.community.databinding.AmityFragmentCommunityPageBinding
@@ -200,10 +199,7 @@ class EkoCommunityPageFragment : Fragment(), EkoToolBarClickListener,
             }.subscribe()
         )
 
-        refreshDisposable.add(mViewModel.checkModeratorPermissionAtCommunity(
-            EkoPermission.EDIT_COMMUNITY,
-            mViewModel.communityID
-        )
+        refreshDisposable.add(mViewModel.isModerator()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext {

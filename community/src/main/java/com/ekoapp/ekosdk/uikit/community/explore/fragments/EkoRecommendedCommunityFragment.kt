@@ -18,6 +18,7 @@ import com.ekoapp.ekosdk.uikit.community.explore.adapter.EkoRCommunityItemDecora
 import com.ekoapp.ekosdk.uikit.community.explore.adapter.EkoRecommendedCommunitiesAdapter
 import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoExploreCommunityViewModel
 import com.ekoapp.ekosdk.uikit.community.mycommunity.listener.IMyCommunityItemClickListener
+import com.ekoapp.ekosdk.uikit.utils.ExceptionCatchLinearLayoutManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.amity_fragment_recommended_community.*
@@ -53,7 +54,7 @@ class EkoRecommendedCommunityFragment : EkoBaseFragment(), IMyCommunityItemClick
 
     private fun initializeRecyclerView() {
         mAdapter = EkoRecommendedCommunitiesAdapter(this)
-        rvRecommCommunity.layoutManager = LinearLayoutManager(
+        rvRecommCommunity.layoutManager = ExceptionCatchLinearLayoutManager(
             requireContext(), LinearLayoutManager.HORIZONTAL, false
         )
         rvRecommCommunity.adapter = mAdapter
@@ -65,8 +66,6 @@ class EkoRecommendedCommunityFragment : EkoBaseFragment(), IMyCommunityItemClick
                 requireContext().resources.getDimensionPixelSize(R.dimen.amity_padding_xs)
             )
         )
-        rvRecommCommunity.setHasFixedSize(true)
-
         getRecommendedCommunity()
     }
 

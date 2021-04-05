@@ -12,7 +12,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/actionUnreportComment"
-        android:title="@string/amity_unreport_comment"
+        android:title="@string/amity_undo_report"
         app:showAsAction="always" />
 
 </menu>

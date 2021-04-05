@@ -6,6 +6,12 @@
     <application
         android:requestLegacyExternalStorage="true"
         tools:targetApi="q">
+        <activity android:name=".notificationsettings.pushDetail.EkoPushSettingsDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp"/>
+        <activity android:name=".notificationsettings.EkoPushNotificationsSettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp"/>
         <activity
             android:name=".newsfeed.activity.EkoMyFeedActivity"
             android:screenOrientation="portrait"
@@ -18,7 +24,6 @@
             android:name=".edit.EkoCommunityProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.EkoApp" />
-
         <activity
             android:name=".profile.activity.EkoEditUserProfileActivity"
             android:screenOrientation="portrait"
@@ -29,6 +34,10 @@
             android:theme="@style/Base.Theme.EkoApp" />
         <activity
             android:name=".setting.EkoCommunitySettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.EkoApp" />
+        <activity
+            android:name=".setting.postreview.EkoPostReviewSettingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.EkoApp" />
         <activity

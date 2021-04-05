@@ -12,7 +12,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/actionReportComment"
-        android:title="@string/amity_report_comment"
+        android:title="@string/amity_report"
         app:showAsAction="always" />
 
 </menu>

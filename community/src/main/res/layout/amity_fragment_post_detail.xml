@@ -16,7 +16,7 @@
             type="Boolean" />
 
         <variable
-            name="showProgressBar"
+            name="showLoadingComment"
             type="Boolean" />
 
     </data>
@@ -76,23 +76,44 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <com.ekoapp.ekosdk.uikit.community.views.newsfeed.EkoPostItemFooter
-                android:id="@+id/postItemFooter"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/amity_padding_m1"
-                android:fillViewport="true"
-                android:fitsSystemWindows="true"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <ProgressBar
-                android:layout_width="@dimen/amity_fifty"
-                android:layout_height="@dimen/amity_fifty"
-                android:layout_gravity="center"
-                android:indeterminate="true"
-                android:indeterminateTint="@color/amityColorPrimary"
-                android:visibility="@{showProgressBar ? View.VISIBLE : View.GONE}"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                <com.ekoapp.ekosdk.uikit.community.views.newsfeed.EkoPostItemFooter
+                    android:id="@+id/postItemFooter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ProgressBar
+                    android:layout_width="@dimen/amity_fifty"
+                    android:layout_height="@dimen/amity_fifty"
+                    android:layout_marginTop="@dimen/amity_eight"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/amityColorPrimary"
+                    android:visibility="@{showLoadingComment ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/postItemFooter" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/scroll_empty_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/postItemFooter">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fillViewport="true" />
+
+                </androidx.core.widget.NestedScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -3,6 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/actionUnreportReply"
-        android:title="@string/amity_unreport_reply"
+        android:title="@string/amity_undo_report"
         app:showAsAction="always" />
 </menu>

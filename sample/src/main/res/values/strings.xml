@@ -4,4 +4,6 @@
     <string name="amity_birthday_wish">Send your friend a birthday wish!</string>
     <string name="amity_welcome_message">Send your friend a welcome message!</string>
     <string name="amity_welcome">Welcome to the team,</string>
+    <string name="amity_notification_channel">UIKIT_PUSH_NOTIFICATION</string>
+    <string name="amity_notification_channel_description">Notification channel for post and comment push notification</string>
 </resources>

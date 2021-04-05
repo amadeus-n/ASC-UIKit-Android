@@ -11,6 +11,7 @@
 
     <color name="amityColorWhite">#FFFFFF</color>
     <color name="amityColorBlack">#000</color>
+    <color name="amityBlueLight">#4A82F2</color>
 
     <color name="upstraColorPrimary">#1054DE</color>
     <color name="upstraColorSecondary">#292B32</color>

@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import com.ekoapp.ekosdk.community.category.EkoCommunityCategory
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.common.expandViewHitArea
@@ -21,6 +20,7 @@ import com.ekoapp.ekosdk.uikit.community.explore.adapter.EkoCommunityCategoryAda
 import com.ekoapp.ekosdk.uikit.community.explore.listener.IEkoCategoryItemClickListener
 import com.ekoapp.ekosdk.uikit.community.explore.viewmodel.EkoExploreCommunityViewModel
 import com.ekoapp.ekosdk.uikit.utils.EkoRecyclerViewItemDecoration
+import com.ekoapp.ekosdk.uikit.utils.ExceptionCatchGridLayoutManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.amity_fragment_category_preview.*
@@ -59,15 +59,13 @@ class EkoCategoryPreviewFragment internal constructor() : EkoBaseFragment(),
 
     private fun initializeRecyclerView() {
         mAdapter = EkoCommunityCategoryAdapter(this)
-        rvCommunityCategory.layoutManager = GridLayoutManager(requireContext(), 2)
+        rvCommunityCategory.layoutManager = ExceptionCatchGridLayoutManager(requireContext(), 2)
         rvCommunityCategory.adapter = mAdapter
         rvCommunityCategory.addItemDecoration(
             EkoRecyclerViewItemDecoration(
                 requireContext().resources.getDimensionPixelSize(R.dimen.amity_padding_s)
             )
         )
-        rvCommunityCategory.itemAnimator = null
-        rvCommunityCategory.hasFixedSize()
         getCategories()
     }
 

@@ -12,6 +12,7 @@ import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekoapp.ekosdk.comment.EkoComment
 import com.ekoapp.ekosdk.exception.EkoError
@@ -40,6 +41,7 @@ import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.ekoapp.ekosdk.uikit.utils.AndroidUtil.hideKeyboard
 import com.ekoapp.ekosdk.uikit.utils.AndroidUtil.showKeyboard
 import com.ekoapp.ekosdk.user.EkoUser
+import com.ekoapp.rxlifecycle.extension.untilLifecycleEnd
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -56,9 +58,10 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
 
     private val TAG = EkoPostDetailsActivity::class.java.canonicalName
     private val ID_MENU_ITEM = 222
+
     private lateinit var newsFeed: EkoPost
-    lateinit var mViewModel: EkoPostDetailsViewModel
-    lateinit var mBinding: AmityFragmentPostDetailBinding
+    lateinit var viewModel: EkoPostDetailsViewModel
+    lateinit var binding: AmityFragmentPostDetailBinding
     private var disposal: CompositeDisposable = CompositeDisposable()
     private var commentToExpand: EkoComment? = null
     private var feedId: String? = null
@@ -68,9 +71,10 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
 
     private var replyClicked: EkoComment? = null
 
-    private var mAdapter: EkoPostDetailAdapter? = null
+    private var postDetailAdapter: EkoPostDetailAdapter? = null
 
     private var isViewInit = false
+    private var scrollRequired = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,12 +87,12 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mViewModel = ViewModelProvider(requireActivity()).get(EkoPostDetailsViewModel::class.java)
-        mBinding =
+        viewModel = ViewModelProvider(requireActivity()).get(EkoPostDetailsViewModel::class.java)
+        binding =
             DataBindingUtil.inflate(inflater, R.layout.amity_fragment_post_detail, container, false)
-        mBinding.lifecycleOwner = viewLifecycleOwner
+        binding.lifecycleOwner = viewLifecycleOwner
 
-        return mBinding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -110,25 +114,20 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
         btnPost.setOnClickListener {
             feedId?.let { postId ->
                 val commentId = ObjectId.get().toHexString()
-                val disposable =
-                    mViewModel.addComment(
-                        replyClicked?.getCommentId(),
-                        commentId,
-                        postId,
-                        etPostComment.text.toString()
-                    )
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSuccess {
-                            hideReplyTo()
-                        }
-                        .doOnError {
-                            if (EkoError.from(it) == EkoError.BAN_WORD_FOUND) {
-                                mViewModel.deleteComment(commentId).subscribe({}, {})
-                            }
-                        }
-                        .subscribe({}, {})
-                disposal.add(disposable)
+                viewModel.addComment(
+                    replyClicked?.getCommentId(),
+                    commentId,
+                    postId,
+                    etPostComment.text.toString(),
+                    onSuccess = {
+                        hideReplyTo()
+                        scrollRequired = true
+                    },
+                    onError = {
+                        viewModel.deleteComment(commentId).untilLifecycleEnd(this).subscribe()
+                        scrollRequired = false
+                    }
+                ).untilLifecycleEnd(this).subscribe()
             }
 
             etPostComment.text?.clear()
@@ -156,34 +155,45 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
     }
 
     private fun initEkoPostCommentRecyclerview() {
-        mBinding.showProgressBar = true
+        binding.showLoadingComment = true
         postItemFooter.setShowRepliesComment(true)
         postItemFooter.setCommentActionListener(this, null, this, this)
         commentToExpand?.getCommentId()?.let(postItemFooter::setPreExpandComment)
 
         feedId?.let {
-            val disposable = mViewModel.getComments(it)
+            val disposable = viewModel.getComments(it)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ commentList ->
-                    mBinding.showProgressBar = false
-                    postItemFooter.submitComments(commentList)
+                    binding.showLoadingComment = false
+                    postItemFooter.submitComments(commentList, scrollRequired)
+                    scrollRequired = false
                 }, { })
             disposal.add(disposable)
         }
     }
 
+    private fun showLoadingComment(commentList: PagedList<EkoComment>) {
+        if (commentList.isEmpty()) {
+            scroll_empty_view.visibility = View.VISIBLE
+        } else {
+            scroll_empty_view.visibility = View.GONE
+        }
+    }
+
     private fun getPostDetails(id: String?) {
         id?.let {
-            disposal.add(mViewModel.getPostDetails(it)
+            disposal.add(viewModel.getPostDetails(it)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError { showErrorMessage(it.message) }
                 .subscribe { result ->
                     run {
                         newsFeed = result
-                        mViewModel.newsFeed = newsFeed
-                        mViewModel.newsFeed?.let { post -> mAdapter?.submitList(listOf(post)) }
+                        viewModel.newsFeed = newsFeed
+                        viewModel.newsFeed?.let { post ->
+                            postDetailAdapter?.submitList(listOf(post))
+                        }
 
                         if (!isViewInit) {
                             initView()
@@ -193,12 +203,16 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
                             if (showFooter()) {
                                 postItemFooter.setPost(newsFeed)
                             }
-                            val showHeader =
-                                EkoFeedUISettings.getViewHolder(mAdapter!!.getItemViewType(0))
-                                    .useEkoHeader()
-                            if (showHeader) {
-                                newsFeedHeader.setFeed(newsFeed, null)
+                            postDetailAdapter?.let { adapter ->
+                                val showHeader =
+                                    EkoFeedUISettings
+                                        .getViewHolder(adapter.getItemViewType(0))
+                                        .useEkoHeader()
+                                if (showHeader) {
+                                    newsFeedHeader.setFeed(newsFeed, null)
+                                }
                             }
+
                         }
                     }
                 })
@@ -218,7 +232,7 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
     }
 
     private fun showFooter(): Boolean {
-        return mAdapter?.getItemViewType(0)?.let {
+        return postDetailAdapter?.getItemViewType(0)?.let {
             EkoFeedUISettings.getViewHolder(it).useEkoFooter()
         } ?: kotlin.run {
             false
@@ -226,20 +240,20 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
     }
 
     private fun initView() {
-        mBinding.showReplying = false
+        binding.showReplying = false
         rvNewsFeed.layoutManager = LinearLayoutManager(requireContext())
 
-        mAdapter = EkoPostDetailAdapter(listOf(newsFeed), this, this)
-        rvNewsFeed.adapter = mAdapter
+        postDetailAdapter = EkoPostDetailAdapter(listOf(newsFeed), this, this)
+        rvNewsFeed.adapter = postDetailAdapter
 
         val showHeader =
-            EkoFeedUISettings.getViewHolder(mAdapter!!.getItemViewType(0)).useEkoHeader()
+            EkoFeedUISettings.getViewHolder(postDetailAdapter!!.getItemViewType(0)).useEkoHeader()
         if (showHeader) {
             newsFeedHeader.setNewsFeedActionAvatarClickListener(object :
                 IPostActionAvatarClickListener {
                 override fun onClickUserAvatar(user: EkoUser) {
-                    if (mViewModel.avatarClickListener != null) {
-                        mViewModel.avatarClickListener?.onClickUserAvatar(user)
+                    if (viewModel.avatarClickListener != null) {
+                        viewModel.avatarClickListener?.onClickUserAvatar(user)
                     } else {
                         EkoCommunityNavigation.navigateToUserProfile(
                             requireContext(),
@@ -256,14 +270,14 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
         initPostDetailsViewButton()
         initUserData()
 
-        if (mViewModel.isReadOnlyPage()) {
+        if (viewModel.isReadOnlyPage()) {
             setupViewReadOnlyMode()
         }
     }
 
     private fun hideReplyTo() {
         replyClicked = null
-        mBinding.showReplying = false
+        binding.showReplying = false
         hideKeyboard(etPostComment)
         etPostComment.clearFocus()
     }
@@ -276,7 +290,7 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
                 R.anim.amity_animation_fade_in
             )
         )
-        mBinding.showReplying = true
+        binding.showReplying = true
 
         commentComposeBar.requestFocus()
         showKeyboard(etPostComment)
@@ -289,7 +303,7 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
 
     private fun initUserData() {
         disposal.add(
-            mViewModel.getCurrentUser()
+            viewModel.getCurrentUser()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ user ->
@@ -332,14 +346,14 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
     }
 
     private fun openKeyBoardToAddComment() {
-        if (mViewModel.isReadOnlyPage())
+        if (viewModel.isReadOnlyPage())
             return
         etPostComment.requestFocus()
         showKeyboard(etPostComment)
     }
 
     private fun showFeedAction() {
-        mViewModel.feedShowMoreActionClicked(newsFeed)
+        viewModel.feedShowMoreActionClicked(newsFeed)
     }
 
     private fun handleFeedActionItemClick(item: MenuItem) {
@@ -411,12 +425,12 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
     }
 
     private fun deleteComment(comment: EkoComment) {
-        disposal.add(mViewModel.deleteComment(comment)
+        disposal.add(viewModel.deleteComment(comment)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnComplete {
                 //TODO remove after sdk (core) fix bug for fetch post data
-                feedId?.let(mViewModel::fetchPostData)
+                feedId?.let(viewModel::fetchPostData)
             }
             .doOnError {
 
@@ -425,7 +439,7 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
     }
 
     private fun deletePost() {
-        disposal.add(mViewModel
+        disposal.add(viewModel
             .deletePost(newsFeed)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -441,9 +455,9 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
 
     private fun sendReportComment(comment: EkoComment, isReport: Boolean) {
         val viewModel = if (isReport) {
-            mViewModel.reportComment(comment)
+            viewModel.reportComment(comment)
         } else {
-            mViewModel.unreportComment(comment)
+            viewModel.unreportComment(comment)
         }
         disposal.add(viewModel
             .subscribeOn(Schedulers.io())
@@ -459,9 +473,9 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
 
     private fun sendReportPost(feed: EkoPost, isReport: Boolean) {
         val viewModel = if (isReport) {
-            mViewModel.reportPost(feed)
+            viewModel.reportPost(feed)
         } else {
-            mViewModel.unreportPost(feed)
+            viewModel.unreportPost(feed)
         }
         disposal.add(viewModel
             .subscribeOn(Schedulers.io())
@@ -505,17 +519,17 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
 
     override fun onClickNewsFeedCommentShowMoreAction(comment: EkoComment, position: Int) {
         commentActionIndex = position
-        mViewModel.commentShowMoreActionClicked(newsFeed, comment)
+        viewModel.commentShowMoreActionClicked(newsFeed, comment)
     }
 
     override fun onClickCommentReply(comment: EkoComment, position: Int) {
         replyClicked = comment
-        mBinding.replyingToUser = comment.getUser()?.getDisplayName()
+        binding.replyingToUser = comment.getUser()?.getDisplayName()
         showReplyTo()
     }
 
     private fun subscribeUiEvent() {
-        mViewModel.onEventReceived += { event ->
+        viewModel.onEventReceived += { event ->
             when (event.type) {
                 EventIdentifier.SHOW_COMMENT_ACTION_BY_COMMENT_OWNER -> {
                     showCommentActionCommentOwner(event.dataObj as EkoComment)
@@ -704,8 +718,13 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
         }
 
     private var editCommentContact =
-        registerForActivityResult(EkoEditCommentActivity.EkoEditCommentActivityContract()) {
-
+        registerForActivityResult(EkoEditCommentActivity.EkoEditCommentActivityContract()) { comment ->
+            comment?.let {
+                val isRootComment = it.getParentId() == null
+                if (isRootComment) {
+                    postItemFooter.updateComment(it)
+                }
+            }
         }
 
     private var ekoAddCommentContract =
@@ -717,22 +736,21 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
         }
 
     override fun onLikeAction(liked: Boolean) {
-        disposal.add(mViewModel.postReaction(liked, newsFeed).doOnError {
-            Log.d(TAG, it.message ?: "")
+        disposal.add(viewModel.postReaction(liked, newsFeed).doOnError {
         }.subscribe())
     }
 
     override fun onShareAction() {
         EkoSharePostBottomSheetDialog(newsFeed)
-            .setNavigationListener(mViewModel)
+            .setNavigationListener(viewModel)
             .observeShareToMyTimeline(this) {
-                mViewModel.postShareClickListener?.shareToMyTimeline(requireContext(), it)
+                viewModel.postShareClickListener?.shareToMyTimeline(requireContext(), it)
             }
             .observeShareToGroup(this) {
-                mViewModel.postShareClickListener?.shareToGroup(requireContext(), it)
+                viewModel.postShareClickListener?.shareToGroup(requireContext(), it)
             }
             .observeShareToExternalApp(this) {
-                mViewModel.postShareClickListener?.shareToExternal(requireContext(), it)
+                viewModel.postShareClickListener?.shareToExternal(requireContext(), it)
             }
             .show(childFragmentManager)
     }
@@ -755,7 +773,7 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        if (!mViewModel.isReadOnlyPage()) {
+        if (!viewModel.isReadOnlyPage()) {
             val drawable =
                 ContextCompat.getDrawable(requireContext(), R.drawable.amity_ic_more_horiz)
             drawable?.mutate()
@@ -790,12 +808,12 @@ class EkoPostDetailFragment internal constructor() : EkoBaseFragment(),
             }
 
             val fragment = EkoPostDetailFragment()
-            fragment.mViewModel =
+            fragment.viewModel =
                 ViewModelProvider(activity).get(EkoPostDetailsViewModel::class.java)
-            fragment.mViewModel.avatarClickListener = avatarClickListener
+            fragment.viewModel.avatarClickListener = avatarClickListener
 
             if (postShareClickListener != null) {
-                fragment.mViewModel.postShareClickListener = postShareClickListener
+                fragment.viewModel.postShareClickListener = postShareClickListener
             }
 
             fragment.arguments = Bundle().apply {

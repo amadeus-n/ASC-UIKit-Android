@@ -8,10 +8,10 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import com.trello.rxlifecycle3.components.support.RxFragment
 import io.reactivex.disposables.CompositeDisposable
 
-open class EkoBaseFragment : Fragment() {
+open class EkoBaseFragment : RxFragment() {
     protected var disposable: CompositeDisposable = CompositeDisposable()
     var consumeBackPress = false
 
@@ -54,8 +54,8 @@ open class EkoBaseFragment : Fragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             context?.let {
                 val status = ContextCompat.checkSelfPermission(
-                    it,
-                    permission
+                        it,
+                        permission
                 )
                 return (status == PackageManager.PERMISSION_GRANTED)
             }
@@ -66,9 +66,9 @@ open class EkoBaseFragment : Fragment() {
     fun requestPermission(permission: String, requestCode: Int) {
         (activity as? Activity)?.let {
             ActivityCompat.requestPermissions(
-                it, arrayOf(
+                    it, arrayOf(
                     permission
-                ), requestCode
+            ), requestCode
             )
         }
     }
@@ -76,8 +76,8 @@ open class EkoBaseFragment : Fragment() {
     fun requestPermission(permission: Array<String>, requestCode: Int) {
         (activity as? Activity)?.let {
             ActivityCompat.requestPermissions(
-                it,
-                permission, requestCode
+                    it,
+                    permission, requestCode
             )
         }
 

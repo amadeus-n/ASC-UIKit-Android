@@ -5,6 +5,7 @@ import androidx.databinding.ObservableField
 import com.ekoapp.ekosdk.EkoClient
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.file.EkoImage
+import com.ekoapp.ekosdk.permission.EkoPermission
 import com.ekoapp.ekosdk.uikit.base.EkoBaseViewModel
 import com.ekoapp.ekosdk.uikit.common.formatCount
 import com.ekoapp.ekosdk.uikit.community.detailpage.listener.IEditCommunityProfileClickListener
@@ -14,6 +15,7 @@ import com.ekoapp.ekosdk.uikit.model.EventIdentifier
 import com.ekoapp.ekosdk.uikit.utils.EkoConstants
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.functions.BiFunction
 
 class EkoCommunityDetailViewModel : EkoBaseViewModel() {
 
@@ -39,6 +41,21 @@ class EkoCommunityDetailViewModel : EkoBaseViewModel() {
         userId.addOnPropertyChanged {
             triggerEvent(EventIdentifier.ASSIGN_MODERATOR_ROLE)
         }
+    }
+
+    fun isModerator(): Flowable<Boolean> {
+        return Flowable.combineLatest(
+                getCommunityDetail(),
+                checkModeratorPermissionAtCommunity(EkoPermission.EDIT_COMMUNITY_USER, communityID),
+                BiFunction { community, hasEditPermission ->
+                    if (community.isJoined()) {
+                        if (EkoClient.getUserId() == community.getUserId()) {
+                            return@BiFunction true
+                        } else {
+                            return@BiFunction hasEditPermission
+                        }
+                    } else false
+                })
     }
 
     fun getCommunityDetail(): Flowable<EkoCommunity> {

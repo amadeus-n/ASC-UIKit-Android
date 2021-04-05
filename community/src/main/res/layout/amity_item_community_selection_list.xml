@@ -16,16 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/avCommunityProfile"
             style="@style/CircularAvatarStyle"
-            ekoFillColor="@{@color/amityColorPrimary}"
-            ekoFillShade="@{ColorShade.SHADE3}"
+            backgroundColorShade="@{ColorShade.SHADE3}"
+            ekoBackgroundColor="@{@color/amityColorPrimary}"
             android:layout_width="@dimen/amity_forty"
             android:layout_height="@dimen/amity_forty"
-            android:padding="@dimen/amity_six"
-            android:scaleType="centerInside"
-            android:src="@drawable/amity_ic_default_community_avatar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

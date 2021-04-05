@@ -29,8 +29,7 @@ class EkoNewsFeedAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EkoBasePostViewHolder {
         val viewHolder = EkoFeedUISettings.getViewHolder(viewType)
-        val templateView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.amity_news_feed_template, parent, false)
+        val templateView = LayoutInflater.from(parent.context).inflate(R.layout.amity_news_feed_template, parent, false)
         val bodyContainer: ConstraintLayout = templateView.findViewById(R.id.containerBody)
 
         val layoutId = viewHolder.getLayoutId()

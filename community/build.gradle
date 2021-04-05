@@ -2,8 +2,16 @@ apply from: "../gradle/activity.gradle"
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
+android {
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+}
+
 dependencies {
     api project(path: ':common')
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }

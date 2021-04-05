@@ -49,7 +49,7 @@ class FourPostImageChildrenViewHolder(
         setImage(imageFour, imageFourUrl, 3)
 
         if(images.size > 4) {
-            textRemainingCount.text = "+ " + (images.size - 4)
+            textRemainingCount.text = "+ " + (images.size - 3)
             textRemainingCount.visibility = View.VISIBLE
             textRemainingCount.setOnClickListener {
                 itemClickListener?.onClickImage(images, 3)

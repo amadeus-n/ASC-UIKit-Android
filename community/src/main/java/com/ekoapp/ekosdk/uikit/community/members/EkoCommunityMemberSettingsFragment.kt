@@ -1,7 +1,6 @@
 package com.ekoapp.ekosdk.uikit.community.members
 
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -11,14 +10,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.ekoapp.ekosdk.community.EkoCommunity
 import com.ekoapp.ekosdk.exception.EkoException
-import com.ekoapp.ekosdk.permission.EkoPermission
 import com.ekoapp.ekosdk.uikit.base.EkoBaseFragment
 import com.ekoapp.ekosdk.uikit.base.EkoFragmentStateAdapter
 import com.ekoapp.ekosdk.uikit.community.R
-import com.ekoapp.ekosdk.uikit.community.home.activity.EkoCommunityHomePageActivity
 import com.ekoapp.ekosdk.uikit.community.utils.EkoSelectMemberContract
 import com.ekoapp.ekosdk.uikit.utils.AlertDialogUtil
 import com.ekoapp.ekosdk.uikit.utils.EkoConstants
+import com.ekoapp.rxlifecycle.extension.untilLifecycleEnd
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.amity_fragment_community_member_settings.*
@@ -40,15 +38,12 @@ class EkoCommunityMemberSettingsFragment internal constructor() : EkoBaseFragmen
         mViewModel.community = arguments?.getParcelable(ARG_IS_COMMUNITY)
 
         fragmentStateAdapter = EkoFragmentStateAdapter(
-            childFragmentManager,
-            requireActivity().lifecycle
+                childFragmentManager,
+                requireActivity().lifecycle
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.amity_fragment_community_member_settings, container, false)
     }
@@ -64,38 +59,31 @@ class EkoCommunityMemberSettingsFragment internal constructor() : EkoBaseFragmen
     }
 
     private fun setUpToolbar() {
-        (activity as AppCompatActivity).supportActionBar?.title =
-            getString(R.string.amity_members_capital)
-        if (mViewModel.isJoined.get()) {
-            disposable.add(mViewModel.checkModeratorPermissionAtCommunity(
-                EkoPermission.ADD_COMMUNITY_USER,
-                mViewModel.communityId
-            )
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.amity_members_capital)
+        mViewModel.checkModeratorPermission()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .firstOrError()
                 .doOnSuccess {
                     setHasOptionsMenu(it)
                     mViewModel.isModerator.set(it)
-                }.doOnError {
-
-                }.subscribe()
-            )
-        }
+                }
+                .untilLifecycleEnd(this)
+                .subscribe()
     }
 
     private fun setUpTabLayout() {
         fragmentStateAdapter.setFragmentList(
-            arrayListOf(
-                EkoFragmentStateAdapter.EkoPagerModel(
-                    getString(R.string.amity_members_capital),
-                    EkoMembersFragment.newInstance()
-                ),
-                EkoFragmentStateAdapter.EkoPagerModel(
-                    getString(R.string.amity_moderators),
-                    EkoModeratorsFragment.newInstance()
+                arrayListOf(
+                        EkoFragmentStateAdapter.EkoPagerModel(
+                                getString(R.string.amity_members_capital),
+                                EkoMembersFragment.newInstance()
+                        ),
+                        EkoFragmentStateAdapter.EkoPagerModel(
+                                getString(R.string.amity_moderators),
+                                EkoModeratorsFragment.newInstance()
+                        )
                 )
-            )
         )
         membersTabLayout.setAdapter(fragmentStateAdapter)
     }
@@ -103,11 +91,10 @@ class EkoCommunityMemberSettingsFragment internal constructor() : EkoBaseFragmen
     private fun handleNoPermissionError(exception: Throwable) {
         if (exception is EkoException) {
             if (exception.code == EkoConstants.NO_PERMISSION_ERROR_CODE) {
-                AlertDialogUtil.showNoPermissionDialog(requireContext(),
-                    DialogInterface.OnClickListener { dialog, _ ->
-                        dialog?.dismiss()
-                        checkUserRole()
-                    })
+                AlertDialogUtil.showNoPermissionDialog(requireContext(), DialogInterface.OnClickListener { dialog, _ ->
+                            dialog?.dismiss()
+                            requireActivity().finish()
+                        })
             } else {
                 Log.e("MemberSettingsFragment", "${exception.message}")
             }
@@ -116,30 +103,11 @@ class EkoCommunityMemberSettingsFragment internal constructor() : EkoBaseFragmen
         }
     }
 
-    private fun checkUserRole() {
-        mViewModel.getCommunityDetail().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .firstOrError()
-            .doOnSuccess {
-                if (it.isJoined()) {
-                    requireActivity().finish()
-                } else {
-                    val intent =
-                        Intent(requireContext(), EkoCommunityHomePageActivity::class.java).addFlags(
-                            Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        )
-                    startActivity(intent)
-                }
-            }.doOnError {
-                Log.e("MemberSettingsFragment", "checkUserRole: ${it.localizedMessage}")
-            }.subscribe()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.amity_ic_add)
         menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.amity_add))
-            ?.setIcon(drawable)
-            ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                ?.setIcon(drawable)
+                ?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
