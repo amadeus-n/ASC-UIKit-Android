@@ -20,4 +20,4 @@ Go to "SampleApp.kt" class inside Sample Module and paste the api key inside onC
 
 ## License
 
-Public Framework. Copyright (c) 2020 [Amity](https://ekoapp.com).
+Public Framework. Copyright © 2022 Amity.
